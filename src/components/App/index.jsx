@@ -1,9 +1,5 @@
 const App = () => {
-  return (
-    <main>
-      Bloblow
-    </main>
-  )
-}
+  return <main>Bloblow</main>;
+};
 
 export default App;
