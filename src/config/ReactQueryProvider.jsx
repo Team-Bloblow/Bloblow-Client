@@ -22,5 +22,5 @@ const ReactQueryProviders = ({ children }) => {
 export default ReactQueryProviders;
 
 ReactQueryProviders.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
