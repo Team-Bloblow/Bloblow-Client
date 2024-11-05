@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
+import Header from "../components/Layout/Header";
 import ReactQueryProviders from "../config/ReactQueryProvider";
 import GroupPage from "./GroupPage";
 import HomePage from "./HomePage";
@@ -9,6 +10,7 @@ import MyPage from "./MyPage";
 const App = () => {
   return (
     <ReactQueryProviders>
+      <Header />
       <Routes>
         <Route path="/" exact element={<HomePage />} />
         <Route path="/myPage" element={<MyPage />} />
