@@ -19,6 +19,10 @@ export default {
     borderWidth: PX_ENTRIES_10,
     fontSize: PX_ENTRIES_100,
     spacing: PX_ENTRIES_1200,
+    zIndex: {
+      header: "40",
+      modal: "50",
+    },
     extend: {},
   },
   plugins: [],

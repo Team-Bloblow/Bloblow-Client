@@ -1,8 +1,8 @@
-import { auth } from "../../firebase";
+import { auth } from "../../config/firebase";
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/auth";
 
-export const createAuthSlice = (set) => ({
-  isLogIn: false,
+const createAuthSlice = (set) => ({
+  isSignIn: false,
   userInfo: {
     id: "",
     email: "",
@@ -22,7 +22,7 @@ export const createAuthSlice = (set) => ({
 
       set((state) => ({
         ...state,
-        isLogIn: true,
+        isSignIn: true,
         userInfo: { id: uid, email, displayName, photoURL },
       }));
     } catch ({ message }) {
@@ -33,7 +33,7 @@ export const createAuthSlice = (set) => ({
     const auth = getAuth();
     set((state) => ({
       ...state,
-      isLogIn: false,
+      isSignIn: false,
       userInfo: {
         id: "",
         email: "",
@@ -46,3 +46,5 @@ export const createAuthSlice = (set) => ({
     signOut(auth);
   },
 });
+
+export default createAuthSlice;

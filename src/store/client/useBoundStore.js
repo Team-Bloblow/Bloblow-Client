@@ -1,7 +1,7 @@
-import { createAuthSlice } from "./createAuthSlice";
+import createAuthSlice from "./authSlice";
 import { create } from "zustand";
 
-const useBoundStore = create((...a) => ({
+export const useBoundStore = create((...a) => ({
   ...createAuthSlice(...a),
 }));
 
