@@ -1,9 +1,9 @@
 const createModalSlice = (set) => ({
   modalList: [],
-  addModal: (modalName) =>
-    set((state) => ({ ...state, modalList: [...state.modalList, modalName] })),
-  closeModal: (modalName) =>
-    set((state) => ({ ...state, modalList: state.modalList.filter((name) => name !== modalName) })),
+  addModal: (modalType) =>
+    set((state) => ({ ...state, modalList: [...state.modalList, modalType] })),
+  closeModal: (modalType) =>
+    set((state) => ({ ...state, modalList: state.modalList.filter((name) => name !== modalType) })),
   clearModal: () => set((state) => ({ ...state, modalList: [] })),
 });
 
