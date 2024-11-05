@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
-const Button = ({ destination, styles, children, onClick }) => {
+const Button = ({ styles, children, destination, onClick }) => {
   return (
     <>
       {destination ? (
@@ -23,8 +23,8 @@ const Button = ({ destination, styles, children, onClick }) => {
 export default Button;
 
 Button.propTypes = {
-  destination: PropTypes.string,
   styles: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  destination: PropTypes.string,
   onClick: PropTypes.func,
 };
