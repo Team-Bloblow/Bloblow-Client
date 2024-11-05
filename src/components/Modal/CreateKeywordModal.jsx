@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import CreateKeywordButton from "../Button/CreateKeywordButton";
+import SelectGroupDropDown from "../DropDown/SelectGroupDropDown";
 import Label from "../UI/Label";
 import ModalBackground from "./ModalBackground";
 import ModalFrame from "./ModalFrame";
@@ -8,7 +9,6 @@ import ModalMount from "./ModalMount";
 
 const CreateKeywordModal = () => {
   const [groupValue, setGroupValue] = useState("");
-  const [groupList, setGroupList] = useState([]);
   const [keywordValue, setKeywordValue] = useState("");
 
   const handleInputChange = (e) => {
@@ -27,7 +27,7 @@ const CreateKeywordModal = () => {
               >
                 Group:
               </Label>
-              <div className="w-full h-40 px-10 border-2 border-purple-300 rounded-[10px] text-purple-900 font-semibold"></div>
+              <SelectGroupDropDown groupValue={groupValue} setGroupValue={setGroupValue} />
             </div>
             <div className="w-full flex items-center gap-20">
               <Label
