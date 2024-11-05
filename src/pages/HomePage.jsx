@@ -13,7 +13,7 @@ const HomePage = () => {
           <p className="text-19">로그인 후 서비스를 이용해주시기 바랍니다</p>
         </section>
       </main>
-      <footer className="fixed bottom-0 w-full h-80 bg-gradient-to-r from-[#9996EF] to-[#F9C7D4]"></footer>
+      <footer className="fixed bottom-0 w-full h-80 bg-gradient-to-r from-[#9996EF] to-[#F9C7D4]" />
     </>
   );
 };
