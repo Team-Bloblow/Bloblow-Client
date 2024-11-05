@@ -9,7 +9,7 @@ const createAuthSlice = (set) => ({
     email: "",
     displayName: "",
     photoURL: "",
-    joinedAt: null,
+    createdAt: null,
     lastSignInAt: null,
   },
   error: {
@@ -30,7 +30,7 @@ const createAuthSlice = (set) => ({
           email: postResponse.email,
           displayName: postResponse.displayName,
           photoURL: postResponse.photoURL,
-          joinedAt: postResponse.joinedAt,
+          createdAt: postResponse.createdAt,
           lastSignInAt: postResponse.lastSignInAt,
         },
       }));

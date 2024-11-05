@@ -5,11 +5,7 @@ const asyncPostSignIn = async (userInfo) => {
     url: "/signIn",
     method: "POST",
     params: "",
-    body: {
-      ...userInfo,
-      joinedAt: new Date().toISOString(),
-      lastSignInAt: new Date().toISOString(),
-    },
+    body: userInfo,
   };
 
   const response = await fetchHandler(fetchInfo);
