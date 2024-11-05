@@ -41,7 +41,7 @@ const CreateKeywordModal = () => {
                 id="keyword"
                 value={keywordValue}
                 onChange={handleInputChange}
-                className="w-full h-40 px-10 border-2 border-purple-300 rounded-[10px] text-purple-900 font-semibold"
+                className="w-full h-40 px-15 border-2 border-purple-300 rounded-[10px] text-purple-900 font-semibold"
                 placeholder="새롭게 추가할 키워드를 입력해주세요"
               />
             </div>
