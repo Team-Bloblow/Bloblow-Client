@@ -12,11 +12,11 @@ const ModalFrame = ({ modalType, children }) => {
 
   return (
     <div
-      className="relative p-40 rounded-[30px] bg-white border-3 border-purple-200"
+      className="relative p-50 rounded-[30px] bg-white border-4 border-purple-200 hover:border-purple-300"
       onClick={(e) => e.stopPropagation()}
     >
       {children}
-      <Button styles="absolute top-30 right-30" onClick={handleCloseIconClick}>
+      <Button styles="absolute top-15 right-17" onClick={handleCloseIconClick}>
         <CloseIcon className="size-40" />
       </Button>
     </div>

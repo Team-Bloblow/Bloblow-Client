@@ -1,10 +1,7 @@
 import MyPageSidebar from "../components/Sidebar/MyPageSidebar";
 import useNoSignInRedirect from "../hooks/useNoSignInRedirect";
-import useBoundStore from "../store/client/useBoundStore";
 
 const MyPage = () => {
-  const modalList = useBoundStore((state) => state.modalList);
-
   useNoSignInRedirect();
 
   return (

@@ -10,7 +10,7 @@ const ModalBackground = ({ modalType, children }) => {
 
   return (
     <div
-      className="fixed inset-0 w-screen h-screen flex-center z-modal bg-black/30"
+      className="fixed inset-0 w-screen h-screen flex-center z-modal bg-black/60"
       onClick={handleModalBackgroundClick}
     >
       {children}

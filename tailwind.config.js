@@ -20,8 +20,9 @@ export default {
     fontSize: PX_ENTRIES_200,
     spacing: PX_ENTRIES_1200,
     zIndex: {
-      header: "40",
-      modal: "50",
+      header: "30",
+      modal: "40",
+      modalDropDown: "50",
     },
     extend: {
       keyframes: {
