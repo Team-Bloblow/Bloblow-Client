@@ -21,7 +21,7 @@ const SignInButton = () => {
 
   return (
     <Button
-      styles="flex-center px-10 h-48 border-2 border-purple-200 bg-purple-400 rounded-[15px] text-white text-18 hover:bg-purple-500"
+      styles="flex-center px-12 py-8 font-medium border-2 border-purple-200 bg-purple-400 rounded-[15px] text-white text-18 hover:bg-purple-500"
       onClick={handleButtonClick}
     >
       {isSignIn ? "로그아웃" : "로그인"}
