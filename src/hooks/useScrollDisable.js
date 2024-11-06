@@ -4,7 +4,7 @@ const useScrollDisable = () => {
   useEffect(() => {
     const scrollY = window.scrollY;
 
-    if (scrollY) {
+    if (scrollY > 0) {
       document.body.style.cssText = `
         position: fixed;
         top: -${scrollY}px;
