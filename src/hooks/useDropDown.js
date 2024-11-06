@@ -1,24 +1,30 @@
 import { useEffect, useState } from "react";
 
-const useDropDown = (ref) => {
+const useDropDown = (refList) => {
   const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
-  useEffect(
-    function checkRefClick() {
-      const checkOutsideClick = (e) => {
-        if (e.target !== ref.current) {
-          setIsDropDownOpen(false);
+  useEffect(() => {
+    const modalRootElement = document.getElementById("modal");
+
+    const checkOutsideClick = (e) => {
+      let isOutsideClick = true;
+
+      for (let i = 0; i < refList.length; i++) {
+        if (e.target === refList[i].current) {
+          isOutsideClick = false;
         }
-      };
+      }
 
-      window.addEventListener("click", checkOutsideClick);
+      if (isOutsideClick) {
+        setIsDropDownOpen(false);
+      }
+    };
+    modalRootElement.addEventListener("click", checkOutsideClick);
 
-      return () => {
-        window.removeEventListener("click", checkOutsideClick);
-      };
-    },
-    [ref]
-  );
+    return () => {
+      modalRootElement.removeEventListener("click", checkOutsideClick);
+    };
+  }, [refList]);
 
   return [isDropDownOpen, setIsDropDownOpen];
 };

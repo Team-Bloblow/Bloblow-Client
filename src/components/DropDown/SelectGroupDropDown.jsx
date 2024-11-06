@@ -33,8 +33,11 @@ const SelectGroupDropDown = ({ groupValue, setGroupValue }) => {
     },
   ]);
   const dropDownBoxRef = useRef(null);
+  const dropDownBoxWrapperRef = useRef(null);
 
-  const [isDropDownOpen, setIsDropDownOpen] = useDropDown(dropDownBoxRef);
+  const dropDownRefList = [dropDownBoxRef, dropDownBoxWrapperRef];
+
+  const [isDropDownOpen, setIsDropDownOpen] = useDropDown(dropDownRefList);
 
   const handleDropDownClick = () => {
     setIsDropDownOpen(!isDropDownOpen);
@@ -54,7 +57,10 @@ const SelectGroupDropDown = ({ groupValue, setGroupValue }) => {
       ref={dropDownBoxRef}
       onClick={handleDropDownClick}
     >
-      <div className="flex items-center gap-5 w-full h-40 px-15 border-2 border-purple-300 rounded-[10px] text-purple-900 font-semibold">
+      <div
+        className="flex items-center gap-5 w-full h-40 px-15 border-2 border-purple-300 rounded-[10px] text-purple-900 font-semibold"
+        ref={dropDownBoxWrapperRef}
+      >
         <span className="flex-grow w-full">{groupValue}</span>
         {isDropDownOpen ? (
           <TriangleUpIcon className="size-20 fill-purple-300" />
@@ -64,7 +70,7 @@ const SelectGroupDropDown = ({ groupValue, setGroupValue }) => {
       </div>
       {isDropDownOpen && (
         <div
-          className="absolute flex flex-col items-center top-50 w-full max-h-120 overflow-y-scroll bg-white z-modalDropDown border-purple-300 border-2 rounded-[10px] text-purple-900 font-semibold"
+          className="absolute flex flex-col items-center top-50 w-full max-h-120 overflow-y-scroll bg-white z-modalDropDown border-purple-300 border-2 rounded-[10px] text-purple-900 font-semibold shadow-xl"
           id="selectGroupDropDown"
         >
           {groupList.map((group, index) => (
