@@ -65,11 +65,14 @@ const SelectGroupDropDown = ({ groupValue, setGroupValue }) => {
         )}
       </div>
       {isDropDownOpen && (
-        <div className="absolute flex flex-col items-center top-50 w-full max-h-128 overflow-y-scroll bg-white z-modalDropDown border-purple-300 border-2 rounded-[10px] text-purple-900 font-semibold">
+        <div
+          className="absolute flex flex-col items-center top-50 w-full max-h-120 overflow-y-scroll bg-white z-modalDropDown border-purple-300 border-2 rounded-[10px] text-purple-900 font-semibold"
+          id="selectGroupDropDown"
+        >
           {groupList.map((group, index) => (
             <div
               key={group.id}
-              className={`flex-center w-full h-30 border-purple-300 hover:bg-neutral-100 ${index !== groupList.length - 1 && "border-b-1"}`}
+              className={`flex-center flex-shrink-0 w-full h-30 border-purple-300 hover:bg-neutral-100 ${index !== groupList.length - 1 && "border-b-1"}`}
               onClick={handleListClick}
             >
               {group.name}

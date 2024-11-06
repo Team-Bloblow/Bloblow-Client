@@ -9,6 +9,13 @@
     @apply bg-white text-black;
     font-family: "Pretendard", sans-serif;
   }
+
+  #selectGroupDropDown {
+    -ms-overflow-style: none;
+  }
+  #selectGroupDropDown::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @layer utilities {
