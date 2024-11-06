@@ -8,8 +8,6 @@ const createAuthSlice = (set) => ({
     email: "",
     displayName: "",
     photoURL: "",
-    createdAt: null,
-    lastSignInAt: null,
   },
   error: {
     signInError: "",
@@ -20,7 +18,6 @@ const createAuthSlice = (set) => ({
       const signInResponse = await signInWithPopup(auth, provider);
       const { uid, email, displayName, photoURL } = signInResponse.user;
 
-      // const postResponse = await asyncPostSignIn({ id: uid, email, displayName, photoURL });
       set((state) => ({
         ...state,
         isSignIn: true,
@@ -29,8 +26,6 @@ const createAuthSlice = (set) => ({
           email,
           displayName,
           photoURL,
-          // createdAt: postResponse.createdAt,
-          // lastSignInAt: postResponse.lastSignInAt,
         },
       }));
     } catch ({ message }) {
