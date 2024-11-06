@@ -1,8 +1,9 @@
 import { useState } from "react";
 
-import { MODAL_TYPE } from "../../config/const";
+import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/const";
 import CreateKeywordButton from "../Button/CreateKeywordButton";
 import SelectGroupDropDown from "../DropDown/SelectGroupDropDown";
+import PlusIcon from "../Icon/PlusIcon";
 import Button from "../UI/Button";
 import Label from "../UI/Label";
 import ModalBackground from "./ModalBackground";
@@ -11,14 +12,16 @@ import ModalMount from "./ModalMount";
 
 const CreateKeywordModal = () => {
   const [selectedGroup, setSelectedGroup] = useState("");
-  const [newGroupValue, setNewGroupValue] = useState("");
-  const [keywordValue, setKeywordValue] = useState("");
+  const [inputValue, setInputValue] = useState({
+    newGroup: "",
+    keyword: "",
+  });
+  const [errorMessage, setErrorMessage] = useState({
+    newGroup: "",
+    keyword: "",
+  });
   const [isCreateNewGroup, setIsCreateNewGroup] = useState(false);
   const [groupList, setGroupList] = useState([
-    {
-      id: 0,
-      name: "새로 만들기",
-    },
     {
       id: 1,
       name: "바닐라 코딩",
@@ -41,25 +44,37 @@ const CreateKeywordModal = () => {
     },
   ]);
 
+  const handleCreateNewGroupButtonClick = () => {
+    setIsCreateNewGroup(true);
+  };
+
   const handleNewGroupInputChange = (e) => {
-    setNewGroupValue(e.target.value);
+    setInputValue((prev) => ({ ...prev, newGroup: e.target.value }));
   };
 
   const handleKeywordInputChange = (e) => {
-    setKeywordValue(e.target.value);
+    setInputValue((prev) => ({ ...prev, keyword: e.target.value }));
   };
 
-  const handleGroupDecideClick = () => {
+  const handleGroupAddClick = () => {
+    if (inputValue.newGroup === "") {
+      setErrorMessage((prev) => ({ ...prev, newGroup: ERROR_MESSAGE.NEW_GROUP_EMPTY_INPUT_VALUE }));
+    }
+
     const groupListLength = groupList.length;
     const theLastGroupId = groupList[groupListLength - 1].id;
-    const newGroup = { id: theLastGroupId + 1, name: newGroupValue };
+    const newGroup = { id: theLastGroupId + 1, name: inputValue.newGroup };
 
-    setSelectedGroup(newGroupValue);
+    setSelectedGroup(inputValue.newGroup);
     setGroupList((prev) => [...prev, newGroup]);
   };
 
   const handleKeywordSubmit = (e) => {
     e.preventDefault();
+
+    if (inputValue.keyword === "") {
+      setErrorMessage((prev) => ({ ...prev, newGroup: ERROR_MESSAGE.KEYWORD_EMPTY_INPUT_VALUE }));
+    }
   };
 
   return (
@@ -80,6 +95,10 @@ const CreateKeywordModal = () => {
                 setSelectedGroup={setSelectedGroup}
                 setIsCreateNewGroup={setIsCreateNewGroup}
               />
+              <PlusIcon
+                className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
+                onClick={handleCreateNewGroupButtonClick}
+              />
             </div>
             {isCreateNewGroup && (
               <div className="w-full flex items-center gap-20">
@@ -89,20 +108,23 @@ const CreateKeywordModal = () => {
                 >
                   New Group:
                 </Label>
-                <input
-                  type="text"
-                  id="newGroup"
-                  value={newGroupValue}
-                  onChange={handleNewGroupInputChange}
-                  className="w-full h-40 px-15 border-2 border-purple-300 rounded-[10px] text-purple-900 font-semibold"
-                  placeholder="새롭게 추가할 그룹명을 입력해주세요"
-                />
+                <div className="flex flex-col justify-center gap-3 w-full">
+                  <input
+                    type="text"
+                    id="newGroup"
+                    value={inputValue.newGroup}
+                    onChange={handleNewGroupInputChange}
+                    className="w-full h-40 px-15 border-2 border-purple-300 rounded-[8px] text-purple-900 font-semibold"
+                    placeholder="새롭게 추가할 그룹명을 입력해주세요"
+                  />
+                  <p className="text-12 text-red-500">{errorMessage.newGroup}</p>
+                </div>
                 <Button
                   type="button"
                   styles="flex-center flex-shrink-0 px-14 py-8 font-medium border-2 border-purple-200 bg-purple-400/80 rounded-[15px] text-white text-18 hover:bg-purple-500/80"
-                  onClick={handleGroupDecideClick}
+                  onClick={handleGroupAddClick}
                 >
-                  확정
+                  추가
                 </Button>
               </div>
             )}
@@ -113,14 +135,17 @@ const CreateKeywordModal = () => {
               >
                 Keyword:
               </Label>
-              <input
-                type="text"
-                id="keyword"
-                value={keywordValue}
-                onChange={handleKeywordInputChange}
-                className="w-full h-40 px-15 border-2 border-purple-300 rounded-[10px] text-purple-900 font-semibold"
-                placeholder="새롭게 추가할 키워드를 입력해주세요"
-              />
+              <div className="flex flex-col justify-start gap-3 w-full">
+                <input
+                  type="text"
+                  id="keyword"
+                  value={inputValue.keyword}
+                  onChange={handleKeywordInputChange}
+                  className="w-full h-40 px-15 border-2 border-purple-300 rounded-[8px] text-purple-900 font-semibold"
+                  placeholder="새롭게 추가할 키워드를 입력해주세요"
+                />
+                <p className="text-12 text-red-500">{errorMessage.keyword}</p>
+              </div>
             </div>
             <CreateKeywordButton />
           </form>

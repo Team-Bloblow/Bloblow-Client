@@ -1,17 +1,8 @@
 import PropTypes from "prop-types";
 
-const SelectGroupOptionList = ({
-  groupList,
-  selectedGroup,
-  setSelectedGroup,
-  setIsCreateNewGroup,
-}) => {
+const SelectGroupOptionList = ({ groupList, selectedGroup, setSelectedGroup }) => {
   const handleListClick = (groupName) => {
-    if (groupName === "새로 만들기") {
-      setIsCreateNewGroup(true);
-    } else {
-      setSelectedGroup(groupName);
-    }
+    setSelectedGroup(groupName);
   };
 
   return (
@@ -47,5 +38,4 @@ SelectGroupOptionList.propTypes = {
   ).isRequired,
   selectedGroup: PropTypes.string.isRequired,
   setSelectedGroup: PropTypes.func.isRequired,
-  setIsCreateNewGroup: PropTypes.func.isRequired,
 };

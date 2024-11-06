@@ -10,7 +10,6 @@ const SelectGroupDropDown = memo(function SelectGroupDropDown({
   selectedGroup,
   groupList,
   setSelectedGroup,
-  setIsCreateNewGroup,
 }) {
   const dropDownBoxRef = useRef(null);
   const dropDownBoxTextRef = useRef(null);
@@ -24,7 +23,7 @@ const SelectGroupDropDown = memo(function SelectGroupDropDown({
 
   return (
     <div
-      className="relative flex items-center gap-5 w-full h-40 px-15 border-2 border-purple-300 rounded-[10px] text-purple-900 font-semibold cursor-pointer"
+      className="relative flex items-center gap-5 w-full h-40 px-15 border-2 border-purple-300 rounded-[5px] text-purple-900 font-semibold cursor-pointer"
       ref={dropDownBoxRef}
       onClick={handleDropDownClick}
     >
@@ -38,7 +37,6 @@ const SelectGroupDropDown = memo(function SelectGroupDropDown({
             groupList={groupList}
             selectedGroup={selectedGroup}
             setSelectedGroup={setSelectedGroup}
-            setIsCreateNewGroup={setIsCreateNewGroup}
           />
         </>
       ) : (
@@ -59,5 +57,4 @@ SelectGroupDropDown.propTypes = {
     })
   ).isRequired,
   setSelectedGroup: PropTypes.func.isRequired,
-  setIsCreateNewGroup: PropTypes.func.isRequired,
 };
