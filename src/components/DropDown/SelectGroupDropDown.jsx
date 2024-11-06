@@ -48,8 +48,6 @@ const SelectGroupDropDown = ({ groupValue, setGroupValue }) => {
     }
   };
 
-  console.log(groupValue);
-
   return (
     <div
       className="relative w-full cursor-pointer"

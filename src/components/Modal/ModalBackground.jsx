@@ -1,3 +1,4 @@
+import useScrollDisable from "../../hooks/useScrollDisable";
 import useBoundStore from "../../store/client/useBoundStore";
 import PropTypes from "prop-types";
 
@@ -7,6 +8,8 @@ const ModalBackground = ({ modalType, children }) => {
   const handleModalBackgroundClick = () => {
     closeModal(modalType);
   };
+
+  useScrollDisable();
 
   return (
     <div

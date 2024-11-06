@@ -5,14 +5,22 @@
 @tailwind utilities;
 
 @layer base {
+  html,
+  body {
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: #dbdbdb;
+    }
+  }
+
   body {
     @apply bg-white text-black;
     font-family: "Pretendard", sans-serif;
   }
 
-  #selectGroupDropDown {
-    -ms-overflow-style: none;
-  }
   #selectGroupDropDown::-webkit-scrollbar {
     display: none;
   }
