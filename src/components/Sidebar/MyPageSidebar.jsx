@@ -1,3 +1,4 @@
+import { MODAL_TYPE } from "../../config/const";
 import useBoundStore from "../../store/client/useBoundStore";
 import ProfileIcon from "../Icon/ProfileIcon";
 import CreateKeywordModal from "../Modal/CreateKeywordModal";
@@ -9,7 +10,7 @@ const MyPageSidebar = () => {
   const modalList = useBoundStore((state) => state.modalList);
 
   const handleCreateKeywordButton = () => {
-    addModal("createKeyword");
+    addModal(MODAL_TYPE.CREATE_KEYWORD);
   };
 
   return (
@@ -28,7 +29,7 @@ const MyPageSidebar = () => {
       >
         키워드 만들기
       </Button>
-      {modalList.includes("createKeyword") && <CreateKeywordModal />}
+      {modalList.includes(MODAL_TYPE.CREATE_KEYWORD) && <CreateKeywordModal />}
     </aside>
   );
 };

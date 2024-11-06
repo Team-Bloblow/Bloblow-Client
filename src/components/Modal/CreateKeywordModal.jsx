@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { MODAL_TYPE } from "../../config/const";
 import CreateKeywordButton from "../Button/CreateKeywordButton";
 import SelectGroupDropDown from "../DropDown/SelectGroupDropDown";
 import Button from "../UI/Button";
@@ -63,8 +64,8 @@ const CreateKeywordModal = () => {
 
   return (
     <ModalMount>
-      <ModalBackground modalType="createKeyword">
-        <ModalFrame modalType="createKeyword">
+      <ModalBackground modalType={MODAL_TYPE.CREATE_KEYWORD}>
+        <ModalFrame modalType={MODAL_TYPE.CREATE_KEYWORD}>
           <form className="w-600 flex-col-center pt-35 gap-25" onSubmit={handleKeywordSubmit}>
             <div className="w-full flex items-center gap-20">
               <Label
