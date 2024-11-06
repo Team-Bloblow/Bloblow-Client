@@ -59,6 +59,7 @@ const CreateKeywordModal = () => {
   const handleGroupAddClick = () => {
     if (inputValue.newGroup === "") {
       setErrorMessage((prev) => ({ ...prev, newGroup: ERROR_MESSAGE.NEW_GROUP_EMPTY_INPUT_VALUE }));
+      return;
     }
 
     const groupListLength = groupList.length;
@@ -73,7 +74,8 @@ const CreateKeywordModal = () => {
     e.preventDefault();
 
     if (inputValue.keyword === "") {
-      setErrorMessage((prev) => ({ ...prev, newGroup: ERROR_MESSAGE.KEYWORD_EMPTY_INPUT_VALUE }));
+      setErrorMessage((prev) => ({ ...prev, keyword: ERROR_MESSAGE.KEYWORD_EMPTY_INPUT_VALUE }));
+      return;
     }
   };
 
@@ -81,8 +83,8 @@ const CreateKeywordModal = () => {
     <ModalMount>
       <ModalBackground modalType={MODAL_TYPE.CREATE_KEYWORD}>
         <ModalFrame modalType={MODAL_TYPE.CREATE_KEYWORD}>
-          <form className="w-600 flex-col-center pt-35 gap-25" onSubmit={handleKeywordSubmit}>
-            <div className="w-full flex items-center gap-20">
+          <form className="w-600 flex-col-center pt-40 gap-15" onSubmit={handleKeywordSubmit}>
+            <div className="w-full flex items-start mb-18 gap-20">
               <Label
                 htmlFor="group"
                 styles="w-110 text-20 text-violet-900 font-semibold flex-shrink-0"
@@ -101,7 +103,7 @@ const CreateKeywordModal = () => {
               />
             </div>
             {isCreateNewGroup && (
-              <div className="w-full flex items-center gap-20">
+              <div className="w-full flex items-start gap-20">
                 <Label
                   htmlFor="newGroup"
                   styles="w-110 text-20 text-violet-900 font-semibold flex-shrink-0"
@@ -117,18 +119,18 @@ const CreateKeywordModal = () => {
                     className="w-full h-40 px-15 border-2 border-purple-300 rounded-[8px] text-purple-900 font-semibold"
                     placeholder="새롭게 추가할 그룹명을 입력해주세요"
                   />
-                  <p className="text-12 text-red-500">{errorMessage.newGroup}</p>
+                  <p className="text-12 text-red-500 h-18 font-semibold">{errorMessage.newGroup}</p>
                 </div>
                 <Button
                   type="button"
-                  styles="flex-center flex-shrink-0 px-14 py-8 font-medium border-2 border-purple-200 bg-purple-400/80 rounded-[15px] text-white text-18 hover:bg-purple-500/80"
+                  styles="flex-center flex-shrink-0 px-14 py-6 font-medium border-2 border-purple-200 bg-purple-400/80 rounded-[15px] text-white text-18 hover:bg-purple-500/80"
                   onClick={handleGroupAddClick}
                 >
                   추가
                 </Button>
               </div>
             )}
-            <div className="w-full flex items-center gap-20">
+            <div className="w-full flex items-start gap-20">
               <Label
                 htmlFor="keyword"
                 styles="w-110 text-20 text-violet-900 font-semibold flex-shrink-0"
@@ -144,7 +146,7 @@ const CreateKeywordModal = () => {
                   className="w-full h-40 px-15 border-2 border-purple-300 rounded-[8px] text-purple-900 font-semibold"
                   placeholder="새롭게 추가할 키워드를 입력해주세요"
                 />
-                <p className="text-12 text-red-500">{errorMessage.keyword}</p>
+                <p className="text-12 text-red-500 h-18 font-semibold">{errorMessage.keyword}</p>
               </div>
             </div>
             <CreateKeywordButton />

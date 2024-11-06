@@ -12,7 +12,7 @@ const ModalFrame = ({ modalType, children }) => {
 
   return (
     <div
-      className="relative p-50 rounded-[30px] bg-white border-4 border-purple-200 hover:border-purple-300"
+      className="relative py-30 px-50 rounded-[30px] bg-white border-4 border-purple-200 hover:border-purple-300"
       onClick={(e) => e.stopPropagation()}
     >
       {children}
