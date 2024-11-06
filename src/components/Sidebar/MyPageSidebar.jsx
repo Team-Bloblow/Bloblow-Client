@@ -7,7 +7,7 @@ import Button from "../UI/Button";
 const MyPageSidebar = () => {
   const userInfo = useBoundStore((state) => state.userInfo);
   const addModal = useBoundStore((state) => state.addModal);
-  const modalList = useBoundStore((state) => state.modalList);
+  const openModalTypeList = useBoundStore((state) => state.openModalTypeList);
 
   const handleCreateKeywordButton = () => {
     addModal(MODAL_TYPE.CREATE_KEYWORD);
@@ -29,7 +29,7 @@ const MyPageSidebar = () => {
       >
         키워드 만들기
       </Button>
-      {modalList.includes(MODAL_TYPE.CREATE_KEYWORD) && <CreateKeywordModal />}
+      {openModalTypeList.includes(MODAL_TYPE.CREATE_KEYWORD) && <CreateKeywordModal />}
     </aside>
   );
 };
