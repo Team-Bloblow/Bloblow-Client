@@ -11,6 +11,7 @@ import ModalFrame from "./ModalFrame";
 import ModalMount from "./ModalMount";
 
 const CreateKeywordModal = () => {
+  const [isCreatingNewGroup, setIsCreatingNewGroup] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState("");
   const [inputValue, setInputValue] = useState({
     newGroup: "",
@@ -20,7 +21,6 @@ const CreateKeywordModal = () => {
     newGroup: "",
     keyword: "",
   });
-  const [isCreateNewGroup, setIsCreateNewGroup] = useState(false);
   const [groupList, setGroupList] = useState([
     {
       id: 1,
@@ -45,7 +45,7 @@ const CreateKeywordModal = () => {
   ]);
 
   const handleCreateNewGroupButtonClick = () => {
-    setIsCreateNewGroup(true);
+    setIsCreatingNewGroup(true);
   };
 
   const handleNewGroupInputChange = (e) => {
@@ -95,14 +95,13 @@ const CreateKeywordModal = () => {
                 selectedGroup={selectedGroup}
                 groupList={groupList}
                 setSelectedGroup={setSelectedGroup}
-                setIsCreateNewGroup={setIsCreateNewGroup}
               />
               <PlusIcon
                 className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
                 onClick={handleCreateNewGroupButtonClick}
               />
             </div>
-            {isCreateNewGroup && (
+            {isCreatingNewGroup && (
               <div className="w-full flex items-start gap-20">
                 <Label
                   htmlFor="newGroup"
