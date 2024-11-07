@@ -2,13 +2,13 @@ import { useState } from "react";
 
 import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/const";
 import CreateKeywordButton from "../Button/CreateKeywordButton";
+import Portal from "../Common/Portal";
 import SelectGroupDropDown from "../DropDown/SelectGroupDropDown";
 import PlusIcon from "../Icon/PlusIcon";
 import Button from "../UI/Button";
 import Label from "../UI/Label";
 import ModalBackground from "./ModalBackground";
 import ModalFrame from "./ModalFrame";
-import ModalMount from "./ModalMount";
 
 const CreateKeywordModal = () => {
   const [isCreatingNewGroup, setIsCreatingNewGroup] = useState(false);
@@ -43,6 +43,8 @@ const CreateKeywordModal = () => {
       name: "해운대",
     },
   ]);
+
+  const modalNode = document.getElementById("modal");
 
   const handleCreateNewGroupButtonClick = () => {
     setIsCreatingNewGroup(true);
@@ -80,7 +82,7 @@ const CreateKeywordModal = () => {
   };
 
   return (
-    <ModalMount>
+    <Portal mountDomNode={modalNode}>
       <ModalBackground modalType={MODAL_TYPE.CREATE_KEYWORD}>
         <ModalFrame modalType={MODAL_TYPE.CREATE_KEYWORD}>
           <form className="w-600 flex-col-center pt-40 gap-15" onSubmit={handleKeywordSubmit}>
@@ -152,7 +154,7 @@ const CreateKeywordModal = () => {
           </form>
         </ModalFrame>
       </ModalBackground>
-    </ModalMount>
+    </Portal>
   );
 };
 

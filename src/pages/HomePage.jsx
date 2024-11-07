@@ -1,5 +1,5 @@
+import Logo from "../components/Common/Logo";
 import Footer from "../components/Layout/Footer";
-import Logo from "../components/Logo";
 import useSignInRedirect from "../hooks/useSignInRedirect";
 
 const HomePage = () => {

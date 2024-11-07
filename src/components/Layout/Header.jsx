@@ -1,5 +1,5 @@
 import SignInButton from "../Button/SignInButton";
-import Logo from "../Logo";
+import Logo from "../Common/Logo";
 
 const Header = () => {
   return (
