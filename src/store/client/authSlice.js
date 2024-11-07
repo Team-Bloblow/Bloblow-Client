@@ -1,4 +1,3 @@
-import asyncPostSignIn from "../../api/auth/asyncPostSignIn";
 import { auth } from "../../config/firebase";
 import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/auth";
 
@@ -9,8 +8,6 @@ const createAuthSlice = (set) => ({
     email: "",
     displayName: "",
     photoURL: "",
-    createdAt: null,
-    lastSignInAt: null,
   },
   error: {
     signInError: "",
@@ -21,17 +18,14 @@ const createAuthSlice = (set) => ({
       const signInResponse = await signInWithPopup(auth, provider);
       const { uid, email, displayName, photoURL } = signInResponse.user;
 
-      const postResponse = await asyncPostSignIn({ id: uid, email, displayName, photoURL });
       set((state) => ({
         ...state,
         isSignIn: true,
         userInfo: {
-          id: postResponse.id,
-          email: postResponse.email,
-          displayName: postResponse.displayName,
-          photoURL: postResponse.photoURL,
-          createdAt: postResponse.createdAt,
-          lastSignInAt: postResponse.lastSignInAt,
+          id: uid,
+          email,
+          displayName,
+          photoURL,
         },
       }));
     } catch ({ message }) {
