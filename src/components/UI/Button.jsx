@@ -2,17 +2,27 @@ import { Link } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
-const Button = ({ styles, children, type, destination, onClick }) => {
+const Button = ({ styles, children, type, destination, onClick, disabled }) => {
   return (
     <>
       {destination ? (
         <Link to={destination}>
-          <button type={type ? type : "button"} className={styles} onClick={onClick}>
+          <button
+            type={type ? type : "button"}
+            className={styles}
+            onClick={onClick}
+            disabled={disabled}
+          >
             {children}
           </button>
         </Link>
       ) : (
-        <button type={type ? type : "button"} className={styles} onClick={onClick}>
+        <button
+          type={type ? type : "button"}
+          className={styles}
+          onClick={onClick}
+          disabled={disabled}
+        >
           {children}
         </button>
       )}
@@ -28,4 +38,5 @@ Button.propTypes = {
   type: PropTypes.string,
   destination: PropTypes.string,
   onClick: PropTypes.func,
+  disabled: PropTypes.bool,
 };

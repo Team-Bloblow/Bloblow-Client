@@ -11,6 +11,7 @@ import Button from "../UI/Button";
 import Label from "../UI/Label";
 import ModalBackground from "./ModalBackground";
 import ModalFrame from "./ModalFrame";
+import { useMutation } from "@tanstack/react-query";
 
 const CreateKeywordModal = () => {
   const [isCreatingNewGroup, setIsCreatingNewGroup] = useState(false);
@@ -47,7 +48,12 @@ const CreateKeywordModal = () => {
   ]);
 
   const userId = useBoundStore((state) => state.userInfo.id);
+  const closeModal = useBoundStore((state) => state.closeModal);
   const modalNode = document.getElementById("modal");
+
+  const createKeywordMutation = useMutation({
+    mutationFn: (keywordInfo) => asyncPostKeyword(keywordInfo),
+  });
 
   const handleCreateNewGroupButtonClick = () => {
     setIsCreatingNewGroup(true);
@@ -93,7 +99,14 @@ const CreateKeywordModal = () => {
       ownerId: userId,
     };
 
-    await asyncPostKeyword(keywordInfo);
+    createKeywordMutation.mutate(keywordInfo, {
+      onSuccess: () => {
+        closeModal(MODAL_TYPE.CREATE_KEYWORD);
+      },
+      onError: (err) => {
+        console.error(err);
+      },
+    });
   };
 
   return (
@@ -165,7 +178,7 @@ const CreateKeywordModal = () => {
                 <p className="text-12 text-red-500 h-18 font-semibold">{errorMessage.keyword}</p>
               </div>
             </div>
-            <CreateKeywordButton />
+            <CreateKeywordButton disabled={createKeywordMutation.isPending} />
           </form>
         </ModalFrame>
       </ModalBackground>
