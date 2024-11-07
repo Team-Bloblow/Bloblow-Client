@@ -24,7 +24,6 @@ const CreateKeywordModal = () => {
   const [errorMessage, setErrorMessage] = useState({
     newGroup: "",
     keyword: "",
-    mutation: "",
   });
   const [groupList, setGroupList] = useState([
     {
@@ -51,6 +50,7 @@ const CreateKeywordModal = () => {
 
   const userId = useBoundStore((state) => state.userInfo.id);
   const addModal = useBoundStore((state) => state.addModal);
+  const closeModal = useBoundStore((state) => state.closeModal);
   const queryClient = useQueryClient();
 
   const createKeywordMutation = useMutation({
@@ -84,7 +84,7 @@ const CreateKeywordModal = () => {
     setIsCreatingNewGroup(false);
   };
 
-  const handleKeywordSubmit = async (e) => {
+  const handleKeywordSubmit = (e) => {
     e.preventDefault();
 
     const keywordValue = inputValue.keyword;
@@ -103,6 +103,7 @@ const CreateKeywordModal = () => {
 
     createKeywordMutation.mutate(keywordInfo, {
       onSuccess: (data) => {
+        closeModal(MODAL_TYPE.CREATE_KEYWORD);
         addModal(MODAL_TYPE.CREATE_KEYWORD_SUCCESS);
         queryClient.invalidateQueries({ queryKey: ["userGroupList", data.ownerId] });
       },
