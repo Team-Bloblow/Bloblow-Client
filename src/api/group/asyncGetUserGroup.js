@@ -1,8 +1,9 @@
 import fetchHandler from "..";
+import { BASE_URL } from "../../config/const";
 
 const asyncGetUserGroup = async (userId) => {
   const fetchInfo = {
-    url: `/groups/${userId}`,
+    url: `${BASE_URL}/groups/${userId}`,
     params: "",
   };
 

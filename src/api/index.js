@@ -4,6 +4,9 @@ const fetchHandler = async ({ url, method = "GET", params, body }) => {
 
   const options = {
     method,
+    headers: {
+      "Content-Type": "application/json",
+    },
   };
 
   if (body && method !== "GET") {

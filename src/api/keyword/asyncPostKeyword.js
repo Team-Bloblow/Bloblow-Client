@@ -1,8 +1,9 @@
 import fetchHandler from "..";
+import { BASE_URL } from "../../config/const";
 
 const asyncPostKeyword = async (keywordInfo) => {
   const fetchInfo = {
-    url: "/keyword",
+    url: `${BASE_URL}/keyword`,
     method: "POST",
     params: "",
     body: keywordInfo,

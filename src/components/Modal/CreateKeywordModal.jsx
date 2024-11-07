@@ -55,9 +55,6 @@ const CreateKeywordModal = () => {
 
   const createKeywordMutation = useMutation({
     mutationFn: (keywordInfo) => asyncPostKeyword(keywordInfo),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["userGroupList", userId] });
-    },
   });
 
   const handleCreateNewGroupButtonClick = () => {
@@ -105,8 +102,9 @@ const CreateKeywordModal = () => {
     };
 
     createKeywordMutation.mutate(keywordInfo, {
-      onSuccess: () => {
+      onSuccess: (data) => {
         addModal(MODAL_TYPE.CREATE_KEYWORD_SUCCESS);
+        queryClient.invalidateQueries({ queryKey: ["userGroupList", data.ownerId] });
       },
       onError: (err) => {
         console.error(err);
@@ -128,9 +126,12 @@ const CreateKeywordModal = () => {
           isExistCloseButton={isPending ? false : true}
           modalType={MODAL_TYPE.CREATE_KEYWORD}
         >
-          <form className="w-600 flex-col-center pt-40 gap-15" onSubmit={handleKeywordSubmit}>
+          <form
+            className={`w-600 flex-col-center ${isPending || "pt-40"} gap-15`}
+            onSubmit={handleKeywordSubmit}
+          >
             {isPending ? (
-              <Loading width={600} height={300} text={"블로그를 가져오는 중입니다"} />
+              <Loading width={100} height={100} text={"블로그를 가져오는 중입니다"} />
             ) : (
               <>
                 <div className="w-full flex items-start mb-18 gap-20">

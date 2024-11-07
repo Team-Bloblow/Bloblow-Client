@@ -6,7 +6,7 @@ const ReactQueryProviders = ({ children }) => {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {
-        retry: 1,
+        gcTime: 60000,
       },
     },
   });
