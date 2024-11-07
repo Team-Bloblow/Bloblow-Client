@@ -1,8 +1,9 @@
-import { MODAL_TYPE } from "../../config/const";
+import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/const";
 import useBoundStore from "../../store/client/useBoundStore";
 import ProfileIcon from "../Icon/ProfileIcon";
 import CreateKeywordModal from "../Modal/CreateKeywordModal";
 import CreateKeywordSuccessModal from "../Modal/CreateKeywordSuccessModal";
+import ErrorModal from "../Modal/ErrorModal";
 import Button from "../UI/Button";
 
 const MyPageSidebar = () => {
@@ -33,6 +34,9 @@ const MyPageSidebar = () => {
       {openModalTypeList.includes(MODAL_TYPE.CREATE_KEYWORD) && <CreateKeywordModal />}
       {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.CREATE_KEYWORD_SUCCESS && (
         <CreateKeywordSuccessModal />
+      )}
+      {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.ERROR && (
+        <ErrorModal errorMessage={ERROR_MESSAGE.CREATE_KEYWORD_ERROR} />
       )}
     </aside>
   );

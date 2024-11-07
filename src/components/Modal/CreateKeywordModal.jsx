@@ -107,8 +107,8 @@ const CreateKeywordModal = () => {
         addModal(MODAL_TYPE.CREATE_KEYWORD_SUCCESS);
         queryClient.invalidateQueries({ queryKey: ["userGroupList", data.ownerId] });
       },
-      onError: (err) => {
-        console.error(err);
+      onError: () => {
+        addModal(MODAL_TYPE.ERROR);
       },
     });
   };
