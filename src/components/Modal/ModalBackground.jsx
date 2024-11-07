@@ -2,11 +2,13 @@ import useScrollDisable from "../../hooks/useScrollDisable";
 import useBoundStore from "../../store/client/useBoundStore";
 import PropTypes from "prop-types";
 
-const ModalBackground = ({ isClear, modalType, children }) => {
+const ModalBackground = ({ isClear, modalType, children, isDataFetching }) => {
   const closeModal = useBoundStore((state) => state.closeModal);
   const clearModal = useBoundStore((state) => state.clearModal);
 
   const handleModalBackgroundClick = () => {
+    if (isDataFetching) return;
+
     if (isClear) {
       clearModal();
     } else {
@@ -32,4 +34,5 @@ ModalBackground.propTypes = {
   isClear: PropTypes.bool.isRequired,
   modalType: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  isDataFetching: PropTypes.bool,
 };

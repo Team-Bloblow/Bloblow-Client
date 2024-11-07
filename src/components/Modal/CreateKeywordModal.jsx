@@ -9,6 +9,7 @@ import SelectGroupDropDown from "../DropDown/SelectGroupDropDown";
 import PlusIcon from "../Icon/PlusIcon";
 import Button from "../UI/Button";
 import Label from "../UI/Label";
+import Loading from "../UI/Loading";
 import ModalBackground from "./ModalBackground";
 import ModalFrame from "./ModalFrame";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -51,12 +52,11 @@ const CreateKeywordModal = () => {
   const userId = useBoundStore((state) => state.userInfo.id);
   const addModal = useBoundStore((state) => state.addModal);
   const queryClient = useQueryClient();
-  const modalNode = document.getElementById("modal");
 
   const createKeywordMutation = useMutation({
     mutationFn: (keywordInfo) => asyncPostKeyword(keywordInfo),
     onSuccess: () => {
-      queryClient.invalidateQueries({});
+      queryClient.invalidateQueries({ queryKey: ["userGroupList", userId] });
     },
   });
 
@@ -114,76 +114,96 @@ const CreateKeywordModal = () => {
     });
   };
 
+  const isPending = createKeywordMutation.isPending;
+
   return (
-    <Portal mountDomNode={modalNode}>
-      <ModalBackground isClear={true} modalType={MODAL_TYPE.CREATE_KEYWORD}>
-        <ModalFrame isClear={true} isExistCloseButton={true} modalType={MODAL_TYPE.CREATE_KEYWORD}>
+    <Portal>
+      <ModalBackground
+        isDataFetching={isPending}
+        isClear={true}
+        modalType={MODAL_TYPE.CREATE_KEYWORD}
+      >
+        <ModalFrame
+          isClear={true}
+          isExistCloseButton={isPending ? false : true}
+          modalType={MODAL_TYPE.CREATE_KEYWORD}
+        >
           <form className="w-600 flex-col-center pt-40 gap-15" onSubmit={handleKeywordSubmit}>
-            <div className="w-full flex items-start mb-18 gap-20">
-              <Label
-                htmlFor="group"
-                styles="w-110 text-20 text-violet-900 font-semibold flex-shrink-0"
-              >
-                Group:
-              </Label>
-              <SelectGroupDropDown
-                selectedGroup={selectedGroup}
-                groupList={groupList}
-                setSelectedGroup={setSelectedGroup}
-              />
-              <PlusIcon
-                className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
-                onClick={handleCreateNewGroupButtonClick}
-              />
-            </div>
-            {isCreatingNewGroup && (
-              <div className="w-full flex items-start gap-20">
-                <Label
-                  htmlFor="newGroup"
-                  styles="w-110 text-20 text-violet-900 font-semibold flex-shrink-0"
-                >
-                  New Group:
-                </Label>
-                <div className="flex flex-col justify-center gap-3 w-full">
-                  <input
-                    type="text"
-                    id="newGroup"
-                    value={inputValue.newGroup}
-                    onChange={handleNewGroupInputChange}
-                    className="w-full h-40 px-15 border-2 border-purple-300 rounded-[8px] text-purple-900 font-semibold"
-                    placeholder="새롭게 추가할 그룹명을 입력해주세요"
+            {isPending ? (
+              <Loading width={600} height={300} text={"블로그를 가져오는 중입니다"} />
+            ) : (
+              <>
+                <div className="w-full flex items-start mb-18 gap-20">
+                  <Label
+                    htmlFor="group"
+                    styles="w-110 text-20 text-violet-900 font-semibold flex-shrink-0"
+                  >
+                    Group:
+                  </Label>
+                  <SelectGroupDropDown
+                    selectedGroup={selectedGroup}
+                    groupList={groupList}
+                    setSelectedGroup={setSelectedGroup}
                   />
-                  <p className="text-12 text-red-500 h-18 font-semibold">{errorMessage.newGroup}</p>
+                  <PlusIcon
+                    className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
+                    onClick={handleCreateNewGroupButtonClick}
+                  />
                 </div>
-                <Button
-                  type="button"
-                  styles="flex-center flex-shrink-0 px-14 py-6 font-medium border-2 border-purple-200 bg-purple-400/80 rounded-[15px] text-white text-18 hover:bg-purple-500/80"
-                  onClick={handleGroupAddClick}
-                >
-                  추가
-                </Button>
-              </div>
+                {isCreatingNewGroup && (
+                  <div className="w-full flex items-start gap-20">
+                    <Label
+                      htmlFor="newGroup"
+                      styles="w-110 text-20 text-violet-900 font-semibold flex-shrink-0"
+                    >
+                      New Group:
+                    </Label>
+                    <div className="flex flex-col justify-center gap-3 w-full">
+                      <input
+                        type="text"
+                        id="newGroup"
+                        value={inputValue.newGroup}
+                        onChange={handleNewGroupInputChange}
+                        className="w-full h-40 px-15 border-2 border-purple-300 rounded-[8px] text-purple-900 font-semibold"
+                        placeholder="새롭게 추가할 그룹명을 입력해주세요"
+                      />
+                      <p className="text-12 text-red-500 h-18 font-semibold">
+                        {errorMessage.newGroup}
+                      </p>
+                    </div>
+                    <Button
+                      type="button"
+                      styles="flex-center flex-shrink-0 px-14 py-6 font-medium border-2 border-purple-200 bg-purple-400/80 rounded-[15px] text-white text-18 hover:bg-purple-500/80"
+                      onClick={handleGroupAddClick}
+                    >
+                      추가
+                    </Button>
+                  </div>
+                )}
+                <div className="w-full flex items-start gap-20">
+                  <Label
+                    htmlFor="keyword"
+                    styles="w-110 text-20 text-violet-900 font-semibold flex-shrink-0"
+                  >
+                    Keyword:
+                  </Label>
+                  <div className="flex flex-col justify-start gap-3 w-full">
+                    <input
+                      type="text"
+                      id="keyword"
+                      value={inputValue.keyword}
+                      onChange={handleKeywordInputChange}
+                      className="w-full h-40 px-15 border-2 border-purple-300 rounded-[8px] text-purple-900 font-semibold"
+                      placeholder="새롭게 추가할 키워드를 입력해주세요"
+                    />
+                    <p className="text-12 text-red-500 h-18 font-semibold">
+                      {errorMessage.keyword}
+                    </p>
+                  </div>
+                </div>
+                <CreateKeywordButton disabled={isPending} />
+              </>
             )}
-            <div className="w-full flex items-start gap-20">
-              <Label
-                htmlFor="keyword"
-                styles="w-110 text-20 text-violet-900 font-semibold flex-shrink-0"
-              >
-                Keyword:
-              </Label>
-              <div className="flex flex-col justify-start gap-3 w-full">
-                <input
-                  type="text"
-                  id="keyword"
-                  value={inputValue.keyword}
-                  onChange={handleKeywordInputChange}
-                  className="w-full h-40 px-15 border-2 border-purple-300 rounded-[8px] text-purple-900 font-semibold"
-                  placeholder="새롭게 추가할 키워드를 입력해주세요"
-                />
-                <p className="text-12 text-red-500 h-18 font-semibold">{errorMessage.keyword}</p>
-              </div>
-            </div>
-            <CreateKeywordButton disabled={createKeywordMutation.isPending} />
           </form>
         </ModalFrame>
       </ModalBackground>
