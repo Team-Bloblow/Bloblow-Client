@@ -11,7 +11,7 @@ import Button from "../UI/Button";
 import Label from "../UI/Label";
 import ModalBackground from "./ModalBackground";
 import ModalFrame from "./ModalFrame";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const CreateKeywordModal = () => {
   const [isCreatingNewGroup, setIsCreatingNewGroup] = useState(false);
@@ -23,6 +23,7 @@ const CreateKeywordModal = () => {
   const [errorMessage, setErrorMessage] = useState({
     newGroup: "",
     keyword: "",
+    mutation: "",
   });
   const [groupList, setGroupList] = useState([
     {
@@ -48,11 +49,15 @@ const CreateKeywordModal = () => {
   ]);
 
   const userId = useBoundStore((state) => state.userInfo.id);
-  const closeModal = useBoundStore((state) => state.closeModal);
+  const addModal = useBoundStore((state) => state.addModal);
+  const queryClient = useQueryClient();
   const modalNode = document.getElementById("modal");
 
   const createKeywordMutation = useMutation({
     mutationFn: (keywordInfo) => asyncPostKeyword(keywordInfo),
+    onSuccess: () => {
+      queryClient.invalidateQueries({});
+    },
   });
 
   const handleCreateNewGroupButtonClick = () => {
@@ -101,7 +106,7 @@ const CreateKeywordModal = () => {
 
     createKeywordMutation.mutate(keywordInfo, {
       onSuccess: () => {
-        closeModal(MODAL_TYPE.CREATE_KEYWORD);
+        addModal(MODAL_TYPE.CREATE_KEYWORD_SUCCESS);
       },
       onError: (err) => {
         console.error(err);
@@ -111,8 +116,8 @@ const CreateKeywordModal = () => {
 
   return (
     <Portal mountDomNode={modalNode}>
-      <ModalBackground modalType={MODAL_TYPE.CREATE_KEYWORD}>
-        <ModalFrame modalType={MODAL_TYPE.CREATE_KEYWORD}>
+      <ModalBackground isClear={true} modalType={MODAL_TYPE.CREATE_KEYWORD}>
+        <ModalFrame isClear={true} isExistCloseButton={true} modalType={MODAL_TYPE.CREATE_KEYWORD}>
           <form className="w-600 flex-col-center pt-40 gap-15" onSubmit={handleKeywordSubmit}>
             <div className="w-full flex items-start mb-18 gap-20">
               <Label

@@ -1,5 +1,6 @@
 export const MODAL_TYPE = Object.freeze({
   CREATE_KEYWORD: "createKeyword",
+  CREATE_KEYWORD_SUCCESS: "createKeywordSuccess",
 });
 
 export const ERROR_MESSAGE = Object.freeze({

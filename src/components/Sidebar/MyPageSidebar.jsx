@@ -2,6 +2,7 @@ import { MODAL_TYPE } from "../../config/const";
 import useBoundStore from "../../store/client/useBoundStore";
 import ProfileIcon from "../Icon/ProfileIcon";
 import CreateKeywordModal from "../Modal/CreateKeywordModal";
+import CreateKeywordSuccessModal from "../Modal/CreateKeywordSuccessModal";
 import Button from "../UI/Button";
 
 const MyPageSidebar = () => {
@@ -30,6 +31,9 @@ const MyPageSidebar = () => {
         키워드 만들기
       </Button>
       {openModalTypeList.includes(MODAL_TYPE.CREATE_KEYWORD) && <CreateKeywordModal />}
+      {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.CREATE_KEYWORD_SUCCESS && (
+        <CreateKeywordSuccessModal />
+      )}
     </aside>
   );
 };
