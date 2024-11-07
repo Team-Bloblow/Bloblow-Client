@@ -70,6 +70,7 @@ const CreateKeywordModal = () => {
 
     setSelectedGroup(inputValue.newGroup);
     setGroupList((prev) => [...prev, newGroup]);
+    setIsCreatingNewGroup(false);
   };
 
   const handleKeywordSubmit = (e) => {
