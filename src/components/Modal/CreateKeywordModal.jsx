@@ -1,6 +1,8 @@
 import { useState } from "react";
 
+import asyncPostKeyword from "../../api/keyword/asyncPostKeyword";
 import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/const";
+import useBoundStore from "../../store/client/useBoundStore";
 import CreateKeywordButton from "../Button/CreateKeywordButton";
 import Portal from "../Common/Portal";
 import SelectGroupDropDown from "../DropDown/SelectGroupDropDown";
@@ -44,6 +46,7 @@ const CreateKeywordModal = () => {
     },
   ]);
 
+  const userId = useBoundStore((state) => state.userInfo.id);
   const modalNode = document.getElementById("modal");
 
   const handleCreateNewGroupButtonClick = () => {
@@ -73,13 +76,24 @@ const CreateKeywordModal = () => {
     setIsCreatingNewGroup(false);
   };
 
-  const handleKeywordSubmit = (e) => {
+  const handleKeywordSubmit = async (e) => {
     e.preventDefault();
 
-    if (inputValue.keyword === "") {
+    const keywordValue = inputValue.keyword;
+
+    if (keywordValue === "") {
       setErrorMessage((prev) => ({ ...prev, keyword: ERROR_MESSAGE.KEYWORD_EMPTY_INPUT_VALUE }));
       return;
     }
+
+    const keywordInfo = {
+      groupId: "",
+      groupName: selectedGroup,
+      keyword: keywordValue,
+      ownerId: userId,
+    };
+
+    await asyncPostKeyword(keywordInfo);
   };
 
   return (
