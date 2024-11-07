@@ -10,5 +10,5 @@ export default Portal;
 
 Portal.propTypes = {
   children: PropTypes.node.isRequired,
-  mountDomNode: PropTypes.object.isRequired,
+  mountDomNode: PropTypes.objectOf(PropTypes.element).isRequired,
 };
