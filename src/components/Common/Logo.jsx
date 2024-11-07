@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 
-import Button from "./UI/Button";
+import Button from "../UI/Button";
 import PropTypes from "prop-types";
 
 const Logo = ({ styles, type, destination }) => {
