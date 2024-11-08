@@ -1,9 +1,30 @@
 import { useRef } from "react";
+import { useParams } from "react-router-dom";
 
+import asyncGetPosts from "../../../api/post/asyncGetPosts";
+import useInfiniteData from "../../../hooks/useInfiniteData";
 import PostCard from "./PostCard";
 
 const PostCardList = () => {
+  const { keywordId } = useParams();
   const observeRef = useRef(null);
+  const observeRootRef = useRef(null);
+
+  const infiniteDataArgument = {
+    queryKey: ["allPosts", keywordId],
+    queryFn: asyncGetPosts,
+    options: {
+      keywordId,
+      includedKeyword: "",
+      limit: 10,
+    },
+    initialPageParam: "",
+    getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.nextCursorId : undefined),
+    ref: observeRef,
+    root: observeRootRef.current,
+  };
+
+  useInfiniteData(infiniteDataArgument);
 
   const postResponse = {
     items: [
@@ -37,7 +58,10 @@ const PostCardList = () => {
   };
 
   return (
-    <section className="flex flex-col justify-start gap-12 bg-white border-4 border-pink-100 rounded-[10px] pt-25 px-30 w-full h-full overflow-y-scroll">
+    <section
+      ref={observeRootRef}
+      className="flex flex-col justify-start gap-12 bg-white border-4 border-pink-100 rounded-[10px] pt-25 px-30 w-full h-full overflow-y-scroll"
+    >
       {postResponse?.items?.map((postInfo) => {
         return (
           <PostCard
