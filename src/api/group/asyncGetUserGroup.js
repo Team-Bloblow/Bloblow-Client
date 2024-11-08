@@ -1,12 +1,10 @@
 import fetchHandler from "..";
 import { BASE_URL } from "../../config/constants";
 
-const asyncPostSignIn = async (userInfo) => {
+const asyncGetUserGroup = async (userId) => {
   const fetchInfo = {
-    url: `${BASE_URL}/user/signIn`,
-    method: "POST",
+    url: `${BASE_URL}/groups/${userId}`,
     params: "",
-    body: userInfo,
   };
 
   const response = await fetchHandler(fetchInfo);
@@ -14,4 +12,4 @@ const asyncPostSignIn = async (userInfo) => {
   return response;
 };
 
-export default asyncPostSignIn;
+export default asyncGetUserGroup;

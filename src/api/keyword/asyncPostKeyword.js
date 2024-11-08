@@ -1,12 +1,12 @@
 import fetchHandler from "..";
 import { BASE_URL } from "../../config/constants";
 
-const asyncPostSignIn = async (userInfo) => {
+const asyncPostKeyword = async (keywordInfo) => {
   const fetchInfo = {
-    url: `${BASE_URL}/user/signIn`,
+    url: `${BASE_URL}/keyword`,
     method: "POST",
     params: "",
-    body: userInfo,
+    body: keywordInfo,
   };
 
   const response = await fetchHandler(fetchInfo);
@@ -14,4 +14,4 @@ const asyncPostSignIn = async (userInfo) => {
   return response;
 };
 
-export default asyncPostSignIn;
+export default asyncPostKeyword;
