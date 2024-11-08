@@ -128,7 +128,7 @@ const CreateKeywordModal = () => {
           modalType={MODAL_TYPE.CREATE_KEYWORD}
         >
           <form
-            className={`w-600 flex-col-center ${isPending || "pt-40"} gap-15`}
+            className={`w-500 flex-col-center ${isPending || "pt-40"} gap-15`}
             onSubmit={handleKeywordSubmit}
           >
             {isPending ? (
@@ -138,9 +138,9 @@ const CreateKeywordModal = () => {
                 <div className="w-full flex items-start mb-18 gap-20">
                   <Label
                     htmlFor="group"
-                    styles="w-110 text-20 text-violet-900 font-semibold flex-shrink-0"
+                    styles="w-100 text-20 text-violet-900 font-semibold flex-shrink-0"
                   >
-                    Group:
+                    그룹:
                   </Label>
                   <SelectGroupDropDown
                     selectedGroup={selectedGroup}
@@ -156,9 +156,9 @@ const CreateKeywordModal = () => {
                   <div className="w-full flex items-start gap-20">
                     <Label
                       htmlFor="newGroup"
-                      styles="w-110 text-20 text-violet-900 font-semibold flex-shrink-0"
+                      styles="w-100 text-20 text-violet-900 font-semibold flex-shrink-0"
                     >
-                      New Group:
+                      새로운 그룹:
                     </Label>
                     <div className="flex flex-col justify-center gap-3 w-full">
                       <input
@@ -185,9 +185,9 @@ const CreateKeywordModal = () => {
                 <div className="w-full flex items-start gap-20">
                   <Label
                     htmlFor="keyword"
-                    styles="w-110 text-20 text-violet-900 font-semibold flex-shrink-0"
+                    styles="w-100 text-20 text-violet-900 font-semibold flex-shrink-0"
                   >
-                    Keyword:
+                    키워드:
                   </Label>
                   <div className="flex flex-col justify-start gap-3 w-full">
                     <input
@@ -203,7 +203,7 @@ const CreateKeywordModal = () => {
                     </p>
                   </div>
                 </div>
-                <CreateKeywordButton disabled={isPending} />
+                <CreateKeywordButton isDisabled={isPending} />
               </>
             )}
           </form>
