@@ -6,7 +6,7 @@ const MyPage = () => {
   useNoSignInRedirect();
 
   return (
-    <main className="flex items-start gap-50 mx-auto mt-80 w-full max-w-1200 px-40 py-30">
+    <main className="flex items-start gap-40 mx-auto pt-100 w-full h-screen max-w-1200 px-40 py-30">
       <MyPageSidebar />
       <UserGroupCardList />
     </main>

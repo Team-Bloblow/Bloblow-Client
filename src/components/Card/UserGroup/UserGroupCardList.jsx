@@ -14,7 +14,7 @@ const UserGroupCardList = () => {
   });
 
   return (
-    <section className="flex flex-col justify-start gap-10 bg-white border-4 border-pink-200 rounded-[10px] py-40 px-40 w-full h-430 overflow-y-scroll">
+    <section className="flex flex-col justify-start gap-10 bg-white border-4 border-pink-200 rounded-[10px] py-40 px-40 w-full h-full overflow-y-scroll">
       {userGroupList?.map((groupInfo) => {
         <UserGroupCard
           key={groupInfo?.id}
