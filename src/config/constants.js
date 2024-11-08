@@ -1,3 +1,5 @@
+export const BASE_URL = "http://localhost:3000";
+
 export const MODAL_TYPE = Object.freeze({
   CREATE_KEYWORD: "createKeyword",
   CREATE_KEYWORD_SUCCESS: "createKeywordSuccess",
@@ -10,4 +12,8 @@ export const ERROR_MESSAGE = Object.freeze({
   CREATE_KEYWORD_ERROR: "새로운 키워드 생성에 실패하였습니다.",
 });
 
-export const BASE_URL = "http://localhost:3000";
+export const POST_LISTS = Object.freeze({
+  DEFAULT_INCLUDED_KEYWORD: "",
+  LIMIT: 10,
+  CURSOR_ID: "",
+});
