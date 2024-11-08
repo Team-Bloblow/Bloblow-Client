@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/const";
+import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
 import ProfileIcon from "../Icon/ProfileIcon";
 import CreateKeywordModal from "../Modal/CreateKeywordModal";

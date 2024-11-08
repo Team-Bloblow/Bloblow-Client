@@ -9,5 +9,5 @@ const KeywordChip = ({ keywordName }) => {
 export default KeywordChip;
 
 KeywordChip.propTypes = {
-  keywordName: PropTypes.string,
+  keywordName: PropTypes.string.isRequired,
 };

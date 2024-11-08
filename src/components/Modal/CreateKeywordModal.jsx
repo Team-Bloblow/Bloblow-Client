@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import asyncPostKeyword from "../../api/keyword/asyncPostKeyword";
-import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/const";
+import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
 import CreateKeywordButton from "../Button/CreateKeywordButton";
 import Portal from "../Common/Portal";
@@ -87,7 +87,7 @@ const CreateKeywordModal = () => {
   const handleKeywordSubmit = (e) => {
     e.preventDefault();
 
-    const keywordValue = inputValue.keyword;
+    const keywordValue = inputValue.keyword.trim();
 
     if (keywordValue === "") {
       setErrorMessage((prev) => ({ ...prev, keyword: ERROR_MESSAGE.KEYWORD_EMPTY_INPUT_VALUE }));
@@ -124,7 +124,7 @@ const CreateKeywordModal = () => {
       >
         <ModalFrame
           isClear={true}
-          isExistCloseButton={isPending ? false : true}
+          hasCloseButton={isPending ? false : true}
           modalType={MODAL_TYPE.CREATE_KEYWORD}
         >
           <form

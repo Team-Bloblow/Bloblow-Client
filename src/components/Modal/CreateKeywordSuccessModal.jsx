@@ -1,4 +1,4 @@
-import { MODAL_TYPE } from "../../config/const";
+import { MODAL_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
 import Portal from "../Common/Portal";
 import Button from "../UI/Button";
@@ -6,10 +6,10 @@ import ModalBackground from "./ModalBackground";
 import ModalFrame from "./ModalFrame";
 
 const CreateKeywordSuccessModal = () => {
-  const clearModal = useBoundStore((state) => state.clearModal);
+  const clearOpenModalTypeList = useBoundStore((state) => state.clearOpenModalTypeList);
 
   const handleConfirmClick = () => {
-    clearModal();
+    clearOpenModalTypeList();
   };
 
   return (
@@ -17,7 +17,7 @@ const CreateKeywordSuccessModal = () => {
       <ModalBackground isClear={true} modalType={MODAL_TYPE.CREATE_KEYWORD_SUCCESS}>
         <ModalFrame
           isClear={true}
-          isExistCloseButton={false}
+          hasCloseButton={false}
           modalType={MODAL_TYPE.CREATE_KEYWORD_SUCCESS}
         >
           <main className="flex flex-col gap-10 items-center">

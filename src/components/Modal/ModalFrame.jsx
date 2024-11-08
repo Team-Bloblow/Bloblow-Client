@@ -3,13 +3,13 @@ import CloseIcon from "../Icon/CloseIcon";
 import Button from "../UI/Button";
 import PropTypes from "prop-types";
 
-const ModalFrame = ({ isClear, isExistCloseButton, modalType, children }) => {
+const ModalFrame = ({ isClear, hasCloseButton, modalType, children }) => {
   const closeModal = useBoundStore((state) => state.closeModal);
-  const clearModal = useBoundStore((state) => state.clearModal);
+  const clearOpenModalTypeList = useBoundStore((state) => state.clearOpenModalTypeList);
 
   const handleCloseIconClick = () => {
     if (isClear) {
-      clearModal();
+      clearOpenModalTypeList();
     } else {
       closeModal(modalType);
     }
@@ -21,7 +21,7 @@ const ModalFrame = ({ isClear, isExistCloseButton, modalType, children }) => {
       onClick={(e) => e.stopPropagation()}
     >
       {children}
-      {isExistCloseButton && (
+      {hasCloseButton && (
         <Button styles="absolute top-15 right-17" onClick={handleCloseIconClick}>
           <CloseIcon className="size-40" />
         </Button>
@@ -34,7 +34,7 @@ export default ModalFrame;
 
 ModalFrame.propTypes = {
   isClear: PropTypes.bool.isRequired,
-  isExistCloseButton: PropTypes.bool.isRequired,
+  hasCloseButton: PropTypes.bool.isRequired,
   modalType: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
 };

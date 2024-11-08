@@ -16,15 +16,17 @@ const UserGroupCard = ({ groupName, keywordList, createdAt, updatedAt }) => {
       <p className="flex items-center gap-10">
         <span className="text-purple-300 text-20">2️⃣ Keyword List: </span>
         <span className="text-rose-400 text-18">
-          {keywordList.map((keywordName) => {
-            <KeywordChip key={keywordName} keywordName={keywordName} />;
+          {keywordList.map((keyword) => {
+            <KeywordChip key={keyword.id} keywordName={keyword.name} />;
           })}
         </span>
       </p>
       <p className="flex items-center gap-10">
         <span className="text-purple-300 text-20">3️⃣ Created date: </span>
         <span className="text-rose-400 text-18">
-          {`${createdDate.currentYear}년 ${createdDate.currentMonth}월 ${createdDate.currentDate}일 ${changeDayFormat(createdDate.currentDay)} ${createdDate.currentHour}시 ${createdDate.currentMinute}분`}
+          {createdDate.currentYear}년 {createdDate.currentMonth}월 {createdDate.currentDate}일{" "}
+          {changeDayFormat(createdDate.currentDay)} {createdDate.currentHour}시{" "}
+          {createdDate.currentMinute}분
         </span>
       </p>
       <p className="flex items-center gap-10">
@@ -45,5 +47,5 @@ UserGroupCard.propTypes = {
   groupName: PropTypes.string.isRequired,
   keywordList: PropTypes.arrayOf(PropTypes.string).isRequired,
   createdAt: PropTypes.string.isRequired,
-  updatedAt: PropTypes.any,
+  updatedAt: PropTypes.string.isRequired,
 };

@@ -15,7 +15,7 @@ const changeDayFormat = (dateNumber) => {
     case 6:
       return "토요일";
     default:
-      throw Error("유효하지 않은 값입니다.");
+      throw Error("유효하지 않은 요일 정보입니다.");
   }
 };
 

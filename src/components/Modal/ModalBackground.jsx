@@ -4,13 +4,13 @@ import PropTypes from "prop-types";
 
 const ModalBackground = ({ isClear, modalType, children, isDataFetching }) => {
   const closeModal = useBoundStore((state) => state.closeModal);
-  const clearModal = useBoundStore((state) => state.clearModal);
+  const clearOpenModalTypeList = useBoundStore((state) => state.clearOpenModalTypeList);
 
   const handleModalBackgroundClick = () => {
     if (isDataFetching) return;
 
     if (isClear) {
-      clearModal();
+      clearOpenModalTypeList();
     } else {
       closeModal(modalType);
     }

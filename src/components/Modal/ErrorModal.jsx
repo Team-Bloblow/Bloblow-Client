@@ -1,4 +1,4 @@
-import { MODAL_TYPE } from "../../config/const";
+import { MODAL_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
 import Portal from "../Common/Portal";
 import Button from "../UI/Button";
@@ -16,7 +16,7 @@ const ErrorModal = ({ errorMessage }) => {
   return (
     <Portal>
       <ModalBackground isClear={false} modalType={MODAL_TYPE.ERROR}>
-        <ModalFrame isClear={false} isExistCloseButton={false} modalType={MODAL_TYPE.ERROR}>
+        <ModalFrame isClear={false} hasCloseButton={false} modalType={MODAL_TYPE.ERROR}>
           <main className="flex flex-col gap-10 items-center">
             <h1 className="text-16 text-red-400">{errorMessage} 😅</h1>
             <Button
