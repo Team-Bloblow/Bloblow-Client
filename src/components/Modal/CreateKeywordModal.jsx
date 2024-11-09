@@ -15,42 +15,32 @@ import ModalFrame from "./ModalFrame";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const CreateKeywordModal = () => {
+  const userUid = useBoundStore((state) => state.userInfo.uid);
+  const addModal = useBoundStore((state) => state.addModal);
+  const closeModal = useBoundStore((state) => state.closeModal);
+  const userGroupList = useBoundStore((state) => state.userGroupList);
+
   const [isCreatingNewGroup, setIsCreatingNewGroup] = useState(false);
-  const [selectedGroup, setSelectedGroup] = useState("");
+  const [isOnceAddedGroup, setIsOnceAddedGroup] = useState(false);
+  const [selectedGroup, setSelectedGroup] = useState({
+    id: "",
+    name: "",
+  });
   const [inputValue, setInputValue] = useState({
     newGroup: "",
     keyword: "",
   });
   const [errorMessage, setErrorMessage] = useState({
+    group: "",
     newGroup: "",
     keyword: "",
   });
-  const [groupList, setGroupList] = useState([
-    {
-      id: 1,
-      name: "바닐라 코딩",
-    },
-    {
-      id: 2,
-      name: "바나프레소",
-    },
-    {
-      id: 3,
-      name: "이대호",
-    },
-    {
-      id: 4,
-      name: "무신사",
-    },
-    {
-      id: 5,
-      name: "해운대",
-    },
-  ]);
+  const [groupList, setGroupList] = useState(() => {
+    return userGroupList.map((group) => {
+      return { id: group._id, name: group.name };
+    });
+  });
 
-  const userUid = useBoundStore((state) => state.userInfo.uid);
-  const addModal = useBoundStore((state) => state.addModal);
-  const closeModal = useBoundStore((state) => state.closeModal);
   const queryClient = useQueryClient();
 
   const createKeywordMutation = useMutation({
@@ -70,18 +60,19 @@ const CreateKeywordModal = () => {
   };
 
   const handleGroupAddClick = () => {
-    if (inputValue.newGroup === "") {
+    const newGroupValue = inputValue.newGroup.trim();
+
+    if (newGroupValue === "") {
       setErrorMessage((prev) => ({ ...prev, newGroup: ERROR_MESSAGE.NEW_GROUP_EMPTY_INPUT_VALUE }));
       return;
     }
 
-    const groupListLength = groupList.length;
-    const theLastGroupId = groupList[groupListLength - 1].id;
-    const newGroup = { id: theLastGroupId + 1, name: inputValue.newGroup };
+    const newGroup = { id: "", name: newGroupValue };
 
-    setSelectedGroup(inputValue.newGroup);
+    setSelectedGroup((prev) => ({ ...prev, ...newGroup }));
     setGroupList((prev) => [...prev, newGroup]);
     setIsCreatingNewGroup(false);
+    setIsOnceAddedGroup(true);
   };
 
   const handleKeywordSubmit = (e) => {
@@ -89,14 +80,19 @@ const CreateKeywordModal = () => {
 
     const keywordValue = inputValue.keyword.trim();
 
-    if (keywordValue === "") {
-      setErrorMessage((prev) => ({ ...prev, keyword: ERROR_MESSAGE.KEYWORD_EMPTY_INPUT_VALUE }));
+    if (keywordValue === "" || selectedGroup.name === "") {
+      if (keywordValue === "") {
+        setErrorMessage((prev) => ({ ...prev, keyword: ERROR_MESSAGE.KEYWORD_EMPTY_INPUT_VALUE }));
+      }
+      if (selectedGroup.name === "") {
+        setErrorMessage((prev) => ({ ...prev, group: ERROR_MESSAGE.MUST_GROUP_SELECT }));
+      }
       return;
     }
 
     const keywordInfo = {
-      groupId: "",
-      groupName: selectedGroup,
+      groupId: selectedGroup.id,
+      groupName: selectedGroup.name,
       keyword: keywordValue,
       ownerUid: userUid,
     };
@@ -140,22 +136,27 @@ const CreateKeywordModal = () => {
               <Loading width={100} height={100} text={"블로그를 가져오는 중입니다...💜"} />
             ) : (
               <>
-                <div className="w-full flex items-start mb-18 gap-20">
+                <div className="w-full flex items-start gap-20">
                   <Label
                     htmlFor="group"
                     styles="w-100 text-20 text-violet-900 font-semibold flex-shrink-0"
                   >
                     그룹:
                   </Label>
-                  <SelectGroupDropDown
-                    selectedGroup={selectedGroup}
-                    groupList={groupList}
-                    setSelectedGroup={setSelectedGroup}
-                  />
-                  <PlusIcon
-                    className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
-                    onClick={handleCreateNewGroupButtonClick}
-                  />
+                  <div className="flex flex-col justify-center gap-3 w-full">
+                    <SelectGroupDropDown
+                      selectedGroup={selectedGroup}
+                      groupList={groupList}
+                      setSelectedGroup={setSelectedGroup}
+                    />
+                    <p className="text-12 text-red-500 h-18 font-semibold">{errorMessage.group}</p>
+                  </div>
+                  {!isOnceAddedGroup && (
+                    <PlusIcon
+                      className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
+                      onClick={handleCreateNewGroupButtonClick}
+                    />
+                  )}
                 </div>
                 {isCreatingNewGroup && (
                   <div className="w-full flex items-start gap-20">

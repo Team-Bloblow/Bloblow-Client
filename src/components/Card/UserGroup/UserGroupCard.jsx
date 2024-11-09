@@ -1,8 +1,7 @@
-import { Link } from "react-router-dom";
-
 import changeDayFormat from "../../../utils/changeDayFormat";
 import getDate from "../../../utils/getDate";
 import KeywordChip from "../../Chip/KeywordChip";
+import Button from "../../UI/Button";
 import PropTypes from "prop-types";
 
 const UserGroupCard = ({ groupId, groupName, keywordList, createdAt, updatedAt }) => {
@@ -10,20 +9,20 @@ const UserGroupCard = ({ groupId, groupName, keywordList, createdAt, updatedAt }
   const updatedDate = getDate(updatedAt);
 
   return (
-    <div className="flex justify-between gap-5 w-full border-3 border-rose-200/80 bg-white rounded-[30px] pl-30 pr-20 py-15">
-      <div className="flex flex-col items-start justify-center">
+    <div className="flex justify-between w-full border-3 border-rose-200/80 bg-white rounded-[30px] pl-30 pr-20 py-10">
+      <div className="flex flex-col items-start justify-center gap-3">
         <p className="flex items-center gap-10">
           <span className="text-purple-600 text-19 font-bold">그룹명: </span>
           <span className="text-rose-400 text-18">{groupName}</span>
         </p>
-        <p className="flex items-center gap-10 w-full">
+        <div className="flex items-center gap-10 w-full">
           <span className="text-purple-600 text-19 font-bold flex-shrink-0">키워드 리스트: </span>
           <p className="flex items-center gap-5 w-full">
             {keywordList.map((keyword) => (
               <KeywordChip key={keyword._id} keywordName={keyword.keyword} />
             ))}
           </p>
-        </p>
+        </div>
         <p className="flex items-center gap-10">
           <span className="text-purple-600 text-19 font-bold">그룹 생성일: </span>
           <span className="text-rose-400 text-18">
@@ -41,11 +40,14 @@ const UserGroupCard = ({ groupId, groupName, keywordList, createdAt, updatedAt }
           </span>
         </p>
       </div>
-      <Link to={`/dashboard/${groupId}`} className="flex items-end">
-        <p className="bottom-15 right-20 px-10 py-5 rounded-[12px] border-3 border-rose-200/80 hover:bg-rose-50 text-rose-900">
+      <div className="flex items-end">
+        <Button
+          styles="px-10 py-5 rounded-[12px] border-3 border-rose-200/80 hover:bg-rose-50 text-rose-900"
+          destination={`/dashboard/${groupId}`}
+        >
           대시보드로 이동
-        </p>
-      </Link>
+        </Button>
+      </div>
     </div>
   );
 };

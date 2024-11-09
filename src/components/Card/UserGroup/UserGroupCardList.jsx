@@ -4,6 +4,7 @@ import UserGroupCard from "./UserGroupCard";
 import { useQuery } from "@tanstack/react-query";
 
 const UserGroupCardList = () => {
+  const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
   const userUid = useBoundStore((state) => state.userInfo.uid);
   const hasUserUid = !!userUid;
 
@@ -15,6 +16,10 @@ const UserGroupCardList = () => {
 
   if (userGroupList?.groupListLength === 0) {
     return <div className="flex flex-center w-full h-full">생성한 그룹이 없습니다. 😅</div>;
+  }
+
+  if (userGroupList?.groupListResult) {
+    setUserGroupList(userGroupList?.groupListResult);
   }
 
   return (

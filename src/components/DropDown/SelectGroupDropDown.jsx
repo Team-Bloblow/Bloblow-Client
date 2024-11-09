@@ -28,19 +28,19 @@ const SelectGroupDropDown = memo(function SelectGroupDropDown({
       onClick={handleDropDownClick}
     >
       <span className="flex-grow w-full" ref={dropDownBoxTextRef}>
-        {selectedGroup}
+        {selectedGroup?.name}
       </span>
       {isDropDownOpen ? (
-        <>
-          <TriangleUpIcon className="size-20 fill-purple-300" />
-          <SelectGroupOptionList
-            groupList={groupList}
-            selectedGroup={selectedGroup}
-            setSelectedGroup={setSelectedGroup}
-          />
-        </>
+        <TriangleUpIcon className="size-20 fill-purple-300" />
       ) : (
         <TriangleDownIcon className="size-20 fill-purple-300" />
+      )}
+      {isDropDownOpen && (
+        <SelectGroupOptionList
+          groupList={groupList}
+          selectedGroup={selectedGroup}
+          setSelectedGroup={setSelectedGroup}
+        />
       )}
     </div>
   );
@@ -49,10 +49,13 @@ const SelectGroupDropDown = memo(function SelectGroupDropDown({
 export default SelectGroupDropDown;
 
 SelectGroupDropDown.propTypes = {
-  selectedGroup: PropTypes.string.isRequired,
+  selectedGroup: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+  }).isRequired,
   groupList: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number,
+      id: PropTypes.string,
       name: PropTypes.string,
     })
   ).isRequired,
