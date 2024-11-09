@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
+import asyncPostSignIn from "../../api/auth/asyncPostSignIn";
 import useBoundStore from "../../store/client/useBoundStore";
 import Button from "../UI/Button";
+import { useMutation } from "@tanstack/react-query";
 
 const SignInButton = () => {
   const navigate = useNavigate();
@@ -9,13 +11,33 @@ const SignInButton = () => {
   const isSignIn = useBoundStore((state) => state.isSignIn);
   const asyncSignIn = useBoundStore((state) => state.asyncSignIn);
   const signOut = useBoundStore((state) => state.signOut);
+  const setIsSignIn = useBoundStore((state) => state.setIsSignIn);
+  const setUserInfo = useBoundStore((state) => state.setUserInfo);
+  const setServerSignInError = useBoundStore((state) => state.setServerSignInError);
+
+  const signInMutation = useMutation({
+    mutationFn: (userInfo) => asyncPostSignIn(userInfo),
+  });
 
   const handleButtonClick = async () => {
     if (isSignIn) {
       signOut();
     } else {
-      await asyncSignIn();
-      navigate("/myPage");
+      const { uid, email, displayName, photoURL } = await asyncSignIn();
+      signInMutation.mutate(
+        { uid, email, displayName, photoURL },
+        {
+          onSuccess: (data) => {
+            const { uid, email, displayName, photoURL } = data.userResult;
+            setIsSignIn(true);
+            setUserInfo({ uid, email, displayName, photoURL });
+            navigate("/myPage");
+          },
+          onError: ({ message }) => {
+            setServerSignInError(message);
+          },
+        }
+      );
     }
   };
 
