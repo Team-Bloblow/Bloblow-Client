@@ -14,3 +14,9 @@ export const ERROR_MESSAGE = Object.freeze({
   SIGN_IN_ERROR: "로그인에 실패하였습니다.",
   FETCH_POSTS: "블로그 정보를 불러오지 못했습니다.",
 });
+
+export const POST_LISTS = Object.freeze({
+  DEFAULT_INCLUDED_KEYWORD: "",
+  LIMIT: 5,
+  CURSOR_ID: "",
+});
