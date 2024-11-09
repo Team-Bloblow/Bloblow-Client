@@ -1,5 +1,5 @@
 import fetchHandler from "..";
-import { BASE_URL, POST_LISTS } from "../../config/const";
+import { BASE_URL, POST_LISTS } from "../../config/constants";
 
 const asyncGetPosts = async (
   cursorId = POST_LISTS.CURSOR_ID,
