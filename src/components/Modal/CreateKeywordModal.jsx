@@ -73,6 +73,7 @@ const CreateKeywordModal = () => {
     setSelectedGroup((prev) => ({ ...prev, ...newGroup }));
     setGroupList((prev) => [...prev, newGroup]);
     setIsCreatingNewGroup(false);
+    setIsOnceAddedGroup(true);
   };
 
   const handleKeywordSubmit = (e) => {
