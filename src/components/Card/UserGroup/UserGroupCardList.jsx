@@ -4,12 +4,12 @@ import UserGroupCard from "./UserGroupCard";
 import { useQuery } from "@tanstack/react-query";
 
 const UserGroupCardList = () => {
-  const userId = useBoundStore((state) => state.userInfo.id);
-  const hasUserId = !!userId;
+  const userUid = useBoundStore((state) => state.userInfo.uid);
+  const hasUserId = !!userUid;
 
   const { data: userGroupList } = useQuery({
-    queryKey: ["userGroupList", userId],
-    queryFn: () => asyncGetUserGroup(userId),
+    queryKey: ["userGroupList", userUid],
+    queryFn: () => asyncGetUserGroup(userUid),
     enabled: hasUserId,
   });
 

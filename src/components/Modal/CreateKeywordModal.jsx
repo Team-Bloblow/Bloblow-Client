@@ -48,7 +48,7 @@ const CreateKeywordModal = () => {
     },
   ]);
 
-  const userId = useBoundStore((state) => state.userInfo.id);
+  const userUid = useBoundStore((state) => state.userInfo.uid);
   const addModal = useBoundStore((state) => state.addModal);
   const closeModal = useBoundStore((state) => state.closeModal);
   const queryClient = useQueryClient();
@@ -98,11 +98,16 @@ const CreateKeywordModal = () => {
       groupId: "",
       groupName: selectedGroup,
       keyword: keywordValue,
-      ownerId: userId,
+      ownerUid: userUid,
     };
 
     createKeywordMutation.mutate(keywordInfo, {
       onSuccess: (data) => {
+        if (data?.message?.includes("Error occured")) {
+          addModal(MODAL_TYPE.ERROR);
+          return;
+        }
+
         closeModal(MODAL_TYPE.CREATE_KEYWORD);
         addModal(MODAL_TYPE.CREATE_KEYWORD_SUCCESS);
         queryClient.invalidateQueries({ queryKey: ["userGroupList", data.ownerId] });
