@@ -4,16 +4,16 @@ import changeDayFormat from "../../../utils/changeDayFormat";
 import getDate from "../../../utils/getDate";
 import PropTypes from "prop-types";
 
-const PostCard = ({ postTitle, postContent, likeCount, commentCount, link, createdAt }) => {
+const PostCard = ({ postTitle, postDescription, likeCount, commentCount, link, createdAt }) => {
   const createdDate = getDate(createdAt);
 
   return (
-    <div className="flex flex-col items-start justify-center gap-5 w-full border-3 border-rose-200/80 bg-white rounded-[30px] px-25 py-15 hover:border-4">
+    <div className="flex flex-col items-start justify-center gap-5 w-full border-3 border-rose-200/80 bg-white rounded-[30px] px-25 py-15">
       <p className="flex items-center gap-10">
         <span className="text-purple-700 text-22 font-bold">{postTitle}</span>
       </p>
       <p className="flex items-center gap-10 mb-15">
-        <span className="text-purple-500 text-16">{postContent}</span>
+        <span className="text-purple-500 text-16">{postDescription}</span>
       </p>
       <div className="flex justify-between items-center w-full">
         <p className="flex items-center gap-10">
@@ -41,7 +41,7 @@ export default PostCard;
 
 PostCard.propTypes = {
   postTitle: PropTypes.string.isRequired,
-  postContent: PropTypes.string.isRequired,
+  postDescription: PropTypes.string.isRequired,
   likeCount: PropTypes.number.isRequired,
   commentCount: PropTypes.number.isRequired,
   link: PropTypes.string.isRequired,

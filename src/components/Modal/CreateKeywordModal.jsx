@@ -137,7 +137,7 @@ const CreateKeywordModal = () => {
             onSubmit={handleKeywordSubmit}
           >
             {isPending ? (
-              <Loading width={100} height={100} text={"블로그를 가져오는 중입니다"} />
+              <Loading width={100} height={100} text={"블로그를 가져오는 중입니다...💜"} />
             ) : (
               <>
                 <div className="w-full flex items-start mb-18 gap-20">

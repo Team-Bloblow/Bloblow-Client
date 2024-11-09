@@ -20,15 +20,16 @@ const useInfiniteData = ({
 
   const onIntersect = (entries) => {
     if (isPending) return;
+    if (!data?.pages[data?.pages.length - 1].hasNext) return;
 
-    entries.forEach((element) => {
-      if (element.isIntersecting) {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
         fetchNextPage();
       }
     });
   };
 
-  useObserver({ ref, root: root, threshold: 0.6, onIntersect });
+  useObserver({ target: ref, root, threshold: 0.5, onIntersect });
 
   return { data, status, fetchNextPage, isPending, isError, ...rest };
 };
