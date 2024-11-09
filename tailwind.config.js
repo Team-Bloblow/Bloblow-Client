@@ -11,14 +11,14 @@ const createPxEntries = (size) => {
 
 const PX_ENTRIES_10 = createPxEntries(10);
 const PX_ENTRIES_200 = createPxEntries(200);
-const PX_ENTRIES_1200 = createPxEntries(1200);
+const PX_ENTRIES_1440 = createPxEntries(1440);
 
 export default {
   content: ["./index.html", "./src/**/*.{js,jsx}"],
   theme: {
     borderWidth: PX_ENTRIES_10,
     fontSize: PX_ENTRIES_200,
-    spacing: PX_ENTRIES_1200,
+    spacing: PX_ENTRIES_1440,
     zIndex: {
       header: "30",
       modal: "40",

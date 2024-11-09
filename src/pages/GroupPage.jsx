@@ -1,5 +1,15 @@
+import DashboardHeader from "../components/Header/DashboardHeader";
+import DashboardSidebar from "../components/Sidebar/DashboardSidebar";
+
 const GroupPage = () => {
-  return;
+  return (
+    <main className="flex justify-start items-start gap-50 mx-auto pt-67 h-screen w-full max-w-1440 pr-40">
+      <DashboardSidebar />
+      <section className="w-full h-full flex flex-col justify-start">
+        <DashboardHeader />
+      </section>
+    </main>
+  );
 };
 
 export default GroupPage;

@@ -58,9 +58,9 @@ const PostCardList = () => {
   };
 
   return (
-    <section
+    <article
       ref={observeRootRef}
-      className="flex flex-col justify-start gap-12 bg-white border-4 border-pink-100 rounded-[10px] pt-25 px-30 w-full h-full overflow-y-scroll"
+      className="flex flex-col justify-start gap-12 bg-white border-4 border-pink-100 rounded-[10px] pt-25 px-30 w-full h-full flex-grow overflow-y-scroll"
     >
       {postResponse?.items?.map((postInfo) => {
         return (
@@ -76,7 +76,7 @@ const PostCardList = () => {
         );
       })}
       <div className="w-full h-40" ref={observeRef}></div>
-    </section>
+    </article>
   );
 };
 
