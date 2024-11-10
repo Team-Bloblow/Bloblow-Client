@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 
 import KeywordChip from "../Chip/KeywordChip";
+import EditIcon from "../Icon/EditIcon";
 import MinusCircleIcon from "../Icon/MinusCircleIcon";
 import PlusCircleIcon from "../Icon/PlusCircleIcon";
 import PropTypes from "prop-types";
@@ -16,11 +17,16 @@ const DashboardHeader = ({ userGroupList }) => {
   );
   const dashboardKeywordName = dashboardKeyword?.keyword;
 
+  const handleKeywordEditClick = () => {};
+
   return (
     <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-violet-50 shadow-sm px-20 py-10 flex-shrink-0">
       {keywordId ? (
         <div className="flex flex-col items-start gap-5">
-          <p className="text-20 text-pink-900/90 font-bold">{dashboardKeywordName}</p>
+          <div className="flex items-center gap-10 text-20 text-pink-900/90 font-bold">
+            {dashboardKeywordName}
+            <EditIcon className="size-20 cursor-pointer" onClick={handleKeywordEditClick} />
+          </div>
           <div className="flex items-center gap-25">
             <div className="flex items-center gap-8">
               {/* 키워드 상세 조회 구현 후 추가 키워드 */}
