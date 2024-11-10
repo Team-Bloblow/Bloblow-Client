@@ -1,14 +1,10 @@
-import { useParams } from "react-router-dom";
-
 import KeywordChip from "../Chip/KeywordChip";
 import EditIcon from "../Icon/EditIcon";
 import MinusCircleIcon from "../Icon/MinusCircleIcon";
 import PlusCircleIcon from "../Icon/PlusCircleIcon";
 import PropTypes from "prop-types";
 
-const DashboardHeader = ({ userGroupList }) => {
-  const { groupId, keywordId } = useParams();
-
+const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordId }) => {
   const dashboardGroup = userGroupList?.find((groupInfo) => groupInfo._id === groupId);
   const dashboardGroupName = dashboardGroup?.name;
   const dashboardKeywordList = dashboardGroup?.keywordIdList;
@@ -77,4 +73,7 @@ export default DashboardHeader;
 
 DashboardHeader.propTypes = {
   userGroupList: PropTypes.array.isRequired,
+  groupId: PropTypes.string.isRequired,
+  specificKeywordData: PropTypes.array,
+  keywordId: PropTypes.string,
 };
