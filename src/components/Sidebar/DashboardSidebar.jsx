@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 
-import asyncGetUserGroup from "../../api/group/asyncGetUserGroup";
 import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
 import LinkIcon from "../Icon/LinkIcon";
@@ -9,29 +8,14 @@ import CreateKeywordModal from "../Modal/CreateKeywordModal";
 import CreateKeywordSuccessModal from "../Modal/CreateKeywordSuccessModal";
 import ErrorModal from "../Modal/ErrorModal";
 import Button from "../UI/Button";
-import { useQuery } from "@tanstack/react-query";
+import PropTypes from "prop-types";
 
-const DashboardSidebar = () => {
+const DashboardSidebar = ({ userGroupList }) => {
   const { groupId } = useParams();
   const addModal = useBoundStore((state) => state.addModal);
   const openModalTypeList = useBoundStore((state) => state.openModalTypeList);
-  const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
-  const userUid = useBoundStore((state) => state.userInfo.uid);
-  const hasUserUid = !!userUid;
 
-  const { data: userGroupList } = useQuery({
-    queryKey: ["userGroupList"],
-    queryFn: () => asyncGetUserGroup(userUid),
-    enabled: hasUserUid,
-  });
-
-  if (userGroupList?.groupListResult > 0 && userGroupList?.groupListResult?.length > 0) {
-    setUserGroupList(userGroupList?.groupListResult);
-  }
-
-  const dashboardGroup = userGroupList?.groupListResult?.find(
-    (groupInfo) => groupInfo._id === groupId
-  );
+  const dashboardGroup = userGroupList?.find((groupInfo) => groupInfo._id === groupId);
   const dashboardGroupName = dashboardGroup?.name;
   const dashboardKeywordList = dashboardGroup?.keywordIdList;
 
@@ -40,7 +24,7 @@ const DashboardSidebar = () => {
   };
 
   return (
-    <aside className="flex flex-col justify-between w-250 h-full flex-shrink-0 bg-white border-l-2 border-r-2 border-violet-50 shadow-lg">
+    <nav className="flex flex-col justify-between w-250 h-full flex-shrink-0 bg-white border-l-2 border-r-2 border-violet-50 shadow-lg">
       <div className="flex flex-col justify-start w-full">
         <Button
           styles="flex items-center gap-12 w-full h-30 px-30 py-10 text-14 border-b-2 border-violet-100 opacity-70 bg-pink-50/10 hover:opacity-90"
@@ -91,8 +75,12 @@ const DashboardSidebar = () => {
       {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.ERROR && (
         <ErrorModal errorMessage={ERROR_MESSAGE.CREATE_KEYWORD_ERROR} />
       )}
-    </aside>
+    </nav>
   );
 };
 
 export default DashboardSidebar;
+
+DashboardSidebar.propTypes = {
+  userGroupList: PropTypes.array.isRequired,
+};

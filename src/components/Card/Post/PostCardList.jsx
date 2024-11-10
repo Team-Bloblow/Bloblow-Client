@@ -36,7 +36,7 @@ const PostCardList = () => {
   return (
     <article
       ref={observeRootRef}
-      className="flex flex-col justify-start gap-12 bg-white border-4 border-pink-100 rounded-[10px] pt-25 px-30 w-full h-full flex-grow overflow-y-scroll"
+      className="flex flex-col justify-start gap-12 bg-white rounded-[10px] pt-25 px-30 w-full h-full flex-grow overflow-y-scroll"
     >
       {isPending ? (
         <Loading width={100} height={100} text={""} />
