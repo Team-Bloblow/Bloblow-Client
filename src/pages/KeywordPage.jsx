@@ -1,4 +1,7 @@
+import { useParams } from "react-router-dom";
+
 import asyncGetUserGroup from "../api/group/asyncGetUserGroup";
+import asyncGetKeyword from "../api/keyword/asyncGetKeyword";
 import PostCardList from "../components/Card/Post/PostCardList";
 import DashboardHeader from "../components/Header/DashboardHeader";
 import DashboardSidebar from "../components/Sidebar/DashboardSidebar";
@@ -7,6 +10,8 @@ import useBoundStore from "../store/client/useBoundStore";
 import { useQuery } from "@tanstack/react-query";
 
 const KeywordPage = () => {
+  const { groupId, keywordId } = useParams();
+
   const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
   const userUid = useBoundStore((state) => state.userInfo.uid);
   const hasUserUid = !!userUid;
@@ -21,13 +26,24 @@ const KeywordPage = () => {
     setUserGroupList(userGroupList?.groupListResult);
   }
 
+  const { data: specificKeywordData } = useQuery({
+    queryKey: ["specificKeyword", keywordId],
+    queryFn: () => asyncGetKeyword(keywordId),
+    enabled: keywordId,
+  });
+
   useNoSignInRedirect();
 
   return (
     <main className="flex justify-start items-start mx-auto pt-67 h-screen w-full max-w-1440">
-      <DashboardSidebar userGroupList={userGroupList?.groupListResult} />
+      <DashboardSidebar userGroupList={userGroupList?.groupListResult} groupId={groupId} />
       <section className="w-full h-full flex flex-col justify-start">
-        <DashboardHeader userGroupList={userGroupList?.groupListResult} />
+        <DashboardHeader
+          userGroupList={userGroupList?.groupListResult}
+          groupId={groupId}
+          specificKeywordData={specificKeywordData}
+          keywordId={keywordId}
+        />
         <PostCardList />
       </section>
     </main>

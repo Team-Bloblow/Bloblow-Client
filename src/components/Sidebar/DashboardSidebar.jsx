@@ -1,5 +1,3 @@
-import { useParams } from "react-router-dom";
-
 import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
 import LinkIcon from "../Icon/LinkIcon";
@@ -10,8 +8,7 @@ import ErrorModal from "../Modal/ErrorModal";
 import Button from "../UI/Button";
 import PropTypes from "prop-types";
 
-const DashboardSidebar = ({ userGroupList }) => {
-  const { groupId } = useParams();
+const DashboardSidebar = ({ userGroupList, groupId }) => {
   const addModal = useBoundStore((state) => state.addModal);
   const openModalTypeList = useBoundStore((state) => state.openModalTypeList);
 
@@ -83,4 +80,5 @@ export default DashboardSidebar;
 
 DashboardSidebar.propTypes = {
   userGroupList: PropTypes.array.isRequired,
+  groupId: PropTypes.string.isRequired,
 };
