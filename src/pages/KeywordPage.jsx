@@ -1,3 +1,5 @@
+import { Outlet } from "react-router-dom";
+
 import PostCardList from "../components/Card/Post/PostCardList";
 import DashboardHeader from "../components/Header/DashboardHeader";
 import DashboardSidebar from "../components/Sidebar/DashboardSidebar";
@@ -12,6 +14,7 @@ const KeywordPage = () => {
         <DashboardHeader />
         <PostCardList />
       </section>
+      <Outlet />
     </main>
   );
 };
