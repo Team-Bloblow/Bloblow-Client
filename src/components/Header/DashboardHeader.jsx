@@ -20,7 +20,7 @@ const DashboardHeader = ({ userGroupList }) => {
   const handleKeywordEditClick = () => {};
 
   return (
-    <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-violet-50 shadow-sm px-20 py-10 flex-shrink-0">
+    <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-r-2 border-violet-50 shadow-sm px-20 py-10 flex-shrink-0">
       {keywordId ? (
         <div className="flex flex-col items-start gap-5">
           <div className="flex items-center gap-10 text-20 text-pink-900/90 font-bold">
