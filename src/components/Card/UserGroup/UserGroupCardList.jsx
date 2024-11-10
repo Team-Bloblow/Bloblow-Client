@@ -5,17 +5,17 @@ import { useQuery } from "@tanstack/react-query";
 
 const UserGroupCardList = () => {
   const userId = useBoundStore((state) => state.userInfo.id);
-  // const hasUserId = !!userId;
+  const hasUserId = !!userId;
 
   const { data: userGroupList } = useQuery({
     queryKey: ["userGroupList", userId],
     queryFn: () => asyncGetUserGroup(userId),
-    // enabled: hasUserId,
+    enabled: hasUserId,
   });
 
   return (
     <section className="flex flex-col justify-start gap-10 bg-white border-4 border-pink-200 rounded-[10px] py-40 px-40 w-full h-full overflow-y-scroll">
-      {userGroupList?.map((groupInfo) => {
+      {userGroupList?.groupListResult?.map((groupInfo) => {
         <UserGroupCard
           key={groupInfo?.id}
           groupName={groupInfo?.groupName}
