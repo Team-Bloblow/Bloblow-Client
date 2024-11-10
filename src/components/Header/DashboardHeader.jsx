@@ -13,6 +13,9 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
   );
   const dashboardKeywordName = dashboardKeyword?.keyword;
 
+  const includedKeywordList = specificKeywordData.includedKeyword;
+  const excludedKeywordList = specificKeywordData.excludedKeyword;
+
   const handleKeywordEditClick = () => {};
 
   return (
@@ -25,24 +28,40 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
           </div>
           <div className="flex items-center gap-25">
             <div className="flex items-center gap-8">
-              {/* 키워드 상세 조회 구현 후 추가 키워드 */}
               <PlusCircleIcon className="size-20 fill-teal-700" />
-              {dashboardKeywordList.map((dashboardKeyword) => {
-                const keywordId = dashboardKeyword._id;
-                const keywordName = dashboardKeyword.keyword;
-
-                return (
-                  <KeywordChip
-                    key={keywordId}
-                    keywordName={keywordName}
-                    styles="flex-center text-14 px-5 py-2 bg-orange-100 text-rose-800 rounded-[3px]"
-                  />
-                );
-              })}
+              {includedKeywordList.length === 0 ? (
+                <span className="text-14">추가 키워드가 없습니다</span>
+              ) : (
+                <>
+                  {includedKeywordList.map((includedKeyword) => {
+                    return (
+                      <KeywordChip
+                        key={includedKeyword}
+                        keywordName={includedKeyword}
+                        styles="flex-center text-14 px-5 py-2 bg-orange-100 text-rose-800 rounded-[3px]"
+                      />
+                    );
+                  })}
+                </>
+              )}
             </div>
             <div className="flex items-center gap-8">
-              {/* 키워드 상세 조회 구현 후 제외 키워드 */}
               <MinusCircleIcon className="size-20 fill-pink-600" />
+              {excludedKeywordList.length === 0 ? (
+                <span className="text-14">제외 키워드가 없습니다</span>
+              ) : (
+                <>
+                  {excludedKeywordList.map((excludedKeyword) => {
+                    return (
+                      <KeywordChip
+                        key={excludedKeyword}
+                        keywordName={excludedKeyword}
+                        styles="flex-center text-14 px-5 py-2 bg-orange-100 text-rose-800 rounded-[3px]"
+                      />
+                    );
+                  })}
+                </>
+              )}
             </div>
           </div>
         </div>
