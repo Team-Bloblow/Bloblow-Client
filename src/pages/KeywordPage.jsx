@@ -12,9 +12,12 @@ import { useQuery } from "@tanstack/react-query";
 const KeywordPage = () => {
   const { groupId, keywordId } = useParams();
 
+  useNoSignInRedirect();
+
   const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
   const userUid = useBoundStore((state) => state.userInfo.uid);
   const hasUserUid = !!userUid;
+  const hasKeywordId = !!keywordId;
 
   const { data: userGroupList } = useQuery({
     queryKey: ["userGroupList"],
@@ -22,17 +25,15 @@ const KeywordPage = () => {
     enabled: hasUserUid,
   });
 
-  if (userGroupList?.groupListResult > 0 && userGroupList?.groupListResult?.length > 0) {
-    setUserGroupList(userGroupList?.groupListResult);
-  }
-
   const { data: specificKeywordData } = useQuery({
     queryKey: ["specificKeyword", keywordId],
     queryFn: () => asyncGetKeyword(keywordId),
-    enabled: keywordId,
+    enabled: hasKeywordId,
   });
 
-  useNoSignInRedirect();
+  if (userGroupList?.groupListResult > 0 && userGroupList?.groupListResult?.length > 0) {
+    setUserGroupList(userGroupList?.groupListResult);
+  }
 
   return (
     <main className="flex justify-start items-start mx-auto pt-67 h-screen w-full max-w-1440">
@@ -44,7 +45,7 @@ const KeywordPage = () => {
           specificKeywordData={specificKeywordData}
           keywordId={keywordId}
         />
-        <PostCardList />
+        <PostCardList keywordId={keywordId} />
       </section>
     </main>
   );

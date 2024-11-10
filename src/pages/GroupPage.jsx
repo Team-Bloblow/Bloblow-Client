@@ -1,3 +1,5 @@
+import { useParams } from "react-router-dom";
+
 import asyncGetUserGroup from "../api/group/asyncGetUserGroup";
 import DashboardHeader from "../components/Header/DashboardHeader";
 import DashboardSidebar from "../components/Sidebar/DashboardSidebar";
@@ -6,6 +8,10 @@ import useBoundStore from "../store/client/useBoundStore";
 import { useQuery } from "@tanstack/react-query";
 
 const GroupPage = () => {
+  const { groupId } = useParams();
+
+  useNoSignInRedirect();
+
   const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
   const userUid = useBoundStore((state) => state.userInfo.uid);
   const hasUserUid = !!userUid;
@@ -20,13 +26,11 @@ const GroupPage = () => {
     setUserGroupList(userGroupList?.groupListResult);
   }
 
-  useNoSignInRedirect();
-
   return (
     <main className="flex justify-start items-start mx-auto pt-67 h-screen w-full max-w-1440">
-      <DashboardSidebar userGroupList={userGroupList?.groupListResult} />
+      <DashboardSidebar userGroupList={userGroupList?.groupListResult} groupId={groupId} />
       <section className="w-full h-full flex flex-col justify-start">
-        <DashboardHeader userGroupList={userGroupList?.groupListResult} />
+        <DashboardHeader userGroupList={userGroupList?.groupListResult} groupId={groupId} />
       </section>
     </main>
   );

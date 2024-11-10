@@ -74,6 +74,6 @@ export default DashboardHeader;
 DashboardHeader.propTypes = {
   userGroupList: PropTypes.array.isRequired,
   groupId: PropTypes.string.isRequired,
-  specificKeywordData: PropTypes.array,
+  specificKeywordData: PropTypes.object,
   keywordId: PropTypes.string,
 };
