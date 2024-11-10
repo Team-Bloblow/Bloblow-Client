@@ -18,7 +18,7 @@ const UserGroupCardList = () => {
     return <div className="flex flex-center w-full h-full">생성한 그룹이 없습니다. 😅</div>;
   }
 
-  if (userGroupList?.groupListResult) {
+  if (userGroupList?.groupListResult?.length > 0) {
     setUserGroupList(userGroupList?.groupListResult);
   }
 
