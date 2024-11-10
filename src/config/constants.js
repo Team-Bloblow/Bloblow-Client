@@ -6,7 +6,7 @@ export const MODAL_TYPE = Object.freeze({
     MY_PAGE: "myPage",
     DASHBOARD: "dashboard",
   },
-  CREATE_SUBKEYWORD: "createSubkeyword",
+  EDIT_SUBKEYWORD: "editSubkeyword",
   CREATE_KEYWORD_SUCCESS: "createKeywordSuccess",
   EDIT_KEYWORD_DASHBOARD: "editKeywordDashboard",
   ERROR: "error",
