@@ -13,8 +13,9 @@ import Loading from "../UI/Loading";
 import ModalBackground from "./ModalBackground";
 import ModalFrame from "./ModalFrame";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import PropTypes from "prop-types";
 
-const CreateKeywordModal = () => {
+const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) => {
   const userUid = useBoundStore((state) => state.userInfo.uid);
   const addModal = useBoundStore((state) => state.addModal);
   const closeModal = useBoundStore((state) => state.closeModal);
@@ -22,8 +23,8 @@ const CreateKeywordModal = () => {
 
   const [isCreatingNewGroup, setIsCreatingNewGroup] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState({
-    id: "",
-    name: "",
+    id: createType === "dashboard" ? selectedGroupId : "",
+    name: createType === "dashboard" ? selectedGroupName : "",
   });
   const [inputValue, setInputValue] = useState({
     newGroup: "",
@@ -107,7 +108,7 @@ const CreateKeywordModal = () => {
 
         closeModal(MODAL_TYPE.CREATE_KEYWORD);
         addModal(MODAL_TYPE.CREATE_KEYWORD_SUCCESS);
-        queryClient.invalidateQueries({ queryKey: ["userGroupList", data.ownerId] });
+        queryClient.invalidateQueries({ queryKey: ["userGroupList"] });
       },
       onError: () => {
         addModal(MODAL_TYPE.ERROR);
@@ -144,19 +145,29 @@ const CreateKeywordModal = () => {
                   >
                     그룹:
                   </Label>
-                  <div className="flex flex-col justify-center gap-3 w-full">
-                    <SelectGroupDropDown
-                      selectedGroup={selectedGroup}
-                      groupList={groupList}
-                      setSelectedGroup={setSelectedGroup}
-                    />
-                    <p className="text-12 text-red-500 h-18 font-semibold">{errorMessage.group}</p>
-                  </div>
-                  {!isNewGroupSelected && (
-                    <PlusIcon
-                      className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
-                      onClick={handleCreateNewGroupButtonClick}
-                    />
+                  {createType === "dashboard" ? (
+                    <p className="w-full h-40 text-18 text-purple-900 font-semibold">
+                      {selectedGroup.name}
+                    </p>
+                  ) : (
+                    <>
+                      <div className="flex flex-col justify-center gap-3 w-full">
+                        <SelectGroupDropDown
+                          selectedGroup={selectedGroup}
+                          groupList={groupList}
+                          setSelectedGroup={setSelectedGroup}
+                        />
+                        <p className="text-12 text-red-500 h-18 font-semibold">
+                          {errorMessage.group}
+                        </p>
+                      </div>
+                      {!isOnceAddedGroup && (
+                        <PlusIcon
+                          className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
+                          onClick={handleCreateNewGroupButtonClick}
+                        />
+                      )}
+                    </>
                   )}
                 </div>
                 {isCreatingNewGroup && (
@@ -221,3 +232,9 @@ const CreateKeywordModal = () => {
 };
 
 export default CreateKeywordModal;
+
+CreateKeywordModal.propTypes = {
+  createType: PropTypes.string.isRequired,
+  selectedGroupId: PropTypes.string,
+  selectedGroupName: PropTypes.string,
+};
