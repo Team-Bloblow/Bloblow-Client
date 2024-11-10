@@ -6,7 +6,7 @@ import useBoundStore from "../../store/client/useBoundStore";
 import CreateKeywordButton from "../Button/CreateKeywordButton";
 import Portal from "../Common/Portal";
 import SelectGroupDropDown from "../DropDown/SelectGroupDropDown";
-import PlusIcon from "../Icon/PlusIcon";
+import PlusSquareIcon from "../Icon/PlusSquareIcon";
 import Button from "../UI/Button";
 import Label from "../UI/Label";
 import Loading from "../UI/Loading";
@@ -162,7 +162,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
                         </p>
                       </div>
                       {!isOnceAddedGroup && (
-                        <PlusIcon
+                        <PlusSquareIcon
                           className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
                           onClick={handleCreateNewGroupButtonClick}
                         />

@@ -19,7 +19,11 @@ const UserGroupCard = ({ groupId, groupName, keywordList, createdAt, updatedAt }
           <span className="text-purple-600 text-19 font-bold flex-shrink-0">키워드 리스트: </span>
           <p className="flex items-center gap-5 w-full">
             {keywordList.map((keyword) => (
-              <KeywordChip key={keyword._id} keywordName={keyword.keyword} />
+              <KeywordChip
+                key={keyword._id}
+                keywordName={keyword.keyword}
+                styles="flex-center text-14 px-5 py-2 bg-orange-100 text-rose-800 rounded-[3px]"
+              />
             ))}
           </p>
         </div>
