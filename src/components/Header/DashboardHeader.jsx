@@ -13,8 +13,8 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
   );
   const dashboardKeywordName = dashboardKeyword?.keyword;
 
-  const includedKeywordList = specificKeywordData.includedKeyword;
-  const excludedKeywordList = specificKeywordData.excludedKeyword;
+  const includedKeywordList = specificKeywordData?.includedKeyword;
+  const excludedKeywordList = specificKeywordData?.excludedKeyword;
 
   const handleKeywordEditClick = () => {};
 
@@ -29,11 +29,11 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
           <div className="flex items-center gap-25">
             <div className="flex items-center gap-8">
               <PlusCircleIcon className="size-20 fill-teal-700" />
-              {includedKeywordList.length === 0 ? (
+              {includedKeywordList?.length === 0 ? (
                 <span className="text-14">추가 키워드가 없습니다</span>
               ) : (
                 <>
-                  {includedKeywordList.map((includedKeyword) => {
+                  {includedKeywordList?.map((includedKeyword) => {
                     return (
                       <KeywordChip
                         key={includedKeyword}
@@ -47,11 +47,11 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
             </div>
             <div className="flex items-center gap-8">
               <MinusCircleIcon className="size-20 fill-pink-600" />
-              {excludedKeywordList.length === 0 ? (
+              {excludedKeywordList?.length === 0 ? (
                 <span className="text-14">제외 키워드가 없습니다</span>
               ) : (
                 <>
-                  {excludedKeywordList.map((excludedKeyword) => {
+                  {excludedKeywordList?.map((excludedKeyword) => {
                     return (
                       <KeywordChip
                         key={excludedKeyword}
@@ -69,7 +69,7 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
         <div className="flex flex-col items-start gap-5">
           <p className="text-20 text-pink-900/90 font-bold">{dashboardGroupName}</p>
           <div className="flex items-center gap-5">
-            {dashboardKeywordList.map((dashboardKeyword) => {
+            {dashboardKeywordList?.map((dashboardKeyword) => {
               const keywordId = dashboardKeyword._id;
               const keywordName = dashboardKeyword.keyword;
 
