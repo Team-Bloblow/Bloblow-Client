@@ -1,16 +1,24 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
-import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/const";
+import asyncEditSubkeyword from "../../api/keyword/asyncEditSubkeyword";
+import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
+import useBoundStore from "../../store/client/useBoundStore";
 import CreateKeywordButton from "../Button/CreateKeywordButton";
+import KeywordChip from "../Chip/KeywordChip";
 import Portal from "../Common/Portal";
 import PlusIcon from "../Icon/PlusIcon";
 import Label from "../UI/Label";
 import ModalBackground from "./ModalBackground";
 import ModalFrame from "./ModalFrame";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const CreateSubkeywordModal = () => {
+const EditSubkeywordModal = () => {
   const modalNode = document.getElementById("modal");
-  const keyword = "바닐라코딩";
+  const userInfo = useBoundStore((state) => state.userInfo);
+  const userGroupList = useBoundStore((state) => state.userGroupList);
+  const { name: keywordName } = userGroupList.items.filter((el) => el._id === keywordId);
+  const { keywordId } = useParams();
   const [inputValue, setInputValue] = useState({
     includedKeyword: "",
     excludedKeyword: "",
@@ -22,6 +30,13 @@ const CreateSubkeywordModal = () => {
   const [subkeywordList, setSubkeywordList] = useState({
     includedKeyword: ["추가 키워드1", "추가 키워드2"],
     excludedKeyword: ["제외 키워드1", "제외 키워드2"],
+  });
+  const addModal = useBoundStore((state) => state.addModal);
+  const closeModal = useBoundStore((state) => state.closeModal);
+  const queryClient = useQueryClient();
+
+  const editSubkeywordMutation = useMutation({
+    mutationFn: (subkeywordInfo, keywordId) => asyncEditSubkeyword(subkeywordInfo, keywordId),
   });
 
   const handleIncludedKeywordInputChange = (e) => {
@@ -65,12 +80,31 @@ const CreateSubkeywordModal = () => {
 
   const handleSubKeywordSubmit = (e) => {
     e.preventDefault();
-  };
 
+    const subkeywordInfo = {
+      keywordId,
+      includedKeyword: subkeywordList.includedKeyword,
+      excludedKeyword: subkeywordList.excludedKeyword,
+      ownerUid: userInfo.id,
+    };
+
+    editSubkeywordMutation.mutate(subkeywordInfo, {
+      onSuccess: (data) => {
+        closeModal(MODAL_TYPE.EDIT_SUBKEYWORD);
+        addModal(MODAL_TYPE.CREATE_KEYWORD_SUCCESS);
+        queryClient.invalidateQueries({ queryKey: ["userGroupList"] });
+      },
+      onError: () => {
+        addModal(MODAL_TYPE.ERROR);
+      },
+    });
+  };
+  console.log("1", subkeywordList);
+  console.log("2", subkeywordList.includedKeyword);
   return (
     <Portal mountDomNode={modalNode}>
-      <ModalBackground modalType={MODAL_TYPE.CREATE_SUBKEYWORD}>
-        <ModalFrame modalType={MODAL_TYPE.CREATE_SUBKEYWORD}>
+      <ModalBackground modalType={MODAL_TYPE.EDIT_SUBKEYWORD}>
+        <ModalFrame modalType={MODAL_TYPE.EDIT_SUBKEYWORD}>
           <div className="w-full flex items-start mb-18 gap-20">
             <div className="w-110 text-20 text-violet-900 font-semibold flex-shrink-0">
               대표 키워드:
@@ -78,7 +112,7 @@ const CreateSubkeywordModal = () => {
             <div className="flex flex-col justify-start gap-3 w-full">
               <div className="w-full h-40 px-15 border-2 border-purple-300 rounded-[8px] text-purple-900 font-semibold">
                 <p className="w-110 text-20 text-violet-900 font-semibold flex-shrink-0">
-                  {keyword}
+                  {keywordName}
                 </p>
               </div>
             </div>
@@ -102,7 +136,7 @@ const CreateSubkeywordModal = () => {
                 />
                 <div>
                   {subkeywordList.includedKeyword.map((el) => {
-                    return el;
+                    return <KeywordChip key={el} keywordName={el} />;
                   })}
                 </div>
                 <p className="text-12 text-red-500 h-18 font-semibold">
@@ -132,7 +166,7 @@ const CreateSubkeywordModal = () => {
                 />
                 <div>
                   {subkeywordList.excludedKeyword.map((el) => {
-                    return el;
+                    return <KeywordChip key={el} keywordName={el} />;
                   })}
                 </div>
                 <p className="text-12 text-red-500 h-18 font-semibold">
@@ -152,4 +186,4 @@ const CreateSubkeywordModal = () => {
   );
 };
 
-export default CreateSubkeywordModal;
+export default EditSubkeywordModal;

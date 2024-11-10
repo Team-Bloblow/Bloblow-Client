@@ -2,7 +2,7 @@ export const BASE_URL = "http://localhost:3000";
 
 export const MODAL_TYPE = Object.freeze({
   CREATE_KEYWORD: "createKeyword",
-  CREATE_SUBKEYWORD: "createSubkeyword",
+  EDIT_SUBKEYWORD: "editSubkeyword",
   CREATE_KEYWORD_SUCCESS: "createKeywordSuccess",
   ERROR: "error",
 });
