@@ -52,9 +52,7 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
         <div className="flex items-center gap-25">
           <div className="flex items-center gap-8">
             <PlusCircleIcon className="size-20 fill-teal-700" />
-            {includedKeywordList?.length === 0 ? (
-              <span className="text-14">추가 키워드가 없습니다</span>
-            ) : (
+            {includedKeywordList && includedKeywordList.length > 0 ? (
               <>
                 {includedKeywordList?.map((includedKeyword) => {
                   return (
@@ -66,13 +64,13 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
                   );
                 })}
               </>
+            ) : (
+              <span className="text-14">추가 키워드가 없습니다</span>
             )}
           </div>
           <div className="flex items-center gap-8">
             <MinusCircleIcon className="size-20 fill-pink-600" />
-            {excludedKeywordList?.length === 0 ? (
-              <span className="text-14">제외 키워드가 없습니다</span>
-            ) : (
+            {excludedKeywordList && excludedKeywordList.length > 0 ? (
               <>
                 {excludedKeywordList?.map((excludedKeyword) => {
                   return (
@@ -84,6 +82,8 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
                   );
                 })}
               </>
+            ) : (
+              <span className="text-14">제외 키워드가 없습니다</span>
             )}
           </div>
         </div>
