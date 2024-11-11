@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
 import ProfileIcon from "../Icon/ProfileIcon";
@@ -13,6 +15,10 @@ const MyPageSidebar = () => {
 
   const handleCreateKeywordButton = () => {
     addModal(MODAL_TYPE.CREATE_KEYWORD);
+  };
+
+  const tempHandleSubkeywordButton = () => {
+    addModal(MODAL_TYPE.EDIT_SUBKEYWORD);
   };
 
   return (
@@ -31,6 +37,14 @@ const MyPageSidebar = () => {
       >
         키워드 만들기
       </Button>
+      <Link to="/dashboard/672c8a1dc65d93720e859382/672c8a1dc65d93720e859380/subModal">
+        <Button
+          styles="w-full px-20 py-12 text-21 text-pink-900 font-bold bg-rose-100 border-2 border-rose-200/80 rounded-[20px] hover:bg-rose-200/80"
+          onClick={tempHandleSubkeywordButton}
+        >
+          임시: 서브 키워드 만들기
+        </Button>
+      </Link>
       {openModalTypeList.includes(MODAL_TYPE.CREATE_KEYWORD) && <CreateKeywordModal />}
       {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.CREATE_KEYWORD_SUCCESS && (
         <CreateKeywordSuccessModal />
