@@ -74,7 +74,6 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
     setSelectedGroup((prev) => ({ ...prev, ...newGroup }));
     setGroupList((prev) => [...prev, newGroup]);
     setIsCreatingNewGroup(false);
-    setIsOnceAddedGroup(true);
   };
 
   const handleKeywordSubmit = (e) => {
@@ -161,7 +160,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
                           {errorMessage.group}
                         </p>
                       </div>
-                      {!isOnceAddedGroup && (
+                      {!isNewGroupSelected && (
                         <PlusSquareIcon
                           className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
                           onClick={handleCreateNewGroupButtonClick}
