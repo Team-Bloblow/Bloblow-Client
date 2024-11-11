@@ -10,9 +10,9 @@ import useBoundStore from "../store/client/useBoundStore";
 import { useQuery } from "@tanstack/react-query";
 
 const KeywordPage = () => {
-  const { groupId, keywordId } = useParams();
-
   useNoSignInRedirect();
+
+  const { groupId, keywordId } = useParams();
 
   const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
   const userUid = useBoundStore((state) => state.userInfo.uid);
