@@ -21,7 +21,6 @@ const CreateKeywordModal = () => {
   const userGroupList = useBoundStore((state) => state.userGroupList);
 
   const [isCreatingNewGroup, setIsCreatingNewGroup] = useState(false);
-  const [isOnceAddedGroup, setIsOnceAddedGroup] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState({
     id: "",
     name: "",
@@ -40,6 +39,8 @@ const CreateKeywordModal = () => {
       return { id: group._id, name: group.name };
     });
   });
+
+  const isNewGroupSelected = selectedGroup.id === "" && selectedGroup.name !== "";
 
   const queryClient = useQueryClient();
 
@@ -72,7 +73,6 @@ const CreateKeywordModal = () => {
     setSelectedGroup((prev) => ({ ...prev, ...newGroup }));
     setGroupList((prev) => [...prev, newGroup]);
     setIsCreatingNewGroup(false);
-    setIsOnceAddedGroup(true);
   };
 
   const handleKeywordSubmit = (e) => {
@@ -151,7 +151,7 @@ const CreateKeywordModal = () => {
                     />
                     <p className="text-12 text-red-500 h-18 font-semibold">{errorMessage.group}</p>
                   </div>
-                  {!isOnceAddedGroup && (
+                  {!isNewGroupSelected && (
                     <PlusIcon
                       className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
                       onClick={handleCreateNewGroupButtonClick}
