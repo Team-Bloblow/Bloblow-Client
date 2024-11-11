@@ -18,7 +18,9 @@ const App = () => {
         <Route path="/dashboard">
           <Route path=":groupId">
             <Route index element={<GroupPage />} />
-            <Route path=":keywordId" element={<KeywordPage />} />
+            <Route path=":keywordId" element={<KeywordPage />}>
+              <Route path="subModal" element={<EditSubkeywordModal />} />
+            </Route>
           </Route>
         </Route>
       </Routes>
