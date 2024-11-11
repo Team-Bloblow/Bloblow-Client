@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
 import changeDayFormat from "../../../utils/changeDayFormat";
 import getDate from "../../../utils/getDate";
 import KeywordChip from "../../Chip/KeywordChip";
 import Button from "../../UI/Button";
+import PropTypes from "prop-types";
 
 const UserGroupCard = ({ groupId, groupName, keywordList, createdAt, updatedAt }) => {
   const createdDate = getDate(createdAt);
