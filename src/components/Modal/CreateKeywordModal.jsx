@@ -23,8 +23,8 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
 
   const [isCreatingNewGroup, setIsCreatingNewGroup] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState({
-    id: createType === "dashboard" ? selectedGroupId : "",
-    name: createType === "dashboard" ? selectedGroupName : "",
+    id: createType === MODAL_TYPE.CREATE_KEYWORD.DASHBOARD ? selectedGroupId : "",
+    name: createType === MODAL_TYPE.CREATE_KEYWORD.DASHBOARD ? selectedGroupName : "",
   });
   const [inputValue, setInputValue] = useState({
     newGroup: "",
@@ -122,12 +122,12 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
       <ModalBackground
         isDataFetching={isPending}
         isClear={true}
-        modalType={MODAL_TYPE.CREATE_KEYWORD}
+        modalType={MODAL_TYPE.CREATE_KEYWORD.DEFAULT}
       >
         <ModalFrame
           isClear={true}
           hasCloseButton={isPending ? false : true}
-          modalType={MODAL_TYPE.CREATE_KEYWORD}
+          modalType={MODAL_TYPE.CREATE_KEYWORD.DEFAULT}
         >
           <form
             className={`w-500 flex-col-center ${isPending || "pt-40"} gap-15`}

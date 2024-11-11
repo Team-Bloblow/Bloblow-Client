@@ -12,7 +12,7 @@ const MyPageSidebar = () => {
   const openModalTypeList = useBoundStore((state) => state.openModalTypeList);
 
   const handleCreateKeywordButton = () => {
-    addModal(MODAL_TYPE.CREATE_KEYWORD);
+    addModal(MODAL_TYPE.CREATE_KEYWORD.DEFAULT);
   };
 
   return (
@@ -31,8 +31,8 @@ const MyPageSidebar = () => {
       >
         키워드 만들기
       </Button>
-      {openModalTypeList.includes(MODAL_TYPE.CREATE_KEYWORD) && (
-        <CreateKeywordModal createType="myPage" />
+      {openModalTypeList.includes(MODAL_TYPE.CREATE_KEYWORD.DEFAULT) && (
+        <CreateKeywordModal createType={MODAL_TYPE.CREATE_KEYWORD.MY_PAGE} />
       )}
       {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.CREATE_KEYWORD_SUCCESS && (
         <CreateKeywordSuccessModal />

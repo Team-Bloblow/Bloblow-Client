@@ -17,7 +17,7 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
   const dashboardKeywordList = dashboardGroup?.keywordIdList;
 
   const handleCreateKeywordButton = () => {
-    addModal(MODAL_TYPE.CREATE_KEYWORD);
+    addModal(MODAL_TYPE.CREATE_KEYWORD.DEFAULT);
   };
 
   return (
@@ -59,9 +59,9 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
       >
         키워드 만들기
       </Button>
-      {openModalTypeList.includes(MODAL_TYPE.CREATE_KEYWORD) && (
+      {openModalTypeList.includes(MODAL_TYPE.CREATE_KEYWORD.DEFAULT) && (
         <CreateKeywordModal
-          createType="dashboard"
+          createType={MODAL_TYPE.CREATE_KEYWORD.DASHBOARD}
           selectedGroupId={groupId}
           selectedGroupName={dashboardGroupName}
         />
