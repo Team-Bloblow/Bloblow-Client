@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { useParams } from "react-router-dom";
 
 import asyncGetPosts from "../../../api/post/asyncGetPosts";
 import { ERROR_MESSAGE } from "../../../config/constants";
@@ -7,9 +6,9 @@ import useInfiniteData from "../../../hooks/useInfiniteData";
 import Error from "../../UI/Error";
 import Loading from "../../UI/Loading";
 import PostCard from "./PostCard";
+import PropTypes from "prop-types";
 
-const PostCardList = () => {
-  const { keywordId } = useParams();
+const PostCardList = ({ keywordId }) => {
   const observeRef = useRef(null);
   const observeRootRef = useRef(null);
 
@@ -36,12 +35,12 @@ const PostCardList = () => {
   return (
     <article
       ref={observeRootRef}
-      className="flex flex-col justify-start gap-12 bg-white border-4 border-pink-100 rounded-[10px] pt-25 px-30 w-full h-full flex-grow overflow-y-scroll"
+      className="flex flex-col justify-start gap-12 bg-white rounded-[10px] pt-25 px-30 w-full h-full flex-grow overflow-y-scroll"
     >
       {isPending ? (
         <Loading width={100} height={100} text={""} />
       ) : postResponse?.pages[0]?.items?.length === 0 ? (
-        <p>해당 키워드에 대한 블로그가 없습니다.</p>
+        <p className="w-full h-full flex-center text-22">해당 키워드에 대한 블로그가 없습니다.</p>
       ) : (
         postResponse?.pages?.map((page) => {
           return page.items?.map((postInfo) => {
@@ -54,6 +53,7 @@ const PostCardList = () => {
                 commentCount={postInfo?.commentCount}
                 link={postInfo?.link}
                 createdAt={postInfo?.createdAt}
+                isAd={postInfo?.isAd}
               />
             );
           });
@@ -65,3 +65,7 @@ const PostCardList = () => {
 };
 
 export default PostCardList;
+
+PostCardList.propTypes = {
+  keywordId: PropTypes.string.isRequired,
+};

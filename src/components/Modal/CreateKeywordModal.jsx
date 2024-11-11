@@ -6,15 +6,16 @@ import useBoundStore from "../../store/client/useBoundStore";
 import CreateKeywordButton from "../Button/CreateKeywordButton";
 import Portal from "../Common/Portal";
 import SelectGroupDropDown from "../DropDown/SelectGroupDropDown";
-import PlusIcon from "../Icon/PlusIcon";
+import PlusSquareIcon from "../Icon/PlusSquareIcon";
 import Button from "../UI/Button";
 import Label from "../UI/Label";
 import Loading from "../UI/Loading";
 import ModalBackground from "./ModalBackground";
 import ModalFrame from "./ModalFrame";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import PropTypes from "prop-types";
 
-const CreateKeywordModal = () => {
+const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) => {
   const userUid = useBoundStore((state) => state.userInfo.uid);
   const addModal = useBoundStore((state) => state.addModal);
   const closeModal = useBoundStore((state) => state.closeModal);
@@ -22,8 +23,8 @@ const CreateKeywordModal = () => {
 
   const [isCreatingNewGroup, setIsCreatingNewGroup] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState({
-    id: "",
-    name: "",
+    id: createType === MODAL_TYPE.CREATE_KEYWORD.DASHBOARD ? selectedGroupId : "",
+    name: createType === MODAL_TYPE.CREATE_KEYWORD.DASHBOARD ? selectedGroupName : "",
   });
   const [inputValue, setInputValue] = useState({
     newGroup: "",
@@ -106,7 +107,7 @@ const CreateKeywordModal = () => {
 
         closeModal(MODAL_TYPE.CREATE_KEYWORD);
         addModal(MODAL_TYPE.CREATE_KEYWORD_SUCCESS);
-        queryClient.invalidateQueries({ queryKey: ["userGroupList", data.ownerId] });
+        queryClient.invalidateQueries({ queryKey: ["userGroupList"] });
       },
       onError: () => {
         addModal(MODAL_TYPE.ERROR);
@@ -121,12 +122,12 @@ const CreateKeywordModal = () => {
       <ModalBackground
         isDataFetching={isPending}
         isClear={true}
-        modalType={MODAL_TYPE.CREATE_KEYWORD}
+        modalType={MODAL_TYPE.CREATE_KEYWORD.DEFAULT}
       >
         <ModalFrame
           isClear={true}
           hasCloseButton={isPending ? false : true}
-          modalType={MODAL_TYPE.CREATE_KEYWORD}
+          modalType={MODAL_TYPE.CREATE_KEYWORD.DEFAULT}
         >
           <form
             className={`w-500 flex-col-center ${isPending || "pt-40"} gap-15`}
@@ -143,19 +144,29 @@ const CreateKeywordModal = () => {
                   >
                     그룹:
                   </Label>
-                  <div className="flex flex-col justify-center gap-3 w-full">
-                    <SelectGroupDropDown
-                      selectedGroup={selectedGroup}
-                      groupList={groupList}
-                      setSelectedGroup={setSelectedGroup}
-                    />
-                    <p className="text-12 text-red-500 h-18 font-semibold">{errorMessage.group}</p>
-                  </div>
-                  {!isNewGroupSelected && (
-                    <PlusIcon
-                      className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
-                      onClick={handleCreateNewGroupButtonClick}
-                    />
+                  {createType === "dashboard" ? (
+                    <p className="w-full h-40 text-18 text-purple-900 font-semibold">
+                      {selectedGroup.name}
+                    </p>
+                  ) : (
+                    <>
+                      <div className="flex flex-col justify-center gap-3 w-full">
+                        <SelectGroupDropDown
+                          selectedGroup={selectedGroup}
+                          groupList={groupList}
+                          setSelectedGroup={setSelectedGroup}
+                        />
+                        <p className="text-12 text-red-500 h-18 font-semibold">
+                          {errorMessage.group}
+                        </p>
+                      </div>
+                      {!isNewGroupSelected && (
+                        <PlusSquareIcon
+                          className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
+                          onClick={handleCreateNewGroupButtonClick}
+                        />
+                      )}
+                    </>
                   )}
                 </div>
                 {isCreatingNewGroup && (
@@ -220,3 +231,9 @@ const CreateKeywordModal = () => {
 };
 
 export default CreateKeywordModal;
+
+CreateKeywordModal.propTypes = {
+  createType: PropTypes.string.isRequired,
+  selectedGroupId: PropTypes.string,
+  selectedGroupName: PropTypes.string,
+};
