@@ -1,7 +1,7 @@
 import Button from "../UI/Button";
 import PropTypes from "prop-types";
 
-const CreateKeywordButton = ({ isDisabled }) => {
+const CreateKeywordButton = ({ buttonText, isDisabled }) => {
   return (
     <Button
       type="submit"
@@ -16,5 +16,6 @@ const CreateKeywordButton = ({ isDisabled }) => {
 export default CreateKeywordButton;
 
 CreateKeywordButton.propTypes = {
+  buttonText: PropTypes.string.isRequired,
   isDisabled: PropTypes.bool,
 };
