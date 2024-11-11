@@ -17,6 +17,6 @@ export const ERROR_MESSAGE = Object.freeze({
 
 export const POST_LISTS = Object.freeze({
   DEFAULT_INCLUDED_KEYWORD: "",
-  LIMIT: 10,
-  CURSOR_ID: "",
+  DEFAULT_LIMIT: 10,
+  DEFAULT_CURSOR_ID: "",
 });
