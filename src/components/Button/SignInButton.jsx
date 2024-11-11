@@ -15,7 +15,6 @@ const SignInButton = () => {
   const signOut = useBoundStore((state) => state.signOut);
   const setIsSignIn = useBoundStore((state) => state.setIsSignIn);
   const setUserInfo = useBoundStore((state) => state.setUserInfo);
-  const setServerSignInError = useBoundStore((state) => state.setServerSignInError);
   const openModalTypeList = useBoundStore((state) => state.openModalTypeList);
   const googleSignInError = useBoundStore((state) => state.error.googleSignInError);
   const addModal = useBoundStore((state) => state.addModal);
@@ -47,8 +46,8 @@ const SignInButton = () => {
             setUserInfo({ uid, email, displayName, photoURL });
             navigate("/myPage");
           },
-          onError: ({ message }) => {
-            setServerSignInError(message);
+          onError: () => {
+            addModal(MODAL_TYPE.ERROR);
           },
         }
       );
