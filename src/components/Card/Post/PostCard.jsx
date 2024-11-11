@@ -26,7 +26,9 @@ const PostCard = ({ postTitle, postDescription, likeCount, commentCount, link, c
             <span className="text-rose-500"> {commentCount}</span>
           </span>
           <span className="text-rose-400/80 text-14">
-            {`${createdDate.currentYear}년 ${createdDate.currentMonth}월 ${createdDate.currentDate}일 ${changeDayFormat(createdDate.currentDay)} ${createdDate.currentHour}시 ${createdDate.currentMinute}분`}
+            {createdDate.currentYear}년 {createdDate.currentMonth}월 {createdDate.currentDate}일{" "}
+            {changeDayFormat(createdDate.currentDay)} {createdDate.currentHour}시{" "}
+            {createdDate.currentMinute}분
           </span>
         </p>
         <Link to={link} target="_blank" rel="noopener">
