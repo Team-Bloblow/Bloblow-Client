@@ -12,7 +12,7 @@ const useNoSignInRedirect = () => {
   const user = auth.currentUser;
 
   useEffect(() => {
-    if (!isSignIn || !user) {
+    if (!user || !isSignIn) {
       navigate("/");
     }
   }, [isSignIn, navigate, user]);

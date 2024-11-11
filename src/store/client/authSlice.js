@@ -4,32 +4,28 @@ import { GoogleAuthProvider, getAuth, signInWithPopup, signOut } from "firebase/
 const createAuthSlice = (set) => ({
   isSignIn: false,
   userInfo: {
-    id: "",
+    uid: "",
     email: "",
     displayName: "",
     photoURL: "",
   },
   error: {
-    signInError: "",
+    googleSignInError: "",
+    serverSignInError: "",
   },
+  setIsSignIn: (isSignIn) => set((state) => ({ ...state, isSignIn })),
+  setUserInfo: (userInfo) => set((state) => ({ ...state, userInfo })),
+  setServerSignInError: (errorMessage) =>
+    set((state) => ({ ...state, error: { serverSignInError: errorMessage } })),
   asyncSignIn: async () => {
     try {
       const provider = new GoogleAuthProvider();
       const signInResponse = await signInWithPopup(auth, provider);
       const { uid, email, displayName, photoURL } = signInResponse.user;
 
-      set((state) => ({
-        ...state,
-        isSignIn: true,
-        userInfo: {
-          id: uid,
-          email,
-          displayName,
-          photoURL,
-        },
-      }));
+      return { uid, email, displayName, photoURL };
     } catch ({ message }) {
-      set((state) => ({ ...state, error: { signInError: message } }));
+      set((state) => ({ ...state, error: { googleSignInError: message } }));
     }
   },
   signOut: () => {
@@ -38,12 +34,10 @@ const createAuthSlice = (set) => ({
       ...state,
       isSignIn: false,
       userInfo: {
-        id: "",
+        uid: "",
         email: "",
         displayName: "",
         photoURL: "",
-        joinedAt: null,
-        lastSignInAt: null,
       },
     }));
     signOut(auth);
