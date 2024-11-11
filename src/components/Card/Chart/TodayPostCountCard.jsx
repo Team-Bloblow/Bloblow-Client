@@ -35,5 +35,5 @@ const TodayPostCountCard = ({ keywordId }) => {
 export default TodayPostCountCard;
 
 TodayPostCountCard.propTypes = {
-  keywordId: PropTypes.string,
+  keywordId: PropTypes.string.isRequired,
 };
