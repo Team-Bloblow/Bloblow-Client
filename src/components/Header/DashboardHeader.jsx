@@ -18,54 +18,9 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
 
   const handleKeywordEditClick = () => {};
 
-  return (
-    <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-r-2 border-violet-50 shadow-sm px-20 py-10 flex-shrink-0">
-      {keywordId ? (
-        <div className="flex flex-col items-start gap-5">
-          <div className="flex items-center gap-10 text-20 text-pink-900/90 font-bold">
-            {dashboardKeywordName}
-            <EditIcon className="size-20 cursor-pointer" onClick={handleKeywordEditClick} />
-          </div>
-          <div className="flex items-center gap-25">
-            <div className="flex items-center gap-8">
-              <PlusCircleIcon className="size-20 fill-teal-700" />
-              {includedKeywordList?.length === 0 ? (
-                <span className="text-14">추가 키워드가 없습니다</span>
-              ) : (
-                <>
-                  {includedKeywordList?.map((includedKeyword) => {
-                    return (
-                      <KeywordChip
-                        key={includedKeyword}
-                        keywordName={includedKeyword}
-                        styles="flex-center text-14 px-5 py-2 bg-orange-100 text-rose-800 rounded-[3px]"
-                      />
-                    );
-                  })}
-                </>
-              )}
-            </div>
-            <div className="flex items-center gap-8">
-              <MinusCircleIcon className="size-20 fill-pink-600" />
-              {excludedKeywordList?.length === 0 ? (
-                <span className="text-14">제외 키워드가 없습니다</span>
-              ) : (
-                <>
-                  {excludedKeywordList?.map((excludedKeyword) => {
-                    return (
-                      <KeywordChip
-                        key={excludedKeyword}
-                        keywordName={excludedKeyword}
-                        styles="flex-center text-14 px-5 py-2 bg-orange-100 text-rose-800 rounded-[3px]"
-                      />
-                    );
-                  })}
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-      ) : (
+  if (keywordId === undefined) {
+    return (
+      <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-r-2 border-violet-50 shadow-sm px-20 py-10 flex-shrink-0">
         <div className="flex flex-col items-start gap-5">
           <p className="text-20 text-pink-900/90 font-bold">{dashboardGroupName}</p>
           <div className="flex items-center gap-5">
@@ -83,7 +38,56 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
             })}
           </div>
         </div>
-      )}
+      </aside>
+    );
+  }
+
+  return (
+    <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-r-2 border-violet-50 shadow-sm px-20 py-10 flex-shrink-0">
+      <div className="flex flex-col items-start gap-5">
+        <div className="flex items-center gap-10 text-20 text-pink-900/90 font-bold">
+          {dashboardKeywordName}
+          <EditIcon className="size-20 cursor-pointer" onClick={handleKeywordEditClick} />
+        </div>
+        <div className="flex items-center gap-25">
+          <div className="flex items-center gap-8">
+            <PlusCircleIcon className="size-20 fill-teal-700" />
+            {includedKeywordList?.length === 0 ? (
+              <span className="text-14">추가 키워드가 없습니다</span>
+            ) : (
+              <>
+                {includedKeywordList?.map((includedKeyword) => {
+                  return (
+                    <KeywordChip
+                      key={includedKeyword}
+                      keywordName={includedKeyword}
+                      styles="flex-center text-14 px-5 py-2 bg-orange-100 text-rose-800 rounded-[3px]"
+                    />
+                  );
+                })}
+              </>
+            )}
+          </div>
+          <div className="flex items-center gap-8">
+            <MinusCircleIcon className="size-20 fill-pink-600" />
+            {excludedKeywordList?.length === 0 ? (
+              <span className="text-14">제외 키워드가 없습니다</span>
+            ) : (
+              <>
+                {excludedKeywordList?.map((excludedKeyword) => {
+                  return (
+                    <KeywordChip
+                      key={excludedKeyword}
+                      keywordName={excludedKeyword}
+                      styles="flex-center text-14 px-5 py-2 bg-orange-100 text-rose-800 rounded-[3px]"
+                    />
+                  );
+                })}
+              </>
+            )}
+          </div>
+        </div>
+      </div>
     </aside>
   );
 };
