@@ -2,9 +2,9 @@ import PropTypes from "prop-types";
 
 const Loading = ({ width, height, text }) => {
   return (
-    <div className="flex-col-center">
+    <div className="flex-col-center flex-shrink-0">
       <img src="/assets/spinnerGif.gif" alt="로딩 이미지" width={width} height={height} />
-      {text}...💜
+      {text}
     </div>
   );
 };
