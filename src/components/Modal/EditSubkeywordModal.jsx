@@ -16,9 +16,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 const EditSubkeywordModal = () => {
   const modalNode = document.getElementById("modal");
   const userInfo = useBoundStore((state) => state.userInfo);
-  const userGroupList = useBoundStore((state) => state.userGroupList);
-  const { name: keywordName } = userGroupList.items.filter((el) => el._id === keywordId);
   const { keywordId } = useParams();
+  const keywordName = "임시 대표 키워드 이름";
   const [inputValue, setInputValue] = useState({
     includedKeyword: "",
     excludedKeyword: "",
@@ -38,46 +37,32 @@ const EditSubkeywordModal = () => {
   const editSubkeywordMutation = useMutation({
     mutationFn: (subkeywordInfo, keywordId) => asyncEditSubkeyword(subkeywordInfo, keywordId),
   });
-
-  const handleIncludedKeywordInputChange = (e) => {
-    setInputValue((prev) => ({ ...prev, includedKeyword: e.target.value }));
+  const handleSubkeywordInputChange = (e, subkeywordType) => {
+    setInputValue((prev) => ({ ...prev, [subkeywordType]: e.target.value }));
   };
-
-  const handleExcludedKeywordInputChange = (e) => {
-    setInputValue((prev) => ({ ...prev, excludedKeyword: e.target.value }));
-  };
-
-  const handleCreateIncludedKeywordButtonClick = () => {
-    if (subkeywordList.includedKeyword.includes(inputValue.includedKeyword)) {
+  const handleCreateSubeywordButtonClick = (subkeywordType) => {
+    if (subkeywordList[subkeywordType].includes(inputValue[subkeywordType])) {
       return setErrorMessage((prev) => ({
         ...prev,
-        includedKeyword: ERROR_MESSAGE.KEYWORD_DUPLICATED_INPUT_VALUE,
+        [subkeywordType]: ERROR_MESSAGE.KEYWORD_DUPLICATED_INPUT_VALUE,
       }));
     }
 
     setSubkeywordList((prev) => ({
       ...prev,
-      includedKeyword: [...prev.includedKeyword, inputValue.includedKeyword],
+      [subkeywordType]: [...prev[subkeywordType], inputValue[subkeywordType]],
     }));
-    setInputValue((prev) => ({ ...prev, includedKeyword: "" }));
-    return setErrorMessage((prev) => ({ ...prev, includedKeyword: "" }));
+    setInputValue((prev) => ({ ...prev, [subkeywordType]: "" }));
+    return setErrorMessage((prev) => ({ ...prev, [subkeywordType]: "" }));
   };
-  const handleCreateExcludedKeywordButtonClick = () => {
-    if (subkeywordList.excludedKeyword.includes(inputValue.excludedKeyword)) {
-      return setErrorMessage((prev) => ({
-        ...prev,
-        excludedKeyword: ERROR_MESSAGE.KEYWORD_DUPLICATED_INPUT_VALUE,
-      }));
-    }
-
+  const removeSubkeyword = (subkeywordType, subkeywordNameForRemove) => {
     setSubkeywordList((prev) => ({
       ...prev,
-      excludedKeyword: [...prev.excludedKeyword, inputValue.excludedKeyword],
+      [subkeywordType]: prev[subkeywordType].filter(
+        (subkeywordName) => subkeywordName !== subkeywordNameForRemove
+      ),
     }));
-    setInputValue((prev) => ({ ...prev, excludedKeyword: "" }));
-    return setErrorMessage((prev) => ({ ...prev, excludedKeyword: "" }));
   };
-
   const handleSubKeywordSubmit = (e) => {
     e.preventDefault();
 
@@ -88,33 +73,32 @@ const EditSubkeywordModal = () => {
       ownerUid: userInfo.id,
     };
 
-    editSubkeywordMutation.mutate(subkeywordInfo, {
-      onSuccess: (data) => {
-        closeModal(MODAL_TYPE.EDIT_SUBKEYWORD);
-        addModal(MODAL_TYPE.CREATE_KEYWORD_SUCCESS);
-        queryClient.invalidateQueries({ queryKey: ["userGroupList"] });
-      },
-      onError: () => {
-        addModal(MODAL_TYPE.ERROR);
-      },
-    });
+    editSubkeywordMutation.mutate(
+      { subkeywordInfo, keywordId },
+      {
+        onSuccess: () => {
+          closeModal(MODAL_TYPE.EDIT_SUBKEYWORD);
+          addModal(MODAL_TYPE.CREATE_KEYWORD_SUCCESS);
+          queryClient.invalidateQueries({ queryKey: ["userGroupList"] });
+        },
+        onError: () => {
+          addModal(MODAL_TYPE.ERROR);
+        },
+      }
+    );
   };
-  console.log("1", subkeywordList);
-  console.log("2", subkeywordList.includedKeyword);
   return (
     <Portal mountDomNode={modalNode}>
-      <ModalBackground modalType={MODAL_TYPE.EDIT_SUBKEYWORD}>
-        <ModalFrame modalType={MODAL_TYPE.EDIT_SUBKEYWORD}>
+      <ModalBackground isDataFetching={false} isClear={true} modalType={MODAL_TYPE.EDIT_SUBKEYWORD}>
+        <ModalFrame isClear={true} hasCloseButton={true} modalType={MODAL_TYPE.EDIT_SUBKEYWORD}>
           <div className="w-full flex items-start mb-18 gap-20">
             <div className="w-110 text-20 text-violet-900 font-semibold flex-shrink-0">
               대표 키워드:
             </div>
             <div className="flex flex-col justify-start gap-3 w-full">
-              <div className="w-full h-40 px-15 border-2 border-purple-300 rounded-[8px] text-purple-900 font-semibold">
-                <p className="w-110 text-20 text-violet-900 font-semibold flex-shrink-0">
-                  {keywordName}
-                </p>
-              </div>
+              <p className="w-full text-20 text-violet-900 font-semibold flex-shrink-0">
+                {keywordName}
+              </p>
             </div>
           </div>
           <form className="w-600 flex-col-center pt-40 gap-15" onSubmit={handleSubKeywordSubmit}>
@@ -123,20 +107,29 @@ const EditSubkeywordModal = () => {
                 htmlFor="includedKeyword"
                 styles="w-110 text-20 text-violet-900 font-semibold flex-shrink-0"
               >
-                추가 Keyword:
+                추가 키워드:
               </Label>
               <div className="flex flex-col justify-start gap-3 w-full">
                 <input
                   type="text"
                   id="includedKeyword"
                   value={inputValue.includedKeyword}
-                  onChange={handleIncludedKeywordInputChange}
+                  onChange={(e) => handleSubkeywordInputChange(e, "includedKeyword")}
                   className="w-full h-40 px-15 border-2 border-purple-300 rounded-[8px] text-purple-900 font-semibold"
                   placeholder="새롭게 추가할 키워드를 입력해주세요"
                 />
-                <div>
-                  {subkeywordList.includedKeyword.map((el) => {
-                    return <KeywordChip key={el} keywordName={el} />;
+                <div className="flex items-center gap-5 w-full">
+                  {subkeywordList.includedKeyword.map((subkeywordName) => {
+                    return (
+                      <KeywordChip
+                        key={subkeywordName}
+                        keywordName={subkeywordName}
+                        hasCloseButton={true}
+                        handleCloseIconClick={() =>
+                          removeSubkeyword("includedKeyword", subkeywordName)
+                        }
+                      />
+                    );
                   })}
                 </div>
                 <p className="text-12 text-red-500 h-18 font-semibold">
@@ -145,7 +138,7 @@ const EditSubkeywordModal = () => {
               </div>
               <PlusIcon
                 className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
-                onClick={handleCreateIncludedKeywordButtonClick}
+                onClick={() => handleCreateSubeywordButtonClick("includedKeyword")}
               />
             </div>
             <div className="w-full flex items-start gap-20">
@@ -153,20 +146,29 @@ const EditSubkeywordModal = () => {
                 htmlFor="excludedKeyword"
                 styles="w-110 text-20 text-violet-900 font-semibold flex-shrink-0"
               >
-                제외 Keyword:
+                제외 키워드:
               </Label>
               <div className="flex flex-col justify-start gap-3 w-full">
                 <input
                   type="text"
                   id="excludedKeyword"
                   value={inputValue.excludedKeyword}
-                  onChange={handleExcludedKeywordInputChange}
+                  onChange={(e) => handleSubkeywordInputChange(e, "excludedKeyword")}
                   className="w-full h-40 px-15 border-2 border-purple-300 rounded-[8px] text-purple-900 font-semibold"
                   placeholder="제외할 키워드를 입력해주세요"
                 />
-                <div>
-                  {subkeywordList.excludedKeyword.map((el) => {
-                    return <KeywordChip key={el} keywordName={el} />;
+                <div className="flex items-center gap-5 w-full">
+                  {subkeywordList.excludedKeyword.map((subkeywordName) => {
+                    return (
+                      <KeywordChip
+                        key={subkeywordName}
+                        keywordName={subkeywordName}
+                        hasCloseButton={true}
+                        handleCloseIconClick={() =>
+                          removeSubkeyword("excludedKeyword", subkeywordName)
+                        }
+                      />
+                    );
                   })}
                 </div>
                 <p className="text-12 text-red-500 h-18 font-semibold">
@@ -175,7 +177,7 @@ const EditSubkeywordModal = () => {
               </div>
               <PlusIcon
                 className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
-                onClick={handleCreateExcludedKeywordButtonClick}
+                onClick={() => handleCreateSubeywordButtonClick("excludedKeyword")}
               />
             </div>
             <CreateKeywordButton buttonText={"저장하기"} />
