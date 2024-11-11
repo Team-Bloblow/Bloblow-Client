@@ -209,7 +209,7 @@ const CreateKeywordModal = () => {
                     </p>
                   </div>
                 </div>
-                <CreateKeywordButton isDisabled={isPending} />
+                <CreateKeywordButton buttonText={"생성하기"} isDisabled={isPending} />
               </>
             )}
           </form>
