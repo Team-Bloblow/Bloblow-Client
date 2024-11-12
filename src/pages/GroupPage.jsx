@@ -32,7 +32,6 @@ const GroupPage = () => {
       <section className="w-full h-full flex flex-col justify-start">
         <DashboardHeader userGroupList={userGroupList?.groupListResult} groupId={groupId} />
       </section>
-      <Outlet />
     </main>
   );
 };

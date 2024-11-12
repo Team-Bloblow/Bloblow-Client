@@ -47,7 +47,6 @@ const KeywordPage = () => {
         />
         <PostCardList keywordId={keywordId} />
       </section>
-      <Outlet />
     </main>
   );
 };

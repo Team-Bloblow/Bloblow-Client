@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 
 import Header from "../components/Layout/Header";
-import EditSubkeywordModal from "../components/Modal/EditSubkeywordModal";
 import ReactQueryProviders from "../config/ReactQueryProvider";
 import GroupPage from "./GroupPage";
 import HomePage from "./HomePage";
@@ -18,9 +17,7 @@ const App = () => {
         <Route path="/dashboard">
           <Route path=":groupId">
             <Route index element={<GroupPage />} />
-            <Route path=":keywordId" element={<KeywordPage />}>
-              <Route path="subModal" element={<EditSubkeywordModal />} />
-            </Route>
+            <Route path=":keywordId" element={<KeywordPage />} />
           </Route>
         </Route>
       </Routes>
