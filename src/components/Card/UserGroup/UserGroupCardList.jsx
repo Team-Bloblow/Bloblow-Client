@@ -30,7 +30,6 @@ const UserGroupCardList = () => {
           groupId={groupInfo?._id}
           groupName={groupInfo?.name}
           keywordList={groupInfo?.keywordIdList}
-          createdAt={groupInfo?.createdAt}
           updatedAt={groupInfo?.updatedAt}
         />
       ))}
