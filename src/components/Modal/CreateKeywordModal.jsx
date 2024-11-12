@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import asyncPostKeyword from "../../api/keyword/asyncPostKeyword";
-import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
+import { ERROR_MESSAGE, GENERAL_TEXT, MODAL_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
 import CreateKeywordButton from "../Button/CreateKeywordButton";
 import Portal from "../Common/Portal";
@@ -220,7 +220,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
                     </p>
                   </div>
                 </div>
-                <CreateKeywordButton buttonText={"생성하기"} isDisabled={isPending} />
+                <CreateKeywordButton buttonText={GENERAL_TEXT.CREATE} isDisabled={isPending} />
               </>
             )}
           </form>
