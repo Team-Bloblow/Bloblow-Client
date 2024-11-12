@@ -116,7 +116,7 @@ const EditSubkeywordModal = () => {
                   value={inputValue.includedKeyword}
                   onChange={(e) => handleSubkeywordInputChange(e, "includedKeyword")}
                   className="w-full h-40 px-15 border-2 border-purple-300 rounded-[8px] text-purple-900 font-semibold"
-                  placeholder="새롭게 추가할 키워드를 입력해주세요"
+                  placeholder="추가 키워드로 게시물을 추가로 필터링 할 수 있어요"
                 />
                 <div className="flex items-center gap-5 w-full">
                   {subkeywordList.includedKeyword.map((subkeywordName) => {
