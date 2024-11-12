@@ -7,7 +7,7 @@ import useBoundStore from "../../store/client/useBoundStore";
 import CreateKeywordButton from "../Button/CreateKeywordButton";
 import KeywordChip from "../Chip/KeywordChip";
 import Portal from "../Common/Portal";
-import PlusIcon from "../Icon/PlusIcon";
+import PlusSquareIcon from "../Icon/PlusSquareIcon";
 import Label from "../UI/Label";
 import ModalBackground from "./ModalBackground";
 import ModalFrame from "./ModalFrame";
@@ -136,7 +136,7 @@ const EditSubkeywordModal = () => {
                   {errorMessage.includedKeyword}
                 </p>
               </div>
-              <PlusIcon
+              <PlusSquareIcon
                 className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
                 onClick={() => handleCreateSubeywordButtonClick("includedKeyword")}
               />
@@ -175,7 +175,7 @@ const EditSubkeywordModal = () => {
                   {errorMessage.excludedKeyword}
                 </p>
               </div>
-              <PlusIcon
+              <PlusSquareIcon
                 className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
                 onClick={() => handleCreateSubeywordButtonClick("excludedKeyword")}
               />

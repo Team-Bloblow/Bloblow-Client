@@ -1,7 +1,3 @@
-import { Link } from "react-router-dom";
-
-import { Link } from "react-router-dom";
-
 import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
 import ProfileIcon from "../Icon/ProfileIcon";
