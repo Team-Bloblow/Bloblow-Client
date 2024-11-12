@@ -29,6 +29,7 @@ const SignInButton = () => {
     } else {
       const { uid, email, displayName, photoURL } = await asyncSignIn();
       if (googleSignInError) {
+        console.log("hi");
         addModal(MODAL_TYPE.ERROR);
       }
 
@@ -56,7 +57,7 @@ const SignInButton = () => {
 
   return (
     <Button
-      styles="flex-center px-14 py-8 font-medium border-2 border-purple-200 bg-purple-400/80 rounded-[15px] text-white text-16 hover:bg-purple-500/80"
+      styles="flex-center px-12 py-6 font-medium border-1 border-slate-400 bg-white rounded-[5px] text-black text-16 hover:bg-slate-100/50 hover:shadow-md"
       onClick={handleButtonClick}
     >
       {isSignIn ? "로그아웃" : "로그인"}

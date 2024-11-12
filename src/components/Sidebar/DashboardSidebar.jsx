@@ -1,6 +1,5 @@
 import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
-import LinkIcon from "../Icon/LinkIcon";
 import RevertIcon from "../Icon/RevertIcon";
 import CreateKeywordModal from "../Modal/CreateKeywordModal";
 import CreateKeywordSuccessModal from "../Modal/CreateKeywordSuccessModal";
@@ -31,10 +30,9 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
           마이페이지
         </Button>
         <Button
-          styles="flex items-center gap-12 w-full h-70 px-30 py-10 text-20 border-b-2 border-violet-100 font-bold bg-gradient-to-r from-[#9996EF] to-[#F9C7D4] opacity-70 hover:opacity-85"
+          styles="flex items-center gap-12 w-full h-70 px-30 py-10 text-24 border-b-2 border-violet-100 font-bold bg-gradient-to-r from-[#9996EF] to-[#F9C7D4] opacity-70 hover:opacity-85"
           destination={`/dashboard/${groupId}`}
         >
-          <LinkIcon className="size-25 fill-black" />
           {dashboardGroupName}
         </Button>
         {dashboardKeywordList.map((dashboardKeyword) => {
@@ -44,11 +42,10 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
           return (
             <Button
               key={keywordId}
-              styles="flex items-center gap-12 w-full h-70 px-30 py-10 text-18 border-b-2 border-violet-100 font-semibold opacity-70 bg-pink-50/10 hover:opacity-90"
+              styles="flex items-center gap-12 w-full h-40 px-30 py-10 text-18 border-b-2 border-violet-100 opacity-70 bg-pink-50/10 hover:opacity-90"
               destination={`/dashboard/${groupId}/${keywordId}`}
             >
-              <LinkIcon className="size-25 fill-black" />
-              {keywordName}
+              # {keywordName}
             </Button>
           );
         })}
