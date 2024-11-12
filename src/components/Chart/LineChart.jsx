@@ -17,12 +17,14 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip)
 const LineChart = ({ chartData }) => {
   const data = {
     labels: chartData.dates.map((date) => changeMonthDateFormat(date)),
-    datasets: [{
-      label: chartData.keyword,
-      data: chartData.postCountList,
-      borderColor: CHART_COLOR[0],
-      backgroundColor: CHART_COLOR[0],
-    }],
+    datasets: [
+      {
+        label: chartData.keyword,
+        data: chartData.postCountList,
+        borderColor: CHART_COLOR[0],
+        backgroundColor: CHART_COLOR[0],
+      },
+    ],
   };
 
   const options = {

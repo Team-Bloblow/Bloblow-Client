@@ -2,11 +2,11 @@ import { useState } from "react";
 
 import asyncGetPostCountList from "../../../api/keyword/asyncGetPostCountList";
 import { PERIOD_TYPE } from "../../../config/constants";
+import { getCursorDate } from "../../../utils/date";
 import LineChart from "../../Chart/LineChart";
 import PeriodPagination from "../../Pagination/PeriodPagination";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import PropTypes from "prop-types";
-import { getCursorDate } from "../../../utils/date";
 
 const PeriodPostCountCard = ({ keywordId }) => {
   const [cursorId, setCursorId] = useState(() => getCursorDate());
