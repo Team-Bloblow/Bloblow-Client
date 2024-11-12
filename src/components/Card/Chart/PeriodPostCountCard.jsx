@@ -2,19 +2,18 @@ import { useState } from "react";
 
 import asyncGetPostCountList from "../../../api/keyword/asyncGetPostCountList";
 import { PERIOD_TYPE } from "../../../config/constants";
-import { setDateArray } from "../../../utils/date";
 import LineChart from "../../Chart/LineChart";
 import PeriodPagination from "../../Pagination/PeriodPagination";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import PropTypes from "prop-types";
+import { getCursorDate } from "../../../utils/date";
 
 const PeriodPostCountCard = ({ keywordId }) => {
-  const [cursorId, setCursorId] = useState(new Date().toISOString());
+  const [cursorId, setCursorId] = useState(() => getCursorDate());
 
   const { data: chartData, isPlaceholderData } = useQuery({
     queryKey: ["postCount", keywordId, cursorId],
     queryFn: () => asyncGetPostCountList(keywordId, cursorId, PERIOD_TYPE.WEEKLY),
-    select: (data) => ({ ...data, dates: setDateArray(data.cursorId) }),
     placeholderData: keepPreviousData,
   });
 
@@ -23,15 +22,15 @@ const PeriodPostCountCard = ({ keywordId }) => {
   }
 
   return (
-    <div className="mt-100 w-1/3 p-10">
-      <span>주간 게시물 수</span>
+    <article className="w-1/2 h-full p-10 border-2 rounded-md">
+      <span className="text-xl">주간 게시물 수</span>
       <LineChart chartData={chartData} />
       <PeriodPagination
         chartData={chartData}
         setCursorId={setCursorId}
         isPlaceholderData={isPlaceholderData}
       />
-    </div>
+    </article>
   );
 };
 

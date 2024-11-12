@@ -17,14 +17,12 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip)
 const LineChart = ({ chartData }) => {
   const data = {
     labels: chartData.dates.map((date) => changeMonthDateFormat(date)),
-    datasets: chartData.items.map((item, index) => {
-      return {
-        label: item.keyword,
-        data: item.data,
-        borderColor: CHART_COLOR[index],
-        backgroundColor: CHART_COLOR[index],
-      };
-    }),
+    datasets: [{
+      label: chartData.keyword,
+      data: chartData.postCountList,
+      borderColor: CHART_COLOR[0],
+      backgroundColor: CHART_COLOR[0],
+    }],
   };
 
   const options = {
@@ -44,17 +42,13 @@ export default LineChart;
 LineChart.propTypes = {
   chartData: PropTypes.shape({
     keywordId: PropTypes.string,
-    unit: PropTypes.string,
+    keyword: PropTypes.string,
     cursorId: PropTypes.string,
-    dates: PropTypes.arrayOf(PropTypes.number),
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        keyword: PropTypes.string,
-        keywordId: PropTypes.string,
-        data: PropTypes.arrayOf(PropTypes.number),
-      })
-    ),
+    dates: PropTypes.arrayOf(PropTypes.string),
+    postCountList: PropTypes.arrayOf(PropTypes.number),
+    previousCursorId: PropTypes.string,
+    nextCursorId: PropTypes.string,
     hasPrevious: PropTypes.bool,
     hasNext: PropTypes.bool,
-  }).isRequired,
+  }).isRequired
 };

@@ -48,16 +48,12 @@ export default PeriodPagination;
 PeriodPagination.propTypes = {
   chartData: PropTypes.shape({
     keywordId: PropTypes.string,
-    unit: PropTypes.string,
+    keyword: PropTypes.string,
     cursorId: PropTypes.string,
-    dates: PropTypes.arrayOf(PropTypes.number),
-    items: PropTypes.arrayOf(
-      PropTypes.shape({
-        keyword: PropTypes.string,
-        keywordId: PropTypes.string,
-        data: PropTypes.arrayOf(PropTypes.number),
-      })
-    ),
+    dates: PropTypes.arrayOf(PropTypes.string),
+    postCountList: PropTypes.arrayOf(PropTypes.number),
+    previousCursorId: PropTypes.string,
+    nextCursorId: PropTypes.string,
     hasPrevious: PropTypes.bool,
     hasNext: PropTypes.bool,
   }).isRequired,

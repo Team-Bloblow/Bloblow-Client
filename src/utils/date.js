@@ -39,21 +39,16 @@ const changeDayFormat = (dateNumber) => {
   }
 };
 
-const setDateArray = (currentCursor) => {
-  const dateList = [];
-  const date = new Date(currentCursor);
+const getCursorDate = () => {
+  const date = new Date();
 
   if (date.getDay() !== 0) {
     date.setDate(date.getDate() - date.getDay());
   }
 
-  for (let index = 0; index < 7; index++) {
-    const newDate = new Date(date);
-    newDate.setDate(newDate.getDate() + index);
-    dateList.push(newDate.toString());
-  }
+  date.setHours(0, 0, 0, 0);
 
-  return dateList;
+  return date;
 };
 
 const changeDateWithDotFormat = (date) => {
@@ -66,4 +61,4 @@ const changeMonthDateFormat = (date) => {
   return `${newDate.getMonth() + 1}월 ${newDate.getDate()}일`;
 };
 
-export { getDate, changeDayFormat, setDateArray, changeDateWithDotFormat, changeMonthDateFormat };
+export { getDate, changeDayFormat, getCursorDate, changeDateWithDotFormat, changeMonthDateFormat };
