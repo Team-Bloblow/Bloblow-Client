@@ -23,9 +23,6 @@ const TodayPostCountCard = ({ keywordId }) => {
       </p>
       <div className="flex justify-center">
         <div className="text-50">{chartData.todayPostCount}</div>
-        <div className="flex text-20">
-          {chartData.diffPostCount >= 0 ? <UpArrowIcon /> : <DownArrowIcon />}
-        </div>
       </div>
     </article>
   );
