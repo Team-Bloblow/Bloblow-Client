@@ -31,7 +31,7 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
                 <KeywordChip
                   key={keywordId}
                   keywordName={keywordName}
-                  styles="flex-center text-14 px-5 py-2 bg-green-100/70 text-black rounded-[3px]"
+                  styles="flex-center text-14 px-5 py-2 bg-green-500/10 text-black rounded-[3px]"
                 />
               );
             })}
