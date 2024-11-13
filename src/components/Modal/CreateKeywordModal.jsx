@@ -81,7 +81,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
 
     const keywordInfo = {
       groupId: isCreatingNewGroup ? "" : selectedGroup.id,
-      groupName: selectedGroup.name,
+      groupName: isCreatingNewGroup ? newGroupValue : selectedGroup.name,
       keyword: keywordValue,
       ownerUid: userUid,
     };
