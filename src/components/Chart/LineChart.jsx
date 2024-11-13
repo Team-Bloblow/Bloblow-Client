@@ -52,5 +52,5 @@ LineChart.propTypes = {
     nextCursorId: PropTypes.string,
     hasPrevious: PropTypes.bool,
     hasNext: PropTypes.bool,
-  }).isRequired
+  }).isRequired,
 };
