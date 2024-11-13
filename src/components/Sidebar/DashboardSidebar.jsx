@@ -30,7 +30,7 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
           마이페이지
         </Button>
         <Button
-          styles="flex items-center gap-12 w-full h-70 px-30 py-10 text-24 border-b-2 border-slate-200/80 font-bold bg-slate-200 opacity-70 hover:opacity-85"
+          styles="flex items-center gap-12 w-full h-70 px-30 py-10 text-24 border-b-2 border-slate-200/80 font-bold bg-green-600/30 opacity-70 hover:opacity-85"
           destination={`/dashboard/${groupId}`}
         >
           {dashboardGroupName}
@@ -42,7 +42,7 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
           return (
             <Button
               key={keywordId}
-              styles="flex items-center gap-12 w-full h-40 px-30 py-10 text-18 border-b-2 border-slate-200/80 opacity-70 bg-white hover:opacity-90"
+              styles="flex items-center gap-12 w-full h-40 px-30 py-10 text-18 border-b-2 border-slate-200/80 opacity-70 bg-emerald-50/10 hover:opacity-90"
               destination={`/dashboard/${groupId}/${keywordId}`}
             >
               # {keywordName}
@@ -51,7 +51,7 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
         })}
       </div>
       <Button
-        styles="flex-center w-full h-70 px-30 py-10 text-18 text-gray-900/80 border-t-2 border-b-2 border-slate-200/80 font-semibold hover:bg-slate-100/50"
+        styles="flex-center w-full h-70 px-30 py-10 text-18 text-gray-900/80 border-t-2 border-b-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
         onClick={handleCreateKeywordButton}
       >
         키워드 만들기

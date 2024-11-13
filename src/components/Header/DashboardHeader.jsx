@@ -21,7 +21,7 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
     return (
       <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-r-2 border-violet-50 shadow-sm px-20 py-10 flex-shrink-0">
         <div className="flex flex-col items-start gap-5">
-          <p className="text-20 text-black font-bold">{dashboardGroupName}</p>
+          <p className="text-20 text-green-950 font-bold">{dashboardGroupName}</p>
           <div className="flex items-center gap-5">
             {dashboardKeywordList?.map((dashboardKeyword) => {
               const keywordId = dashboardKeyword._id;
@@ -31,7 +31,7 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
                 <KeywordChip
                   key={keywordId}
                   keywordName={keywordName}
-                  styles="flex-center text-14 px-5 py-2 bg-blue-100/80 text-black rounded-[3px]"
+                  styles="flex-center text-14 px-5 py-2 bg-green-100/70 text-black rounded-[3px]"
                 />
               );
             })}
@@ -44,7 +44,7 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
   return (
     <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-r-2 border-violet-50 shadow-sm px-20 py-10 flex-shrink-0">
       <div className="flex flex-col items-start gap-5">
-        <span className="flex items-center gap-10 text-21 text-black font-bold">
+        <span className="flex items-center gap-10 text-21 text-green-950 font-bold">
           {dashboardKeywordName}
         </span>
         <p className="flex items-center gap-5 text-slate-500 text-13 font-light">

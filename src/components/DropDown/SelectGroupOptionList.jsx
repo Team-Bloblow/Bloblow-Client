@@ -28,7 +28,7 @@ const SelectGroupOptionList = ({ groupList, selectedGroup, setSelectedGroup }) =
         return (
           <div
             key={groupId}
-            className={`flex-center flex-shrink-0 w-full h-30 border-black hover:bg-neutral-100 ${selectedGroup.id === groupId && "bg-blue-100/70"} ${index !== groupList.length - 1 && "border-b-1"}`}
+            className={`flex-center flex-shrink-0 w-full h-30 border-black hover:bg-emerald-100/30 ${selectedGroup.id === groupId && "bg-emerald-800/30"} ${index !== groupList.length - 1 && "border-b-1"}`}
             onClick={() => handleListClick(groupId, groupName)}
           >
             {groupName}
