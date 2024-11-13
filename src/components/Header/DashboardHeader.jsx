@@ -49,9 +49,11 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
         </span>
         <p className="flex items-center gap-5 text-slate-500 text-13 font-light">
           <CalendarIcon className="size-18 fill-none" />
-          {isNeverUpdated
-            ? `${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일`
-            : `${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일 ~ ${updatedDate?.currentYear}년 ${updatedDate?.currentMonth}월 ${updatedDate?.currentDate}일`}
+          <span className="pt-2">
+            {isNeverUpdated
+              ? `${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일`
+              : `${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일 ~ ${updatedDate?.currentYear}년 ${updatedDate?.currentMonth}월 ${updatedDate?.currentDate}일`}
+          </span>
         </p>
       </div>
     </aside>

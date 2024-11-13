@@ -31,8 +31,12 @@ const KeywordPage = () => {
     enabled: hasKeywordId,
   });
 
-  if (userGroupList?.groupListResult > 0 && userGroupList?.groupListResult?.length > 0) {
+  if (userGroupList?.groupListLength > 0 && userGroupList?.groupListResult?.length > 0) {
     setUserGroupList(userGroupList?.groupListResult);
+  }
+
+  if (userGroupList === undefined || specificKeywordData === undefined) {
+    return null;
   }
 
   return (

@@ -22,8 +22,12 @@ const GroupPage = () => {
     enabled: hasUserUid,
   });
 
-  if (userGroupList?.groupListResult > 0 && userGroupList?.groupListResult?.length > 0) {
+  if (userGroupList?.groupListLength > 0 && userGroupList?.groupListResult?.length > 0) {
     setUserGroupList(userGroupList?.groupListResult);
+  }
+
+  if (userGroupList === undefined) {
+    return null;
   }
 
   return (

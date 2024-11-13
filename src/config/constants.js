@@ -25,3 +25,7 @@ export const POST_LISTS = Object.freeze({
   DEFAULT_LIMIT: 10,
   DEFAULT_CURSOR_ID: "",
 });
+
+export const SIGN_BUTTON_TYPE = Object.freeze({
+  LANDING_PAGE: "landingPage",
+});

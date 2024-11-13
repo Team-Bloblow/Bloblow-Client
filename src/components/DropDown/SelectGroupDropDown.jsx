@@ -23,7 +23,7 @@ const SelectGroupDropDown = memo(function SelectGroupDropDown({
 
   return (
     <div
-      className="relative flex items-center gap-5 w-full h-40 px-15 border-2 border-black rounded-[5px] text-gray-800 font-semibold cursor-pointer"
+      className="relative flex items-center gap-5 w-full h-40 px-15 border-2 border-slate-700 rounded-[5px] text-gray-800 font-semibold cursor-pointer"
       ref={dropDownBoxRef}
       onClick={handleDropDownClick}
     >
@@ -31,9 +31,9 @@ const SelectGroupDropDown = memo(function SelectGroupDropDown({
         {selectedGroup?.name}
       </span>
       {isDropDownOpen ? (
-        <TriangleUpIcon className="size-20 fill-black" />
+        <TriangleUpIcon className="size-20 fill-slate-700" />
       ) : (
-        <TriangleDownIcon className="size-20 fill-black" />
+        <TriangleDownIcon className="size-20 fill-slate-700" />
       )}
       {isDropDownOpen && (
         <SelectGroupOptionList

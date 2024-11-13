@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
 
 import asyncPostSignIn from "../../api/auth/asyncPostSignIn";
-import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
+import { ERROR_MESSAGE, MODAL_TYPE, SIGN_BUTTON_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
 import ErrorModal from "../Modal/ErrorModal";
 import Button from "../UI/Button";
 import { useMutation } from "@tanstack/react-query";
+import PropTypes from "prop-types";
 
-const SignInButton = () => {
+const SignInButton = ({ type }) => {
   const navigate = useNavigate();
 
   const isSignIn = useBoundStore((state) => state.isSignIn);
@@ -55,6 +56,20 @@ const SignInButton = () => {
     }
   };
 
+  if (type === SIGN_BUTTON_TYPE.LANDING_PAGE) {
+    return (
+      <Button
+        styles="flex-center px-12 py-6 font-medium border-1 border-slate-400 bg-white rounded-[5px] text-black text-18 hover:bg-slate-100/50 hover:shadow-md"
+        onClick={handleButtonClick}
+      >
+        서비스 시작하기
+        {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.ERROR && (
+          <ErrorModal errorMessage={ERROR_MESSAGE.SIGN_IN_ERROR} />
+        )}
+      </Button>
+    );
+  }
+
   return (
     <Button
       styles="flex-center px-12 py-6 font-medium border-1 border-slate-400 bg-white rounded-[5px] text-black text-16 hover:bg-slate-100/50 hover:shadow-md"
@@ -69,3 +84,7 @@ const SignInButton = () => {
 };
 
 export default SignInButton;
+
+SignInButton.propTypes = {
+  type: PropTypes.string,
+};

@@ -17,7 +17,7 @@ const MyPageSidebar = () => {
 
   return (
     <aside className="flex gap-20 w-full px-30 lg:px-0 lg:w-fit lg:flex-col">
-      <div className="flex lg:flex-col items-center gap-25 w-full lg:w-250 h-100 lg:h-320 px-30 lg:px-30 py-10 lg:py-20 rounded-[8px] bg-white border-2 border-slate-200/80 flex-grow lg:flex-grow-0 shadow-sm">
+      <div className="flex lg:flex-col items-center gap-25 w-full lg:w-220 h-100 lg:h-320 px-30 lg:px-30 py-10 lg:py-20 rounded-[8px] bg-white border-2 border-slate-200/80 flex-grow lg:flex-grow-0 shadow-sm">
         <ProfileIcon size="w-70 h-70 lg:w-155 lg:h-155" photoURL={userInfo.photoURL} />
         <div className="hidden lg:block w-full border-t-3 border-slate-200"></div>
         <div className="flex flex-col md:flex-row lg:flex-col justify-center lg:justify-start items-center w-full gap-10 md:gap-30 lg:gap-10 text-black">

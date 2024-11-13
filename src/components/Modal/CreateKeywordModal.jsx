@@ -7,7 +7,6 @@ import CreateKeywordButton from "../Button/CreateKeywordButton";
 import Portal from "../Common/Portal";
 import SelectGroupDropDown from "../DropDown/SelectGroupDropDown";
 import PlusSquareIcon from "../Icon/PlusSquareIcon";
-import Button from "../UI/Button";
 import Label from "../UI/Label";
 import Loading from "../UI/Loading";
 import ModalBackground from "./ModalBackground";
@@ -35,10 +34,8 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
     newGroup: "",
     keyword: "",
   });
-  const [groupList, setGroupList] = useState(() => {
-    return userGroupList.map((group) => {
-      return { id: group._id, name: group.name };
-    });
+  const groupList = userGroupList.map((group) => {
+    return { id: group._id, name: group.name };
   });
 
   const isNewGroupSelected = selectedGroup.id === "" && selectedGroup.name !== "";
@@ -61,25 +58,11 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
     setInputValue((prev) => ({ ...prev, keyword: e.target.value }));
   };
 
-  const handleGroupAddClick = () => {
-    const newGroupValue = inputValue.newGroup.trim();
-
-    if (newGroupValue === "") {
-      setErrorMessage((prev) => ({ ...prev, newGroup: ERROR_MESSAGE.NEW_GROUP_EMPTY_INPUT_VALUE }));
-      return;
-    }
-
-    const newGroup = { id: "", name: newGroupValue };
-
-    setSelectedGroup((prev) => ({ ...prev, ...newGroup }));
-    setGroupList((prev) => [...prev, newGroup]);
-    setIsCreatingNewGroup(false);
-  };
-
   const handleKeywordSubmit = (e) => {
     e.preventDefault();
 
     const keywordValue = inputValue.keyword.trim();
+    const newGroupValue = inputValue.newGroup.trim();
 
     if (keywordValue === "" || selectedGroup.name === "") {
       if (keywordValue === "") {
@@ -91,8 +74,13 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
       return;
     }
 
+    if (isCreatingNewGroup && newGroupValue === "") {
+      setErrorMessage((prev) => ({ ...prev, newGroup: ERROR_MESSAGE.NEW_GROUP_EMPTY_INPUT_VALUE }));
+      return;
+    }
+
     const keywordInfo = {
-      groupId: selectedGroup.id,
+      groupId: isCreatingNewGroup ? "" : selectedGroup.id,
       groupName: selectedGroup.name,
       keyword: keywordValue,
       ownerUid: userUid,
@@ -107,7 +95,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
 
         closeModal(MODAL_TYPE.CREATE_KEYWORD);
         addModal(MODAL_TYPE.CREATE_KEYWORD_SUCCESS);
-        queryClient.invalidateQueries({ queryKey: ["userGroupList"] });
+        queryClient.invalidateQueries({ queryKey: ["userGroupList", data.ownerUid] });
       },
       onError: () => {
         addModal(MODAL_TYPE.ERROR);
@@ -137,45 +125,13 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
               <Loading width={100} height={100} text={"블로그를 가져오는 중입니다"} />
             ) : (
               <>
-                <div className="w-full flex items-start gap-20">
-                  <Label
-                    htmlFor="group"
-                    styles="w-100 text-20 text-black font-semibold flex-shrink-0"
-                  >
-                    그룹:
-                  </Label>
-                  {createType === "dashboard" ? (
-                    <p className="w-full h-40 text-18 text-black font-semibold">
-                      {selectedGroup.name}
-                    </p>
-                  ) : (
-                    <>
-                      <div className="flex flex-col justify-center gap-3 w-full">
-                        <SelectGroupDropDown
-                          selectedGroup={selectedGroup}
-                          groupList={groupList}
-                          setSelectedGroup={setSelectedGroup}
-                        />
-                        <p className="text-12 text-red-500 h-18 font-semibold">
-                          {errorMessage.group}
-                        </p>
-                      </div>
-                      {!isNewGroupSelected && (
-                        <PlusSquareIcon
-                          className="size-40 flex-shrink-0 fill-black cursor-pointer"
-                          onClick={handleCreateNewGroupButtonClick}
-                        />
-                      )}
-                    </>
-                  )}
-                </div>
-                {isCreatingNewGroup && (
+                {isCreatingNewGroup ? (
                   <div className="w-full flex items-start gap-20">
                     <Label
                       htmlFor="newGroup"
-                      styles="w-100 text-20 text-black font-semibold flex-shrink-0"
+                      styles="w-100 text-20 text-slate-700 font-semibold flex-shrink-0"
                     >
-                      새로운 그룹:
+                      새로운 그룹
                     </Label>
                     <div className="flex flex-col justify-center gap-3 w-full">
                       <input
@@ -190,21 +146,47 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
                         {errorMessage.newGroup}
                       </p>
                     </div>
-                    <Button
-                      type="button"
-                      styles="flex-center flex-shrink-0 px-14 py-6 font-medium border-2 border-purple-200 bg-purple-400/80 rounded-[15px] text-white text-18 hover:bg-purple-500/80"
-                      onClick={handleGroupAddClick}
+                  </div>
+                ) : (
+                  <div className="w-full flex items-start gap-20">
+                    <Label
+                      htmlFor="group"
+                      styles="w-100 text-20 text-slate-700 font-semibold flex-shrink-0"
                     >
-                      추가
-                    </Button>
+                      그룹
+                    </Label>
+                    {createType === "dashboard" ? (
+                      <p className="w-full h-40 text-18 text-slate-700 font-semibold">
+                        {selectedGroup.name}
+                      </p>
+                    ) : (
+                      <>
+                        <div className="flex flex-col justify-center gap-3 w-full">
+                          <SelectGroupDropDown
+                            selectedGroup={selectedGroup}
+                            groupList={groupList}
+                            setSelectedGroup={setSelectedGroup}
+                          />
+                          <p className="text-12 text-red-500 h-18 font-semibold">
+                            {errorMessage.group}
+                          </p>
+                        </div>
+                        {!isNewGroupSelected && (
+                          <PlusSquareIcon
+                            className="size-40 flex-shrink-0 fill-black cursor-pointer"
+                            onClick={handleCreateNewGroupButtonClick}
+                          />
+                        )}
+                      </>
+                    )}
                   </div>
                 )}
                 <div className="w-full flex items-start gap-20">
                   <Label
                     htmlFor="keyword"
-                    styles="w-100 text-20 text-black font-semibold flex-shrink-0"
+                    styles="w-100 text-20 text-slate-700 font-semibold flex-shrink-0"
                   >
-                    키워드:
+                    키워드
                   </Label>
                   <div className="flex flex-col justify-start gap-3 w-full">
                     <input
@@ -212,7 +194,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
                       id="keyword"
                       value={inputValue.keyword}
                       onChange={handleKeywordInputChange}
-                      className="w-full h-40 px-15 border-2 border-black rounded-[5px] text-black font-semibold"
+                      className="w-full h-40 px-15 border-2 border-slate-700 rounded-[5px] text-black font-semibold"
                       placeholder="새롭게 추가할 키워드를 입력해주세요"
                     />
                     <p className="text-12 text-red-500 h-18 font-semibold">
