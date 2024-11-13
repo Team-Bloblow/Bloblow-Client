@@ -26,7 +26,7 @@ const MyPageSidebar = () => {
         </div>
       </div>
       <Button
-        styles="w-300 lg:w-full px-10 lg:px-20 lg:py-18 text-21 text-gray-900/80 font-bold border-2 border-slate-200/80 rounded-[8px] shadow-sm hover:shadow-md hover:bg-slate-100/50"
+        styles="w-300 lg:w-full px-10 lg:px-20 lg:py-18 text-21 text-gray-900/80 font-bold border-2 border-slate-200/80 rounded-[8px] shadow-sm hover:shadow-md hover:bg-emerald-200/10 hover:border-emerald-900/30"
         onClick={handleCreateKeywordButton}
       >
         키워드 만들기

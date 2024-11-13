@@ -5,7 +5,7 @@ const Logo = ({ styles, destination }) => {
   return (
     <Button
       destination={destination}
-      styles={`font-bold bg-gradient-to-r from-[#9996EF] to-[#F9C7D4] text-transparent bg-clip-text ${styles}`}
+      styles={`font-bold bg-gradient-to-r from-[#00684A] via-[#009F55] via-40% to-[#00ED64] text-transparent bg-clip-text ${styles}`}
     >
       Bloblow
     </Button>
