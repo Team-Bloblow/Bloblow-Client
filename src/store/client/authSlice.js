@@ -39,6 +39,12 @@ const createAuthSlice = (set) => ({
         displayName: "",
         photoURL: "",
       },
+      error: {
+        googleSignInError: "",
+        serverSignInError: "",
+        keywordCrawlingError: "",
+      },
+      userGroupList: [],
     }));
     signOut(auth);
   },

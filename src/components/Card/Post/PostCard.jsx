@@ -18,7 +18,7 @@ const PostCard = ({
   const createdDate = getDate(createdAt);
 
   return (
-    <div className="flex flex-col items-start justify-center gap-5 w-full border-3 border-slate-200/80 bg-white rounded-[8px] px-25 py-15">
+    <div className="flex flex-col items-start justify-center gap-5 w-full border-3 border-slate-200/80 bg-white rounded-[8px] px-25 py-15 hover:border-slate-300/90 hover:shadow-md">
       <div className="flex justify-between items-start w-full mb-8">
         <span className="text-black text-22 font-bold">{sanitizeHtmlEntity(postTitle)}</span>
         {isAd && <AdChip />}

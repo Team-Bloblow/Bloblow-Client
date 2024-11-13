@@ -40,7 +40,7 @@ const PostCardList = ({ keywordId }) => {
       {isPending ? (
         <Loading width={100} height={100} text={""} />
       ) : postResponse?.pages[0]?.items?.length === 0 ? (
-        <p className="w-full h-full flex-center text-22">해당 키워드에 대한 블로그가 없습니다.</p>
+        <p className="w-full h-full flex-center text-22">해당 키워드에 대한 블로그가 없습니다</p>
       ) : (
         postResponse?.pages?.map((page) => {
           return page.items?.map((postInfo) => {
