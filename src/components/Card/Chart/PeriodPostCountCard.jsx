@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 import asyncGetPostCountList from "../../../api/keyword/asyncGetPostCountList";
-import { PERIOD_TYPE } from "../../../config/constants";
 import { getCursorDate } from "../../../utils/date";
 import LineChart from "../../Chart/LineChart";
 import PeriodPagination from "../../Pagination/PeriodPagination";
@@ -13,7 +12,7 @@ const PeriodPostCountCard = ({ keywordId }) => {
 
   const { data: chartData, isPlaceholderData } = useQuery({
     queryKey: ["postCount", keywordId, cursorId],
-    queryFn: () => asyncGetPostCountList(keywordId, cursorId, PERIOD_TYPE.WEEKLY),
+    queryFn: () => asyncGetPostCountList(keywordId, cursorId),
     placeholderData: keepPreviousData,
   });
 
