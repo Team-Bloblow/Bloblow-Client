@@ -16,7 +16,7 @@ const KeywordPage = () => {
   useNoSignInRedirect();
 
   const { groupId, keywordId } = useParams();
-  const [dashboardType] = useState("chart");
+  const [dashboardType, setDashboardType] = useState("chart");
 
   const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
   const userUid = useBoundStore((state) => state.userInfo.uid);
@@ -49,6 +49,20 @@ const KeywordPage = () => {
           specificKeywordData={specificKeywordData}
           keywordId={keywordId}
         />
+        <div className="w-full m-10">
+          <button
+            className="p-5 border-1 border-slate-300"
+            onClick={() => setDashboardType("chart")}
+          >
+            인사이트 보기
+          </button>
+          <button
+            className="p-5 border-1 border-slate-300"
+            onClick={() => setDashboardType("post")}
+          >
+            게시물 목록
+          </button>
+        </div>
         {dashboardType === "chart" ? (
           <div className="flex p-20">
             <TodayPostCountCard keywordId={keywordId} />
