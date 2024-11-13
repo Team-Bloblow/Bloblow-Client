@@ -43,7 +43,7 @@ const getCursorDate = () => {
   const date = new Date();
 
   if (date.getDay() !== 0) {
-    date.setDate(date.getDate() - date.getDay());
+    date.setDate(date.getDate() - date.getDay() - 1);
   }
 
   date.setHours(0, 0, 0, 0);
