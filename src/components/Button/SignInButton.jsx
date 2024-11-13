@@ -59,7 +59,7 @@ const SignInButton = ({ type }) => {
   if (type === SIGN_BUTTON_TYPE.LANDING_PAGE) {
     return (
       <Button
-        styles="flex-center px-12 py-6 font-medium border-1 border-slate-400 bg-white rounded-[5px] text-black text-18 hover:bg-slate-100/50 hover:shadow-md"
+        styles="flex-center px-12 py-6 font-medium border-1 border-slate-400 bg-white rounded-[5px] text-black text-18 hover:bg-emerald-200/10 hover:shadow-md"
         onClick={handleButtonClick}
       >
         서비스 시작하기
