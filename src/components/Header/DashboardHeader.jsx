@@ -1,7 +1,6 @@
+import getDate from "../../utils/getDate";
 import KeywordChip from "../Chip/KeywordChip";
-import EditIcon from "../Icon/EditIcon";
-import MinusCircleIcon from "../Icon/MinusCircleIcon";
-import PlusCircleIcon from "../Icon/PlusCircleIcon";
+import CalendarIcon from "../Icon/CalendarIcon";
 import PropTypes from "prop-types";
 
 const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordId }) => {
@@ -13,16 +12,16 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
   );
   const dashboardKeywordName = dashboardKeyword?.keyword;
 
-  const includedKeywordList = specificKeywordData?.includedKeyword;
-  const excludedKeywordList = specificKeywordData?.excludedKeyword;
+  const createdDate = getDate(specificKeywordData?.createdAt);
+  const updatedDate = getDate(specificKeywordData?.updatedAt);
 
-  const handleKeywordEditClick = () => {};
+  const isNeverUpdated = specificKeywordData?.createdAt === specificKeywordData?.updatedAt;
 
   if (keywordId === undefined) {
     return (
       <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-r-2 border-violet-50 shadow-sm px-20 py-10 flex-shrink-0">
         <div className="flex flex-col items-start gap-5">
-          <p className="text-20 text-pink-900/90 font-bold">{dashboardGroupName}</p>
+          <p className="text-20 text-black font-bold">{dashboardGroupName}</p>
           <div className="flex items-center gap-5">
             {dashboardKeywordList?.map((dashboardKeyword) => {
               const keywordId = dashboardKeyword._id;
@@ -32,7 +31,7 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
                 <KeywordChip
                   key={keywordId}
                   keywordName={keywordName}
-                  styles="flex-center text-14 px-5 py-2 bg-orange-100 text-rose-800 rounded-[3px]"
+                  styles="flex-center text-14 px-5 py-2 bg-blue-100/80 text-black rounded-[3px]"
                 />
               );
             })}
@@ -45,48 +44,15 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
   return (
     <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-r-2 border-violet-50 shadow-sm px-20 py-10 flex-shrink-0">
       <div className="flex flex-col items-start gap-5">
-        <div className="flex items-center gap-10 text-20 text-pink-900/90 font-bold">
+        <span className="flex items-center gap-10 text-21 text-black font-bold">
           {dashboardKeywordName}
-          <EditIcon className="size-20 cursor-pointer" onClick={handleKeywordEditClick} />
-        </div>
-        <div className="flex items-center gap-25">
-          <div className="flex items-center gap-8">
-            <PlusCircleIcon className="size-20 fill-teal-700" />
-            {includedKeywordList && includedKeywordList.length > 0 ? (
-              <>
-                {includedKeywordList?.map((includedKeyword) => {
-                  return (
-                    <KeywordChip
-                      key={includedKeyword}
-                      keywordName={includedKeyword}
-                      styles="flex-center text-14 px-5 py-2 bg-orange-100 text-rose-800 rounded-[3px]"
-                    />
-                  );
-                })}
-              </>
-            ) : (
-              <span className="text-14">추가 키워드가 없습니다</span>
-            )}
-          </div>
-          <div className="flex items-center gap-8">
-            <MinusCircleIcon className="size-20 fill-pink-600" />
-            {excludedKeywordList && excludedKeywordList.length > 0 ? (
-              <>
-                {excludedKeywordList?.map((excludedKeyword) => {
-                  return (
-                    <KeywordChip
-                      key={excludedKeyword}
-                      keywordName={excludedKeyword}
-                      styles="flex-center text-14 px-5 py-2 bg-orange-100 text-rose-800 rounded-[3px]"
-                    />
-                  );
-                })}
-              </>
-            ) : (
-              <span className="text-14">제외 키워드가 없습니다</span>
-            )}
-          </div>
-        </div>
+        </span>
+        <p className="flex items-center gap-5 text-slate-500 text-13 font-light">
+          <CalendarIcon className="size-18 fill-none" />
+          {isNeverUpdated
+            ? `${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일`
+            : `${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일 ~ ${updatedDate?.currentYear}년 ${updatedDate?.currentMonth}월 ${updatedDate?.currentDate}일`}
+        </p>
       </div>
     </aside>
   );

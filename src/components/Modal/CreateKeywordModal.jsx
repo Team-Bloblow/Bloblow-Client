@@ -134,18 +134,18 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
             onSubmit={handleKeywordSubmit}
           >
             {isPending ? (
-              <Loading width={100} height={100} text={"블로그를 가져오는 중입니다...💜"} />
+              <Loading width={100} height={100} text={"블로그를 가져오는 중입니다"} />
             ) : (
               <>
                 <div className="w-full flex items-start gap-20">
                   <Label
                     htmlFor="group"
-                    styles="w-100 text-20 text-violet-900 font-semibold flex-shrink-0"
+                    styles="w-100 text-20 text-black font-semibold flex-shrink-0"
                   >
                     그룹:
                   </Label>
                   {createType === "dashboard" ? (
-                    <p className="w-full h-40 text-18 text-purple-900 font-semibold">
+                    <p className="w-full h-40 text-18 text-black font-semibold">
                       {selectedGroup.name}
                     </p>
                   ) : (
@@ -162,7 +162,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
                       </div>
                       {!isNewGroupSelected && (
                         <PlusSquareIcon
-                          className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
+                          className="size-40 flex-shrink-0 fill-black cursor-pointer"
                           onClick={handleCreateNewGroupButtonClick}
                         />
                       )}
@@ -173,7 +173,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
                   <div className="w-full flex items-start gap-20">
                     <Label
                       htmlFor="newGroup"
-                      styles="w-100 text-20 text-violet-900 font-semibold flex-shrink-0"
+                      styles="w-100 text-20 text-black font-semibold flex-shrink-0"
                     >
                       새로운 그룹:
                     </Label>
@@ -183,7 +183,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
                         id="newGroup"
                         value={inputValue.newGroup}
                         onChange={handleNewGroupInputChange}
-                        className="w-full h-40 px-15 border-2 border-purple-300 rounded-[8px] text-purple-900 font-semibold"
+                        className="w-full h-40 px-15 border-2 border-black rounded-[5px] text-black font-semibold"
                         placeholder="새롭게 추가할 그룹명을 입력해주세요"
                       />
                       <p className="text-12 text-red-500 h-18 font-semibold">
@@ -202,7 +202,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
                 <div className="w-full flex items-start gap-20">
                   <Label
                     htmlFor="keyword"
-                    styles="w-100 text-20 text-violet-900 font-semibold flex-shrink-0"
+                    styles="w-100 text-20 text-black font-semibold flex-shrink-0"
                   >
                     키워드:
                   </Label>
@@ -212,7 +212,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
                       id="keyword"
                       value={inputValue.keyword}
                       onChange={handleKeywordInputChange}
-                      className="w-full h-40 px-15 border-2 border-purple-300 rounded-[8px] text-purple-900 font-semibold"
+                      className="w-full h-40 px-15 border-2 border-black rounded-[5px] text-black font-semibold"
                       placeholder="새롭게 추가할 키워드를 입력해주세요"
                     />
                     <p className="text-12 text-red-500 h-18 font-semibold">

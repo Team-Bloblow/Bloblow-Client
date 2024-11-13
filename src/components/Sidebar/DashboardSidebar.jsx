@@ -20,17 +20,17 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
   };
 
   return (
-    <nav className="flex flex-col justify-between w-250 h-full flex-shrink-0 bg-white border-l-2 border-r-2 border-violet-50 shadow-lg">
+    <nav className="flex flex-col justify-between w-250 h-full flex-shrink-0 bg-white border-l-2 border-r-2 border-slate-200/80 shadow-lg">
       <div className="flex flex-col justify-start w-full">
         <Button
-          styles="flex items-center gap-12 w-full h-30 px-30 py-10 text-14 border-b-2 border-violet-100 opacity-70 bg-pink-50/10 hover:opacity-90"
+          styles="flex items-center gap-12 w-full h-30 px-30 py-10 text-14 border-b-2 border-slate-200/80 opacity-70 bg-white hover:opacity-90"
           destination="/myPage"
         >
           <RevertIcon className="size-14 fill-black" />
           마이페이지
         </Button>
         <Button
-          styles="flex items-center gap-12 w-full h-70 px-30 py-10 text-24 border-b-2 border-violet-100 font-bold bg-gradient-to-r from-[#9996EF] to-[#F9C7D4] opacity-70 hover:opacity-85"
+          styles="flex items-center gap-12 w-full h-70 px-30 py-10 text-24 border-b-2 border-slate-200/80 font-bold bg-slate-200 opacity-70 hover:opacity-85"
           destination={`/dashboard/${groupId}`}
         >
           {dashboardGroupName}
@@ -42,7 +42,7 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
           return (
             <Button
               key={keywordId}
-              styles="flex items-center gap-12 w-full h-40 px-30 py-10 text-18 border-b-2 border-violet-100 opacity-70 bg-pink-50/10 hover:opacity-90"
+              styles="flex items-center gap-12 w-full h-40 px-30 py-10 text-18 border-b-2 border-slate-200/80 opacity-70 bg-white hover:opacity-90"
               destination={`/dashboard/${groupId}/${keywordId}`}
             >
               # {keywordName}
@@ -51,7 +51,7 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
         })}
       </div>
       <Button
-        styles="flex-center w-full h-70 px-30 py-10 text-18 text-pink-900/80 border-t-2 border-b-2 border-violet-100 font-semibold hover:bg-pink-50"
+        styles="flex-center w-full h-70 px-30 py-10 text-18 text-gray-900/80 border-t-2 border-b-2 border-slate-200/80 font-semibold hover:bg-slate-100/50"
         onClick={handleCreateKeywordButton}
       >
         키워드 만들기

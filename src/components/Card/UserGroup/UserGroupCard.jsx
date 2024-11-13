@@ -11,7 +11,7 @@ const UserGroupCard = ({ groupId, groupName, keywordList, updatedAt }) => {
     <Link to={`/dashboard/${groupId}`}>
       <div className="flex flex-col items-start justify-center gap-7 w-full border-2 border-slate-200/80 bg-white rounded-[8px] pl-30 pr-20 py-10 shadow-sm hover:border-slate-300/90 hover:shadow-md">
         <p className="flex items-center text-black text-20 font-semibold">{groupName}</p>
-        <div className="flex items-center gap-5 w-full">
+        <div className="flex items-center gap-5 w-full mb-2">
           {keywordList.map((keyword) => (
             <KeywordChip
               key={keyword._id}
@@ -20,10 +20,8 @@ const UserGroupCard = ({ groupId, groupName, keywordList, updatedAt }) => {
             />
           ))}
         </div>
-        <p className="flex items-center text-slate-500 text-14">
-          {updatedDate
-            ? `${updatedDate.currentYear}년 ${updatedDate.currentMonth}월 ${updatedDate.currentDate}일`
-            : "수정 내역이 없습니다"}
+        <p className="flex items-center gap-5 text-slate-500 text-13">
+          {updatedDate.currentYear}년 {updatedDate.currentMonth}월 {updatedDate.currentDate}일
         </p>
       </div>
     </Link>

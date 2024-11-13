@@ -7,7 +7,7 @@ const SelectGroupOptionList = ({ groupList, selectedGroup, setSelectedGroup }) =
 
   return (
     <div
-      className="absolute flex flex-col items-center top-50 right-0 w-full max-h-120 overflow-y-scroll bg-white z-modalDropDown border-purple-300 border-2 rounded-[10px] text-purple-900 font-semibold shadow-xl"
+      className="absolute flex flex-col items-center top-50 right-0 w-full max-h-120 overflow-y-scroll bg-white z-modalDropDown border-black border-2 rounded-[5px] text-black font-semibold shadow-xl"
       id="selectGroupDropDown"
     >
       {groupList?.map((group, index) => {
@@ -17,7 +17,7 @@ const SelectGroupOptionList = ({ groupList, selectedGroup, setSelectedGroup }) =
         return (
           <div
             key={groupId}
-            className={`flex-center flex-shrink-0 w-full h-30 border-purple-300 hover:bg-neutral-100 ${selectedGroup.id === groupId && "bg-violet-100/80"} ${index !== groupList.length - 1 && "border-b-1"}`}
+            className={`flex-center flex-shrink-0 w-full h-30 border-black hover:bg-neutral-100 ${selectedGroup.id === groupId && "bg-blue-100/70"} ${index !== groupList.length - 1 && "border-b-1"}`}
             onClick={() => handleListClick(groupId, groupName)}
           >
             {groupName}
