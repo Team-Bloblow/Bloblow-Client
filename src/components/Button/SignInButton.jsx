@@ -30,7 +30,6 @@ const SignInButton = ({ type }) => {
     } else {
       const { uid, email, displayName, photoURL } = await asyncSignIn();
       if (googleSignInError) {
-        console.log("hi");
         addModal(MODAL_TYPE.ERROR);
       }
 
