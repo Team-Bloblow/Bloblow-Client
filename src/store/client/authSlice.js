@@ -13,11 +13,7 @@ const createAuthSlice = (set) => ({
     googleSignInError: "",
     serverSignInError: "",
   },
-  setIsSignIn: (isSignIn) =>
-    set((state) => {
-      console.log(state);
-      return { ...state, isSignIn };
-    }),
+  setIsSignIn: (isSignIn) => set((state) => ({ ...state, isSignIn })),
   setUserInfo: (userInfo) => set((state) => ({ ...state, userInfo })),
   setServerSignInError: (errorMessage) =>
     set((state) => ({ ...state, authError: { serverSignInError: errorMessage } })),
