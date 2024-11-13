@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import asyncEditSubkeyword from "../../api/keyword/asyncEditSubkeyword";
-import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
+import asyncEditSubKeyword from "../../api/keyword/asyncEditSubKeyword";
+import { ERROR_MESSAGE, GENERAL_TEXT, MODAL_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
 import CreateKeywordButton from "../Button/CreateKeywordButton";
 import KeywordChip from "../Chip/KeywordChip";
@@ -13,10 +13,11 @@ import ModalBackground from "./ModalBackground";
 import ModalFrame from "./ModalFrame";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const EditSubkeywordModal = () => {
-  const modalNode = document.getElementById("modal");
+const EditSubKeywordModal = () => {
   const userInfo = useBoundStore((state) => state.userInfo);
-  const { keywordId } = useParams();
+  const addModal = useBoundStore((state) => state.addModal);
+  const closeModal = useBoundStore((state) => state.closeModal);
+  const keywordId = useParams().keywordId;
   const keywordName = "임시 대표 키워드 이름";
   const [inputValue, setInputValue] = useState({
     includedKeyword: "",
@@ -26,60 +27,59 @@ const EditSubkeywordModal = () => {
     includedKeyword: "",
     excludedKeyword: "",
   });
-  const [subkeywordList, setSubkeywordList] = useState({
+  const [subKeywordList, setSubKeywordList] = useState({
     includedKeyword: ["추가 키워드1", "추가 키워드2"],
     excludedKeyword: ["제외 키워드1", "제외 키워드2"],
   });
-  const addModal = useBoundStore((state) => state.addModal);
-  const closeModal = useBoundStore((state) => state.closeModal);
   const queryClient = useQueryClient();
 
-  const editSubkeywordMutation = useMutation({
-    mutationFn: (subkeywordInfo, keywordId) => asyncEditSubkeyword(subkeywordInfo, keywordId),
+  const editSubKeywordMutation = useMutation({
+    mutationFn: ({ subKeywordInfo, keywordId }) => asyncEditSubKeyword(subKeywordInfo, keywordId),
   });
-  const handleSubkeywordInputChange = (e, subkeywordType) => {
-    setInputValue((prev) => ({ ...prev, [subkeywordType]: e.target.value }));
+  const handleSubKeywordInputChange = (e, subKeywordType) => {
+    setInputValue((prev) => ({ ...prev, [subKeywordType]: e.target.value }));
   };
-  const handleCreateSubeywordButtonClick = (subkeywordType) => {
-    if (subkeywordList[subkeywordType].includes(inputValue[subkeywordType])) {
-      return setErrorMessage((prev) => ({
+  const handleCreateSubKeywordButtonClick = (subKeywordType) => {
+    if (subKeywordList[subKeywordType].includes(inputValue[subKeywordType])) {
+      setErrorMessage((prev) => ({
         ...prev,
-        [subkeywordType]: ERROR_MESSAGE.KEYWORD_DUPLICATED_INPUT_VALUE,
+        [subKeywordType]: ERROR_MESSAGE.KEYWORD_DUPLICATED_INPUT_VALUE,
       }));
+      return;
     }
 
-    setSubkeywordList((prev) => ({
+    setSubKeywordList((prev) => ({
       ...prev,
-      [subkeywordType]: [...prev[subkeywordType], inputValue[subkeywordType]],
+      [subKeywordType]: [...prev[subKeywordType], inputValue[subKeywordType]],
     }));
-    setInputValue((prev) => ({ ...prev, [subkeywordType]: "" }));
-    return setErrorMessage((prev) => ({ ...prev, [subkeywordType]: "" }));
+    setInputValue((prev) => ({ ...prev, [subKeywordType]: "" }));
+    return setErrorMessage((prev) => ({ ...prev, [subKeywordType]: "" }));
   };
-  const removeSubkeyword = (subkeywordType, subkeywordNameForRemove) => {
-    setSubkeywordList((prev) => ({
+  const handleRemoveSubKeywordChipClick = (subKeywordType, subKeywordNameForRemove) => {
+    setSubKeywordList((prev) => ({
       ...prev,
-      [subkeywordType]: prev[subkeywordType].filter(
-        (subkeywordName) => subkeywordName !== subkeywordNameForRemove
+      [subKeywordType]: prev[subKeywordType].filter(
+        (subKeywordName) => subKeywordName !== subKeywordNameForRemove
       ),
     }));
   };
   const handleSubKeywordSubmit = (e) => {
     e.preventDefault();
 
-    const subkeywordInfo = {
+    const subKeywordInfo = {
       keywordId,
-      includedKeyword: subkeywordList.includedKeyword,
-      excludedKeyword: subkeywordList.excludedKeyword,
-      ownerUid: userInfo.id,
+      includedKeyword: subKeywordList.includedKeyword,
+      excludedKeyword: subKeywordList.excludedKeyword,
+      ownerUid: userInfo.uid,
     };
 
-    editSubkeywordMutation.mutate(
-      { subkeywordInfo, keywordId },
+    editSubKeywordMutation.mutate(
+      { subKeywordInfo, keywordId },
       {
         onSuccess: () => {
           closeModal(MODAL_TYPE.EDIT_SUBKEYWORD);
           addModal(MODAL_TYPE.CREATE_KEYWORD_SUCCESS);
-          queryClient.invalidateQueries({ queryKey: ["userGroupList"] });
+          queryClient.invalidateQueries({ queryKey: ["specificKeyword", keywordId] });
         },
         onError: () => {
           addModal(MODAL_TYPE.ERROR);
@@ -88,7 +88,7 @@ const EditSubkeywordModal = () => {
     );
   };
   return (
-    <Portal mountDomNode={modalNode}>
+    <Portal>
       <ModalBackground isDataFetching={false} isClear={true} modalType={MODAL_TYPE.EDIT_SUBKEYWORD}>
         <ModalFrame isClear={true} hasCloseButton={true} modalType={MODAL_TYPE.EDIT_SUBKEYWORD}>
           <div className="w-full flex items-start mb-18 gap-20">
@@ -114,19 +114,19 @@ const EditSubkeywordModal = () => {
                   type="text"
                   id="includedKeyword"
                   value={inputValue.includedKeyword}
-                  onChange={(e) => handleSubkeywordInputChange(e, "includedKeyword")}
+                  onChange={(e) => handleSubKeywordInputChange(e, "includedKeyword")}
                   className="w-full h-40 px-15 border-2 border-purple-300 rounded-[8px] text-purple-900 font-semibold"
                   placeholder="추가 키워드로 게시물을 추가로 필터링 할 수 있어요"
                 />
                 <div className="flex items-center gap-5 w-full">
-                  {subkeywordList.includedKeyword.map((subkeywordName) => {
+                  {subKeywordList.includedKeyword.map((subKeywordName) => {
                     return (
                       <KeywordChip
-                        key={subkeywordName}
-                        keywordName={subkeywordName}
+                        key={subKeywordName}
+                        keywordName={subKeywordName}
                         hasCloseButton={true}
-                        handleCloseIconClick={() =>
-                          removeSubkeyword("includedKeyword", subkeywordName)
+                        onClick={() =>
+                          handleRemoveSubKeywordChipClick("includedKeyword", subKeywordName)
                         }
                       />
                     );
@@ -138,7 +138,7 @@ const EditSubkeywordModal = () => {
               </div>
               <PlusSquareIcon
                 className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
-                onClick={() => handleCreateSubeywordButtonClick("includedKeyword")}
+                onClick={() => handleCreateSubKeywordButtonClick("includedKeyword")}
               />
             </div>
             <div className="w-full flex items-start gap-20">
@@ -153,19 +153,19 @@ const EditSubkeywordModal = () => {
                   type="text"
                   id="excludedKeyword"
                   value={inputValue.excludedKeyword}
-                  onChange={(e) => handleSubkeywordInputChange(e, "excludedKeyword")}
+                  onChange={(e) => handleSubKeywordInputChange(e, "excludedKeyword")}
                   className="w-full h-40 px-15 border-2 border-purple-300 rounded-[8px] text-purple-900 font-semibold"
                   placeholder="제외할 키워드를 입력해주세요"
                 />
                 <div className="flex items-center gap-5 w-full">
-                  {subkeywordList.excludedKeyword.map((subkeywordName) => {
+                  {subKeywordList.excludedKeyword.map((subKeywordName) => {
                     return (
                       <KeywordChip
-                        key={subkeywordName}
-                        keywordName={subkeywordName}
+                        key={subKeywordName}
+                        keywordName={subKeywordName}
                         hasCloseButton={true}
-                        handleCloseIconClick={() =>
-                          removeSubkeyword("excludedKeyword", subkeywordName)
+                        onClick={() =>
+                          handleRemoveSubKeywordChipClick("excludedKeyword", subKeywordName)
                         }
                       />
                     );
@@ -177,10 +177,10 @@ const EditSubkeywordModal = () => {
               </div>
               <PlusSquareIcon
                 className="size-40 flex-shrink-0 fill-purple-300 cursor-pointer"
-                onClick={() => handleCreateSubeywordButtonClick("excludedKeyword")}
+                onClick={() => handleCreateSubKeywordButtonClick("excludedKeyword")}
               />
             </div>
-            <CreateKeywordButton buttonText={"저장하기"} />
+            <CreateKeywordButton buttonText={GENERAL_TEXT.EDIT} />
           </form>
         </ModalFrame>
       </ModalBackground>
@@ -188,4 +188,4 @@ const EditSubkeywordModal = () => {
   );
 };
 
-export default EditSubkeywordModal;
+export default EditSubKeywordModal;

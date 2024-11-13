@@ -1,12 +1,12 @@
 import fetchHandler from "..";
 import { BASE_URL } from "../../config/constants";
 
-const asyncEditSubkeyword = async (subkeywordInfo, keywordId) => {
+const asyncEditSubKeyword = async (subKeywordInfo, keywordId) => {
   const fetchInfo = {
     url: `${BASE_URL}/keywords/${keywordId}`,
     method: "PUT",
     params: "",
-    body: subkeywordInfo,
+    body: subKeywordInfo,
   };
 
   const response = await fetchHandler(fetchInfo);
@@ -14,4 +14,4 @@ const asyncEditSubkeyword = async (subkeywordInfo, keywordId) => {
   return response;
 };
 
-export default asyncEditSubkeyword;
+export default asyncEditSubKeyword;
