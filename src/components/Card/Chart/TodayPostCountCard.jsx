@@ -1,6 +1,4 @@
 import asyncGetTodayPostCount from "../../../api/keyword/asyncGetTodayPostCount";
-import DownArrowIcon from "../../Icon/DownArrowIcon";
-import UpArrowIcon from "../../Icon/UpArrowIcon";
 import { useQuery } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 
