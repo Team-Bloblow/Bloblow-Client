@@ -1,24 +1,21 @@
-import { useState } from "react";
 import { useParams } from "react-router-dom";
 
-import asyncGetTotalPostCountList from "../api/group/asyncGetTotalPostCountList";
 import asyncGetUserGroup from "../api/group/asyncGetUserGroup";
 import GroupPeriodPostCountCard from "../components/Card/Chart/GroupPeriodPostCountCard";
 import DashboardHeader from "../components/Header/DashboardHeader";
 import DashboardSidebar from "../components/Sidebar/DashboardSidebar";
+import { GROUP_CHART_TYPE } from "../config/constants";
 import useNoSignInRedirect from "../hooks/useNoSignInRedirect";
 import useBoundStore from "../store/client/useBoundStore";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 const GroupPage = () => {
   useNoSignInRedirect();
 
   const { groupId } = useParams();
-  const [cursorId, setCursorId] = useState("");
 
   const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
   const userUid = useBoundStore((state) => state.userInfo.uid);
-  const hasGroupId = !!groupId;
   const hasUserUid = !!userUid;
 
   const { data: userGroupList, isError: isUserGroupListError } = useQuery({
@@ -28,51 +25,47 @@ const GroupPage = () => {
     staleTime: 3 * 1000,
   });
 
-  const {
-    data: groupPostCountData,
-    isError: isGroupPostCountDataError,
-    isPlaceholderData,
-  } = useQuery({
-    queryKey: ["groupPostCount", cursorId, groupId],
-    queryFn: () => asyncGetTotalPostCountList(cursorId, groupId),
-    placeholderData: keepPreviousData,
-    enabled: hasUserUid && hasGroupId,
-    staleTime: 5 * 1000,
-  });
+  const isError = isUserGroupListError || userGroupList?.message?.includes("Error occured");
 
-  const isError =
-    isUserGroupListError ||
-    isGroupPostCountDataError ||
-    userGroupList?.message?.includes("Error occured") ||
-    groupPostCountData?.message?.includes("Error occured");
+  if (isError) {
+    <main className="flex flex-center mx-auto w-full h-screen max-w-1440">
+      에러가 발생하였습니다. 잠시 후 다시 시도해주시기 바랍니다.
+    </main>;
+  }
+
+  if (userGroupList === undefined) {
+    return null;
+  }
 
   if (userGroupList?.groupListLength > 0 && userGroupList?.groupListResult?.length > 0) {
     setUserGroupList(userGroupList?.groupListResult);
   }
 
-  if (userGroupList === undefined || groupPostCountData === undefined) {
-    return null;
-  }
-
   return (
     <main className="flex justify-start items-start mx-auto pt-67 h-screen w-full max-w-1440">
       <DashboardSidebar userGroupList={userGroupList?.groupListResult} groupId={groupId} />
-      <section className="w-full h-full flex flex-col justify-start">
+      <section className="flex flex-col justify-start w-full">
         <DashboardHeader userGroupList={userGroupList?.groupListResult} groupId={groupId} />
-        <article className="flex flex-col border-r-2 border-slate-200/80 shadow-sm h-full">
-          {isError ? (
-            <div className="flex flex-center w-full h-full">
-              에러가 발생하였습니다. 잠시 후 다시 시도해주시기 바랍니다.
-            </div>
-          ) : (
-            <div className="flex flex-col p-10 w-full h-full">
+        <article className="flex flex-col border-r-2 border-slate-200/80 shadow-sm h-full mb-30">
+          <div className="flex flex-col gap-10 p-10 w-full h-full">
+            <GroupPeriodPostCountCard
+              groupChartType={GROUP_CHART_TYPE.POST}
+              groupId={groupId}
+              hasUserUid={hasUserUid}
+            />
+            <div className="flex gap-10">
               <GroupPeriodPostCountCard
-                groupPostCountData={groupPostCountData}
-                setCursorId={setCursorId}
-                isPlaceholderData={isPlaceholderData}
+                groupChartType={GROUP_CHART_TYPE.LIKE}
+                groupId={groupId}
+                hasUserUid={hasUserUid}
+              />
+              <GroupPeriodPostCountCard
+                groupChartType={GROUP_CHART_TYPE.COMMENT}
+                groupId={groupId}
+                hasUserUid={hasUserUid}
               />
             </div>
-          )}
+          </div>
         </article>
       </section>
     </main>
