@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import asyncGetUserGroup from "../api/group/asyncGetUserGroup";
 import asyncGetKeyword from "../api/keyword/asyncGetKeyword";
+import PeriodPostCommentCard from "../components/Card/Chart/PeriodPostCommentCard";
 import PeriodPostCountCard from "../components/Card/Chart/PeriodPostCountCard";
 import TodayPostCountCard from "../components/Card/Chart/TodayPostCountCard";
 import PostCardList from "../components/Card/Post/PostCardList";
@@ -85,6 +86,9 @@ const KeywordPage = () => {
                   <div className="flex gap-10 w-full">
                     <TodayPostCountCard keywordId={keywordId} />
                     <PeriodPostCountCard keywordId={keywordId} />
+                  </div>
+                  <div className="flex gap-10 w-full">
+                    <PeriodPostCommentCard keywordId={keywordId} />
                   </div>
                 </div>
               ) : (
