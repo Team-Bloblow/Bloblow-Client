@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import getDate from "../../../utils/getDate";
 import KeywordChip from "../../Chip/KeywordChip";
+import UpdateIcon from "../../Icon/UpdateIcon";
 import PropTypes from "prop-types";
 
 const UserGroupCard = ({ groupId, groupName, keywordList, updatedAt }) => {
@@ -21,7 +22,9 @@ const UserGroupCard = ({ groupId, groupName, keywordList, updatedAt }) => {
           ))}
         </div>
         <p className="flex items-center gap-5 text-slate-500 text-13">
-          {updatedDate.currentYear}년 {updatedDate.currentMonth}월 {updatedDate.currentDate}일
+          <UpdateIcon className="size-13" />
+          마지막 업데이트 : {updatedDate.currentYear}년 {updatedDate.currentMonth}월{" "}
+          {updatedDate.currentDate}일
         </p>
       </div>
     </Link>
