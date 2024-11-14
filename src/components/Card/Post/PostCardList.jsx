@@ -53,7 +53,7 @@ const PostCardList = ({ keywordId }) => {
                 commentCount={postInfo?.commentCount}
                 link={postInfo?.link}
                 createdAt={postInfo?.createdAt}
-                isAd={postInfo?.isAd}
+                isAd={postInfo?.isAd ?? false}
               />
             );
           });
