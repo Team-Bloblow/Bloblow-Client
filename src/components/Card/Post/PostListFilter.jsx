@@ -19,18 +19,22 @@ const PostListFilter = ({ filterList, setFilterList }) => {
     includedKeyword: "",
     excludedKeyword: "",
   });
+
   const handleFilterInputChange = (e, filterType) => {
     setInputValue((prev) => ({ ...prev, [filterType]: e.target.value }));
     return;
   };
+
   const handleCreateTempFilterSubmit = (e, filterType) => {
     e.preventDefault();
+
     if (inputValue[filterType]?.trim() === "") {
       return;
     }
     const hasFilter = Object.values(tempFilterList).some((filter) =>
       filter.includes(inputValue[filterType])
     );
+
     if (hasFilter) {
       setErrorMessage((prev) => ({
         ...prev,
@@ -47,6 +51,7 @@ const PostListFilter = ({ filterList, setFilterList }) => {
     setErrorMessage((prev) => ({ ...prev, [filterType]: "" }));
     return;
   };
+
   const handleFilterChipRemoveButtonClick = (filterType, filterForRemove) => {
     setTempFilterList((prev) => ({
       ...prev,
@@ -54,6 +59,7 @@ const PostListFilter = ({ filterList, setFilterList }) => {
     }));
     return;
   };
+
   const handleFilterApplyButtonClick = () => {
     const filterListSet = new Set(Object.values(filterList).flat());
     const tempFilterListSet = new Set(Object.values(tempFilterList).flat());
@@ -62,9 +68,11 @@ const PostListFilter = ({ filterList, setFilterList }) => {
     if (hasFilter) {
       return;
     }
+
     setFilterList(tempFilterList);
     return;
   };
+
   return (
     <div className="flex flex-col gap-10 w-full px-20 py-10">
       <div className="flex flex-col gap-5">
