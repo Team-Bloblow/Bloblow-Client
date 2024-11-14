@@ -23,17 +23,23 @@ const KeywordPage = () => {
   const hasUserUid = !!userUid;
   const hasKeywordId = !!keywordId;
 
-  const { data: userGroupList } = useQuery({
+  const { data: userGroupList, isError: isUserGroupListError } = useQuery({
     queryKey: ["userGroupList"],
     queryFn: () => asyncGetUserGroup(userUid),
     enabled: hasUserUid,
   });
 
-  const { data: specificKeywordData } = useQuery({
+  const { data: specificKeywordData, isError: isSpecificKeywordDataError } = useQuery({
     queryKey: ["specificKeyword", keywordId],
     queryFn: () => asyncGetKeyword(keywordId),
     enabled: hasKeywordId,
   });
+
+  const isError =
+    isUserGroupListError ||
+    isSpecificKeywordDataError ||
+    userGroupList?.message?.includes("Error occured") ||
+    specificKeywordData?.message?.includes("Error occured");
 
   if (userGroupList?.groupListLength > 0 && userGroupList?.groupListResult?.length > 0) {
     setUserGroupList(userGroupList?.groupListResult);
@@ -68,15 +74,23 @@ const KeywordPage = () => {
               게시물 목록
             </button>
           </div>
-          {dashboardType === "chart" ? (
-            <div className="flex flex-col p-10 w-full h-full">
-              <div className="flex gap-10 w-full">
-                <TodayPostCountCard keywordId={keywordId} />
-                <PeriodPostCountCard keywordId={keywordId} />
-              </div>
+          {isError ? (
+            <div className="flex flex-center w-full h-full">
+              에러가 발생하였습니다. 잠시 후 다시 시도해주시기 바랍니다.
             </div>
           ) : (
-            <PostCardList keywordId={keywordId} />
+            <>
+              {dashboardType === "chart" ? (
+                <div className="flex flex-col p-10 w-full h-full">
+                  <div className="flex gap-10 w-full">
+                    <TodayPostCountCard keywordId={keywordId} />
+                    <PeriodPostCountCard keywordId={keywordId} />
+                  </div>
+                </div>
+              ) : (
+                <PostCardList keywordId={keywordId} />
+              )}
+            </>
           )}
         </article>
       </section>

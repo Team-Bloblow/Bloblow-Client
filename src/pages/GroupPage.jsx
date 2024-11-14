@@ -16,11 +16,13 @@ const GroupPage = () => {
   const userUid = useBoundStore((state) => state.userInfo.uid);
   const hasUserUid = !!userUid;
 
-  const { data: userGroupList } = useQuery({
+  const { data: userGroupList, isError: isUserGroupListError } = useQuery({
     queryKey: ["userGroupList"],
     queryFn: () => asyncGetUserGroup(userUid),
     enabled: hasUserUid,
   });
+
+  const isError = isUserGroupListError || userGroupList?.message?.includes("Error occured");
 
   if (userGroupList?.groupListLength > 0 && userGroupList?.groupListResult?.length > 0) {
     setUserGroupList(userGroupList?.groupListResult);
@@ -35,6 +37,11 @@ const GroupPage = () => {
       <DashboardSidebar userGroupList={userGroupList?.groupListResult} groupId={groupId} />
       <section className="w-full h-full flex flex-col justify-start">
         <DashboardHeader userGroupList={userGroupList?.groupListResult} groupId={groupId} />
+        {isError && (
+          <div className="flex flex-center w-full h-full">
+            에러가 발생하였습니다. 잠시 후 다시 시도해주시기 바랍니다.
+          </div>
+        )}
       </section>
     </main>
   );

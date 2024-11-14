@@ -26,9 +26,9 @@ const PostCardList = ({ keywordId }) => {
     root: observeRootRef.current,
   };
 
-  const { data: postResponse, isPending } = useInfiniteData(infiniteDataArgument);
+  const { data: postResponse, isPending, isError } = useInfiniteData(infiniteDataArgument);
 
-  if (postResponse?.pages[0]?.message?.includes("Error occured")) {
+  if (isError || postResponse?.pages[0]?.message?.includes("Error occured")) {
     return <Error errorMessage={ERROR_MESSAGE.FETCH_POSTS} />;
   }
 
