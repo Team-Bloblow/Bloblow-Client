@@ -35,6 +35,9 @@ const TodayPostCountCard = ({ keywordId }) => {
           {noDiff && <EndashIcon className="size-90" />}
           {greaterThanYesterday && <UpwardArrowIcon className="size-90" />}
           {lessThanYesterday && <DownwardArrowIcon className="size-90" />}
+          <p className="text-50 justify-center items-center pt-8">
+            {!noDiff && chartData.diffPostCount}
+          </p>
         </p>
         <span className="flex-center text-120">{chartData.todayPostCount}</span>
       </div>
