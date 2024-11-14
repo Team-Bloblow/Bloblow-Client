@@ -20,7 +20,7 @@ const KeywordPage = () => {
 
   const { groupId, keywordId } = useParams();
   const [dashboardType, setDashboardType] = useState("chart");
-  const [subKeywordList, setSubKeywordList] = useState({
+  const [filterList, setFilterList] = useState({
     includedKeyword: [],
     excludedKeyword: [],
   });
@@ -100,11 +100,8 @@ const KeywordPage = () => {
                 </div>
               ) : (
                 <>
-                  <PostListFilter
-                    subKeywordList={subKeywordList}
-                    setSubKeywordList={setSubKeywordList}
-                  />
-                  <PostCardList keywordId={keywordId} subKeywordList={subKeywordList} />
+                  <PostListFilter filterList={filterList} setFilterList={setFilterList} />
+                  <PostCardList keywordId={keywordId} filterList={filterList} />
                 </>
               )}
             </>
