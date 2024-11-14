@@ -25,14 +25,14 @@ const GroupPage = () => {
     staleTime: 3 * 1000,
   });
 
-  const isError =
-    isUserGroupListError ||
-    userGroupList?.message?.includes("Error occured");
+  const isError = isUserGroupListError || userGroupList?.message?.includes("Error occured");
 
   if (isError) {
-    <main className="flex flex-center mx-auto w-full h-screen max-w-1440">
-      에러가 발생하였습니다. 잠시 후 다시 시도해주시기 바랍니다.
-    </main>;
+    return (
+      <main className="flex flex-center mx-auto w-full h-screen max-w-1440">
+        에러가 발생하였습니다. 잠시 후 다시 시도해주시기 바랍니다.
+      </main>
+    );
   }
 
   if (userGroupList === undefined) {
