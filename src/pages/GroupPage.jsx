@@ -25,7 +25,9 @@ const GroupPage = () => {
     staleTime: 3 * 1000,
   });
 
-  const isError = isUserGroupListError || userGroupList?.message?.includes("Error occured");
+  const isError =
+    isUserGroupListError ||
+    userGroupList?.message?.includes("Error occured");
 
   if (isError) {
     <main className="flex flex-center mx-auto w-full h-screen max-w-1440">
