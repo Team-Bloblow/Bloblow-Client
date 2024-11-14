@@ -1,7 +1,5 @@
 import CloseIcon from "../Icon/CloseIcon";
 import Button from "../UI/Button";
-import CloseIcon from "../Icon/CloseIcon";
-import Button from "../UI/Button";
 import PropTypes from "prop-types";
 
 const KeywordChip = ({ keywordName, styles, hasCloseButton, onClick }) => {
@@ -22,8 +20,6 @@ export default KeywordChip;
 KeywordChip.propTypes = {
   keywordName: PropTypes.string.isRequired,
   styles: PropTypes.string.isRequired,
-  hasCloseButton: PropTypes.bool,
-  onClick: PropTypes.func,
   hasCloseButton: PropTypes.bool,
   onClick: PropTypes.func,
 };
