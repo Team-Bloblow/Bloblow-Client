@@ -9,10 +9,11 @@ import {
   LinearScale,
   PointElement,
   Tooltip,
+  plugins,
 } from "chart.js";
 import PropTypes from "prop-types";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, plugins);
 
 const GroupLineChart = ({ groupChartType, chartData }) => {
   const data = {
@@ -33,8 +34,8 @@ const GroupLineChart = ({ groupChartType, chartData }) => {
       return {
         label: name,
         data,
-        borderColor: CHART_COLOR[index % 5],
-        backgroundColor: CHART_COLOR[index % 5],
+        borderColor: CHART_COLOR[index],
+        backgroundColor: CHART_COLOR[index],
       };
     }),
   };
@@ -44,6 +45,29 @@ const GroupLineChart = ({ groupChartType, chartData }) => {
     scales: {
       y: {
         beginAtZero: true,
+      },
+    },
+    maintainAspectRatio: true,
+    aspectRatio: 3,
+
+    plugins: {
+      legend: {
+        display: true,
+        position: "top",
+        align: "center",
+        labels: {
+          padding: 11,
+          boxWidth: 11,
+          color: "#000000",
+          usePointStyle: false,
+          pointStyle: "circle",
+          font: {
+            family: "Pretendard",
+            size: 12,
+            lineHeight: 2,
+            weight: "normal",
+          },
+        },
       },
     },
   };

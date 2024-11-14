@@ -46,7 +46,7 @@ const GroupPage = () => {
       <DashboardSidebar userGroupList={userGroupList?.groupListResult} groupId={groupId} />
       <section className="flex flex-col justify-start w-full">
         <DashboardHeader userGroupList={userGroupList?.groupListResult} groupId={groupId} />
-        <article className="flex flex-col border-r-2 border-slate-200/80 shadow-sm h-full mb-30">
+        <article className="flex flex-col border-l-1 border-b-2 border-r-2 border-slate-200/80 shadow-md h-full mb-30">
           <div className="flex flex-col gap-10 p-10 w-full h-full">
             <GroupPeriodPostCountCard
               groupChartType={GROUP_CHART_TYPE.POST}
