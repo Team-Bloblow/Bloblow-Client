@@ -20,6 +20,15 @@ export const ERROR_MESSAGE = Object.freeze({
   FETCH_POSTS: "블로그 정보를 불러오지 못했습니다.",
 });
 
+export const CHART_COLOR = Object.freeze(["#f1948a", "#c39bd3", "#85c1e9", "#7dcea0", "#f8c471"]);
+
+export const PERIOD_TYPE = Object.freeze({
+  WEEKLY: "weekly",
+  MONTHLY: "monthly",
+  WEEKLY_KR: "주간",
+  MONTHLY_KR: "월간",
+});
+
 export const POST_LISTS = Object.freeze({
   DEFAULT_INCLUDED_KEYWORD: "",
   DEFAULT_LIMIT: 10,
