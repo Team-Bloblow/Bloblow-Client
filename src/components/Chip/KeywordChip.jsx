@@ -7,8 +7,8 @@ const KeywordChip = ({ keywordName, styles, hasCloseButton, onClick }) => {
     <span className={styles}>
       {keywordName}
       {hasCloseButton && (
-        <Button styles="right-17" onClick={onClick}>
-          <CloseIcon className="size-25" />
+        <Button styles="align-middle" onClick={onClick}>
+          <CloseIcon className="size-20 ml-5" />
         </Button>
       )}
     </span>
