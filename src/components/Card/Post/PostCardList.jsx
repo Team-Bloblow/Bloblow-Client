@@ -41,7 +41,7 @@ const PostCardList = ({ keywordId, filterList }) => {
       {isPending ? (
         <Loading width={100} height={100} text={""} />
       ) : postResponse?.pages[0]?.items?.length === 0 ? (
-        <p className="w-full h-full flex-center text-22">해당 키워드에 대한 블로그가 없습니다</p>
+        <p className="w-full h-full flex-center text-22">확인할 수 있는 게시물이 없어요</p>
       ) : (
         postResponse?.pages?.map((page) => {
           return page.items?.map((postInfo) => {
