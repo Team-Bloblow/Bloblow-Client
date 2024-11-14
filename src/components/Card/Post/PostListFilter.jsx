@@ -6,10 +6,10 @@ import Button from "../../UI/Button";
 import Label from "../../UI/Label";
 import PropTypes from "prop-types";
 
-const PostListFilter = ({ subKeywordList, setSubKeywordList }) => {
+const PostListFilter = ({ filterList, setFilterList }) => {
   const [subKeywordListAdded, setSubKeywordListAdded] = useState({
-    includedKeyword: subKeywordList.includedKeyword,
-    excludedKeyword: subKeywordList.excludedKeyword,
+    includedKeyword: filterList.includedKeyword,
+    excludedKeyword: filterList.excludedKeyword,
   });
   const [inputValue, setInputValue] = useState({
     includedKeyword: "",
@@ -58,19 +58,24 @@ const PostListFilter = ({ subKeywordList, setSubKeywordList }) => {
   };
   const handleFilterApplyButtonClick = () => {
     const isEqualQueryResult =
-      Object.values(subKeywordList).join() === Object.values(subKeywordListAdded).join();
+      Object.values(filterList).join() === Object.values(subKeywordListAdded).join();
     if (isEqualQueryResult) {
       alert("현재 검색 결과와 동일해요");
       return;
     }
-    setSubKeywordList(subKeywordListAdded);
+    setFilterList(subKeywordListAdded);
     return;
   };
   return (
     <div className="relative w-full h-210">
       <div className="absolute top-0 right-20 w-8/12 h-40 my-15 px-15 border-2 font-semibold">
         <form onSubmit={(e) => handleSubKeywordEnterSubmit(e, "includedKeyword")}>
-          <Label htmlFor="includedKeyword"></Label>
+          <Label
+            htmlFor="includedKeyword"
+            styles="w-100 text-15 text-slate-700 font-semibold flex-shrink-0 hover:text-emerald-900/80"
+          >
+            포함
+          </Label>
           {subKeywordListAdded?.includedKeyword?.map((subKeyword) => {
             return (
               <KeywordChip
@@ -94,7 +99,12 @@ const PostListFilter = ({ subKeywordList, setSubKeywordList }) => {
       </div>
       <div className="absolute bottom-30 right-20 w-8/12 h-40 my-15 px-15 border-2 font-semibold">
         <form onSubmit={(e) => handleSubKeywordEnterSubmit(e, "includedKeyword")}>
-          <Label htmlFor="excludedKeyword"></Label>
+          <Label
+            htmlFor="excludedKeyword"
+            styles="w-100 text-15 text-slate-700 font-semibold flex-shrink-0 hover:text-emerald-900/80"
+          >
+            제외
+          </Label>
           {subKeywordListAdded?.excludedKeyword?.map((subKeyword) => {
             return (
               <KeywordChip
@@ -129,9 +139,9 @@ const PostListFilter = ({ subKeywordList, setSubKeywordList }) => {
 export default PostListFilter;
 
 PostListFilter.propTypes = {
-  subKeywordList: PropTypes.shape({
+  filterList: PropTypes.shape({
     includedKeyword: PropTypes.array.isRequired,
     excludedKeyword: PropTypes.array.isRequired,
   }),
-  setSubKeywordList: PropTypes.func.isRequired,
+  setFilterList: PropTypes.func.isRequired,
 };
