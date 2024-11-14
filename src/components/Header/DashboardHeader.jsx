@@ -15,7 +15,7 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
   const createdDate = getDate(specificKeywordData?.createdAt);
   const updatedDate = getDate(specificKeywordData?.updatedAt);
 
-  const isNeverUpdated = specificKeywordData?.createdAt === specificKeywordData?.updatedAt;
+  const isNotUpdated = specificKeywordData?.createdAt === specificKeywordData?.updatedAt;
 
   if (keywordId === undefined) {
     return (
@@ -50,7 +50,7 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
         <p className="flex items-center gap-5 text-slate-500 text-13 font-light">
           <CalendarIcon className="size-18 fill-none" />
           <span className="pt-2">
-            {isNeverUpdated
+            {isNotUpdated
               ? `${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일`
               : `${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일 ~ ${updatedDate?.currentYear}년 ${updatedDate?.currentMonth}월 ${updatedDate?.currentDate}일`}
           </span>
