@@ -26,13 +26,18 @@ export default {
     },
     extend: {
       keyframes: {
-        fadeIn: {
+        fadeInSlow: {
+          "0%": { opacity: 0 },
+          "100%": { opacity: 1 },
+        },
+        fadeInFast: {
           "0%": { opacity: 0 },
           "100%": { opacity: 1 },
         },
       },
       animation: {
-        fadeIn: "fadeIn 2.5s linear",
+        fadeInSlow: "fadeInSlow 3s linear",
+        fadeInFast: "fadeInFast 1s linear",
       },
     },
   },

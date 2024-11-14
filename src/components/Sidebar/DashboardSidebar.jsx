@@ -1,6 +1,5 @@
 import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
-import LinkIcon from "../Icon/LinkIcon";
 import RevertIcon from "../Icon/RevertIcon";
 import CreateKeywordModal from "../Modal/CreateKeywordModal";
 import CreateKeywordSuccessModal from "../Modal/CreateKeywordSuccessModal";
@@ -21,20 +20,19 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
   };
 
   return (
-    <nav className="flex flex-col justify-between w-250 h-full flex-shrink-0 bg-white border-l-2 border-r-2 border-violet-50 shadow-lg">
+    <nav className="flex flex-col justify-between w-250 h-full flex-shrink-0 bg-white border-l-2 border-r-2 border-slate-200/80 shadow-lg">
       <div className="flex flex-col justify-start w-full">
         <Button
-          styles="flex items-center gap-12 w-full h-30 px-30 py-10 text-14 border-b-2 border-violet-100 opacity-70 bg-pink-50/10 hover:opacity-90"
+          styles="flex items-center gap-12 w-full h-30 px-30 py-10 text-14 border-b-2 border-slate-200/80 opacity-70 bg-white hover:opacity-90"
           destination="/myPage"
         >
           <RevertIcon className="size-14 fill-black" />
           마이페이지
         </Button>
         <Button
-          styles="flex items-center gap-12 w-full h-70 px-30 py-10 text-20 border-b-2 border-violet-100 font-bold bg-gradient-to-r from-[#9996EF] to-[#F9C7D4] opacity-70 hover:opacity-85"
+          styles="flex items-center gap-12 w-full h-70 px-30 py-10 text-24 border-b-2 border-slate-200/80 font-bold bg-green-600/30 opacity-70 hover:opacity-85"
           destination={`/dashboard/${groupId}`}
         >
-          <LinkIcon className="size-25 fill-black" />
           {dashboardGroupName}
         </Button>
         {dashboardKeywordList.map((dashboardKeyword) => {
@@ -44,17 +42,16 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
           return (
             <Button
               key={keywordId}
-              styles="flex items-center gap-12 w-full h-70 px-30 py-10 text-18 border-b-2 border-violet-100 font-semibold opacity-70 bg-pink-50/10 hover:opacity-90"
+              styles="flex items-center gap-12 w-full h-40 px-30 py-10 text-18 border-b-2 border-slate-200/80 opacity-70 bg-emerald-50/10 hover:opacity-90"
               destination={`/dashboard/${groupId}/${keywordId}`}
             >
-              <LinkIcon className="size-25 fill-black" />
-              {keywordName}
+              # {keywordName}
             </Button>
           );
         })}
       </div>
       <Button
-        styles="flex-center w-full h-70 px-30 py-10 text-18 text-pink-900/80 border-t-2 border-b-2 border-violet-100 font-semibold hover:bg-pink-50"
+        styles="flex-center w-full h-70 px-30 py-10 text-18 text-gray-900/80 border-t-2 border-b-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
         onClick={handleCreateKeywordButton}
       >
         키워드 만들기

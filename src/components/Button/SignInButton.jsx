@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom";
 
 import asyncPostSignIn from "../../api/auth/asyncPostSignIn";
-import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
+import { ERROR_MESSAGE, MODAL_TYPE, SIGN_BUTTON_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
 import ErrorModal from "../Modal/ErrorModal";
 import Button from "../UI/Button";
 import { useMutation } from "@tanstack/react-query";
+import PropTypes from "prop-types";
 
-const SignInButton = () => {
+const SignInButton = ({ type }) => {
   const navigate = useNavigate();
 
   const isSignIn = useBoundStore((state) => state.isSignIn);
@@ -16,7 +17,7 @@ const SignInButton = () => {
   const setIsSignIn = useBoundStore((state) => state.setIsSignIn);
   const setUserInfo = useBoundStore((state) => state.setUserInfo);
   const openModalTypeList = useBoundStore((state) => state.openModalTypeList);
-  const googleSignInError = useBoundStore((state) => state.error.googleSignInError);
+  const googleSignInError = useBoundStore((state) => state.authError.googleSignInError);
   const addModal = useBoundStore((state) => state.addModal);
 
   const signInMutation = useMutation({
@@ -54,9 +55,23 @@ const SignInButton = () => {
     }
   };
 
+  if (type === SIGN_BUTTON_TYPE.LANDING_PAGE) {
+    return (
+      <Button
+        styles="flex-center px-12 py-6 font-medium border-1 border-slate-400 bg-white rounded-[5px] text-black text-18 hover:bg-emerald-200/10 hover:shadow-md"
+        onClick={handleButtonClick}
+      >
+        서비스 시작하기
+        {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.ERROR && (
+          <ErrorModal errorMessage={ERROR_MESSAGE.SIGN_IN_ERROR} />
+        )}
+      </Button>
+    );
+  }
+
   return (
     <Button
-      styles="flex-center px-14 py-8 font-medium border-2 border-purple-200 bg-purple-400/80 rounded-[15px] text-white text-16 hover:bg-purple-500/80"
+      styles="flex-center px-12 py-6 font-medium border-1 border-slate-400 bg-white rounded-[5px] text-black text-16 hover:bg-emerald-200/10 hover:shadow-md"
       onClick={handleButtonClick}
     >
       {isSignIn ? "로그아웃" : "로그인"}
@@ -68,3 +83,7 @@ const SignInButton = () => {
 };
 
 export default SignInButton;
+
+SignInButton.propTypes = {
+  type: PropTypes.string,
+};

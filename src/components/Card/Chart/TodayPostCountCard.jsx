@@ -1,4 +1,7 @@
 import asyncGetTodayPostCount from "../../../api/keyword/asyncGetTodayPostCount";
+import DownwardArrowIcon from "../../Icon/DownwardArrowIcon";
+import EndashIcon from "../../Icon/EndashIcon";
+import UpwardArrowIcon from "../../Icon/UpwardArrowIcon";
 import { useQuery } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 
@@ -20,21 +23,20 @@ const TodayPostCountCard = ({ keywordId }) => {
     );
   }
 
+  const noDiff = Number(chartData?.diffPostCount) === 0;
+  const greaterThanYesterday = Number(chartData.diffPostCount) > 0;
+  const lessThanYesterday = Number(chartData.diffPostCount) < 0;
+
   return (
-    <article className="w-1/2 h-full p-10 border-2 rounded-md">
-      <span>오늘의 게시물</span>
-      <p className="flex justify-center mt-20">
-        {Number(chartData.diffPostCount) === 0 ? (
-          "어제와 게시물 수가 동일합니다."
-        ) : (
-          <>
-            어제 대비 게시물 수 {Math.abs(chartData.diffPostCount)}개{" "}
-            {Number(chartData.diffPostCount) >= 0 ? "증가" : "감소"}
-          </>
-        )}
-      </p>
-      <div className="flex justify-center">
-        <div className="text-50">{chartData.todayPostCount}</div>
+    <article className="flex flex-col gap-40 w-[35%] h-full p-10 border-2 rounded-md flex-shrink-0">
+      <span className="bg-green-100/20 px-10 py-5 rounded-[2px]">오늘의 게시물</span>
+      <div className="flex flex-col gap-10 h-full">
+        <p className="flex justify-center">
+          {noDiff && <EndashIcon className="size-90" />}
+          {greaterThanYesterday && <UpwardArrowIcon className="size-90" />}
+          {lessThanYesterday && <DownwardArrowIcon className="size-90" />}
+        </p>
+        <span className="flex-center text-120">{chartData.todayPostCount}</span>
       </div>
     </article>
   );

@@ -34,3 +34,13 @@ export const POST_LISTS = Object.freeze({
   DEFAULT_LIMIT: 10,
   DEFAULT_CURSOR_ID: "",
 });
+
+export const SIGN_BUTTON_TYPE = Object.freeze({
+  LANDING_PAGE: "landingPage",
+});
+
+export const SIGNATURE_COLOR = Object.freeze({
+  START: "#00684A",
+  VIA: "#009F55",
+  TO: "#00ED64",
+});

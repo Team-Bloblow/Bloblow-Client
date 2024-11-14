@@ -26,21 +26,21 @@ const PostCardList = ({ keywordId }) => {
     root: observeRootRef.current,
   };
 
-  const { data: postResponse, isPending } = useInfiniteData(infiniteDataArgument);
+  const { data: postResponse, isPending, isError } = useInfiniteData(infiniteDataArgument);
 
-  if (postResponse?.pages[0]?.message?.includes("Error occured")) {
+  if (isError || postResponse?.pages[0]?.message?.includes("Error occured")) {
     return <Error errorMessage={ERROR_MESSAGE.FETCH_POSTS} />;
   }
 
   return (
     <article
       ref={observeRootRef}
-      className="flex flex-col justify-start gap-12 bg-white rounded-[10px] pt-25 px-30 w-full h-full flex-grow overflow-y-scroll"
+      className="flex flex-col justify-start gap-12 bg-white rounded-[10px] p-10 w-full h-full flex-grow overflow-y-scroll"
     >
       {isPending ? (
         <Loading width={100} height={100} text={""} />
       ) : postResponse?.pages[0]?.items?.length === 0 ? (
-        <p className="w-full h-full flex-center text-22">해당 키워드에 대한 블로그가 없습니다.</p>
+        <p className="w-full h-full flex-center text-22">해당 키워드에 대한 블로그가 없습니다</p>
       ) : (
         postResponse?.pages?.map((page) => {
           return page.items?.map((postInfo) => {
@@ -53,7 +53,7 @@ const PostCardList = ({ keywordId }) => {
                 commentCount={postInfo?.commentCount}
                 link={postInfo?.link}
                 createdAt={postInfo?.createdAt}
-                isAd={postInfo?.isAd}
+                isAd={postInfo?.isAd ?? false}
               />
             );
           });

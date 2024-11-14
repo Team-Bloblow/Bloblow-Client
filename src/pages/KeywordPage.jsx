@@ -23,20 +23,30 @@ const KeywordPage = () => {
   const hasUserUid = !!userUid;
   const hasKeywordId = !!keywordId;
 
-  const { data: userGroupList } = useQuery({
+  const { data: userGroupList, isError: isUserGroupListError } = useQuery({
     queryKey: ["userGroupList"],
     queryFn: () => asyncGetUserGroup(userUid),
     enabled: hasUserUid,
   });
 
-  const { data: specificKeywordData } = useQuery({
+  const { data: specificKeywordData, isError: isSpecificKeywordDataError } = useQuery({
     queryKey: ["specificKeyword", keywordId],
     queryFn: () => asyncGetKeyword(keywordId),
     enabled: hasKeywordId,
   });
 
-  if (userGroupList?.groupListResult > 0 && userGroupList?.groupListResult?.length > 0) {
+  const isError =
+    isUserGroupListError ||
+    isSpecificKeywordDataError ||
+    userGroupList?.message?.includes("Error occured") ||
+    specificKeywordData?.message?.includes("Error occured");
+
+  if (userGroupList?.groupListLength > 0 && userGroupList?.groupListResult?.length > 0) {
     setUserGroupList(userGroupList?.groupListResult);
+  }
+
+  if (userGroupList === undefined || specificKeywordData === undefined) {
+    return null;
   }
 
   return (
@@ -49,28 +59,40 @@ const KeywordPage = () => {
           specificKeywordData={specificKeywordData}
           keywordId={keywordId}
         />
-        <div className="w-full m-10">
-          <button
-            className="p-5 border-1 border-slate-300"
-            onClick={() => setDashboardType("chart")}
-          >
-            인사이트 보기
-          </button>
-          <button
-            className="p-5 border-1 border-slate-300"
-            onClick={() => setDashboardType("post")}
-          >
-            게시물 목록
-          </button>
-        </div>
-        {dashboardType === "chart" ? (
-          <div className="flex p-20">
-            <TodayPostCountCard keywordId={keywordId} />
-            <PeriodPostCountCard keywordId={keywordId} />
+        <article className="flex flex-col border-r-2 border-slate-200/80 shadow-sm h-full">
+          <div className="flex gap-10 w-full h-40 px-10 bg-green-100/30">
+            <button
+              className={`p-5 h-full ${dashboardType === "chart" ? "font-bold" : "text-gray-500"} hover:text-green-800`}
+              onClick={() => setDashboardType("chart")}
+            >
+              인사이트 보기
+            </button>
+            <button
+              className={`p-5 h-full ${dashboardType === "post" ? "font-bold" : "text-gray-500"} hover:text-green-800`}
+              onClick={() => setDashboardType("post")}
+            >
+              게시물 목록
+            </button>
           </div>
-        ) : (
-          <PostCardList keywordId={keywordId} />
-        )}
+          {isError ? (
+            <div className="flex flex-center w-full h-full">
+              에러가 발생하였습니다. 잠시 후 다시 시도해주시기 바랍니다.
+            </div>
+          ) : (
+            <>
+              {dashboardType === "chart" ? (
+                <div className="flex flex-col p-10 w-full h-full">
+                  <div className="flex gap-10 w-full">
+                    <TodayPostCountCard keywordId={keywordId} />
+                    <PeriodPostCountCard keywordId={keywordId} />
+                  </div>
+                </div>
+              ) : (
+                <PostCardList keywordId={keywordId} />
+              )}
+            </>
+          )}
+        </article>
       </section>
     </main>
   );
