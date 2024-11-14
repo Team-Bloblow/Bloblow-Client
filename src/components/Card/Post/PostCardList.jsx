@@ -8,16 +8,17 @@ import Loading from "../../UI/Loading";
 import PostCard from "./PostCard";
 import PropTypes from "prop-types";
 
-const PostCardList = ({ keywordId }) => {
+const PostCardList = ({ keywordId, subKeywordList }) => {
   const observeRef = useRef(null);
   const observeRootRef = useRef(null);
 
   const infiniteDataArgument = {
-    queryKey: ["posts", keywordId],
+    queryKey: ["posts", keywordId, subKeywordList],
     queryFn: asyncGetPosts,
     options: {
       keywordId,
-      includedKeyword: "",
+      includedKeyword: subKeywordList.includedKeyword,
+      excludedKeyword: subKeywordList.excludedKeyword,
       limit: 5,
     },
     initialPageParam: "",
@@ -68,4 +69,8 @@ export default PostCardList;
 
 PostCardList.propTypes = {
   keywordId: PropTypes.string.isRequired,
+  subKeywordList: PropTypes.shape({
+    includedKeyword: PropTypes.array.isRequired,
+    excludedKeyword: PropTypes.array.isRequired,
+  }),
 };

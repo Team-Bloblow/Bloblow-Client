@@ -6,7 +6,7 @@ import asyncGetKeyword from "../api/keyword/asyncGetKeyword";
 import PeriodPostCountCard from "../components/Card/Chart/PeriodPostCountCard";
 import TodayPostCountCard from "../components/Card/Chart/TodayPostCountCard";
 import PostCardList from "../components/Card/Post/PostCardList";
-import PostListFilter from "../components/Filter/PostListFilter";
+import PostListFilter from "../components/Card/Post/PostListFilter";
 import DashboardHeader from "../components/Header/DashboardHeader";
 import DashboardSidebar from "../components/Sidebar/DashboardSidebar";
 import useNoSignInRedirect from "../hooks/useNoSignInRedirect";
@@ -18,6 +18,10 @@ const KeywordPage = () => {
 
   const { groupId, keywordId } = useParams();
   const [dashboardType, setDashboardType] = useState("chart");
+  const [subKeywordList, setSubKeywordList] = useState({
+    includedKeyword: [],
+    excludedKeyword: [],
+  });
 
   const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
   const userUid = useBoundStore((state) => state.userInfo.uid);
@@ -89,7 +93,13 @@ const KeywordPage = () => {
                   </div>
                 </div>
               ) : (
-                <PostCardList keywordId={keywordId} />
+                <>
+                  <PostListFilter
+                    subKeywordList={subKeywordList}
+                    setSubKeywordList={setSubKeywordList}
+                  />
+                  <PostCardList keywordId={keywordId} subKeywordList={subKeywordList} />
+                </>
               )}
             </>
           )}
