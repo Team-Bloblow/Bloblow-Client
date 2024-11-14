@@ -64,19 +64,27 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
     const keywordValue = inputValue.keyword.trim();
     const newGroupValue = inputValue.newGroup.trim();
 
-    if (keywordValue === "" || selectedGroup.name === "") {
-      if (keywordValue === "") {
-        setErrorMessage((prev) => ({ ...prev, keyword: ERROR_MESSAGE.KEYWORD_EMPTY_INPUT_VALUE }));
+    if (isCreatingNewGroup) {
+      if (newGroupValue === "") {
+        setErrorMessage((prev) => ({
+          ...prev,
+          newGroup: ERROR_MESSAGE.NEW_GROUP_EMPTY_INPUT_VALUE,
+        }));
+        return;
       }
-      if (selectedGroup.name === "") {
-        setErrorMessage((prev) => ({ ...prev, group: ERROR_MESSAGE.MUST_GROUP_SELECT }));
+    } else {
+      if (keywordValue === "" || selectedGroup.name === "") {
+        if (keywordValue === "") {
+          setErrorMessage((prev) => ({
+            ...prev,
+            keyword: ERROR_MESSAGE.KEYWORD_EMPTY_INPUT_VALUE,
+          }));
+        }
+        if (selectedGroup.name === "") {
+          setErrorMessage((prev) => ({ ...prev, group: ERROR_MESSAGE.MUST_GROUP_SELECT }));
+        }
+        return;
       }
-      return;
-    }
-
-    if (isCreatingNewGroup && newGroupValue === "") {
-      setErrorMessage((prev) => ({ ...prev, newGroup: ERROR_MESSAGE.NEW_GROUP_EMPTY_INPUT_VALUE }));
-      return;
     }
 
     const keywordInfo = {
