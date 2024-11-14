@@ -34,8 +34,8 @@ const GroupLineChart = ({ groupChartType, chartData }) => {
       return {
         label: name,
         data,
-        borderColor: CHART_COLOR[index],
-        backgroundColor: CHART_COLOR[index],
+        borderColor: CHART_COLOR[index % 5],
+        backgroundColor: CHART_COLOR[index % 5],
       };
     }),
   };
