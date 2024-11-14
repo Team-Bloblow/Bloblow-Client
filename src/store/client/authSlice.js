@@ -9,14 +9,14 @@ const createAuthSlice = (set) => ({
     displayName: "",
     photoURL: "",
   },
-  error: {
+  authError: {
     googleSignInError: "",
     serverSignInError: "",
   },
   setIsSignIn: (isSignIn) => set((state) => ({ ...state, isSignIn })),
   setUserInfo: (userInfo) => set((state) => ({ ...state, userInfo })),
   setServerSignInError: (errorMessage) =>
-    set((state) => ({ ...state, error: { serverSignInError: errorMessage } })),
+    set((state) => ({ ...state, authError: { serverSignInError: errorMessage } })),
   asyncSignIn: async () => {
     try {
       const provider = new GoogleAuthProvider();
@@ -25,7 +25,7 @@ const createAuthSlice = (set) => ({
 
       return { uid, email, displayName, photoURL };
     } catch ({ message }) {
-      set((state) => ({ ...state, error: { googleSignInError: message } }));
+      set((state) => ({ ...state, authError: { googleSignInError: message } }));
     }
   },
   signOut: () => {
@@ -39,9 +39,11 @@ const createAuthSlice = (set) => ({
         displayName: "",
         photoURL: "",
       },
-      error: {
+      authError: {
         googleSignInError: "",
         serverSignInError: "",
+      },
+      userDataError: {
         keywordCrawlingError: "",
       },
       userGroupList: [],

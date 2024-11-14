@@ -17,7 +17,7 @@ const SignInButton = ({ type }) => {
   const setIsSignIn = useBoundStore((state) => state.setIsSignIn);
   const setUserInfo = useBoundStore((state) => state.setUserInfo);
   const openModalTypeList = useBoundStore((state) => state.openModalTypeList);
-  const googleSignInError = useBoundStore((state) => state.error.googleSignInError);
+  const googleSignInError = useBoundStore((state) => state.authError.googleSignInError);
   const addModal = useBoundStore((state) => state.addModal);
 
   const signInMutation = useMutation({
