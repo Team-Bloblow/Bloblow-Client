@@ -3,13 +3,21 @@ import { useQuery } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 
 const TodayPostCountCard = ({ keywordId }) => {
-  const { data: chartData } = useQuery({
+  const { data: chartData, isError } = useQuery({
     queryKey: ["todayPostCount", keywordId],
     queryFn: () => asyncGetTodayPostCount(keywordId),
   });
 
-  if (typeof chartData === "undefined") {
-    return <div className="mt-100 w-1/3 p-10">조회된 게시물이 없습니다 🥲</div>;
+  if (chartData === undefined) {
+    return null;
+  }
+
+  if (isError || chartData?.message?.includes("Error occured")) {
+    return (
+      <div className="w-1/2 h-full p-10 border-2 rounded-md flex justify-center items-center">
+        오늘의 게시물 차트를 불러오는 데 실패했습니다.
+      </div>
+    );
   }
 
   return (
