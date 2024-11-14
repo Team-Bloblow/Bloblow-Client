@@ -61,11 +61,11 @@ const PostListFilter = ({ filterList, setFilterList }) => {
   };
 
   const handleFilterApplyButtonClick = () => {
-    const filterListSet = new Set(Object.values(filterList).flat());
-    const tempFilterListSet = new Set(Object.values(tempFilterList).flat());
-    const hasFilter = Array.from(tempFilterListSet).some((filter) => filterListSet.has(filter));
+    const filters = Object.values(filterList).flat().sort();
+    const tempFilters = Object.values(tempFilterList).flat().sort();
+    const isEqualFilter = tempFilters.every((filter, index) => filter === filters[index]);
 
-    if (hasFilter) {
+    if (isEqualFilter) {
       return;
     }
 
