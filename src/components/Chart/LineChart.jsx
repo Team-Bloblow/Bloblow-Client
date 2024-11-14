@@ -20,7 +20,7 @@ const LineChart = ({ chartData }) => {
     datasets: [
       {
         label: chartData.keyword,
-        data: chartData.postCountList,
+        data: chartData.items,
         borderColor: CHART_COLOR[0],
         backgroundColor: CHART_COLOR[0],
       },
@@ -47,7 +47,7 @@ LineChart.propTypes = {
     keyword: PropTypes.string,
     cursorId: PropTypes.string,
     dates: PropTypes.arrayOf(PropTypes.string),
-    postCountList: PropTypes.arrayOf(PropTypes.number),
+    items: PropTypes.arrayOf(PropTypes.number),
     previousCursorId: PropTypes.string,
     nextCursorId: PropTypes.string,
     hasPrevious: PropTypes.bool,

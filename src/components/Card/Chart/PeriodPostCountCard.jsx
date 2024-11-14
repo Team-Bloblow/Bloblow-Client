@@ -17,6 +17,7 @@ const PeriodPostCountCard = ({ keywordId }) => {
   } = useQuery({
     queryKey: ["postCount", keywordId, cursorId],
     queryFn: () => asyncGetPostCountList(keywordId, cursorId),
+    select: (data) => ({ ...data, items: data.postCountList }),
     placeholderData: keepPreviousData,
   });
 

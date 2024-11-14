@@ -17,7 +17,7 @@ const PeriodPostCommentCard = ({ keywordId }) => {
   } = useQuery({
     queryKey: ["postComment", keywordId, cursorId],
     queryFn: () => asyncGetPostCommentList(keywordId, cursorId),
-    select: (data) => (data = { ...data, items: data.postCommentList }),
+    select: (data) => ({ ...data, items: data.postCommentList }),
     placeholderData: keepPreviousData,
   });
 
