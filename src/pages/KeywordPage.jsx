@@ -5,6 +5,7 @@ import asyncGetUserGroup from "../api/group/asyncGetUserGroup";
 import asyncGetKeyword from "../api/keyword/asyncGetKeyword";
 import PeriodPostCommentCard from "../components/Card/Chart/PeriodPostCommentCard";
 import PeriodPostCountCard from "../components/Card/Chart/PeriodPostCountCard";
+import PeriodPostLikeCard from "../components/Card/Chart/PeriodPostLikeCard";
 import TodayPostCountCard from "../components/Card/Chart/TodayPostCountCard";
 import PostCardList from "../components/Card/Post/PostCardList";
 import DashboardHeader from "../components/Header/DashboardHeader";
@@ -88,6 +89,7 @@ const KeywordPage = () => {
                     <PeriodPostCountCard keywordId={keywordId} />
                   </div>
                   <div className="flex gap-10 w-full">
+                    <PeriodPostLikeCard keywordId={keywordId} />
                     <PeriodPostCommentCard keywordId={keywordId} />
                   </div>
                 </div>
