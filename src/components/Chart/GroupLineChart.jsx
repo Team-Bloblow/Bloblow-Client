@@ -48,7 +48,7 @@ const GroupLineChart = ({ groupChartType, chartData }) => {
       },
     },
     maintainAspectRatio: true,
-    aspectRatio: 3,
+    aspectRatio: 2.6,
 
     plugins: {
       legend: {

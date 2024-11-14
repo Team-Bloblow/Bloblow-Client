@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import asyncGetTotalPostCountList from "../../../api/group/asyncGetTotalPostCountList";
+import { GROUP_CHART_TYPE } from "../../../config/constants";
 import GroupLineChart from "../../Chart/GroupLineChart";
 import GroupPeriodPagination from "../../Pagination/GroupPeriodPagination";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
@@ -39,7 +40,9 @@ const GroupPeriodPostCountCard = ({ groupChartType, groupId, hasUserUid }) => {
   }
 
   return (
-    <article className="flex flex-col gap-6 w-full h-full p-10 border-2 rounded-md">
+    <article
+      className={`flex flex-col gap-6 h-full p-10 border-2 rounded-md ${groupChartType === GROUP_CHART_TYPE.POST ? "w-full" : "w-1/2"}`}
+    >
       <span className="flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">
         {groupChartType}
       </span>
