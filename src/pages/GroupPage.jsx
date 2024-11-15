@@ -30,7 +30,7 @@ const GroupPage = () => {
   if (isError) {
     return (
       <main className="flex flex-center mx-auto w-full h-screen max-w-1440">
-        에러가 발생하였습니다. 잠시 후 다시 시도해주시기 바랍니다.
+        차트를 불러오는데 실패했습니다. 잠시 후 다시 시도해주시기 바랍니다.
       </main>
     );
   }
