@@ -1,9 +1,9 @@
 import fetchHandler from "..";
 import { BASE_URL } from "../../config/constants";
 
-const asyncGetTotalPostCountList = async (cursorId = "", groupId) => {
+const asyncGetGroupCommentCountList = async (cursorId = "", groupId) => {
   const fetchInfo = {
-    url: `${BASE_URL}/posts/groups/${groupId}/postCount`,
+    url: `${BASE_URL}/posts/groups/${groupId}/commentCount`,
     params: `?cursorId=${cursorId}`,
   };
 
@@ -12,4 +12,4 @@ const asyncGetTotalPostCountList = async (cursorId = "", groupId) => {
   return response;
 };
 
-export default asyncGetTotalPostCountList;
+export default asyncGetGroupCommentCountList;

@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-import asyncGetTotalPostCountList from "../../../api/group/asyncGetTotalPostCountList";
+import asyncGetGroupCommentCountList from "../../../api/group/asyncGetGroupCommentCountList";
+import asyncGetGroupLikeCountList from "../../../api/group/asyncGetGroupLikeCountList";
+import asyncGetGroupPostCountList from "../../../api/group/asyncGetGroupPostCountList";
 import { GROUP_CHART_TYPE } from "../../../config/constants";
 import GroupLineChart from "../../Chart/GroupLineChart";
 import GroupPeriodPagination from "../../Pagination/GroupPeriodPagination";
@@ -11,6 +13,19 @@ const GroupPeriodPostCountCard = ({ groupChartType, groupId, hasUserUid }) => {
   const [cursorId, setCursorId] = useState("");
 
   const hasGroupId = !!groupId;
+  let queryFunction;
+
+  switch (groupChartType) {
+    case GROUP_CHART_TYPE.POST:
+      queryFunction = asyncGetGroupPostCountList;
+      break;
+    case GROUP_CHART_TYPE.LIKE:
+      queryFunction = asyncGetGroupLikeCountList;
+      break;
+    case GROUP_CHART_TYPE.COMMENT:
+      queryFunction = asyncGetGroupCommentCountList;
+      break;
+  }
 
   const {
     data: groupPostCountData,
@@ -18,7 +33,7 @@ const GroupPeriodPostCountCard = ({ groupChartType, groupId, hasUserUid }) => {
     isPlaceholderData,
   } = useQuery({
     queryKey: ["groupPostCount", cursorId, groupId, groupChartType],
-    queryFn: () => asyncGetTotalPostCountList(cursorId, groupId),
+    queryFn: () => queryFunction(cursorId, groupId),
     placeholderData: keepPreviousData,
     enabled: hasUserUid && hasGroupId,
     staleTime: 5 * 1000,

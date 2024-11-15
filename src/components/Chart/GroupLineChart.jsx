@@ -19,20 +19,18 @@ const GroupLineChart = ({ groupChartType, chartData }) => {
   const data = {
     labels: chartData?.items[0]?.dates?.map((date) => changeMonthDateFormat(date)),
     datasets: chartData?.items?.map((keyword, index) => {
-      const { name, postCountList, likeCountList, commentCountList } = keyword;
-
       let data;
 
       if (groupChartType === GROUP_CHART_TYPE.POST) {
-        data = postCountList;
+        data = keyword.postCountList;
       } else if (groupChartType === GROUP_CHART_TYPE.LIKE) {
-        data = likeCountList;
+        data = keyword.likeCountList;
       } else if (groupChartType === GROUP_CHART_TYPE.COMMENT) {
-        data = commentCountList;
+        data = keyword.commentCountList;
       }
 
       return {
-        label: name,
+        label: keyword.name,
         data,
         borderColor: CHART_COLOR[index % 5],
         backgroundColor: CHART_COLOR[index % 5],
