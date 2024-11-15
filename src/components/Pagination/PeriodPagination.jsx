@@ -27,7 +27,7 @@ const PeriodPagination = ({ chartData, setCursorId, isPlaceholderData }) => {
         onClick={() => handlePagingClick("previous")}
         disabled={isPreviousButtonDisabled}
       >
-        <LeftCarouselIcon isDisabled={!chartData?.hasPrevious || isPlaceholderData} />
+        <LeftCarouselIcon isDisabled={isPreviousButtonDisabled} />
       </button>
       <span className="text-14">
         {changeDateWithDotFormat(chartData?.dates[0]) +
@@ -40,7 +40,7 @@ const PeriodPagination = ({ chartData, setCursorId, isPlaceholderData }) => {
         onClick={() => handlePagingClick("next")}
         disabled={isNextButtonDisabled}
       >
-        <RightCarouselIcon isDisabled={!chartData?.hasNext || isPlaceholderData} />
+        <RightCarouselIcon isDisabled={isNextButtonDisabled} />
       </button>
     </div>
   );
