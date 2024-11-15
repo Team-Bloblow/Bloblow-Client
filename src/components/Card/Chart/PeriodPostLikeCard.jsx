@@ -28,14 +28,14 @@ const PeriodPostLikeCard = ({ keywordId }) => {
   if (isError || chartData?.message?.includes("Error occured")) {
     return (
       <div className="w-1/2 h-full p-10 border-2 rounded-md flex justify-center items-center">
-        주간 좋아요 수 차트를 불러오는 데 실패했습니다.
+        주간 공감 수 차트를 불러오는 데 실패했습니다.
       </div>
     );
   }
 
   return (
     <article className="flex flex-col gap-6 w-1/2 h-full p-10 border-2 rounded-md">
-      <span className="flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">주간 좋아요 수</span>
+      <span className="flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">주간 공감 수</span>
       <div className="flex-col-center">
         <LineChart chartData={chartData} />
         <PeriodPagination
