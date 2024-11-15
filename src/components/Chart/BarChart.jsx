@@ -1,20 +1,20 @@
-import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 
 import { CHART_COLOR } from "../../config/constants";
 import { changeMonthDateFormat } from "../../utils/date";
 import {
+  BarElement,
   CategoryScale,
   Chart as ChartJS,
-  LineElement,
   LinearScale,
   PointElement,
   Tooltip,
 } from "chart.js";
 import PropTypes from "prop-types";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip);
+ChartJS.register(CategoryScale, LinearScale, PointElement, BarElement, Tooltip);
 
-const LineChart = ({ chartData }) => {
+const BarChart = ({ chartData }) => {
   const data = {
     labels: chartData.dates.map((date) => changeMonthDateFormat(date)),
     datasets: [
@@ -36,12 +36,12 @@ const LineChart = ({ chartData }) => {
     },
   };
 
-  return <Line options={options} data={data} />;
+  return <Bar options={options} data={data} />;
 };
 
-export default LineChart;
+export default BarChart;
 
-LineChart.propTypes = {
+BarChart.propTypes = {
   chartData: PropTypes.shape({
     keywordId: PropTypes.string,
     keyword: PropTypes.string,

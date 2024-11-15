@@ -29,11 +29,11 @@ const PostCard = ({
       <div className="flex justify-between items-center w-full">
         <div className="flex items-center gap-10 ">
           <span className="text-slate-500 text-14">
-            좋아요
+            공감
             <span className="text-slate-900"> {likeCount}</span>
           </span>
           <span className="text-slate-500 text-14">
-            댓글수
+            댓글
             <span className="text-slate-900"> {commentCount}</span>
           </span>
           <span className="text-slate-500 text-14">
