@@ -37,7 +37,7 @@ const KeywordPage = () => {
   }, [keywordId, setFilterList]);
 
   const { data: userGroupList, isError: isUserGroupListError } = useQuery({
-    queryKey: ["userGroupList"],
+    queryKey: ["userGroupList", userUid],
     queryFn: () => asyncGetUserGroup(userUid),
     enabled: hasUserUid,
   });
@@ -65,7 +65,9 @@ const KeywordPage = () => {
   return (
     <main className="flex justify-start items-start mx-auto pt-67 h-screen w-full max-w-1440">
       <DashboardSidebar userGroupList={userGroupList?.groupListResult} groupId={groupId} />
-      <section className="w-full flex flex-col justify-start">
+      <section
+        className={`w-full flex flex-col justify-start ${dashboardType !== "chart" && "h-full"}`}
+      >
         <DashboardHeader
           userGroupList={userGroupList?.groupListResult}
           groupId={groupId}
@@ -73,7 +75,7 @@ const KeywordPage = () => {
           keywordId={keywordId}
         />
         <article
-          className={`flex flex-col border-l-1 border-b-2 border-r-2 border-slate-200/80 shadow-md w-full ${dashboardType === "post" && "h-full"}`}
+          className={`flex flex-col border-l-1 border-b-2 border-r-2 border-slate-200/80 shadow-md w-full ${dashboardType !== "chart" && "h-full"}`}
         >
           <div className="flex gap-10 w-full h-40 px-10 bg-green-100/30">
             <button
@@ -107,10 +109,10 @@ const KeywordPage = () => {
                   </div>
                 </div>
               ) : (
-                <>
+                <div className="flex flex-col h-full">
                   <PostListFilter filterList={filterList} setFilterList={setFilterList} />
                   <PostCardList keywordId={keywordId} filterList={filterList} />
-                </>
+                </div>
               )}
             </>
           )}

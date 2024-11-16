@@ -19,7 +19,7 @@ const GroupPage = () => {
   const hasUserUid = !!userUid;
 
   const { data: userGroupList, isError: isUserGroupListError } = useQuery({
-    queryKey: ["userGroupList"],
+    queryKey: ["userGroupList", userUid],
     queryFn: () => asyncGetUserGroup(userUid),
     enabled: hasUserUid,
     staleTime: 3 * 1000,
