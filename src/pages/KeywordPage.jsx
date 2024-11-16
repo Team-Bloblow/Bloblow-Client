@@ -21,8 +21,12 @@ const KeywordPage = () => {
 
   const { groupId, keywordId } = useParams();
   const [dashboardType, setDashboardType] = useState("chart");
-  const [filterList, setFilterList] = useState(POST_LISTS.DEFAULT_FILTER_LIST);
-  const [hasPost, setHasPost] = useState(false);
+  const [filterList, setFilterList] = useState({
+    order: "",
+    includedKeyword: [],
+    excludedKeyword: [],
+    isAd: "",
+  });
   const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
   const userUid = useBoundStore((state) => state.userInfo.uid);
   const hasUserUid = !!userUid;
@@ -36,8 +40,13 @@ const KeywordPage = () => {
   }, [keywordId]);
 
   useEffect(() => {
-    setDashboardType("chart");
-  }, [keywordId]);
+    setFilterList(() => ({
+      order: "",
+      includedKeyword: [],
+      excludedKeyword: [],
+      isAd: "",
+    }));
+  }, [keywordId, setFilterList]);
 
   const { data: userGroupList, isError: isUserGroupListError } = useQuery({
     queryKey: ["userGroupList", userUid],
@@ -113,17 +122,11 @@ const KeywordPage = () => {
                 </div>
               ) : (
                 <div className="flex flex-col h-full">
-                  {hasPost && (
-                    <PostListFilter
-                      filterList={filterList}
-                      setFilterList={setFilterList}
-                      resetFilterList={resetFilterList}
-                    />
-                  )}
                   <PostCardList
                     keywordId={keywordId}
                     filterList={filterList}
-                    setHasPost={setHasPost}
+                    setFilterList={setFilterList}
+                    resetFilterList={resetFilterList}
                   />
                 </div>
               )}
