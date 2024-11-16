@@ -31,10 +31,32 @@ export const PERIOD_TYPE = Object.freeze({
 });
 
 export const POST_LISTS = Object.freeze({
+  ORDER_KR: {
+    NEWEST: "최신 순",
+    LIKE: "공감 많은 순",
+    COMMENT: "댓글 많은 순",
+  },
+  ORDER_EN: {
+    NEWEST: "NEWEST",
+    LIKE: "LIKE",
+    COMMENT: "COMMENT",
+  },
   INCLUDED_KEYWORD: "포함할 키워드",
   EXCLUDED_KEYWORD: "제외할 키워드",
+  ISAD_KR: {
+    ALL: "광고 포함",
+    ONLY_ADS: "광고만",
+    NO_ADS: "광고 제외",
+  },
+  ISAD_EN: {
+    ALL: "",
+    ONLY_ADS: true,
+    NO_ADS: false,
+  },
+  DEFAULT_ORDER: "NEWEST",
   DEFAULT_INCLUDED_KEYWORD: [],
   DEFAULT_EXCLUDED_KEYWORD: [],
+  DEFAULT_IS_AD: "",
   DEFAULT_LIMIT: 10,
   DEFAULT_CURSOR_ID: "",
 });
