@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import asyncGetUserGroup from "../api/group/asyncGetUserGroup";
@@ -8,6 +8,7 @@ import PeriodPostCountCard from "../components/Card/Chart/PeriodPostCountCard";
 import PeriodPostLikeCard from "../components/Card/Chart/PeriodPostLikeCard";
 import TodayPostCountCard from "../components/Card/Chart/TodayPostCountCard";
 import PostCardList from "../components/Card/Post/PostCardList";
+import PostListFilter from "../components/Card/Post/PostListFilter";
 import DashboardHeader from "../components/Header/DashboardHeader";
 import DashboardSidebar from "../components/Sidebar/DashboardSidebar";
 import useNoSignInRedirect from "../hooks/useNoSignInRedirect";
@@ -19,11 +20,21 @@ const KeywordPage = () => {
 
   const { groupId, keywordId } = useParams();
   const [dashboardType, setDashboardType] = useState("chart");
-
+  const [filterList, setFilterList] = useState({
+    includedKeyword: [],
+    excludedKeyword: [],
+  });
   const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
   const userUid = useBoundStore((state) => state.userInfo.uid);
   const hasUserUid = !!userUid;
   const hasKeywordId = !!keywordId;
+
+  useEffect(() => {
+    setFilterList(() => ({
+      includedKeyword: [],
+      excludedKeyword: [],
+    }));
+  }, [keywordId, setFilterList]);
 
   const { data: userGroupList, isError: isUserGroupListError } = useQuery({
     queryKey: ["userGroupList"],
@@ -94,7 +105,10 @@ const KeywordPage = () => {
                   </div>
                 </div>
               ) : (
-                <PostCardList keywordId={keywordId} />
+                <>
+                  <PostListFilter filterList={filterList} setFilterList={setFilterList} />
+                  <PostCardList keywordId={keywordId} filterList={filterList} />
+                </>
               )}
             </>
           )}

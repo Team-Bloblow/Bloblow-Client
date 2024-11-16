@@ -6,12 +6,15 @@ const asyncGetPosts = async (
   {
     keywordId,
     includedKeyword = POST_LISTS.DEFAULT_INCLUDED_KEYWORD,
+    excludedKeyword = POST_LISTS.DEFAULT_EXCLUDED_KEYWORD,
     limit = POST_LISTS.DEFAULT_LIMIT,
   }
 ) => {
+  const includedKeywordParams = includedKeyword.length === 0 ? "" : includedKeyword.join();
+  const excludedKeywordParams = excludedKeyword.length === 0 ? "" : excludedKeyword.join();
   const fetchInfo = {
     url: `${BASE_URL}/posts/${keywordId}`,
-    params: `?includedKeyword=${includedKeyword}&limit=${limit}&cursorId=${cursorId}`,
+    params: `?includedKeyword=${includedKeywordParams}&excludedKeyword=${excludedKeywordParams}&limit=${limit}&cursorId=${cursorId}`,
   };
 
   const response = await fetchHandler(fetchInfo);

@@ -8,16 +8,17 @@ import Loading from "../../UI/Loading";
 import PostCard from "./PostCard";
 import PropTypes from "prop-types";
 
-const PostCardList = ({ keywordId }) => {
+const PostCardList = ({ keywordId, filterList }) => {
   const observeRef = useRef(null);
   const observeRootRef = useRef(null);
 
   const infiniteDataArgument = {
-    queryKey: ["posts", keywordId],
+    queryKey: ["posts", keywordId, filterList],
     queryFn: asyncGetPosts,
     options: {
       keywordId,
-      includedKeyword: "",
+      includedKeyword: filterList.includedKeyword,
+      excludedKeyword: filterList.excludedKeyword,
       limit: 5,
     },
     initialPageParam: "",
@@ -40,7 +41,7 @@ const PostCardList = ({ keywordId }) => {
       {isPending ? (
         <Loading width={100} height={100} text={""} />
       ) : postResponse?.pages[0]?.items?.length === 0 ? (
-        <p className="w-full h-full flex-center text-22">해당 키워드에 대한 블로그가 없습니다</p>
+        <p className="w-full h-full flex-center text-22">확인할 수 있는 게시물이 없어요</p>
       ) : (
         postResponse?.pages?.map((page) => {
           return page.items?.map((postInfo) => {
@@ -68,4 +69,8 @@ export default PostCardList;
 
 PostCardList.propTypes = {
   keywordId: PropTypes.string.isRequired,
+  filterList: PropTypes.shape({
+    includedKeyword: PropTypes.arrayOf(PropTypes.string.isRequired),
+    excludedKeyword: PropTypes.arrayOf(PropTypes.string.isRequired),
+  }),
 };
