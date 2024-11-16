@@ -17,8 +17,10 @@ const PostCardList = ({ keywordId, filterList }) => {
     queryFn: asyncGetPosts,
     options: {
       keywordId,
+      order: filterList.order,
       includedKeyword: filterList.includedKeyword,
       excludedKeyword: filterList.excludedKeyword,
+      isAd: filterList.isAd,
       limit: 5,
     },
     initialPageParam: "",
@@ -70,7 +72,9 @@ export default PostCardList;
 PostCardList.propTypes = {
   keywordId: PropTypes.string.isRequired,
   filterList: PropTypes.shape({
+    order: PropTypes.string.isRequired,
     includedKeyword: PropTypes.arrayOf(PropTypes.string.isRequired),
     excludedKeyword: PropTypes.arrayOf(PropTypes.string.isRequired),
+    isAd: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
   }),
 };
