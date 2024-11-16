@@ -21,8 +21,10 @@ const KeywordPage = () => {
   const { groupId, keywordId } = useParams();
   const [dashboardType, setDashboardType] = useState("chart");
   const [filterList, setFilterList] = useState({
+    order: "",
     includedKeyword: [],
     excludedKeyword: [],
+    isAd: "",
   });
   const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
   const userUid = useBoundStore((state) => state.userInfo.uid);
@@ -31,8 +33,10 @@ const KeywordPage = () => {
 
   useEffect(() => {
     setFilterList(() => ({
+      order: "",
       includedKeyword: [],
       excludedKeyword: [],
+      isAd: "",
     }));
   }, [keywordId, setFilterList]);
 
