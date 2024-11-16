@@ -60,7 +60,7 @@ const PostListFilter = ({ filterList, setFilterList }) => {
     return;
   };
 
-  const handleRemoveFilterChipClick = (filterType, filterForRemove) => {
+  const handleFilterChipRemoveButtonClick = (filterType, filterForRemove) => {
     setTempFilterList((prev) => ({
       ...prev,
       [filterType]: prev[filterType].filter((filter) => filter !== filterForRemove),
@@ -111,7 +111,7 @@ const PostListFilter = ({ filterList, setFilterList }) => {
                   key={subKeyword}
                   keywordName={subKeyword}
                   hasCloseButton={true}
-                  onClick={() => handleRemoveFilterChipClick("includedKeyword", subKeyword)}
+                  onClick={() => handleFilterChipRemoveButtonClick("includedKeyword", subKeyword)}
                   styles="px-10 py-5 m-5 border-solid border-2 rounded-xl bg-green-100 border-green-200"
                 />
               );
@@ -148,7 +148,7 @@ const PostListFilter = ({ filterList, setFilterList }) => {
                   key={subKeyword}
                   keywordName={subKeyword}
                   hasCloseButton={true}
-                  onClick={() => handleRemoveFilterChipClick("excludedKeyword", subKeyword)}
+                  onClick={() => handleFilterChipRemoveButtonClick("excludedKeyword", subKeyword)}
                   styles="px-10 py-3 m-5 border-solid border-2 rounded-xl bg-red-100 border-red-200"
                 />
               );
