@@ -31,8 +31,8 @@ export const PERIOD_TYPE = Object.freeze({
 });
 
 export const POST_LISTS = Object.freeze({
-  DEFAULT_INCLUDED_KEYWORD: "",
-  DEFAULT_EXCLUDED_KEYWORD: "",
+  DEFAULT_INCLUDED_KEYWORD: [],
+  DEFAULT_EXCLUDED_KEYWORD: [],
   DEFAULT_LIMIT: 10,
   DEFAULT_CURSOR_ID: "",
 });
