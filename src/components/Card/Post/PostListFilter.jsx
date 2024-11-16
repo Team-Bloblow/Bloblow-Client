@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ERROR_MESSAGE } from "../../../config/constants";
 import KeywordChip from "../../Chip/KeywordChip";
@@ -20,6 +20,13 @@ const PostListFilter = ({ filterList, setFilterList }) => {
     excludedKeyword: "",
   });
 
+  useEffect(() => {
+    setTempFilterList(() => ({
+      includedKeyword: filterList.includedKeyword,
+      excludedKeyword: filterList.excludedKeyword,
+    }));
+  }, [filterList.includedKeyword, filterList.excludedKeyword]);
+
   const handleFilterInputChange = (e, filterType) => {
     setInputValue((prev) => ({ ...prev, [filterType]: e.target.value }));
     return;
@@ -27,12 +34,13 @@ const PostListFilter = ({ filterList, setFilterList }) => {
 
   const handleCreateTempFilterSubmit = (e, filterType) => {
     e.preventDefault();
+    const trimmedInputValue = inputValue[filterType].trim();
 
-    if (inputValue[filterType]?.trim() === "") {
+    if (trimmedInputValue === "") {
       return;
     }
     const hasFilter = Object.values(tempFilterList).some((filter) =>
-      filter.includes(inputValue[filterType])
+      filter.includes(trimmedInputValue)
     );
 
     if (hasFilter) {
@@ -45,14 +53,14 @@ const PostListFilter = ({ filterList, setFilterList }) => {
 
     setTempFilterList((prev) => ({
       ...prev,
-      [filterType]: [...prev[filterType], inputValue[filterType]],
+      [filterType]: [...prev[filterType], trimmedInputValue],
     }));
     setInputValue((prev) => ({ ...prev, [filterType]: "" }));
     setErrorMessage((prev) => ({ ...prev, [filterType]: "" }));
     return;
   };
 
-  const handleFilterChipRemoveButtonClick = (filterType, filterForRemove) => {
+  const handleRemoveFilterChipClick = (filterType, filterForRemove) => {
     setTempFilterList((prev) => ({
       ...prev,
       [filterType]: prev[filterType].filter((filter) => filter !== filterForRemove),
@@ -103,7 +111,7 @@ const PostListFilter = ({ filterList, setFilterList }) => {
                   key={subKeyword}
                   keywordName={subKeyword}
                   hasCloseButton={true}
-                  onClick={() => handleFilterChipRemoveButtonClick("includedKeyword", subKeyword)}
+                  onClick={() => handleRemoveFilterChipClick("includedKeyword", subKeyword)}
                   styles="px-10 py-5 m-5 border-solid border-2 rounded-xl bg-green-100 border-green-200"
                 />
               );
@@ -140,7 +148,7 @@ const PostListFilter = ({ filterList, setFilterList }) => {
                   key={subKeyword}
                   keywordName={subKeyword}
                   hasCloseButton={true}
-                  onClick={() => handleFilterChipRemoveButtonClick("excludedKeyword", subKeyword)}
+                  onClick={() => handleRemoveFilterChipClick("excludedKeyword", subKeyword)}
                   styles="px-10 py-3 m-5 border-solid border-2 rounded-xl bg-red-100 border-red-200"
                 />
               );
