@@ -65,7 +65,7 @@ const KeywordPage = () => {
   return (
     <main className="flex justify-start items-start mx-auto pt-67 h-screen w-full max-w-1440">
       <DashboardSidebar userGroupList={userGroupList?.groupListResult} groupId={groupId} />
-      <section className="w-full h-full flex flex-col justify-start">
+      <section className="w-full flex flex-col justify-start">
         <DashboardHeader
           userGroupList={userGroupList?.groupListResult}
           groupId={groupId}
