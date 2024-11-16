@@ -70,7 +70,7 @@ export default PostCardList;
 PostCardList.propTypes = {
   keywordId: PropTypes.string.isRequired,
   filterList: PropTypes.shape({
-    includedKeyword: PropTypes.array.isRequired,
-    excludedKeyword: PropTypes.array.isRequired,
+    includedKeyword: PropTypes.arrayOf(PropTypes.string.isRequired),
+    excludedKeyword: PropTypes.arrayOf(PropTypes.string.isRequired),
   }),
 };
