@@ -7,8 +7,10 @@ const asyncGetPosts = async (
   cursorId = POST_LISTS.DEFAULT_CURSOR_ID,
   {
     keywordId,
+    order = POST_LISTS.DEFAULT_ORDER,
     includedKeyword = POST_LISTS.DEFAULT_INCLUDED_KEYWORD,
     excludedKeyword = POST_LISTS.DEFAULT_EXCLUDED_KEYWORD,
+    isAd = POST_LISTS.DEFAULT_IS_AD,
     limit = POST_LISTS.DEFAULT_LIMIT,
   }
 ) => {
