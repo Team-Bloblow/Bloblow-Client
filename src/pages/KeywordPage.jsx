@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import asyncGetUserGroup from "../api/group/asyncGetUserGroup";
@@ -22,11 +22,17 @@ const KeywordPage = () => {
     includedKeyword: [],
     excludedKeyword: [],
   });
-
   const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
   const userUid = useBoundStore((state) => state.userInfo.uid);
   const hasUserUid = !!userUid;
   const hasKeywordId = !!keywordId;
+
+  useEffect(() => {
+    setFilterList(() => ({
+      includedKeyword: [],
+      excludedKeyword: [],
+    }));
+  }, [keywordId, setFilterList]);
 
   const { data: userGroupList, isError: isUserGroupListError } = useQuery({
     queryKey: ["userGroupList"],
