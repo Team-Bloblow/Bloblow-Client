@@ -31,6 +31,8 @@ export const PERIOD_TYPE = Object.freeze({
 });
 
 export const POST_LISTS = Object.freeze({
+  INCLUDED_KEYWORD: "포함할 키워드",
+  EXCLUDED_KEYWORD: "제외할 키워드",
   DEFAULT_INCLUDED_KEYWORD: [],
   DEFAULT_EXCLUDED_KEYWORD: [],
   DEFAULT_LIMIT: 10,
