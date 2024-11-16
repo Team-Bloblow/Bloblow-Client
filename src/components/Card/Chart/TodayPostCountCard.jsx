@@ -28,9 +28,9 @@ const TodayPostCountCard = ({ keywordId }) => {
   const lessThanYesterday = Number(chartData.diffPostCount) < 0;
 
   return (
-    <article className="flex flex-col gap-40 w-[35%] h-full p-10 border-2 rounded-md flex-shrink-0">
+    <article className="flex flex-col gap-40 w-[35%] p-10 border-2 rounded-md flex-shrink-0">
       <span className="bg-green-100/20 px-10 py-5 rounded-[2px]">오늘의 게시물</span>
-      <div className="flex flex-col gap-10 h-full">
+      <div className="flex flex-col gap-10 flex-grow">
         <div className="flex justify-center">
           {isEqual && <EndashIcon className="size-90" />}
           {greaterThanYesterday && <UpwardArrowIcon className="size-90" />}

@@ -34,7 +34,7 @@ const PeriodPostLikeCard = ({ keywordId }) => {
   }
 
   return (
-    <article className="flex flex-col gap-6 w-1/2 h-full p-10 border-2 rounded-md">
+    <article className="flex flex-col gap-6 w-1/2 p-10 border-2 rounded-md">
       <span className="flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">주간 공감 수</span>
       <div className="flex-col-center">
         <LineChart chartData={chartData} />
