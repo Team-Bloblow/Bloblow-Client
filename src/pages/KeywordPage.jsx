@@ -37,7 +37,7 @@ const KeywordPage = () => {
   }, [keywordId, setFilterList]);
 
   const { data: userGroupList, isError: isUserGroupListError } = useQuery({
-    queryKey: ["userGroupList"],
+    queryKey: ["userGroupList", userUid],
     queryFn: () => asyncGetUserGroup(userUid),
     enabled: hasUserUid,
   });
@@ -65,14 +65,18 @@ const KeywordPage = () => {
   return (
     <main className="flex justify-start items-start mx-auto pt-67 h-screen w-full max-w-1440">
       <DashboardSidebar userGroupList={userGroupList?.groupListResult} groupId={groupId} />
-      <section className="w-full h-full flex flex-col justify-start">
+      <section
+        className={`w-full flex flex-col justify-start ${dashboardType !== "chart" && "h-full"}`}
+      >
         <DashboardHeader
           userGroupList={userGroupList?.groupListResult}
           groupId={groupId}
           specificKeywordData={specificKeywordData}
           keywordId={keywordId}
         />
-        <article className="flex flex-col border-r-2 border-slate-200/80 shadow-sm h-full">
+        <article
+          className={`flex flex-col border-l-1 border-b-2 border-r-2 border-slate-200/80 shadow-md w-full ${dashboardType !== "chart" && "h-full"}`}
+        >
           <div className="flex gap-10 w-full h-40 px-10 bg-green-100/30">
             <button
               className={`p-5 h-full ${dashboardType === "chart" ? "font-bold" : "text-gray-500"} hover:text-green-800`}
@@ -94,21 +98,21 @@ const KeywordPage = () => {
           ) : (
             <>
               {dashboardType === "chart" ? (
-                <div className="flex flex-col p-10 w-full h-full">
-                  <div className="flex gap-10 w-full">
+                <div className="flex flex-col gap-10 p-10 w-full h-full">
+                  <div className="flex gap-10 w-full h-full">
                     <TodayPostCountCard keywordId={keywordId} />
                     <PeriodPostCountCard keywordId={keywordId} />
                   </div>
-                  <div className="flex gap-10 w-full">
+                  <div className="flex gap-10 w-full h-full">
                     <PeriodPostLikeCard keywordId={keywordId} />
                     <PeriodPostCommentCard keywordId={keywordId} />
                   </div>
                 </div>
               ) : (
-                <>
+                <div className="flex flex-col h-full">
                   <PostListFilter filterList={filterList} setFilterList={setFilterList} />
                   <PostCardList keywordId={keywordId} filterList={filterList} />
-                </>
+                </div>
               )}
             </>
           )}

@@ -60,7 +60,7 @@ const PostCardList = ({ keywordId, filterList }) => {
           });
         })
       )}
-      <div className="w-full h-10 flex-shrink-0" ref={observeRef} />
+      <div ref={observeRef} />
     </article>
   );
 };

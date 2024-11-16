@@ -71,20 +71,32 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
           newGroup: ERROR_MESSAGE.NEW_GROUP_EMPTY_INPUT_VALUE,
         }));
         return;
+      } else {
+        setErrorMessage((prev) => ({
+          ...prev,
+          newGroup: "",
+        }));
       }
     } else {
-      if (keywordValue === "" || selectedGroup.name === "") {
-        if (keywordValue === "") {
-          setErrorMessage((prev) => ({
-            ...prev,
-            keyword: ERROR_MESSAGE.KEYWORD_EMPTY_INPUT_VALUE,
-          }));
-        }
-        if (selectedGroup.name === "") {
-          setErrorMessage((prev) => ({ ...prev, group: ERROR_MESSAGE.MUST_GROUP_SELECT }));
-        }
+      if (selectedGroup.name === "") {
+        setErrorMessage((prev) => ({ ...prev, group: ERROR_MESSAGE.MUST_GROUP_SELECT }));
         return;
+      } else {
+        setErrorMessage((prev) => ({ ...prev, group: "" }));
       }
+    }
+
+    if (keywordValue === "") {
+      setErrorMessage((prev) => ({
+        ...prev,
+        keyword: ERROR_MESSAGE.KEYWORD_EMPTY_INPUT_VALUE,
+      }));
+      return;
+    } else {
+      setErrorMessage((prev) => ({
+        ...prev,
+        keyword: "",
+      }));
     }
 
     const keywordInfo = {

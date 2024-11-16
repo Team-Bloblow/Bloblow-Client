@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:3000";
+export const BASE_URL = "https://bloblow-api.onrender.com";
 
 export const MODAL_TYPE = Object.freeze({
   CREATE_KEYWORD: {
