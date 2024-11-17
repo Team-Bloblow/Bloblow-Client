@@ -109,7 +109,7 @@ const KeywordPage = () => {
                 </div>
               ) : (
                 <div className="flex flex-col h-full">
-                  {hasPost && (
+                  {!hasPost && (
                     <PostListFilter
                       filterList={filterList}
                       setFilterList={setFilterList}

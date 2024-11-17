@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import asyncGetPosts from "../../../api/post/asyncGetPosts";
 import { ERROR_MESSAGE } from "../../../config/constants";
@@ -32,9 +32,12 @@ const PostCardList = ({ keywordId, filterList, setHasPost }) => {
   const { data: postResponse, isPending, isError } = useInfiniteData(infiniteDataArgument);
   const hasPostResponse = postResponse?.pages[0]?.items?.length > 0;
 
-  if (hasPostResponse) {
-    setHasPost(true);
-  }
+  useEffect(() => {
+    if (hasPostResponse) {
+      setHasPost(true);
+    }
+  }, [hasPostResponse, setHasPost]);
+
   if (isError || postResponse?.pages[0]?.message?.includes("Error occured")) {
     return <Error errorMessage={ERROR_MESSAGE.FETCH_POSTS} />;
   }
