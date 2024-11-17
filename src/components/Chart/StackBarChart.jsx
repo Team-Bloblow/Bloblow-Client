@@ -42,6 +42,7 @@ const StackBarChart = ({ chartData }) => {
       y: {
         stacked: true,
         beginAtZero: true,
+        suggestedMax: Math.max(...chartData.items.nonAdCountList, ...chartData.items.adCountList),
       },
     },
   };

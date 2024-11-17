@@ -53,6 +53,10 @@ const MultiTypeChart = ({ chartData }) => {
     scales: {
       y: {
         beginAtZero: true,
+        suggestedMax: Math.max(
+          ...chartData.items.commentCountList,
+          ...chartData.items.likeCountList
+        ),
       },
     },
   };
