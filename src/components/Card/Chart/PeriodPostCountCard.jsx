@@ -1,22 +1,24 @@
 import { useState } from "react";
 
 import asyncGetPostCountList from "../../../api/keyword/asyncGetPostCountList";
-import { getCursorDate } from "../../../utils/date";
+import { PERIOD_TYPE } from "../../../config/constants";
+import PeriodToggleButton from "../../Button/PeriodToggleButton";
 import LineChart from "../../Chart/LineChart";
 import PeriodPagination from "../../Pagination/PeriodPagination";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 
 const PeriodPostCountCard = ({ keywordId }) => {
-  const [cursorId, setCursorId] = useState(() => getCursorDate());
+  const [cursorId, setCursorId] = useState("");
+  const [period, setPeriod] = useState(PERIOD_TYPE.WEEKLY);
 
   const {
     data: chartData,
     isPlaceholderData,
     isError,
   } = useQuery({
-    queryKey: ["postCount", keywordId, cursorId],
-    queryFn: () => asyncGetPostCountList(keywordId, cursorId),
+    queryKey: ["postCount", keywordId, period, cursorId],
+    queryFn: () => asyncGetPostCountList(keywordId, cursorId, period),
     select: (data) => ({ ...data, items: data.postCountList }),
     placeholderData: keepPreviousData,
   });
@@ -27,7 +29,7 @@ const PeriodPostCountCard = ({ keywordId }) => {
 
   if (isError || chartData?.message?.includes("Error occured")) {
     return (
-      <div className="w-1/2 h-full min-h-300 p-10 border-2 rounded-md flex justify-center items-center">
+      <div className="flex flex-col gap-6 w-full p-10 border-2 rounded-md justify-center items-center">
         주간 게시물 차트를 불러오는 데 실패했습니다.
       </div>
     );
@@ -35,7 +37,10 @@ const PeriodPostCountCard = ({ keywordId }) => {
 
   return (
     <article className="flex flex-col gap-6 w-full p-10 border-2 rounded-md">
-      <span className="flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">주간 게시물 수</span>
+      <span className="flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">
+        게시물 수
+        <PeriodToggleButton period={period} setPeriod={setPeriod} setCursorId={setCursorId} />
+      </span>
       <div className="flex-col-center">
         <LineChart chartData={chartData} />
         <PeriodPagination
