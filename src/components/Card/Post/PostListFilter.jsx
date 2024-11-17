@@ -1,19 +1,25 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { ERROR_MESSAGE, POST_LISTS } from "../../../config/constants";
 import useDropDown from "../../../hooks/useDropDown";
 import KeywordChip from "../../Chip/KeywordChip";
+import FilterIcon from "../../Icon/FilterIcon";
+import ResetIcon from "../../Icon/ResetIcon";
+import SortIcon from "../../Icon/SortIcon";
 import Button from "../../UI/Button";
 import Label from "../../UI/Label";
 import PropTypes from "prop-types";
 
-const PostListFilter = ({ filterList, setFilterList }) => {
-  const [tempFilterList, setTempFilterList] = useState({
-    order: filterList.includedKeyword,
-    includedKeyword: filterList.includedKeyword,
-    excludedKeyword: filterList.excludedKeyword,
-    isAd: filterList.isAd,
-  });
+const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
+  const syncedFilterList = useMemo(() => {
+    return {
+      order: filterList.order,
+      includedKeyword: filterList.includedKeyword,
+      excludedKeyword: filterList.excludedKeyword,
+      isAd: filterList.isAd,
+    };
+  }, [filterList.order, filterList.includedKeyword, filterList.excludedKeyword, filterList.isAd]);
+  const [tempFilterList, setTempFilterList] = useState(syncedFilterList);
   const [inputValue, setInputValue] = useState({
     includedKeyword: "",
     excludedKeyword: "",
@@ -46,15 +52,21 @@ const PostListFilter = ({ filterList, setFilterList }) => {
         return POST_LISTS.ISAD_KR.NO_ADS;
     }
   };
+  const vaildateEqualOriginalAndTempFilter = () => {
+    const filters = Object.values(filterList).flat().sort();
+    const tempFilters = Object.values(tempFilterList).flat().sort();
+    const isEqualFilter = tempFilters.every((filter, index) => filter === filters[index]);
+
+    if (isEqualFilter) {
+      return true;
+    }
+
+    return false;
+  };
 
   useEffect(() => {
-    setTempFilterList(() => ({
-      order: filterList.order,
-      includedKeyword: filterList.includedKeyword,
-      excludedKeyword: filterList.excludedKeyword,
-      isAd: filterList.isAd,
-    }));
-  }, [filterList.order, filterList.includedKeyword, filterList.excludedKeyword, filterList.isAd]);
+    setTempFilterList(() => syncedFilterList);
+  }, [syncedFilterList]);
 
   const handleDropDownClick = () => {
     setIsDropDownOpen(!isDropDownOpen);
@@ -102,11 +114,7 @@ const PostListFilter = ({ filterList, setFilterList }) => {
     return;
   };
   const handleAllFilterApplyButtonClick = () => {
-    const filters = Object.values(filterList).flat().sort();
-    const tempFilters = Object.values(tempFilterList).flat().sort();
-    const isEqualFilter = tempFilters.every((filter, index) => filter === filters[index]);
-
-    if (isEqualFilter) {
+    if (!vaildateEqualOriginalAndTempFilter) {
       return;
     }
 
@@ -135,34 +143,55 @@ const PostListFilter = ({ filterList, setFilterList }) => {
     }));
     return;
   };
+  const handleFilterResetButtonClick = () => {
+    if (!vaildateEqualOriginalAndTempFilter) {
+      return;
+    }
+    resetFilterList();
+    setTempFilterList(syncedFilterList);
+    return;
+  };
 
   return (
     <div className="flex flex-col gap-10 w-full px-20 py-10">
       <div className="relative" onClick={handleDropDownClick}>
         <ul className="flex gap-10" ref={dropDownBoxRef}>
           <Button
-            styles="w-110 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
+            styles="flex items-center w-120 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
             onClick={() => setOpenedDropDownType("order")}
           >
-            {POST_LISTS.ORDER_KR[tempFilterList.order]}
+            <div className="flex ml-5 mr-8">
+              <SortIcon />
+            </div>
+            <span className="text-14">{POST_LISTS.ORDER_KR[tempFilterList.order]}</span>
           </Button>
           <Button
-            styles="w-110 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
+            styles="flex items-center w-100 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
             onClick={() => setOpenedDropDownType("keyword-included")}
           >
-            {`키워드  ${keywordFilterCount}`}
+            <div className="flex ml-5 mr-8">
+              <FilterIcon />
+            </div>
+            <span className="text-14">{`키워드  ${keywordFilterCount}`}</span>
           </Button>
           <Button
-            styles="w-110 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
+            styles="flex items-center w-100 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
             onClick={() => setOpenedDropDownType("ad")}
           >
-            {getSelectedAdFilter(tempFilterList.isAd)}
+            <div className="flex ml-5 mr-8">
+              <FilterIcon />
+            </div>
+            <span className="text-14">{getSelectedAdFilter(tempFilterList.isAd)}</span>
           </Button>
           <Button
             onClick={handleAllFilterApplyButtonClick}
-            styles="w-100 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20 bg-green-100"
+            styles="w-60 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20 bg-green-100"
           >
-            적용
+            <span className="text-14">적용</span>
+          </Button>
+          <Button styles="flex items-center gap-5" onClick={handleFilterResetButtonClick}>
+            <ResetIcon />
+            <span className="text-12 text-gray-400">초기화</span>
           </Button>
         </ul>
         {openedDropDownType === "order" && (
@@ -201,7 +230,7 @@ const PostListFilter = ({ filterList, setFilterList }) => {
         {openedDropDownType.includes("keyword") && (
           <div
             ref={dropDownBoxTextRef}
-            className="flex flex-col absolute left-120 top-40 p-15 gap-10 w-400 border-2 rounded-[5px] bg-white"
+            className="flex flex-col absolute left-130 top-40 p-15 gap-10 w-400 border-2 rounded-[5px] bg-white"
           >
             <div>
               <span className="text-16 font-semibold">키워드 필터</span>
@@ -317,4 +346,5 @@ PostListFilter.propTypes = {
     isAd: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
   }),
   setFilterList: PropTypes.func.isRequired,
+  resetFilterList: PropTypes.func.isRequired,
 };
