@@ -5,15 +5,11 @@ import PropTypes from "prop-types";
 
 const PeriodPagination = ({ chartData, setCursorId, isPlaceholderData }) => {
   const handlePagingClick = (type) => {
-    const cursorIdDate = new Date(chartData.cursorId);
-
     if (type === "previous") {
-      cursorIdDate.setDate(cursorIdDate.getDate() - 7);
+      setCursorId(chartData.previousCursorId);
     } else {
-      cursorIdDate.setDate(cursorIdDate.getDate() + 7);
+      setCursorId(chartData.nextCursorId);
     }
-
-    setCursorId(cursorIdDate.toISOString());
   };
 
   const isPreviousButtonDisabled = !chartData?.hasPrevious || isPlaceholderData;
