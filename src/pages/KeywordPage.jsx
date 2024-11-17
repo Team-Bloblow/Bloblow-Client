@@ -36,6 +36,10 @@ const KeywordPage = () => {
     }));
   }, [keywordId, setFilterList]);
 
+  useEffect(() => {
+    setDashboardType("chart");
+  }, [keywordId]);
+
   const { data: userGroupList, isError: isUserGroupListError } = useQuery({
     queryKey: ["userGroupList", userUid],
     queryFn: () => asyncGetUserGroup(userUid),
