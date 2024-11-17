@@ -77,6 +77,12 @@ export const POST_LISTS = Object.freeze({
   },
   DEFAULT_ORDER: "NEWEST",
   DEFAULT_IS_AD: "",
+  DEFAULT_FILTER_LIST: {
+    order: "NEWEST",
+    includedKeyword: [],
+    excludedKeyword: [],
+    isAd: "",
+  },
   DEFAULT_LIMIT: 10,
   DEFAULT_CURSOR_ID: "",
 });
