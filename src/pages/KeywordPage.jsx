@@ -8,7 +8,6 @@ import PeriodPostCountCard from "../components/Card/Chart/PeriodPostCountCard";
 import PeriodPostLikeCard from "../components/Card/Chart/PeriodPostLikeCard";
 import TodayPostCountCard from "../components/Card/Chart/TodayPostCountCard";
 import PostCardList from "../components/Card/Post/PostCardList";
-import PostListFilter from "../components/Card/Post/PostListFilter";
 import DashboardHeader from "../components/Header/DashboardHeader";
 import DashboardSidebar from "../components/Sidebar/DashboardSidebar";
 import { POST_LISTS } from "../config/constants";
@@ -22,7 +21,6 @@ const KeywordPage = () => {
   const { groupId, keywordId } = useParams();
   const [dashboardType, setDashboardType] = useState("chart");
   const [filterList, setFilterList] = useState(POST_LISTS.DEFAULT_FILTER_LIST);
-  const [hasPost, setHasPost] = useState(false);
   const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
   const userUid = useBoundStore((state) => state.userInfo.uid);
   const hasUserUid = !!userUid;
@@ -32,7 +30,9 @@ const KeywordPage = () => {
   };
 
   useEffect(() => {
-    resetFilterList();
+    if (keywordId) {
+      resetFilterList();
+    }
   }, [keywordId]);
 
   const { data: userGroupList, isError: isUserGroupListError } = useQuery({
@@ -109,17 +109,11 @@ const KeywordPage = () => {
                 </div>
               ) : (
                 <div className="flex flex-col h-full">
-                  {!hasPost && (
-                    <PostListFilter
-                      filterList={filterList}
-                      setFilterList={setFilterList}
-                      resetFilterList={resetFilterList}
-                    />
-                  )}
                   <PostCardList
                     keywordId={keywordId}
                     filterList={filterList}
-                    setHasPost={setHasPost}
+                    setFilterList={setFilterList}
+                    resetFilterList={resetFilterList}
                   />
                 </div>
               )}

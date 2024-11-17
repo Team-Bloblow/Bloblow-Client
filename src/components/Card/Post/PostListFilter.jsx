@@ -207,7 +207,7 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
   };
 
   return (
-    <div className="flex flex-col gap-10 w-full px-20 py-10">
+    <div className="flex flex-col gap-10 w-full py-10">
       <div className="relative">
         <ul className="flex gap-10">
           <div>
