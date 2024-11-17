@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 
 import asyncGetUserGroup from "../api/group/asyncGetUserGroup";
 import asyncGetKeyword from "../api/keyword/asyncGetKeyword";
-import PeriodPostCommentCard from "../components/Card/Chart/PeriodPostCommentCard";
+import PeriodAdCountCard from "../components/Card/Chart/PeriodAdCountCard";
 import PeriodPostCountCard from "../components/Card/Chart/PeriodPostCountCard";
-import PeriodPostLikeCard from "../components/Card/Chart/PeriodPostLikeCard";
+import PeriodReactionCountCard from "../components/Card/Chart/PeriodReactionCountCard";
 import TodayPostCountCard from "../components/Card/Chart/TodayPostCountCard";
 import PostCardList from "../components/Card/Post/PostCardList";
 import PostListFilter from "../components/Card/Post/PostListFilter";
@@ -104,8 +104,8 @@ const KeywordPage = () => {
                     <PeriodPostCountCard keywordId={keywordId} />
                   </div>
                   <div className="flex gap-10 w-full h-full">
-                    <PeriodPostLikeCard keywordId={keywordId} />
-                    <PeriodPostCommentCard keywordId={keywordId} />
+                    <PeriodAdCountCard keywordId={keywordId} />
+                    <PeriodReactionCountCard keywordId={keywordId} />
                   </div>
                 </div>
               ) : (
