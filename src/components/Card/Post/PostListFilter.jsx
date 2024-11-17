@@ -84,6 +84,10 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
           isOpen: false,
           dropDownType: "",
         }));
+        setErrorMessage({
+          includedKeyword: "",
+          excludedKeyword: "",
+        });
         return;
       }
     };
@@ -120,6 +124,10 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
     const hasFilter = filterKeyword.has(trimmedInputValue);
 
     if (hasFilter) {
+      setInputValue({
+        includedKeyword: "",
+        excludedKeyword: "",
+      });
       setErrorMessage((prev) => ({
         ...prev,
         [keywordFilterType]: ERROR_MESSAGE.KEYWORD_DUPLICATED_INPUT_VALUE,
@@ -315,6 +323,11 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
                 placeholder={selectedKeywordTypeInDropDownKR}
               />
             </form>
+            <div className="flex flex-col gap-5">
+              <p className="text-14 text-red-400 font-semibold">
+                {errorMessage[selectedKeywordTypeInDropDownEN]}
+              </p>
+            </div>
             <ul>
               <div className="flex flex-wrap w-full h-full">
                 {tempFilterList[selectedKeywordTypeInDropDownEN]?.map((keyword) => {
@@ -374,11 +387,6 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
           </div>
         )}
       </div>
-      <div className="flex flex-col gap-5">
-        <div className="flex items-center gap-15 w-full"></div>
-        <p className="text-14 text-red-400 font-semibold">{errorMessage.includedKeyword}</p>
-      </div>
-      <p className="text-14 text-red-400 font-semibold">{errorMessage.excludedKeyword}</p>
     </div>
   );
 };
