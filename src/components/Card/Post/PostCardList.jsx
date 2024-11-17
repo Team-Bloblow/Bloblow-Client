@@ -8,7 +8,7 @@ import Loading from "../../UI/Loading";
 import PostCard from "./PostCard";
 import PropTypes from "prop-types";
 
-const PostCardList = ({ keywordId, filterList }) => {
+const PostCardList = ({ keywordId, filterList, setHasPost }) => {
   const observeRef = useRef(null);
   const observeRootRef = useRef(null);
 
@@ -30,7 +30,11 @@ const PostCardList = ({ keywordId, filterList }) => {
   };
 
   const { data: postResponse, isPending, isError } = useInfiniteData(infiniteDataArgument);
+  const hasPostResponse = postResponse?.pages[0]?.items?.length > 0;
 
+  if (hasPostResponse) {
+    setHasPost(true);
+  }
   if (isError || postResponse?.pages[0]?.message?.includes("Error occured")) {
     return <Error errorMessage={ERROR_MESSAGE.FETCH_POSTS} />;
   }
@@ -42,9 +46,7 @@ const PostCardList = ({ keywordId, filterList }) => {
     >
       {isPending ? (
         <Loading width={100} height={100} text={""} />
-      ) : postResponse?.pages[0]?.items?.length === 0 ? (
-        <p className="w-full h-full flex-center text-22">확인할 수 있는 게시물이 없어요</p>
-      ) : (
+      ) : hasPostResponse ? (
         postResponse?.pages?.map((page) => {
           return page.items?.map((postInfo) => {
             return (
@@ -61,6 +63,8 @@ const PostCardList = ({ keywordId, filterList }) => {
             );
           });
         })
+      ) : (
+        <p className="w-full h-full flex-center text-22">확인할 수 있는 게시물이 없어요</p>
       )}
       <div ref={observeRef} />
     </article>
@@ -77,4 +81,5 @@ PostCardList.propTypes = {
     excludedKeyword: PropTypes.arrayOf(PropTypes.string.isRequired),
     isAd: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
   }),
+  setHasPost: PropTypes.func.isRequired,
 };

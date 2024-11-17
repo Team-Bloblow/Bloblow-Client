@@ -22,6 +22,7 @@ const KeywordPage = () => {
   const { groupId, keywordId } = useParams();
   const [dashboardType, setDashboardType] = useState("chart");
   const [filterList, setFilterList] = useState(POST_LISTS.DEFAULT_FILTER_LIST);
+  const [hasPost, setHasPost] = useState(false);
   const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
   const userUid = useBoundStore((state) => state.userInfo.uid);
   const hasUserUid = !!userUid;
@@ -112,12 +113,18 @@ const KeywordPage = () => {
                 </div>
               ) : (
                 <div className="flex flex-col h-full">
-                  <PostListFilter
+                  {hasPost && (
+                    <PostListFilter
+                      filterList={filterList}
+                      setFilterList={setFilterList}
+                      resetFilterList={resetFilterList}
+                    />
+                  )}
+                  <PostCardList
+                    keywordId={keywordId}
                     filterList={filterList}
-                    setFilterList={setFilterList}
-                    resetFilterList={resetFilterList}
+                    setHasPost={setHasPost}
                   />
-                  <PostCardList keywordId={keywordId} filterList={filterList} />
                 </div>
               )}
             </>
