@@ -26,6 +26,7 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
   const [errorMessage, setErrorMessage] = useState({
     includedKeyword: "",
     excludedKeyword: "",
+    filterApllied: "",
   });
   const [dropDownOpened, setDropDownOpened] = useState({
     isOpen: false,
@@ -65,11 +66,7 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
     const tempFilters = Object.values(tempFilterList).flat().sort();
     const isEqualFilter = tempFilters.every((filter, index) => filter === filters[index]);
 
-    if (isEqualFilter) {
-      return true;
-    }
-
-    return false;
+    return isEqualFilter;
   };
 
   useEffect(() => {
@@ -181,20 +178,28 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
     return;
   };
   const handleAllFilterListsApplyButtonClick = () => {
-    if (!vaildateEqualOriginalAndTempFilter) {
+    if (vaildateEqualOriginalAndTempFilter()) {
+      setErrorMessage((prev) => ({
+        ...prev,
+        filterApllied: ERROR_MESSAGE.APPLIED_POST_FILTER,
+      }));
       return;
     }
 
     setFilterList(tempFilterList);
+    setErrorMessage((prev) => ({
+      ...prev,
+      filterApllied: "",
+    }));
     return;
   };
   const handleAllFilterListsResetButtonClick = () => {
-    if (!vaildateEqualOriginalAndTempFilter) {
-      return;
-    }
-
     resetFilterList();
     setTempFilterList(syncedFilterList);
+    setErrorMessage((prev) => ({
+      ...prev,
+      filterApllied: "",
+    }));
     return;
   };
 
@@ -245,6 +250,9 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
             <ResetIcon />
             <span className="text-12 text-gray-400">초기화</span>
           </Button>
+          <div className="px-10 flex-center">
+            <span className="font-light text-green-600">{errorMessage.filterApllied}</span>
+          </div>
         </ul>
         {dropDownOpened.dropDownType === "order" && (
           <div
@@ -324,7 +332,7 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
               />
             </form>
             <div className="flex flex-col gap-5">
-              <p className="text-14 text-red-400 font-semibold">
+              <p className="text-14 text-red-400 font-light">
                 {errorMessage[selectedKeywordTypeInDropDownEN]}
               </p>
             </div>
