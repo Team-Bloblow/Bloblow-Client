@@ -8,7 +8,6 @@ import PeriodPostCountCard from "../components/Card/Chart/PeriodPostCountCard";
 import PeriodReactionCountCard from "../components/Card/Chart/PeriodReactionCountCard";
 import TodayPostCountCard from "../components/Card/Chart/TodayPostCountCard";
 import PostCardList from "../components/Card/Post/PostCardList";
-import PostListFilter from "../components/Card/Post/PostListFilter";
 import DashboardHeader from "../components/Header/DashboardHeader";
 import DashboardSidebar from "../components/Sidebar/DashboardSidebar";
 import { POST_LISTS } from "../config/constants";
@@ -31,7 +30,9 @@ const KeywordPage = () => {
   };
 
   useEffect(() => {
-    resetFilterList();
+    if (keywordId) {
+      resetFilterList();
+    }
   }, [keywordId]);
 
   const { data: userGroupList, isError: isUserGroupListError } = useQuery({

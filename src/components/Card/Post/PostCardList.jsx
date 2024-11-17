@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 
 import asyncGetPosts from "../../../api/post/asyncGetPosts";
 import { ERROR_MESSAGE } from "../../../config/constants";
@@ -6,9 +6,10 @@ import useInfiniteData from "../../../hooks/useInfiniteData";
 import Error from "../../UI/Error";
 import Loading from "../../UI/Loading";
 import PostCard from "./PostCard";
+import PostListFilter from "./PostListFilter";
 import PropTypes from "prop-types";
 
-const PostCardList = ({ keywordId, filterList, setHasPost }) => {
+const PostCardList = ({ keywordId, filterList, setFilterList, resetFilterList }) => {
   const observeRef = useRef(null);
   const observeRootRef = useRef(null);
 
@@ -32,12 +33,6 @@ const PostCardList = ({ keywordId, filterList, setHasPost }) => {
   const { data: postResponse, isPending, isError } = useInfiniteData(infiniteDataArgument);
   const hasPostResponse = postResponse?.pages[0]?.items?.length > 0;
 
-  useEffect(() => {
-    if (hasPostResponse) {
-      setHasPost(true);
-    }
-  }, [hasPostResponse, setHasPost]);
-
   if (isError || postResponse?.pages[0]?.message?.includes("Error occured")) {
     return <Error errorMessage={ERROR_MESSAGE.FETCH_POSTS} />;
   }
@@ -50,22 +45,29 @@ const PostCardList = ({ keywordId, filterList, setHasPost }) => {
       {isPending ? (
         <Loading width={100} height={100} text={""} />
       ) : hasPostResponse ? (
-        postResponse?.pages?.map((page) => {
-          return page.items?.map((postInfo) => {
-            return (
-              <PostCard
-                key={postInfo?._id}
-                postTitle={postInfo?.title}
-                postDescription={postInfo?.description}
-                likeCount={postInfo?.likeCount}
-                commentCount={postInfo?.commentCount}
-                link={postInfo?.link}
-                createdAt={postInfo?.createdAt}
-                isAd={postInfo?.isAd ?? false}
-              />
-            );
-          });
-        })
+        <>
+          <PostListFilter
+            filterList={filterList}
+            setFilterList={setFilterList}
+            resetFilterList={resetFilterList}
+          />
+          {postResponse?.pages?.map((page) => {
+            return page.items?.map((postInfo) => {
+              return (
+                <PostCard
+                  key={postInfo?._id}
+                  postTitle={postInfo?.title}
+                  postDescription={postInfo?.description}
+                  likeCount={postInfo?.likeCount}
+                  commentCount={postInfo?.commentCount}
+                  link={postInfo?.link}
+                  createdAt={postInfo?.createdAt}
+                  isAd={postInfo?.isAd ?? false}
+                />
+              );
+            });
+          })}
+        </>
       ) : (
         <p className="w-full h-full flex-center text-22">확인할 수 있는 게시물이 없어요</p>
       )}
@@ -84,5 +86,6 @@ PostCardList.propTypes = {
     excludedKeyword: PropTypes.arrayOf(PropTypes.string.isRequired),
     isAd: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
   }),
-  setHasPost: PropTypes.func.isRequired,
+  setFilterList: PropTypes.func.isRequired,
+  resetFilterList: PropTypes.func.isRequired,
 };
