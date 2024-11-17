@@ -107,14 +107,14 @@ const KeywordPage = () => {
                   </div>
                 </div>
               ) : (
-                <>
-                  <PostListFilter
+                <div className="flex flex-col h-full">
+                  <PostCardList
+                    keywordId={keywordId}
                     filterList={filterList}
                     setFilterList={setFilterList}
                     resetFilterList={resetFilterList}
                   />
-                  <PostCardList keywordId={keywordId} filterList={filterList} />
-                </>
+                </div>
               )}
             </>
           )}
