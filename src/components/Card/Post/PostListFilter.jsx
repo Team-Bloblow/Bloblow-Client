@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { ERROR_MESSAGE, POST_LISTS } from "../../../config/constants";
-import useDropDown from "../../../hooks/useDropDown";
 import KeywordChip from "../../Chip/KeywordChip";
 import FilterIcon from "../../Icon/FilterIcon";
 import ResetIcon from "../../Icon/ResetIcon";
@@ -28,20 +27,29 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
     includedKeyword: "",
     excludedKeyword: "",
   });
-  const [openedDropDownType, setOpenedDropDownType] = useState("");
-  const dropDownBoxRef = useRef(null);
-  const dropDownBoxTextRef = useRef(null);
-  const dropDownRefList = [dropDownBoxRef, dropDownBoxTextRef];
-  const [isDropDownOpen, setIsDropDownOpen] = useDropDown(dropDownRefList, "dropDown");
+  const [dropDownOpened, setDropDownOpened] = useState({
+    isOpen: false,
+    dropDownType: "",
+  });
+  const dropDownRef = useRef(null);
+  const buttonInDropDownRef = useRef(null);
 
   const selectedKeywordTypeInDropDownKR =
-    openedDropDownType === "keyword-included"
+    dropDownOpened.type === "keyword-included"
       ? POST_LISTS.INCLUDED_KEYWORD
       : POST_LISTS.EXCLUDED_KEYWORD;
   const selectedKeywordTypeInDropDownEN =
-    openedDropDownType === "keyword-included" ? "includedKeyword" : "excludedKeyword";
+    dropDownOpened.type === "keyword-included" ? "includedKeyword" : "excludedKeyword";
   const keywordFilterCount =
     tempFilterList.includedKeyword.length + tempFilterList.excludedKeyword.length;
+
+  const closeDropDown = () => {
+    setDropDownOpened((prev) => ({
+      ...prev,
+      isOpen: false,
+      dropDownType: "",
+    }));
+  };
   const getSelectedAdFilter = (adFilterType) => {
     switch (adFilterType) {
       case "":
@@ -68,14 +76,37 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
     setTempFilterList(() => syncedFilterList);
   }, [syncedFilterList]);
 
-  const handleDropDownClick = () => {
-    setIsDropDownOpen(!isDropDownOpen);
+  useEffect(() => {
+    const checkDropDownOutsideClicked = (e) => {
+      if (dropDownOpened.isOpen && !dropDownRef?.current?.contains(e.target)) {
+        setDropDownOpened((prev) => ({
+          ...prev,
+          isOpen: false,
+          dropDownType: "",
+        }));
+        return;
+      }
+    };
+    document.addEventListener("mousedown", checkDropDownOutsideClicked);
+
+    return () => {
+      document.removeEventListener("mousedown", checkDropDownOutsideClicked);
+    };
+  }, [dropDownOpened.isOpen]);
+
+  const handleOpenDropDownClick = (type) => {
+    setDropDownOpened((prev) => ({
+      ...prev,
+      isOpen: true,
+      dropDownType: type,
+    }));
+    return;
   };
   const handleKeywordFilterInputChange = (e, keywordFilterType) => {
     setInputValue((prev) => ({ ...prev, [keywordFilterType]: e.target.value }));
     return;
   };
-  const handleCreateTempKeywordFilterSubmit = (e, keywordFilterType) => {
+  const handleKeywordCreateTempFilterSubmit = (e, keywordFilterType) => {
     e.preventDefault();
     const trimmedInputValue = inputValue[keywordFilterType].trim();
 
@@ -113,16 +144,9 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
     }));
     return;
   };
-  const handleAllFilterApplyButtonClick = () => {
-    if (!vaildateEqualOriginalAndTempFilter) {
-      return;
-    }
-
-    setFilterList(tempFilterList);
-    return;
-  };
-  const handleOrderDropDownClick = (sortType) => {
+  const handleOrderInDropDownClick = (sortType) => {
     if (tempFilterList.order === sortType) {
+      closeDropDown();
       return;
     }
 
@@ -130,10 +154,13 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
       ...prev,
       order: sortType,
     }));
+
+    closeDropDown();
     return;
   };
-  const handleAdFilterDropDownClick = (adFilterType) => {
+  const handleAdFilterInDropDownClick = (adFilterType) => {
     if (tempFilterList.isAd === adFilterType) {
+      closeDropDown();
       return;
     }
 
@@ -141,12 +168,23 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
       ...prev,
       isAd: adFilterType,
     }));
+
+    closeDropDown();
     return;
   };
-  const handleFilterResetButtonClick = () => {
+  const handleAllFilterListsApplyButtonClick = () => {
     if (!vaildateEqualOriginalAndTempFilter) {
       return;
     }
+
+    setFilterList(tempFilterList);
+    return;
+  };
+  const handleAllFilterListsResetButtonClick = () => {
+    if (!vaildateEqualOriginalAndTempFilter) {
+      return;
+    }
+
     resetFilterList();
     setTempFilterList(syncedFilterList);
     return;
@@ -154,72 +192,81 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
 
   return (
     <div className="flex flex-col gap-10 w-full px-20 py-10">
-      <div className="relative" onClick={handleDropDownClick}>
-        <ul className="flex gap-10" ref={dropDownBoxRef}>
+      <div className="relative">
+        <ul className="flex gap-10">
+          <div>
+            <Button
+              styles="flex items-center w-120 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
+              onClick={() => handleOpenDropDownClick("order")}
+            >
+              <div className="flex ml-5 mr-8">
+                <SortIcon />
+              </div>
+              <span className="text-14">{POST_LISTS.ORDER_KR[tempFilterList.order]}</span>
+            </Button>
+          </div>
+          <div>
+            <Button
+              styles="flex items-center w-100 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
+              onClick={() => handleOpenDropDownClick("keyword-included")}
+            >
+              <div className="flex ml-5 mr-8">
+                <FilterIcon />
+              </div>
+              <span className="text-14">{`키워드  ${keywordFilterCount}`}</span>
+            </Button>
+          </div>
+          <div>
+            <Button
+              styles="flex items-center w-100 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
+              onClick={() => handleOpenDropDownClick("ad")}
+            >
+              <div className="flex ml-5 mr-8">
+                <FilterIcon />
+              </div>
+              <span className="text-14">{getSelectedAdFilter(tempFilterList.isAd)}</span>
+            </Button>
+          </div>
           <Button
-            styles="flex items-center w-120 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
-            onClick={() => setOpenedDropDownType("order")}
-          >
-            <div className="flex ml-5 mr-8">
-              <SortIcon />
-            </div>
-            <span className="text-14">{POST_LISTS.ORDER_KR[tempFilterList.order]}</span>
-          </Button>
-          <Button
-            styles="flex items-center w-100 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
-            onClick={() => setOpenedDropDownType("keyword-included")}
-          >
-            <div className="flex ml-5 mr-8">
-              <FilterIcon />
-            </div>
-            <span className="text-14">{`키워드  ${keywordFilterCount}`}</span>
-          </Button>
-          <Button
-            styles="flex items-center w-100 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
-            onClick={() => setOpenedDropDownType("ad")}
-          >
-            <div className="flex ml-5 mr-8">
-              <FilterIcon />
-            </div>
-            <span className="text-14">{getSelectedAdFilter(tempFilterList.isAd)}</span>
-          </Button>
-          <Button
-            onClick={handleAllFilterApplyButtonClick}
-            styles="w-60 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20 bg-green-100"
+            onClick={handleAllFilterListsApplyButtonClick}
+            styles="w-60 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 bg-green-100 border-1 border-green-100 border-slate-200/80 font-semibold hover:bg-green-200"
           >
             <span className="text-14">적용</span>
           </Button>
-          <Button styles="flex items-center gap-5" onClick={handleFilterResetButtonClick}>
+          <Button styles="flex items-center gap-5" onClick={handleAllFilterListsResetButtonClick}>
             <ResetIcon />
             <span className="text-12 text-gray-400">초기화</span>
           </Button>
         </ul>
-        {openedDropDownType === "order" && (
-          <div className="flex flex-col absolute w-170 top-40 p-15 gap-10 border-2 rounded-[5px] bg-white">
+        {dropDownOpened.dropDownType === "order" && (
+          <div
+            ref={dropDownRef}
+            className="flex flex-col absolute w-170 top-40 p-15 gap-10 border-2 rounded-[5px] bg-white"
+          >
             <div>
               <span className="text-16 font-semibold">정렬</span>
             </div>
-            <ul>
-              <li ref={dropDownBoxTextRef}>
+            <ul ref={buttonInDropDownRef} className="flex flex-col gap-5 border-2">
+              <li className="px-3 py-5 rounded-md hover:bg-gray-100">
                 <Button
-                  styles=""
-                  onClick={() => handleOrderDropDownClick(POST_LISTS.ORDER_EN.NEWEST)}
+                  styles="w-full text-left"
+                  onClick={() => handleOrderInDropDownClick(POST_LISTS.ORDER_EN.NEWEST)}
                 >
                   <span>{POST_LISTS.ORDER_KR.NEWEST}</span>
                 </Button>
               </li>
-              <li ref={dropDownBoxTextRef}>
+              <li className="px-3 py-5 rounded-md hover:bg-gray-100">
                 <Button
-                  styles=""
-                  onClick={() => handleOrderDropDownClick(POST_LISTS.ORDER_EN.LIKE)}
+                  styles="w-full text-left"
+                  onClick={() => handleOrderInDropDownClick(POST_LISTS.ORDER_EN.LIKE)}
                 >
                   <span>{POST_LISTS.ORDER_KR.LIKE}</span>
                 </Button>
               </li>
-              <li ref={dropDownBoxTextRef}>
+              <li className="px-3 py-5 rounded-md hover:bg-gray-100">
                 <Button
-                  styles=""
-                  onClick={() => handleOrderDropDownClick(POST_LISTS.ORDER_EN.COMMENT)}
+                  styles="w-full text-left"
+                  onClick={() => handleOrderInDropDownClick(POST_LISTS.ORDER_EN.COMMENT)}
                 >
                   <span>{POST_LISTS.ORDER_KR.COMMENT}</span>
                 </Button>
@@ -227,9 +274,9 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
             </ul>
           </div>
         )}
-        {openedDropDownType.includes("keyword") && (
+        {dropDownOpened.dropDownType.includes("keyword") && (
           <div
-            ref={dropDownBoxTextRef}
+            ref={dropDownRef}
             className="flex flex-col absolute left-130 top-40 p-15 gap-10 w-400 border-2 rounded-[5px] bg-white"
           >
             <div>
@@ -237,14 +284,14 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
             </div>
             <div className="flex flex-row gap-20 p-1 w-full h-40 rounded-lg bg-gray-100">
               <Button
-                styles={`flex-1 p-5 m-1 round-md ${openedDropDownType === "keyword-included" && "bg-white"}`}
-                onClick={() => setOpenedDropDownType("keyword-included")}
+                styles={`flex-1 p-5 m-1 round-md ${dropDownOpened.type === "keyword-included" && "bg-white"}`}
+                onClick={() => handleOpenDropDownClick("keyword-included")}
               >
                 <span>{POST_LISTS.INCLUDED_KEYWORD}</span>
               </Button>
               <Button
-                styles={`flex-1 p-5 m-1 round-md ${openedDropDownType !== "keyword-included" && "bg-white"}`}
-                onClick={() => setOpenedDropDownType("keyword-excluded")}
+                styles={`flex-1 p-5 m-1 round-md ${dropDownOpened.type !== "keyword-included" && "bg-white"}`}
+                onClick={() => handleOpenDropDownClick("keyword-excluded")}
               >
                 <span>{POST_LISTS.EXCLUDED_KEYWORD}</span>
               </Button>
@@ -252,7 +299,7 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
             <form
               className="w-full h-40 flex items-center gap-5 flex-shrink-0 border-2"
               onSubmit={(e) =>
-                handleCreateTempKeywordFilterSubmit(e, selectedKeywordTypeInDropDownEN)
+                handleKeywordCreateTempFilterSubmit(e, selectedKeywordTypeInDropDownEN)
               }
             >
               <Label
@@ -282,7 +329,7 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
                           keyword
                         )
                       }
-                      styles={`w-fit px-10 py-5 m-5 border-solid border-2 rounded-xl ${openedDropDownType === "keyword-included" ? "bg-green-100 border-green-200" : "bg-red-100 border-red-200"}`}
+                      styles={`w-fit px-10 py-5 m-5 border-solid border-2 rounded-xl ${dropDownOpened.type === "keyword-included" ? "bg-green-100 border-green-200" : "bg-red-100 border-red-200"}`}
                     />
                   );
                 })}
@@ -290,35 +337,35 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
             </ul>
           </div>
         )}
-        {openedDropDownType === "ad" && (
+        {dropDownOpened.dropDownType === "ad" && (
           <div
-            ref={dropDownBoxTextRef}
+            ref={dropDownRef}
             className="flex flex-col absolute left-240 top-40 w-170 p-15 gap-10 border-2 rounded-[5px] bg-white"
           >
             <div>
               <span className="text-16 font-semibold">광고 필터</span>
             </div>
-            <ul className="flex flex-col gap-10">
-              <li className="p-5 rounded-md hover:bg-green-100">
+            <ul ref={buttonInDropDownRef} className="flex flex-col border-2">
+              <li className="rounded-md hover:bg-gray-100">
                 <Button
-                  styles=""
-                  onClick={() => handleAdFilterDropDownClick(POST_LISTS.ISAD_EN.ALL)}
+                  styles="w-full px-3 py-10 text-left"
+                  onClick={() => handleAdFilterInDropDownClick(POST_LISTS.ISAD_EN.ALL)}
                 >
                   <span>{POST_LISTS.ISAD_KR.ALL}</span>
                 </Button>
               </li>
-              <li className="p-5 rounded-md hover:bg-green-100">
+              <li className="rounded-md hover:bg-gray-100">
                 <Button
-                  styles=""
-                  onClick={() => handleAdFilterDropDownClick(POST_LISTS.ISAD_EN.ONLY_ADS)}
+                  styles="w-full px-3 py-10 text-left"
+                  onClick={() => handleAdFilterInDropDownClick(POST_LISTS.ISAD_EN.ONLY_ADS)}
                 >
                   <span>{POST_LISTS.ISAD_KR.ONLY_ADS}</span>
                 </Button>
               </li>
-              <li className="p-5 rounded-md hover:bg-green-100">
+              <li className="rounded-md hover:bg-gray-100">
                 <Button
-                  styles=""
-                  onClick={() => handleAdFilterDropDownClick(POST_LISTS.ISAD_EN.NO_ADS)}
+                  styles="w-full px-3 py-10 text-left"
+                  onClick={() => handleAdFilterInDropDownClick(POST_LISTS.ISAD_EN.NO_ADS)}
                 >
                   <span>{POST_LISTS.ISAD_KR.NO_ADS}</span>
                 </Button>
