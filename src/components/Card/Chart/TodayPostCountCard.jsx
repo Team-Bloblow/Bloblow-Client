@@ -6,9 +6,12 @@ import { useQuery } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 
 const TodayPostCountCard = ({ keywordId }) => {
+  const hasKeywordId = !!keywordId;
+
   const { data: chartData, isError } = useQuery({
     queryKey: ["todayPostCount", keywordId],
     queryFn: () => asyncGetTodayPostCount(keywordId),
+    enabled: hasKeywordId,
   });
 
   if (chartData === undefined) {

@@ -11,6 +11,7 @@ import PropTypes from "prop-types";
 const PeriodReactionCountCard = ({ keywordId }) => {
   const [cursorId, setCursorId] = useState("");
   const [period, setPeriod] = useState(PERIOD_TYPE.WEEKLY);
+  const hasKeywordId = !!keywordId;
 
   const {
     data: chartData,
@@ -19,6 +20,7 @@ const PeriodReactionCountCard = ({ keywordId }) => {
   } = useQuery({
     queryKey: ["reactionCount", keywordId, period, cursorId],
     queryFn: () => asyncGetReactionCountList(keywordId, cursorId, period),
+    enabled: hasKeywordId,
     placeholderData: keepPreviousData,
   });
 
@@ -38,7 +40,12 @@ const PeriodReactionCountCard = ({ keywordId }) => {
     <article className="flex flex-col gap-6 w-1/2 h-full p-10 border-2 rounded-md">
       <span className="flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">
         게시물 반응수
-        <PeriodToggleButton period={period} setPeriod={setPeriod} setCursorId={setCursorId} />
+        <PeriodToggleButton
+          keywordId={keywordId}
+          period={period}
+          setPeriod={setPeriod}
+          setCursorId={setCursorId}
+        />
       </span>
       <div className="flex-col-center">
         <MultiTypeChart chartData={chartData} />
