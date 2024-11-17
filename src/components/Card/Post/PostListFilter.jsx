@@ -35,11 +35,11 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
   const buttonInDropDownRef = useRef(null);
 
   const selectedKeywordTypeInDropDownKR =
-    dropDownOpened.type === "keyword-included"
+    dropDownOpened.dropDownType === "keyword-included"
       ? POST_LISTS.INCLUDED_KEYWORD
       : POST_LISTS.EXCLUDED_KEYWORD;
   const selectedKeywordTypeInDropDownEN =
-    dropDownOpened.type === "keyword-included" ? "includedKeyword" : "excludedKeyword";
+    dropDownOpened.dropDownType === "keyword-included" ? "includedKeyword" : "excludedKeyword";
   const keywordFilterCount =
     tempFilterList.includedKeyword.length + tempFilterList.excludedKeyword.length;
 
@@ -246,7 +246,7 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
             <div>
               <span className="text-16 font-semibold">정렬</span>
             </div>
-            <ul ref={buttonInDropDownRef} className="flex flex-col gap-5 border-2">
+            <ul ref={buttonInDropDownRef} className="flex flex-col gap-5">
               <li className="px-3 py-5 rounded-md hover:bg-gray-100">
                 <Button
                   styles="w-full text-left"
@@ -284,13 +284,13 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
             </div>
             <div className="flex flex-row gap-20 p-1 w-full h-40 rounded-lg bg-gray-100">
               <Button
-                styles={`flex-1 p-5 m-1 round-md ${dropDownOpened.type === "keyword-included" && "bg-white"}`}
+                styles={`flex-1 p-5 m-1 round-md ${dropDownOpened.dropDownType === "keyword-included" && "bg-white"}`}
                 onClick={() => handleOpenDropDownClick("keyword-included")}
               >
                 <span>{POST_LISTS.INCLUDED_KEYWORD}</span>
               </Button>
               <Button
-                styles={`flex-1 p-5 m-1 round-md ${dropDownOpened.type !== "keyword-included" && "bg-white"}`}
+                styles={`flex-1 p-5 m-1 round-md ${dropDownOpened.dropDownType !== "keyword-included" && "bg-white"}`}
                 onClick={() => handleOpenDropDownClick("keyword-excluded")}
               >
                 <span>{POST_LISTS.EXCLUDED_KEYWORD}</span>
@@ -329,7 +329,7 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
                           keyword
                         )
                       }
-                      styles={`w-fit px-10 py-5 m-5 border-solid border-2 rounded-xl ${dropDownOpened.type === "keyword-included" ? "bg-green-100 border-green-200" : "bg-red-100 border-red-200"}`}
+                      styles={`w-fit px-10 py-5 m-5 border-solid border-2 rounded-xl font-medium ${dropDownOpened.dropDownType === "keyword-included" ? "bg-green-100 border-green-200" : "bg-red-100 border-red-200"}`}
                     />
                   );
                 })}
@@ -345,7 +345,7 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
             <div>
               <span className="text-16 font-semibold">광고 필터</span>
             </div>
-            <ul ref={buttonInDropDownRef} className="flex flex-col border-2">
+            <ul ref={buttonInDropDownRef} className="flex flex-col">
               <li className="rounded-md hover:bg-gray-100">
                 <Button
                   styles="w-full px-3 py-10 text-left"
