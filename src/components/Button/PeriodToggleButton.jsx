@@ -18,15 +18,14 @@ const PeriodToggleButton = ({ period, setPeriod, setCursorId }) => {
         className={`inline-flex w-1/3 text-center justify-center cursor-pointer ${toggleOnPeriod === PERIOD_TYPE.WEEKLY && "text-white bg-[#00684A]"}`}
         onClick={() => handleToggleClick(PERIOD_TYPE.WEEKLY)}
       >
-        <input
-          type="radio"
-          name="period_unit"
-          id="weekly"
-          checked={toggleOnPeriod === PERIOD_TYPE.WEEKLY}
-          onChange={() => handleToggleClick(PERIOD_TYPE.WEEKLY)}
-          hidden
-        />
-        <label htmlFor="weekly" className="radio text-center self-center py-4 px-5">
+        <label className="radio text-center self-center py-4 px-5">
+          <input
+            type="radio"
+            name="period"
+            checked={toggleOnPeriod === PERIOD_TYPE.WEEKLY}
+            onChange={() => handleToggleClick(PERIOD_TYPE.WEEKLY)}
+            hidden
+          />
           {PERIOD_TYPE.WEEKLY_KR}
         </label>
       </div>
@@ -34,15 +33,14 @@ const PeriodToggleButton = ({ period, setPeriod, setCursorId }) => {
         className={`inline-flex w-1/3 text-center justify-center border-x-1 cursor-pointer ${toggleOnPeriod === PERIOD_TYPE.MONTHLY_DAILY && "text-white bg-[#00684A]"}`}
         onClick={() => handleToggleClick(PERIOD_TYPE.MONTHLY_DAILY)}
       >
-        <input
-          type="radio"
-          name="period_unit"
-          id="monthlyDaily"
-          checked={toggleOnPeriod === PERIOD_TYPE.MONTHLY_DAILY}
-          onChange={() => handleToggleClick(PERIOD_TYPE.MONTHLY_DAILY)}
-          hidden
-        />
-        <label htmlFor="monthlyDaily" className="radio text-center self-center py-4 px-5">
+        <label className="radio text-center self-center py-4 px-5">
+          <input
+            type="radio"
+            name="period"
+            checked={toggleOnPeriod === PERIOD_TYPE.MONTHLY_DAILY}
+            onChange={() => handleToggleClick(PERIOD_TYPE.MONTHLY_DAILY)}
+            hidden
+          />
           {PERIOD_TYPE.MONTHLY_DAILY_KR}
         </label>
       </div>
@@ -50,15 +48,14 @@ const PeriodToggleButton = ({ period, setPeriod, setCursorId }) => {
         className={`inline-flex w-1/3 text-center justify-center cursor-pointer ${toggleOnPeriod === PERIOD_TYPE.MONTHLY_WEEKLY && "text-white bg-[#00684A]"}`}
         onClick={() => handleToggleClick(PERIOD_TYPE.MONTHLY_WEEKLY)}
       >
-        <input
-          type="radio"
-          name="period_unit"
-          id="monthlyWeekly"
-          checked={toggleOnPeriod === PERIOD_TYPE.MONTHLY_WEEKLY}
-          onChange={() => handleToggleClick(PERIOD_TYPE.MONTHLY_WEEKLY)}
-          hidden
-        />
-        <label htmlFor="monthlyWeekly" className="radio text-center self-center py-4 px-5">
+        <label className="radio text-center self-center py-4 px-5">
+          <input
+            type="radio"
+            name="period"
+            checked={toggleOnPeriod === PERIOD_TYPE.MONTHLY_WEEKLY}
+            onChange={() => handleToggleClick(PERIOD_TYPE.MONTHLY_WEEKLY)}
+            hidden
+          />
           {PERIOD_TYPE.MONTHLY_WEEKLY_KR}
         </label>
       </div>
