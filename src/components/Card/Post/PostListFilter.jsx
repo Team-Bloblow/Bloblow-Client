@@ -1,7 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { ERROR_MESSAGE, POST_LISTS } from "../../../config/constants";
+import { ERROR_MESSAGE, POST_LISTS } from "../../../config/constants";
 import KeywordChip from "../../Chip/KeywordChip";
+import FilterIcon from "../../Icon/FilterIcon";
+import ResetIcon from "../../Icon/ResetIcon";
+import SortIcon from "../../Icon/SortIcon";
 import FilterIcon from "../../Icon/FilterIcon";
 import ResetIcon from "../../Icon/ResetIcon";
 import SortIcon from "../../Icon/SortIcon";
@@ -9,6 +14,16 @@ import Button from "../../UI/Button";
 import Label from "../../UI/Label";
 import PropTypes from "prop-types";
 
+const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
+  const syncedFilterList = useMemo(() => {
+    return {
+      order: filterList.order,
+      includedKeyword: filterList.includedKeyword,
+      excludedKeyword: filterList.excludedKeyword,
+      isAd: filterList.isAd,
+    };
+  }, [filterList.order, filterList.includedKeyword, filterList.excludedKeyword, filterList.isAd]);
+  const [tempFilterList, setTempFilterList] = useState(syncedFilterList);
 const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
   const syncedFilterList = useMemo(() => {
     return {
@@ -108,6 +123,7 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
     return;
   };
   const handleKeywordCreateTempFilterSubmit = (e, keywordFilterType) => {
+  const handleKeywordCreateTempFilterSubmit = (e, keywordFilterType) => {
     e.preventDefault();
     const trimmedInputValue = inputValue[keywordFilterType].trim();
 
@@ -128,6 +144,7 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
       setErrorMessage((prev) => ({
         ...prev,
         [keywordFilterType]: ERROR_MESSAGE.KEYWORD_DUPLICATED_INPUT_VALUE,
+        [keywordFilterType]: ERROR_MESSAGE.KEYWORD_DUPLICATED_INPUT_VALUE,
       }));
       return;
     }
@@ -135,14 +152,21 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
     setTempFilterList((prev) => ({
       ...prev,
       [keywordFilterType]: [...prev[keywordFilterType], trimmedInputValue],
+      [keywordFilterType]: [...prev[keywordFilterType], trimmedInputValue],
     }));
+    setInputValue((prev) => ({ ...prev, [keywordFilterType]: "" }));
+    setErrorMessage((prev) => ({ ...prev, [keywordFilterType]: "" }));
     setInputValue((prev) => ({ ...prev, [keywordFilterType]: "" }));
     setErrorMessage((prev) => ({ ...prev, [keywordFilterType]: "" }));
     return;
   };
   const handleKeywordFilterChipRemoveButtonClick = (keywordFilterType, keywordFilterForRemove) => {
+  const handleKeywordFilterChipRemoveButtonClick = (keywordFilterType, keywordFilterForRemove) => {
     setTempFilterList((prev) => ({
       ...prev,
+      [keywordFilterType]: prev[keywordFilterType].filter(
+        (filter) => filter !== keywordFilterForRemove
+      ),
       [keywordFilterType]: prev[keywordFilterType].filter(
         (filter) => filter !== keywordFilterForRemove
       ),

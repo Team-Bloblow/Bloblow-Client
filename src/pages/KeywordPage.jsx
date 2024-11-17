@@ -12,6 +12,7 @@ import PostListFilter from "../components/Card/Post/PostListFilter";
 import DashboardHeader from "../components/Header/DashboardHeader";
 import DashboardSidebar from "../components/Sidebar/DashboardSidebar";
 import { POST_LISTS } from "../config/constants";
+import { POST_LISTS } from "../config/constants";
 import useNoSignInRedirect from "../hooks/useNoSignInRedirect";
 import useBoundStore from "../store/client/useBoundStore";
 import { useQuery } from "@tanstack/react-query";
@@ -30,8 +31,13 @@ const KeywordPage = () => {
   const resetFilterList = () => {
     setFilterList(POST_LISTS.DEFAULT_FILTER_LIST);
   };
+  const resetFilterList = () => {
+    setFilterList(POST_LISTS.DEFAULT_FILTER_LIST);
+  };
 
   useEffect(() => {
+    resetFilterList();
+  }, [keywordId]);
     resetFilterList();
   }, [keywordId]);
 
