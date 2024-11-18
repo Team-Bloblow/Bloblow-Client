@@ -9,10 +9,11 @@ import {
   LinearScale,
   Title,
   Tooltip,
+  plugins,
 } from "chart.js";
 import PropTypes from "prop-types";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, plugins);
 
 const StackBarChart = ({ chartData }) => {
   const data = {
@@ -35,14 +36,30 @@ const StackBarChart = ({ chartData }) => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: true,
     scales: {
       x: {
         stacked: true,
+        grid: { display: false },
       },
       y: {
         stacked: true,
         beginAtZero: true,
         suggestedMax: Math.max(...chartData.items.nonAdCountList, ...chartData.items.adCountList),
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: "top",
+        align: "center",
+        labels: {
+          font: {
+            family: "Pretendard",
+            size: 13,
+            weight: "normal",
+          },
+        },
       },
     },
   };

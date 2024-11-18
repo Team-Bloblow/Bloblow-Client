@@ -12,6 +12,7 @@ import {
   LinearScale,
   PointElement,
   Tooltip,
+  plugins,
 } from "chart.js";
 import PropTypes from "prop-types";
 
@@ -24,7 +25,8 @@ ChartJS.register(
   Legend,
   Tooltip,
   LineController,
-  BarController
+  BarController,
+  plugins
 );
 
 const MultiTypeChart = ({ chartData }) => {
@@ -50,13 +52,33 @@ const MultiTypeChart = ({ chartData }) => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: true,
     scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+      },
       y: {
         beginAtZero: true,
         suggestedMax: Math.max(
           ...chartData.items.commentCountList,
           ...chartData.items.likeCountList
         ),
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: "top",
+        align: "center",
+        labels: {
+          font: {
+            family: "Pretendard",
+            size: 13,
+            weight: "normal",
+          },
+        },
       },
     },
   };

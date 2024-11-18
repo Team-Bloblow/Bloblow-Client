@@ -9,10 +9,11 @@ import {
   LinearScale,
   PointElement,
   Tooltip,
+  plugins,
 } from "chart.js";
 import PropTypes from "prop-types";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, plugins);
 
 const LineChart = ({ chartData }) => {
   const data = {
@@ -29,10 +30,30 @@ const LineChart = ({ chartData }) => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: true,
     scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+      },
       y: {
         beginAtZero: true,
         suggestedMax: Math.max(...chartData.items),
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+        position: "top",
+        align: "center",
+        labels: {
+          font: {
+            family: "Pretendard",
+            size: 13,
+            weight: "normal",
+          },
+        },
       },
     },
   };
