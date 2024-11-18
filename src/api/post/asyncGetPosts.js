@@ -16,7 +16,7 @@ const asyncGetPosts = async (
   const excludedKeywordParams = excludedKeyword.length === 0 ? "" : excludedKeyword.join();
   const fetchInfo = {
     url: `${BASE_URL}/posts/${keywordId}`,
-    params: `?order=${order}&includedKeyword=${includedKeywordParams}&excludedKeyword=${excludedKeywordParams}&isAd=${isAd}$limit=${limit}&cursorId=${cursorId}`,
+    params: `?order=${order}&includedKeyword=${includedKeywordParams}&excludedKeyword=${excludedKeywordParams}&isAd=${isAd}&limit=${limit}&cursorId=${cursorId}`,
   };
 
   const response = await fetchHandler(fetchInfo);
