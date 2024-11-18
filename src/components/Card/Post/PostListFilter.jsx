@@ -9,7 +9,7 @@ import Button from "../../UI/Button";
 import Label from "../../UI/Label";
 import PropTypes from "prop-types";
 
-const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
+const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList }) => {
   const syncedFilterList = useMemo(() => {
     return {
       order: filterList.order,
@@ -70,8 +70,10 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
   };
 
   useEffect(() => {
-    setTempFilterList(() => syncedFilterList);
-  }, [syncedFilterList]);
+    if (keywordId) {
+      setTempFilterList(() => syncedFilterList);
+    }
+  }, [keywordId, syncedFilterList]);
 
   useEffect(() => {
     const checkDropDownOutsideClicked = (e) => {
@@ -402,6 +404,7 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
 export default PostListFilter;
 
 PostListFilter.propTypes = {
+  keywordId: PropTypes.string.isRequired,
   filterList: PropTypes.shape({
     order: PropTypes.string.isRequired,
     includedKeyword: PropTypes.arrayOf(PropTypes.string.isRequired),

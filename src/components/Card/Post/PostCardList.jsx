@@ -47,6 +47,7 @@ const PostCardList = ({ keywordId, filterList, setFilterList, resetFilterList })
       ) : hasPostResponse ? (
         <>
           <PostListFilter
+            keywordId={keywordId}
             filterList={filterList}
             setFilterList={setFilterList}
             resetFilterList={resetFilterList}
