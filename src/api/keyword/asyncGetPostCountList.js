@@ -1,9 +1,10 @@
 import fetchHandler from "..";
-import { BASE_URL } from "../../config/constants";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const asyncGetPostCountList = async (keywordId, cursorId, period) => {
   const fetchInfo = {
-    url: `${BASE_URL}/posts/keywords/${keywordId}/postCount`,
+    url: `${API_BASE_URL}/posts/keywords/${keywordId}/postCount`,
     params: `?cursorId=${cursorId}&period=${period}`,
   };
 

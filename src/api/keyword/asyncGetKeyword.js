@@ -1,9 +1,10 @@
 import fetchHandler from "..";
-import { BASE_URL } from "../../config/constants";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const asyncGetKeyword = async (keywordId) => {
   const fetchInfo = {
-    url: `${BASE_URL}/keywords/${keywordId}`,
+    url: `${API_BASE_URL}/keywords/${keywordId}`,
     params: "",
   };
 

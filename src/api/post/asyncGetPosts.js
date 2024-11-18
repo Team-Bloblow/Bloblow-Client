@@ -1,5 +1,7 @@
 import fetchHandler from "..";
-import { BASE_URL, POST_LISTS } from "../../config/constants";
+import { POST_LISTS } from "../../config/constants";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const asyncGetPosts = async (
   cursorId = POST_LISTS.DEFAULT_CURSOR_ID,
@@ -13,7 +15,7 @@ const asyncGetPosts = async (
   const includedKeywordParams = includedKeyword.length === 0 ? "" : includedKeyword.join();
   const excludedKeywordParams = excludedKeyword.length === 0 ? "" : excludedKeyword.join();
   const fetchInfo = {
-    url: `${BASE_URL}/posts/${keywordId}`,
+    url: `${API_BASE_URL}/posts/${keywordId}`,
     params: `?includedKeyword=${includedKeywordParams}&excludedKeyword=${excludedKeywordParams}&limit=${limit}&cursorId=${cursorId}`,
   };
 
