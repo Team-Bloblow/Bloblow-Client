@@ -303,7 +303,7 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
             <div>
               <span className="text-16 font-semibold">키워드 필터</span>
             </div>
-            <div className="flex flex-row gap-5 p-1 w-full h-40 rounded-lg bg-gray-100">
+            <div className="flex flex-row gap-1 p-1 w-full h-40 rounded-lg bg-gray-100">
               <Button
                 styles={`flex-1 p-5 m-2 rounded-md ${dropDownOpened.dropDownType === "keyword-included" && "bg-white shadow-md"}`}
                 onClick={() => handleOpenDropDownClick("keyword-included")}
@@ -332,8 +332,8 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
                 id={selectedKeywordTypeInDropDownEN}
                 value={inputValue[selectedKeywordTypeInDropDownEN]}
                 onChange={(e) => handleKeywordFilterInputChange(e, selectedKeywordTypeInDropDownEN)}
-                className="w-full flex-grow-1 h-full px-10 font-semibold outline-none"
-                placeholder={selectedKeywordTypeInDropDownKR}
+                className="w-full flex-grow-1 h-full px-10 font-light outline-none"
+                placeholder={`${selectedKeywordTypeInDropDownKR} 입력 후 Enter를 눌러주세요`}
               />
             </form>
             <div className="flex flex-col gap-5">
