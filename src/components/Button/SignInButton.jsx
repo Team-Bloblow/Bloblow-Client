@@ -58,10 +58,10 @@ const SignInButton = ({ type }) => {
   if (type === SIGN_BUTTON_TYPE.LANDING_PAGE) {
     return (
       <Button
-        styles="flex-center px-12 py-6 font-medium border-1 border-slate-400 bg-white rounded-[5px] text-black text-18 hover:bg-emerald-200/10 hover:shadow-md"
+        styles="flex-center px-12 py-6 font-medium border-1 border-slate-400 bg-white rounded-[5px] text-black text-18 transition duration-500 ease-in-out hover:text-white hover:bg-green-500 hover:shadow-md"
         onClick={handleButtonClick}
       >
-        서비스 시작하기
+        놓친 인사이트 발견하기
         {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.ERROR && (
           <ErrorModal errorMessage={ERROR_MESSAGE.SIGN_IN_ERROR} />
         )}
