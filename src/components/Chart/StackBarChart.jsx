@@ -20,13 +20,13 @@ const StackBarChart = ({ chartData }) => {
     labels: chartData.dates.map((date) => changeMonthDateFormat(date)),
     datasets: [
       {
-        label: "광고 없음",
+        label: "광고 게시물",
         data: chartData.items.nonAdCountList,
         borderColor: "#0f9d58",
         backgroundColor: "#0f9d58",
       },
       {
-        label: "광고 있음",
+        label: "광고 외 게시물",
         data: chartData.items.adCountList,
         borderColor: "#f4b400",
         backgroundColor: "#f4b400",
@@ -73,8 +73,8 @@ export default StackBarChart;
 
 StackBarChart.propTypes = {
   chartData: PropTypes.shape({
-    keywordId: PropTypes.string,
-    keyword: PropTypes.string,
+    keywordId: PropTypes.string.isRequired,
+    keyword: PropTypes.string.isRequired,
     cursorId: PropTypes.string,
     dates: PropTypes.arrayOf(PropTypes.string),
     items: PropTypes.shape({

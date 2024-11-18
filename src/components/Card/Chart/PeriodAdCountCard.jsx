@@ -31,7 +31,7 @@ const PeriodAdCountCard = ({ keywordId }) => {
   if (isError || chartData?.message?.includes("Error occured")) {
     return (
       <div className="flex flex-col gap-6 w-1/2 h-full p-10 border-2 rounded-md justify-center items-center">
-        게시물 광고 여부 차트를 불러오는 데 실패했습니다.
+        광고성 게시물 구분 차트를 불러오는 데 실패했습니다.
       </div>
     );
   }
@@ -39,7 +39,7 @@ const PeriodAdCountCard = ({ keywordId }) => {
   return (
     <article className="flex flex-col gap-6 w-1/2 h-full p-10 border-1 rounded-md">
       <div className="flex justify-between items-center flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">
-        <span className="flex items-center text-18 font-semibold">게시물 광고 여부</span>
+        <span className="flex items-center text-18 font-semibold">광고성 게시물 구분</span>
         <PeriodToggleButton
           keywordId={keywordId}
           period={period}

@@ -88,8 +88,8 @@ export default MultiTypeChart;
 
 MultiTypeChart.propTypes = {
   chartData: PropTypes.shape({
-    keywordId: PropTypes.string,
-    keyword: PropTypes.string,
+    keywordId: PropTypes.string.isRequired,
+    keyword: PropTypes.string.isRequired,
     cursorId: PropTypes.string,
     dates: PropTypes.arrayOf(PropTypes.string),
     items: PropTypes.shape({
