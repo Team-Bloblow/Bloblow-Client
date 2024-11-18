@@ -209,7 +209,7 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
         <ul className="flex gap-10">
           <div>
             <Button
-              styles="flex items-center w-120 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
+              styles="flex items-center w-120 h-full right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
               onClick={() => handleOpenDropDownClick("order")}
             >
               <div className="flex ml-5 mr-8">
@@ -220,7 +220,7 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
           </div>
           <div>
             <Button
-              styles="flex items-center w-100 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
+              styles="flex items-center w-100 h-full right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
               onClick={() => handleOpenDropDownClick("keyword-included")}
             >
               <div className="flex ml-5 mr-8">
@@ -231,7 +231,7 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
           </div>
           <div>
             <Button
-              styles="flex items-center w-100 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
+              styles="flex items-center w-100 h-full right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 border-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
               onClick={() => handleOpenDropDownClick("ad")}
             >
               <div className="flex ml-5 mr-8">
@@ -242,7 +242,7 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
           </div>
           <Button
             onClick={handleAllFilterListsApplyButtonClick}
-            styles="w-60 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 bg-green-100 border-1 border-green-100 border-slate-200/80 font-semibold hover:bg-green-200"
+            styles="w-60 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 bg-green-100 border-2 border-green-100 font-semibold hover:bg-green-200"
           >
             <span className="text-14">적용</span>
           </Button>
@@ -251,7 +251,7 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
             <span className="text-12 text-gray-400">초기화</span>
           </Button>
           <div className="px-10 flex-center">
-            <span className="font-light text-green-600">{errorMessage.filterApllied}</span>
+            <span className="font-light text-green-60">{errorMessage.filterApllied}</span>
           </div>
         </ul>
         {dropDownOpened.dropDownType === "order" && (
@@ -298,15 +298,15 @@ const PostListFilter = ({ filterList, setFilterList, resetFilterList }) => {
             <div>
               <span className="text-16 font-semibold">키워드 필터</span>
             </div>
-            <div className="flex flex-row gap-20 p-1 w-full h-40 rounded-lg bg-gray-100">
+            <div className="flex flex-row gap-5 p-1 w-full h-40 rounded-lg bg-gray-100">
               <Button
-                styles={`flex-1 p-5 m-1 round-md ${dropDownOpened.dropDownType === "keyword-included" && "bg-white"}`}
+                styles={`flex-1 p-5 m-2 rounded-md ${dropDownOpened.dropDownType === "keyword-included" && "bg-white shadow-md"}`}
                 onClick={() => handleOpenDropDownClick("keyword-included")}
               >
                 <span>{POST_LISTS.INCLUDED_KEYWORD}</span>
               </Button>
               <Button
-                styles={`flex-1 p-5 m-1 round-md ${dropDownOpened.dropDownType !== "keyword-included" && "bg-white"}`}
+                styles={`flex-1 p-5 m-2 rounded-md ${dropDownOpened.dropDownType !== "keyword-included" && "bg-white shadow-md"}`}
                 onClick={() => handleOpenDropDownClick("keyword-excluded")}
               >
                 <span>{POST_LISTS.EXCLUDED_KEYWORD}</span>

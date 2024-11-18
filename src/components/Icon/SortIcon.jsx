@@ -1,6 +1,6 @@
 const SortIcon = ({ ...props }) => {
   return (
-    <svg width="15px" height="15px" viewBox="0 0 25 25" className="flex items-center" {...props}>
+    <svg width="17px" height="17px" viewBox="0 0 25 25" className="flex items-center" {...props}>
       <path
         d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25"
         fill="none"
