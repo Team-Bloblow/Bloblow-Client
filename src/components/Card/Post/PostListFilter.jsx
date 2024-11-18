@@ -54,11 +54,11 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
   const getSelectedAdFilter = (adFilterType) => {
     switch (adFilterType) {
       case "":
-        return POST_LISTS.ISAD_KR.ALL;
+        return POST_LISTS.IS_AD_KR.ALL;
       case true:
-        return POST_LISTS.ISAD_KR.ONLY_ADS;
+        return POST_LISTS.IS_AD_KR.ONLY_ADS;
       case false:
-        return POST_LISTS.ISAD_KR.NO_ADS;
+        return POST_LISTS.IS_AD_KR.NO_ADS;
     }
   };
   const vaildateEqualOriginalAndTempFilter = () => {
@@ -183,7 +183,7 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
     if (vaildateEqualOriginalAndTempFilter()) {
       setErrorMessage((prev) => ({
         ...prev,
-        filterApllied: ERROR_MESSAGE.APPLIED_POST_FILTER,
+        filterApllied: ERROR_MESSAGE.FILTER_ALREADY_APPLIED,
       }));
       return;
     }
@@ -374,7 +374,7 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
                   styles="w-full px-3 py-10 text-left"
                   onClick={() => handleAdFilterInDropDownClick(POST_LISTS.ISAD_EN.ALL)}
                 >
-                  <span>{POST_LISTS.ISAD_KR.ALL}</span>
+                  <span>{POST_LISTS.IS_AD_KR.ALL}</span>
                 </Button>
               </li>
               <li className="rounded-md hover:bg-gray-100">
@@ -382,7 +382,7 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
                   styles="w-full px-3 py-10 text-left"
                   onClick={() => handleAdFilterInDropDownClick(POST_LISTS.ISAD_EN.ONLY_ADS)}
                 >
-                  <span>{POST_LISTS.ISAD_KR.ONLY_ADS}</span>
+                  <span>{POST_LISTS.IS_AD_KR.ONLY_ADS}</span>
                 </Button>
               </li>
               <li className="rounded-md hover:bg-gray-100">
@@ -390,7 +390,7 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
                   styles="w-full px-3 py-10 text-left"
                   onClick={() => handleAdFilterInDropDownClick(POST_LISTS.ISAD_EN.NO_ADS)}
                 >
-                  <span>{POST_LISTS.ISAD_KR.NO_ADS}</span>
+                  <span>{POST_LISTS.IS_AD_KR.NO_ADS}</span>
                 </Button>
               </li>
             </ul>
