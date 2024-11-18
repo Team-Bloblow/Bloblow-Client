@@ -31,12 +31,8 @@ const LineChart = ({ chartData }) => {
   const options = {
     responsive: true,
     maintainAspectRatio: true,
+    aspectRatio: 2.3,
     scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-      },
       y: {
         beginAtZero: true,
         suggestedMax: Math.max(...chartData.items),
@@ -48,6 +44,9 @@ const LineChart = ({ chartData }) => {
         position: "top",
         align: "center",
         labels: {
+          color: "#787878",
+          usePointStyle: true,
+          pointStyle: "rect",
           font: {
             family: "Pretendard",
             size: 13,

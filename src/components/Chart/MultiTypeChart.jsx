@@ -54,11 +54,6 @@ const MultiTypeChart = ({ chartData }) => {
     responsive: true,
     maintainAspectRatio: true,
     scales: {
-      x: {
-        grid: {
-          display: false,
-        },
-      },
       y: {
         beginAtZero: true,
         suggestedMax: Math.max(
@@ -73,6 +68,9 @@ const MultiTypeChart = ({ chartData }) => {
         position: "top",
         align: "center",
         labels: {
+          color: "#787878",
+          usePointStyle: true,
+          pointStyle: "rect",
           font: {
             family: "Pretendard",
             size: 13,

@@ -40,7 +40,6 @@ const StackBarChart = ({ chartData }) => {
     scales: {
       x: {
         stacked: true,
-        grid: { display: false },
       },
       y: {
         stacked: true,
@@ -54,6 +53,9 @@ const StackBarChart = ({ chartData }) => {
         position: "top",
         align: "center",
         labels: {
+          color: "#787878",
+          usePointStyle: true,
+          pointStyle: "rect",
           font: {
             family: "Pretendard",
             size: 13,
