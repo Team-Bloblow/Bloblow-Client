@@ -30,7 +30,7 @@ const KeywordPage = () => {
   };
 
   useEffect(() => {
-    if (keywordId) {
+    if (keywordId !== null && keywordId !== undefined) {
       resetFilterList();
     }
   }, [keywordId]);

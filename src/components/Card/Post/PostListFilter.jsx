@@ -26,7 +26,7 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
   const [errorMessage, setErrorMessage] = useState({
     includedKeyword: "",
     excludedKeyword: "",
-    filterApllied: "",
+    aplliedFilter: "",
   });
   const [dropDownOpened, setDropDownOpened] = useState({
     isOpen: false,
@@ -64,13 +64,17 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
   const vaildateEqualOriginalAndTempFilter = () => {
     const filters = Object.values(filterList).flat().sort();
     const tempFilters = Object.values(tempFilterList).flat().sort();
-    const isEqualFilter = tempFilters.every((filter, index) => filter === filters[index]);
+
+    if (filters.length !== tempFilters.length) {
+      return false;
+    }
+    const isEqualFilter = tempFilters.every((filter, index) => filter === filters[index]); // 완전 동일해야 하는데 지금은 포함하면 통과됨.
 
     return isEqualFilter;
   };
 
   useEffect(() => {
-    if (keywordId) {
+    if (keywordId !== null && keywordId !== undefined) {
       setTempFilterList(() => syncedFilterList);
     }
   }, [keywordId, syncedFilterList]);
@@ -186,7 +190,7 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
     if (vaildateEqualOriginalAndTempFilter()) {
       setErrorMessage((prev) => ({
         ...prev,
-        filterApllied: ERROR_MESSAGE.FILTER_ALREADY_APPLIED,
+        aplliedFilter: ERROR_MESSAGE.FILTER_ALREADY_APPLIED,
       }));
       return;
     }
@@ -194,7 +198,7 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
     setFilterList(tempFilterList);
     setErrorMessage((prev) => ({
       ...prev,
-      filterApllied: "",
+      aplliedFilter: "",
     }));
     return;
   };
@@ -203,7 +207,7 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
     setTempFilterList(syncedFilterList);
     setErrorMessage((prev) => ({
       ...prev,
-      filterApllied: "",
+      aplliedFilter: "",
     }));
     return;
   };
@@ -256,7 +260,7 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
             <span className="text-12 text-gray-400">초기화</span>
           </Button>
           <div className="px-10 flex-center">
-            <span className="font-light text-green-60">{errorMessage.filterApllied}</span>
+            <span className="font-light text-green-60">{errorMessage.aplliedFilter}</span>
           </div>
         </ul>
         {dropDownOpened.dropDownType === "order" && (
