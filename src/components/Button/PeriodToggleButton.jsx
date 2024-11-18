@@ -2,8 +2,8 @@ import { PERIOD_TYPE } from "../../config/constants";
 import PropTypes from "prop-types";
 
 const PeriodToggleButton = ({ period, setPeriod, setCursorId }) => {
-  const handleToggleClick = (checkedPeriod) => {
-    setPeriod(checkedPeriod);
+  const handleToggleClick = (clickedPeriod) => {
+    setPeriod(clickedPeriod);
     setCursorId("");
   };
 
