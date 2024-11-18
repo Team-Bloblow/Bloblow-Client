@@ -20,7 +20,7 @@ const TodayPostCountCard = ({ keywordId }) => {
 
   if (isError || chartData?.message?.includes("Error occured")) {
     return (
-      <div className="w-1/2 h-full p-10 border-2 rounded-md flex justify-center items-center">
+      <div className="w-1/2 h-full p-10 border-1 rounded-md flex justify-center items-center">
         오늘의 게시물 차트를 불러오는 데 실패했습니다.
       </div>
     );

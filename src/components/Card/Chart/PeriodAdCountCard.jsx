@@ -30,7 +30,7 @@ const PeriodAdCountCard = ({ keywordId }) => {
 
   if (isError || chartData?.message?.includes("Error occured")) {
     return (
-      <div className="flex flex-col gap-6 w-1/2 h-full p-10 border-2 rounded-md justify-center items-center">
+      <div className="flex flex-col gap-6 w-1/2 h-full p-10 border-1 rounded-md justify-center items-center">
         광고성 게시물 구분 차트를 불러오는 데 실패했습니다.
       </div>
     );
