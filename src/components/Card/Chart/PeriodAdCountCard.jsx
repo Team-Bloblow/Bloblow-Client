@@ -37,16 +37,16 @@ const PeriodAdCountCard = ({ keywordId }) => {
   }
 
   return (
-    <article className="flex flex-col gap-6 w-1/2 h-full p-10 border-2 rounded-md">
-      <span className="flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">
-        광고 여부
+    <article className="flex flex-col gap-6 w-1/2 h-full p-10 border-1 rounded-md">
+      <div className="flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">
+        <span className="text-18 font-semibold">게시물 광고 여부</span>
         <PeriodToggleButton
           keywordId={keywordId}
           period={period}
           setPeriod={setPeriod}
           setCursorId={setCursorId}
         />
-      </span>
+      </div>
       <div className="flex-col-center">
         <StackBarChart chartData={chartData} />
         <PeriodPagination

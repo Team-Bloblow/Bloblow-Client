@@ -38,16 +38,16 @@ const PeriodPostCountCard = ({ keywordId }) => {
   }
 
   return (
-    <article className="flex flex-col gap-6 w-full p-10 border-2 rounded-md">
-      <span className="flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">
-        게시물 수
+    <article className="flex flex-col gap-6 w-full p-10 border-1 rounded-md">
+      <div className="flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">
+        <span className="text-18 font-semibold">게시물 수</span>
         <PeriodToggleButton
           keywordId={keywordId}
           period={period}
           setPeriod={setPeriod}
           setCursorId={setCursorId}
         />
-      </span>
+      </div>
       <div className="flex-col-center">
         <LineChart chartData={chartData} />
         <PeriodPagination
