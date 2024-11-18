@@ -32,7 +32,7 @@ const TodayPostCountCard = ({ keywordId }) => {
 
   return (
     <article className="flex flex-col w-[30%] p-10 border-1 rounded-md flex-shrink-0">
-      <span className="bg-green-100/20 px-10 py-10 rounded-[2px] text-18 font-semibold">
+      <span className="flex justify-between items-center bg-green-100/20 px-10 py-9 rounded-[2px] text-18 font-semibold">
         오늘의 게시물
       </span>
       <div className="flex flex-col justify-center pt-30">
