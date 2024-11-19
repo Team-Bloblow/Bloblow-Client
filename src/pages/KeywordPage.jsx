@@ -78,19 +78,19 @@ const KeywordPage = () => {
         <article
           className={`flex flex-col border-l-1 border-b-2 border-r-2 border-slate-200/80 w-full ${dashboardType !== "chart" && "h-full"}`}
         >
-          <div className="flex gap-10 w-full h-40 px-10 py-5 bg-gray-100 border-x-1">
+          <div className="flex gap-10 w-full h-40 px-10 bg-gray-100 border-x-1">
             <button
-              className={`flex gap-5 p-5 h-full items-center justify-center ${dashboardType === "chart" ? "font-bold" : "text-gray-500"} hover:text-green-800`}
+              className={`flex gap-5 pl-12 pr-15 py-5 h-40 items-center justify-center ${dashboardType === "chart" ? "font-bold border-b-2 border-gray-700" : "text-gray-500"} hover:font-bold hover:text-gray-800`}
               onClick={() => setDashboardType("chart")}
             >
-              <ChartIcon width="20px" height="20px" />
-              인사이트 보기
+              <ChartIcon className="w-20 h-20" />
+              대시보드
             </button>
             <button
-              className={`flex gap-5 p-5 h-full items-center justify-center ${dashboardType === "post" ? "font-bold" : "text-gray-500"} hover:text-green-800`}
+              className={`flex gap-5 pl-12 pr-15 py-5 h-40 items-center justify-center ${dashboardType === "post" ? "font-bold border-b-2 border-gray-700" : "text-gray-500"} hover:font-bold hover:text-gray-800`}
               onClick={() => setDashboardType("post")}
             >
-              <PostIcon width="20px" height="20px" />
+              <PostIcon className="w-20 h-20" />
               게시물 목록
             </button>
           </div>
