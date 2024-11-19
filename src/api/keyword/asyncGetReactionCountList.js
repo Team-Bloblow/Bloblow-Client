@@ -2,9 +2,9 @@ import fetchHandler from "..";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-const asyncGetPostCountList = async (keywordId, cursorId, period) => {
+const asyncGetReactionCountList = async (keywordId, cursorId, period) => {
   const fetchInfo = {
-    url: `${API_BASE_URL}/posts/keywords/${keywordId}/postCount`,
+    url: `${API_BASE_URL}/posts/keywords/${keywordId}/reactionCount`,
     params: `?cursorId=${cursorId}&period=${period}`,
   };
 
@@ -13,4 +13,4 @@ const asyncGetPostCountList = async (keywordId, cursorId, period) => {
   return response;
 };
 
-export default asyncGetPostCountList;
+export default asyncGetReactionCountList;

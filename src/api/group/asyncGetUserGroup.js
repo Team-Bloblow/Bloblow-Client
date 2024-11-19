@@ -1,9 +1,10 @@
 import fetchHandler from "..";
-import { BASE_URL } from "../../config/constants";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const asyncGetUserGroup = async (userUid) => {
   const fetchInfo = {
-    url: `${BASE_URL}/groups/${userUid}`,
+    url: `${API_BASE_URL}/groups/${userUid}`,
     params: "",
   };
 

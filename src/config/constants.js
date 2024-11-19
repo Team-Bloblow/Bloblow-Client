@@ -1,5 +1,3 @@
-export const BASE_URL = "https://bloblow-api.onrender.com";
-
 export const MODAL_TYPE = Object.freeze({
   CREATE_KEYWORD: {
     DEFAULT: "createKeyword",
@@ -21,13 +19,15 @@ export const ERROR_MESSAGE = Object.freeze({
   FETCH_POSTS: "블로그 정보를 불러오지 못했습니다.",
 });
 
-export const CHART_COLOR = Object.freeze(["#f1948a", "#c39bd3", "#85c1e9", "#7dcea0", "#f8c471"]);
+export const CHART_COLOR = Object.freeze(["#4285f4", "#db4437", "#f4b400", "#0f9d58", "#ab47bc"]);
 
 export const PERIOD_TYPE = Object.freeze({
   WEEKLY: "weekly",
-  MONTHLY: "monthly",
+  MONTHLY_DAILY: "monthlyDaily",
+  MONTHLY_WEEKLY: "monthlyWeekly",
   WEEKLY_KR: "주간",
-  MONTHLY_KR: "월간",
+  MONTHLY_DAILY_KR: "월간(일)",
+  MONTHLY_WEEKLY_KR: "월간(주)",
 });
 
 export const POST_LISTS = Object.freeze({

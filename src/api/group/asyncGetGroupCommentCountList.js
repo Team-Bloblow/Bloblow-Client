@@ -1,9 +1,10 @@
 import fetchHandler from "..";
-import { BASE_URL } from "../../config/constants";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const asyncGetGroupCommentCountList = async (cursorId = "", groupId) => {
   const fetchInfo = {
-    url: `${BASE_URL}/posts/groups/${groupId}/commentCount`,
+    url: `${API_BASE_URL}/posts/groups/${groupId}/commentCount`,
     params: `?cursorId=${cursorId}`,
   };
 

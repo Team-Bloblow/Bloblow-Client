@@ -1,9 +1,10 @@
 import fetchHandler from "..";
-import { BASE_URL } from "../../config/constants";
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const asyncPostSignIn = async (userInfo) => {
   const fetchInfo = {
-    url: `${BASE_URL}/user/signIn`,
+    url: `${API_BASE_URL}/user/signIn`,
     method: "POST",
     params: "",
     body: userInfo,

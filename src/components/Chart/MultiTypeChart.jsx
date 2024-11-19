@@ -1,10 +1,13 @@
-import { Line } from "react-chartjs-2";
+import { Chart } from "react-chartjs-2";
 
-import { CHART_COLOR } from "../../config/constants";
 import { changeMonthDateFormat } from "../../utils/date";
 import {
+  BarController,
+  BarElement,
   CategoryScale,
   Chart as ChartJS,
+  Legend,
+  LineController,
   LineElement,
   LinearScale,
   PointElement,
@@ -13,17 +16,36 @@ import {
 } from "chart.js";
 import PropTypes from "prop-types";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, plugins);
+ChartJS.register(
+  LinearScale,
+  CategoryScale,
+  BarElement,
+  PointElement,
+  LineElement,
+  Legend,
+  Tooltip,
+  LineController,
+  BarController,
+  plugins
+);
 
-const LineChart = ({ chartData }) => {
+const MultiTypeChart = ({ chartData }) => {
   const data = {
     labels: chartData.dates.map((date) => changeMonthDateFormat(date)),
     datasets: [
       {
-        label: chartData.keyword,
-        data: chartData.items,
-        borderColor: CHART_COLOR[0],
-        backgroundColor: CHART_COLOR[0],
+        type: "line",
+        label: "공감 수",
+        data: chartData.items.likeCountList,
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgb(255, 99, 132)",
+      },
+      {
+        type: "bar",
+        label: "댓글 수",
+        data: chartData.items.commentCountList,
+        borderColor: "rgb(75, 192, 192)",
+        backgroundColor: "rgb(75, 192, 192)",
       },
     ],
   };
@@ -31,11 +53,13 @@ const LineChart = ({ chartData }) => {
   const options = {
     responsive: true,
     maintainAspectRatio: true,
-    aspectRatio: 2.3,
     scales: {
       y: {
         beginAtZero: true,
-        suggestedMax: Math.max(...chartData.items),
+        suggestedMax: Math.max(
+          ...chartData.items.commentCountList,
+          ...chartData.items.likeCountList
+        ),
       },
     },
     plugins: {
@@ -57,18 +81,21 @@ const LineChart = ({ chartData }) => {
     },
   };
 
-  return <Line options={options} data={data} />;
+  return <Chart type="bar" data={data} options={options} />;
 };
 
-export default LineChart;
+export default MultiTypeChart;
 
-LineChart.propTypes = {
+MultiTypeChart.propTypes = {
   chartData: PropTypes.shape({
     keywordId: PropTypes.string.isRequired,
     keyword: PropTypes.string.isRequired,
     cursorId: PropTypes.string,
     dates: PropTypes.arrayOf(PropTypes.string),
-    items: PropTypes.arrayOf(PropTypes.number),
+    items: PropTypes.shape({
+      likeCountList: PropTypes.arrayOf(PropTypes.number),
+      commentCountList: PropTypes.arrayOf(PropTypes.number),
+    }),
     previousCursorId: PropTypes.string,
     nextCursorId: PropTypes.string,
     hasPrevious: PropTypes.bool,
