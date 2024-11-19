@@ -8,15 +8,15 @@ import PropTypes from "prop-types";
 const TodayPostCountCard = ({ keywordId }) => {
   const hasKeywordId = !!keywordId;
 
-  const { data: chartData, isError } = useQuery({
+  const {
+    data: chartData,
+    isError,
+    isPending: isChartDataPending,
+  } = useQuery({
     queryKey: ["todayPostCount", keywordId],
     queryFn: () => asyncGetTodayPostCount(keywordId),
     enabled: hasKeywordId,
   });
-
-  if (chartData === undefined) {
-    return null;
-  }
 
   if (isError || chartData?.message?.includes("Error occured")) {
     return (
@@ -24,6 +24,21 @@ const TodayPostCountCard = ({ keywordId }) => {
         오늘의 게시물 차트를 불러오는 데 실패했습니다.
       </div>
     );
+  }
+
+  if (isChartDataPending) {
+    return (
+      <article className="flex flex-col w-[30%] gap-6 p-10 border-2 rounded-md flex-shrink-0">
+        <span className="flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">
+          오늘의 게시물
+        </span>
+        <div className="w-full h-full animate-pulse bg-slate-200/60" />
+      </article>
+    );
+  }
+
+  if (chartData === undefined) {
+    return null;
   }
 
   const isEqual = Number(chartData?.diffPostCount) === 0;

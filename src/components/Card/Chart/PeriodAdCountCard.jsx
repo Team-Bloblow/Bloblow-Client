@@ -17,6 +17,7 @@ const PeriodAdCountCard = ({ keywordId }) => {
     data: chartData,
     isPlaceholderData,
     isError,
+    isPending: isChartDataPending,
   } = useQuery({
     queryKey: ["adCount", keywordId, period, cursorId],
     queryFn: () => asyncGetAdCountList(keywordId, cursorId, period),
@@ -24,16 +25,30 @@ const PeriodAdCountCard = ({ keywordId }) => {
     placeholderData: keepPreviousData,
   });
 
-  if (chartData === undefined) {
-    return null;
-  }
-
   if (isError || chartData?.message?.includes("Error occured")) {
     return (
       <div className="flex flex-col gap-6 w-1/2 h-full p-10 border-1 rounded-md justify-center items-center">
         광고성 게시물 구분 차트를 불러오는 데 실패했습니다.
       </div>
     );
+  }
+
+  if (isChartDataPending && cursorId === "") {
+    return (
+      <article className="flex flex-col gap-6 w-1/2 p-10 border-2 rounded-md">
+        <span className="flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">
+          광고성 게시물 구분
+        </span>
+        <div className="flex-col-center gap-5 animate-pulse">
+          <div className="flex-shrink-0 w-full aspect-[2] bg-slate-200/60" />
+          <div className="w-235 h-35 bg-slate-200/60" />
+        </div>
+      </article>
+    );
+  }
+
+  if (chartData === undefined) {
+    return null;
   }
 
   return (
@@ -47,7 +62,7 @@ const PeriodAdCountCard = ({ keywordId }) => {
           setCursorId={setCursorId}
         />
       </div>
-      <div className="flex-col-center">
+      <div className="flex-col-center gap-5">
         <StackBarChart chartData={chartData} />
         <PeriodPagination
           chartData={chartData}
