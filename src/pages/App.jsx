@@ -6,6 +6,7 @@ import GroupPage from "./GroupPage";
 import HomePage from "./HomePage";
 import KeywordPage from "./KeywordPage";
 import MyPage from "./MyPage";
+import NotFoundPage from "./NotFoundPage";
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
             <Route path=":keywordId" element={<KeywordPage />} />
           </Route>
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </ReactQueryProviders>
   );
