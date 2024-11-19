@@ -15,6 +15,8 @@ export const ERROR_MESSAGE = Object.freeze({
   KEYWORD_EMPTY_INPUT_VALUE: "키워드를 입력해주세요.",
   CREATE_KEYWORD_ERROR: "새로운 키워드 생성에 실패하였습니다.",
   KEYWORD_DUPLICATED_INPUT_VALUE: "이미 키워드가 필터로 등록되어 있어요.",
+  FILTER_ALREADY_APPLIED: "이미 필터가 적용되었어요.",
+  FILTER_ALREADY_APPLIED: "이미 필터가 적용되었어요.",
   SIGN_IN_ERROR: "로그인에 실패하였습니다.",
   FETCH_POSTS: "블로그 정보를 불러오지 못했습니다.",
 });
@@ -31,8 +33,56 @@ export const PERIOD_TYPE = Object.freeze({
 });
 
 export const POST_LISTS = Object.freeze({
-  DEFAULT_INCLUDED_KEYWORD: [],
-  DEFAULT_EXCLUDED_KEYWORD: [],
+  ORDER_KR: {
+    NEWEST: "최신 순",
+    LIKE: "공감 많은 순",
+    COMMENT: "댓글 많은 순",
+  },
+  ORDER_EN: {
+    NEWEST: "NEWEST",
+    LIKE: "LIKE",
+    COMMENT: "COMMENT",
+  },
+  ORDER_KR: {
+    NEWEST: "최신 순",
+    LIKE: "공감 많은 순",
+    COMMENT: "댓글 많은 순",
+  },
+  ORDER_EN: {
+    NEWEST: "NEWEST",
+    LIKE: "LIKE",
+    COMMENT: "COMMENT",
+  },
+  INCLUDED_KEYWORD: "포함할 키워드",
+  EXCLUDED_KEYWORD: "제외할 키워드",
+  IS_AD_KR: {
+    ALL: "광고 포함",
+    ONLY_ADS: "광고만",
+    NO_ADS: "광고 제외",
+  },
+  ISAD_EN: {
+    ALL: "",
+    ONLY_ADS: true,
+    NO_ADS: false,
+  },
+  DEFAULT_ORDER: "NEWEST",
+  ISAD_KR: {
+    ALL: "광고 포함",
+    ONLY_ADS: "광고만",
+    NO_ADS: "광고 제외",
+  },
+  ISAD_EN: {
+    ALL: "",
+    ONLY_ADS: true,
+    NO_ADS: false,
+  },
+  DEFAULT_ORDER: "NEWEST",
+  DEFAULT_FILTER_LIST: {
+    order: "NEWEST",
+    includedKeyword: [],
+    excludedKeyword: [],
+    isAd: "",
+  },
   DEFAULT_LIMIT: 10,
   DEFAULT_CURSOR_ID: "",
 });

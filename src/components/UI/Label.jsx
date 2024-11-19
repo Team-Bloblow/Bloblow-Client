@@ -12,6 +12,6 @@ export default Label;
 
 Label.propTypes = {
   htmlFor: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   styles: PropTypes.string,
 };

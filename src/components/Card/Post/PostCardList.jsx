@@ -6,9 +6,10 @@ import useInfiniteData from "../../../hooks/useInfiniteData";
 import Error from "../../UI/Error";
 import Loading from "../../UI/Loading";
 import PostCard from "./PostCard";
+import PostListFilter from "./PostListFilter";
 import PropTypes from "prop-types";
 
-const PostCardList = ({ keywordId, filterList }) => {
+const PostCardList = ({ keywordId, filterList, setFilterList, resetFilterList }) => {
   const observeRef = useRef(null);
   const observeRootRef = useRef(null);
 
@@ -17,8 +18,10 @@ const PostCardList = ({ keywordId, filterList }) => {
     queryFn: asyncGetPosts,
     options: {
       keywordId,
+      order: filterList.order,
       includedKeyword: filterList.includedKeyword,
       excludedKeyword: filterList.excludedKeyword,
+      isAd: filterList.isAd,
       limit: 5,
     },
     initialPageParam: "",
@@ -28,6 +31,7 @@ const PostCardList = ({ keywordId, filterList }) => {
   };
 
   const { data: postResponse, isPending, isError } = useInfiniteData(infiniteDataArgument);
+  const hasPostResponse = postResponse?.pages[0]?.items?.length > 0;
 
   if (isError || postResponse?.pages[0]?.message?.includes("Error occured")) {
     return <Error errorMessage={ERROR_MESSAGE.FETCH_POSTS} />;
@@ -40,25 +44,33 @@ const PostCardList = ({ keywordId, filterList }) => {
     >
       {isPending ? (
         <Loading width={100} height={100} text={""} />
-      ) : postResponse?.pages[0]?.items?.length === 0 ? (
-        <p className="w-full h-full flex-center text-22">확인할 수 있는 게시물이 없어요</p>
+      ) : hasPostResponse ? (
+        <>
+          <PostListFilter
+            keywordId={keywordId}
+            filterList={filterList}
+            setFilterList={setFilterList}
+            resetFilterList={resetFilterList}
+          />
+          {postResponse?.pages?.map((page) => {
+            return page.items?.map((postInfo) => {
+              return (
+                <PostCard
+                  key={postInfo?._id}
+                  postTitle={postInfo?.title}
+                  postDescription={postInfo?.description}
+                  likeCount={postInfo?.likeCount}
+                  commentCount={postInfo?.commentCount}
+                  link={postInfo?.link}
+                  createdAt={postInfo?.createdAt}
+                  isAd={postInfo?.isAd ?? false}
+                />
+              );
+            });
+          })}
+        </>
       ) : (
-        postResponse?.pages?.map((page) => {
-          return page.items?.map((postInfo) => {
-            return (
-              <PostCard
-                key={postInfo?._id}
-                postTitle={postInfo?.title}
-                postDescription={postInfo?.description}
-                likeCount={postInfo?.likeCount}
-                commentCount={postInfo?.commentCount}
-                link={postInfo?.link}
-                createdAt={postInfo?.createdAt}
-                isAd={postInfo?.isAd ?? false}
-              />
-            );
-          });
-        })
+        <p className="w-full h-full flex-center text-22">확인할 수 있는 게시물이 없어요</p>
       )}
       <div ref={observeRef} />
     </article>
@@ -70,7 +82,11 @@ export default PostCardList;
 PostCardList.propTypes = {
   keywordId: PropTypes.string.isRequired,
   filterList: PropTypes.shape({
+    order: PropTypes.string.isRequired,
     includedKeyword: PropTypes.arrayOf(PropTypes.string.isRequired),
     excludedKeyword: PropTypes.arrayOf(PropTypes.string.isRequired),
+    isAd: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
   }),
+  setFilterList: PropTypes.func.isRequired,
+  resetFilterList: PropTypes.func.isRequired,
 };
