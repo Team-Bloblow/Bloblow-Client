@@ -36,8 +36,8 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
   };
 
   return (
-    <nav className="flex flex-col justify-between w-250 h-full flex-shrink-0 bg-white border-l-2 border-r-2 border-slate-200/80 shadow-lg">
-      <div className="flex flex-col justify-start w-full">
+    <nav className="flex flex-col justify-between w-250 flex-shrink-0 bg-white border-l-2 border-r-2 border-slate-200/80 shadow-lg">
+      <div className="flex flex-col">
         <Button
           styles="flex items-center gap-12 w-full h-40 px-30 py-10 text-14 border-b-2 border-slate-200/80 opacity-70 bg-white hover:opacity-90"
           destination="/myPage"
