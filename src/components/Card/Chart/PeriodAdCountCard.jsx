@@ -38,8 +38,8 @@ const PeriodAdCountCard = ({ keywordId }) => {
 
   return (
     <article className="flex flex-col gap-6 w-1/2 h-full p-10 border-1 rounded-md">
-      <div className="flex justify-between items-center flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">
-        <span className="flex items-center text-18 font-semibold">광고성 게시물 구분</span>
+      <div className="flex justify-between items-center flex-shrink-0 px-10 py-5 rounded-[2px]">
+        <span className="flex items-center text-20 font-semibold">광고성 게시물 비율</span>
         <PeriodToggleButton
           keywordId={keywordId}
           period={period}
