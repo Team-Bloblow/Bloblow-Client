@@ -1,6 +1,5 @@
 import { Line } from "react-chartjs-2";
 
-import { CHART_COLOR } from "../../config/constants";
 import { changeMonthDateFormat } from "../../utils/date";
 import {
   CategoryScale,
@@ -22,8 +21,8 @@ const LineChart = ({ chartData }) => {
       {
         label: chartData.keyword,
         data: chartData.items,
-        borderColor: CHART_COLOR[0],
-        backgroundColor: CHART_COLOR[0],
+        borderColor: "#4285f4",
+        backgroundColor: "#4285f4",
       },
     ],
   };
@@ -31,7 +30,7 @@ const LineChart = ({ chartData }) => {
   const options = {
     responsive: true,
     maintainAspectRatio: true,
-    aspectRatio: 2.3,
+    aspectRatio: 3,
     scales: {
       y: {
         beginAtZero: true,
