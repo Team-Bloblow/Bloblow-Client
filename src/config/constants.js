@@ -76,7 +76,6 @@ export const POST_LISTS = Object.freeze({
     NO_ADS: false,
   },
   DEFAULT_ORDER: "NEWEST",
-  DEFAULT_IS_AD: "",
   DEFAULT_FILTER_LIST: {
     order: "NEWEST",
     includedKeyword: [],
