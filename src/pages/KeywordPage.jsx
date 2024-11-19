@@ -77,7 +77,7 @@ const KeywordPage = () => {
           keywordId={keywordId}
         />
         <article
-          className={`flex flex-col border-l-1 border-b-2 border-r-2 border-slate-200/80 w-full ${dashboardType !== "chart" && "h-full"}`}
+          className={`flex flex-col border-l-1 border-b-2 border-r-2 border-slate-200/80 shadow-md w-full ${dashboardType !== "chart" && "h-full"}`}
         >
           <div className="flex gap-10 w-full h-44 bg-gray-100 border-x-1">
             <button
