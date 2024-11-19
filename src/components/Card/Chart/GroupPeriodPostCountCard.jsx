@@ -30,6 +30,7 @@ const GroupPeriodPostCountCard = ({ groupChartType, groupId, hasUserUid }) => {
   const {
     data: groupPostCountData,
     isError: isGroupPostCountDataError,
+    isPending: isGroupPostCountDataPending,
     isPlaceholderData,
   } = useQuery({
     queryKey: ["groupPostCount", cursorId, groupId, groupChartType],
@@ -46,6 +47,22 @@ const GroupPeriodPostCountCard = ({ groupChartType, groupId, hasUserUid }) => {
     return (
       <article className="flex-col-center w-full border-2 rounded-md">
         에러가 발생하였습니다. 잠시 후 다시 시도해주시기 바랍니다.
+      </article>
+    );
+  }
+
+  if (isGroupPostCountDataPending && cursorId === "") {
+    return (
+      <article
+        className={`flex flex-col gap-6 p-10 border-2 rounded-md ${groupChartType === GROUP_CHART_TYPE.POST ? "w-full" : "w-1/2"}`}
+      >
+        <span className="flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">
+          {groupChartType}
+        </span>
+        <div className="flex-col-center gap-5 animate-pulse">
+          <div className="flex-shrink-0 w-full aspect-[13/5] bg-slate-200/60" />
+          <div className="w-235 h-35 bg-slate-200/60" />
+        </div>
       </article>
     );
   }

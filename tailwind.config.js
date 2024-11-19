@@ -34,10 +34,22 @@ export default {
           "0%": { opacity: 0 },
           "100%": { opacity: 1 },
         },
+        pulse: {
+          "0%": {
+            opacity: "1",
+          },
+          "50%": {
+            opacity: ".6",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
       },
       animation: {
         fadeInSlow: "fadeInSlow 3s linear",
         fadeInFast: "fadeInFast 1s linear",
+        pulse: "pulse 1.4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
     },
   },
