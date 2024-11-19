@@ -6,6 +6,7 @@ import asyncGetGroupPostCountList from "../../../api/group/asyncGetGroupPostCoun
 import { GROUP_CHART_TYPE } from "../../../config/constants";
 import GroupLineChart from "../../Chart/GroupLineChart";
 import GroupPeriodPagination from "../../Pagination/GroupPeriodPagination";
+import ChartSkeleton from "../../UI/ChartSkeleton";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 
@@ -55,17 +56,11 @@ const GroupPeriodPostCountCard = ({ groupChartType, groupId, hasUserUid }) => {
 
   if (isGroupPostCountDataPending && cursorId === "") {
     return (
-      <article
-        className={`flex flex-col gap-6 p-10 border-2 rounded-md ${groupChartType === GROUP_CHART_TYPE.POST ? "w-full" : "w-1/2"}`}
-      >
-        <span className="flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">
-          {groupChartType}
-        </span>
-        <div className="flex-col-center gap-5 animate-pulse">
-          <div className="flex-shrink-0 w-full aspect-[13/5] bg-slate-200/60" />
-          <div className="w-235 h-35 bg-slate-200/60" />
-        </div>
-      </article>
+      <ChartSkeleton
+        containerStyle={`flex flex-col gap-6 p-10 border-2 rounded-md ${groupChartType === GROUP_CHART_TYPE.POST ? "w-full" : "w-1/2"}`}
+        chartTitle={groupChartType}
+        chartAspect="13/5"
+      />
     );
   }
 

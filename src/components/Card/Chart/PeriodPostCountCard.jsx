@@ -5,6 +5,7 @@ import { PERIOD_TYPE } from "../../../config/constants";
 import PeriodToggleButton from "../../Button/PeriodToggleButton";
 import LineChart from "../../Chart/LineChart";
 import PeriodPagination from "../../Pagination/PeriodPagination";
+import ChartSkeleton from "../../UI/ChartSkeleton";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 
@@ -36,13 +37,11 @@ const PeriodPostCountCard = ({ keywordId }) => {
 
   if (isChartDataPending && cursorId === "") {
     return (
-      <article className="flex flex-col gap-6 w-full p-10 border-2 rounded-md">
-        <span className="flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">게시물 수</span>
-        <div className="flex-col-center gap-5 animate-pulse">
-          <div className="flex-shrink-0 w-full aspect-[13/5] bg-slate-200/60" />
-          <div className="w-235 h-35 bg-slate-200/60" />
-        </div>
-      </article>
+      <ChartSkeleton
+        containerStyle="flex flex-col gap-6 w-full p-10 border-2 rounded-md"
+        chartTitle="게시물 수"
+        chartAspect="13/5"
+      />
     );
   }
 
