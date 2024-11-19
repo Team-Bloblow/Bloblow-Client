@@ -45,8 +45,10 @@ const GroupPeriodPostCountCard = ({ groupChartType, groupId, hasUserUid }) => {
 
   if (isError) {
     return (
-      <article className="flex-col-center w-full border-2 rounded-md">
-        에러가 발생하였습니다. 잠시 후 다시 시도해주시기 바랍니다.
+      <article
+        className={`flex-center border-2 rounded-md ${groupChartType === GROUP_CHART_TYPE.POST ? "w-full" : "w-1/2"} aspect-[13/5]`}
+      >
+        차트를 불러오는데 실패했습니다. 잠시 후 다시 시도해주시기 바랍니다.
       </article>
     );
   }
