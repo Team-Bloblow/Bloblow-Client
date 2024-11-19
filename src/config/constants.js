@@ -1,4 +1,5 @@
-export const BASE_URL = "https://bloblow-api.onrender.com";
+// export const BASE_URL = "https://bloblow-api.onrender.com";
+export const BASE_URL = "http://localhost:3000";
 
 export const MODAL_TYPE = Object.freeze({
   CREATE_KEYWORD: {
@@ -55,9 +56,6 @@ export const POST_LISTS = Object.freeze({
     NO_ADS: false,
   },
   DEFAULT_ORDER: "NEWEST",
-  DEFAULT_INCLUDED_KEYWORD: [],
-  DEFAULT_EXCLUDED_KEYWORD: [],
-  DEFAULT_IS_AD: "",
   DEFAULT_FILTER_LIST: {
     order: "NEWEST",
     includedKeyword: [],

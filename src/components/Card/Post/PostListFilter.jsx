@@ -10,7 +10,7 @@ import Label from "../../UI/Label";
 import PropTypes from "prop-types";
 
 const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList }) => {
-  const syncedFilterList = useMemo(() => {
+  const initialFilterList = useMemo(() => {
     return {
       order: filterList.order,
       includedKeyword: filterList.includedKeyword,
@@ -18,7 +18,7 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
       isAd: filterList.isAd,
     };
   }, [filterList.order, filterList.includedKeyword, filterList.excludedKeyword, filterList.isAd]);
-  const [tempFilterList, setTempFilterList] = useState(syncedFilterList);
+  const [tempFilterList, setTempFilterList] = useState(initialFilterList);
   const [inputValue, setInputValue] = useState({
     includedKeyword: "",
     excludedKeyword: "",
@@ -75,9 +75,9 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
 
   useEffect(() => {
     if (keywordId !== null && keywordId !== undefined) {
-      setTempFilterList(() => syncedFilterList);
+      setTempFilterList(() => initialFilterList);
     }
-  }, [keywordId, syncedFilterList]);
+  }, [keywordId, initialFilterList]);
 
   useEffect(() => {
     const checkDropDownOutsideClicked = (e) => {
@@ -204,7 +204,7 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
   };
   const handleAllFilterListsResetButtonClick = () => {
     resetFilterList();
-    setTempFilterList(syncedFilterList);
+    setTempFilterList(initialFilterList);
     setErrorMessage((prev) => ({
       ...prev,
       aplliedFilter: "",
