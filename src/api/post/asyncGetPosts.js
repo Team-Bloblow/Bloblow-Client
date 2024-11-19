@@ -11,6 +11,10 @@ const asyncGetPosts = async (
     includedKeyword = [],
     excludedKeyword = [],
     isAd = "",
+    order = POST_LISTS.DEFAULT_ORDER,
+    includedKeyword = [],
+    excludedKeyword = [],
+    isAd = "",
     limit = POST_LISTS.DEFAULT_LIMIT,
   }
 ) => {

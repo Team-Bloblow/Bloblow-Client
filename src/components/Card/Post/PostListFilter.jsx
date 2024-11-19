@@ -152,6 +152,9 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
       [keywordFilterType]: prev[keywordFilterType].filter(
         (filter) => filter !== keywordFilterForRemove
       ),
+      [keywordFilterType]: prev[keywordFilterType].filter(
+        (filter) => filter !== keywordFilterForRemove
+      ),
     }));
     return;
   };
