@@ -1,7 +1,7 @@
 import { useRef } from "react";
 
 import asyncGetPosts from "../../../api/post/asyncGetPosts";
-import { ERROR_MESSAGE } from "../../../config/constants";
+import { ERROR_MESSAGE, POST_LISTS } from "../../../config/constants";
 import useInfiniteData from "../../../hooks/useInfiniteData";
 import Error from "../../UI/Error";
 import Loading from "../../UI/Loading";
@@ -31,20 +31,34 @@ const PostCardList = ({ keywordId, filterList, setFilterList, resetFilterList })
   };
 
   const { data: postResponse, isPending, isError } = useInfiniteData(infiniteDataArgument);
+  const hasNotPostResponseForFirstRequest =
+    filterList === POST_LISTS.DEFAULT_FILTER_LIST && postResponse?.pages[0]?.items?.length === 0;
   const hasPostResponse = postResponse?.pages[0]?.items?.length > 0;
 
   if (isError || postResponse?.pages[0]?.message?.includes("Error occured")) {
     return <Error errorMessage={ERROR_MESSAGE.FETCH_POSTS} />;
   }
 
+  if (hasNotPostResponseForFirstRequest) {
+    return (
+      <article className="flex-center bg-white p-10 w-full min-h-860">
+        {isPending ? (
+          <Loading width={100} height={100} text={""} />
+        ) : (
+          <p className="flex-col-center text-22">확인할 수 있는 게시물이 없어요</p>
+        )}
+      </article>
+    );
+  }
+
   return (
     <article
       ref={observeRootRef}
-      className="flex flex-col justify-start gap-12 bg-white rounded-[10px] p-10 w-full h-full flex-grow overflow-y-scroll"
+      className={`flex flex-col gap-12 bg-white p-10 w-full min-h-860 overflow-y-scroll`}
     >
       {isPending ? (
         <Loading width={100} height={100} text={""} />
-      ) : hasPostResponse ? (
+      ) : (
         <>
           <PostListFilter
             keywordId={keywordId}
@@ -52,25 +66,29 @@ const PostCardList = ({ keywordId, filterList, setFilterList, resetFilterList })
             setFilterList={setFilterList}
             resetFilterList={resetFilterList}
           />
-          {postResponse?.pages?.map((page) => {
-            return page.items?.map((postInfo) => {
-              return (
-                <PostCard
-                  key={postInfo?._id}
-                  postTitle={postInfo?.title}
-                  postDescription={postInfo?.description}
-                  likeCount={postInfo?.likeCount}
-                  commentCount={postInfo?.commentCount}
-                  link={postInfo?.link}
-                  createdAt={postInfo?.createdAt}
-                  isAd={postInfo?.isAd ?? false}
-                />
-              );
-            });
-          })}
+          <div className={`${hasPostResponse ? "" : "flex-col-center w-full h-full flex-grow"}`}>
+            {hasPostResponse ? (
+              postResponse?.pages?.map((page) => {
+                return page.items?.map((postInfo) => {
+                  return (
+                    <PostCard
+                      key={postInfo?._id}
+                      postTitle={postInfo?.title}
+                      postDescription={postInfo?.description}
+                      likeCount={postInfo?.likeCount}
+                      commentCount={postInfo?.commentCount}
+                      link={postInfo?.link}
+                      createdAt={postInfo?.createdAt}
+                      isAd={postInfo?.isAd ?? false}
+                    />
+                  );
+                });
+              })
+            ) : (
+              <p className="text-22">확인할 수 있는 게시물이 없어요</p>
+            )}
+          </div>
         </>
-      ) : (
-        <p className="w-full h-full flex-center text-22">확인할 수 있는 게시물이 없어요</p>
       )}
       <div ref={observeRef} />
     </article>
