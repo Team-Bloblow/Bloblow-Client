@@ -77,7 +77,7 @@ const KeywordPage = () => {
         <article
           className={`flex flex-col border-l-1 border-b-2 border-r-2 border-slate-200/80 shadow-md w-full ${dashboardType !== "chart" && "h-full"}`}
         >
-          <div className="flex gap-10 w-full h-40 px-10 bg-green-100/30">
+          <div className="flex gap-10 w-full h-40 px-10 pb-5 bg-gray-100/50 border-x-1">
             <button
               className={`p-5 h-full ${dashboardType === "chart" ? "font-bold" : "text-gray-500"} hover:text-green-800`}
               onClick={() => setDashboardType("chart")}
