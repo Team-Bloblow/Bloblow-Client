@@ -1,6 +1,7 @@
 import getDate from "../../utils/getDate";
 import KeywordChip from "../Chip/KeywordChip";
 import CalendarIcon from "../Icon/CalendarIcon";
+import Button from "../UI/Button";
 import PropTypes from "prop-types";
 
 const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordId }) => {
@@ -20,8 +21,11 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
   if (keywordId === undefined) {
     return (
       <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-r-2 border-slate-200/80 shadow-sm px-20 py-10 flex-shrink-0">
-        <div className="flex flex-col items-start gap-5">
-          <p className="text-20 text-green-950 font-bold">{dashboardGroupName}</p>
+        <div className="flex flex-col items-start gap-5 w-full">
+          <div className="flex justify-between items-center w-full">
+            <p className="text-20 text-green-950 font-bold">{dashboardGroupName}</p>
+            <Button>편집</Button>
+          </div>
           <div className="flex items-center gap-5">
             {dashboardKeywordList?.map((dashboardKeyword) => {
               const keywordId = dashboardKeyword._id;
