@@ -8,19 +8,34 @@ const HomePage = () => {
   useSignInRedirect();
 
   return (
-    <main className="flex flex-col items-center w-full h-screen">
-      <div className="w-full h-full flex-grow-1 flex-center gap-30 p-50">
-        <section className="w-full flex-center pr-100">
+    <main className="flex flex-col items-center w-full gap-20 overflow-y-scroll">
+      <div className="w-full h-screen flex-grow-1 flex-center gap-30 p-50">
+        <section className="w-[60%] flex-center pr-100">
           <div className="flex flex-col items-start justify-center gap-20">
-            <Logo styles="text-100 animate-fadeInFast hover:cursor-default" />
-            <article className="flex flex-col items-start gap-10 animate-fadeInSlow text-gray-800 mb-20">
-              <p className="text-20">관심있는 키워드를 구독하여 소식을 받아보세요</p>
-              <p className="text-20">그룹 내의 여러 키워드 지표를 비교해보세요</p>
+            <Logo styles="text-90 animate-fadeInFast hover:cursor-default" />
+            <article className="flex flex-col items-start gap-20 animate-fadeInSlow text-gray-800 mb-20">
+              <p className="text-24 font-bold"></p>
+              <div className="flex flex-col items-start gap-10">
+                <p className="text-20">관심있는 키워드를 구독하여 소식을 받아보세요</p>
+                <p className="text-20">그룹 내의 여러 키워드 지표를 비교해보세요</p>
+              </div>
             </article>
             <SignInButton type={SIGN_BUTTON_TYPE.LANDING_PAGE} />
           </div>
         </section>
-        <div className="w-700">스크린샷</div>
+        <div className="flex-col-center w-[40%]">스크린샷</div>
+      </div>
+      <div className="w-full h-screen flex-grow-1 flex-center gap-30 p-50">
+        <div className="flex-col-center w-[40%]">스크린샷</div>
+        <section className="w-[60%] flex-center pr-100">
+          <div className="flex flex-col items-start justify-center gap-20 animate-fadeInSlow text-gray-800">
+            <p className="text-24 font-bold"></p>
+            <div className="flex flex-col items-start gap-10">
+              <p className="text-20">관심있는 키워드를 구독하여 소식을 받아보세요</p>
+              <p className="text-20">그룹 내의 여러 키워드 지표를 비교해보세요</p>
+            </div>
+          </div>
+        </section>
       </div>
       <Footer />
     </main>
