@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import asyncGetUserGroup from "../api/group/asyncGetUserGroup";
 import asyncGetKeyword from "../api/keyword/asyncGetKeyword";
@@ -21,6 +21,8 @@ const KeywordPage = () => {
   useNoSignInRedirect();
 
   const { groupId, keywordId } = useParams();
+  const navigate = useNavigate();
+
   const [dashboardType, setDashboardType] = useState("chart");
   const [filterList, setFilterList] = useState(POST_LISTS.DEFAULT_FILTER_LIST);
   const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
@@ -49,6 +51,14 @@ const KeywordPage = () => {
     queryFn: () => asyncGetKeyword(keywordId),
     enabled: hasKeywordId,
   });
+
+  const invalidGroupId = userGroupList?.find((groupInfo) => groupInfo._id === groupId);
+  const isInvalidKeywordId = specificKeywordData?.message?.includes("InvalidKeywordId");
+
+  if (isInvalidKeywordId || invalidGroupId === undefined) {
+    navigate("/notFoundPage");
+    return;
+  }
 
   const isError =
     isUserGroupListError ||

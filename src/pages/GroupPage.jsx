@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import asyncGetUserGroup from "../api/group/asyncGetUserGroup";
 import GroupPeriodPostCountCard from "../components/Card/Chart/GroupPeriodPostCountCard";
@@ -13,6 +13,7 @@ const GroupPage = () => {
   useNoSignInRedirect();
 
   const { groupId } = useParams();
+  const navigate = useNavigate();
 
   const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
   const userUid = useBoundStore((state) => state.userInfo.uid);
@@ -24,6 +25,13 @@ const GroupPage = () => {
     enabled: hasUserUid,
     staleTime: 3 * 1000,
   });
+
+  const invalidGroupId = userGroupList?.find((groupInfo) => groupInfo._id === groupId);
+
+  if (invalidGroupId === undefined) {
+    navigate("/notFoundPage");
+    return;
+  }
 
   const isError = isUserGroupListError || userGroupList?.message?.includes("Error occured");
 
