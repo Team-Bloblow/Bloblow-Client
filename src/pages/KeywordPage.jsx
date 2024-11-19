@@ -10,6 +10,8 @@ import TodayPostCountCard from "../components/Card/Chart/TodayPostCountCard";
 import PostCardList from "../components/Card/Post/PostCardList";
 import PostListFilter from "../components/Card/Post/PostListFilter";
 import DashboardHeader from "../components/Header/DashboardHeader";
+import ChartIcon from "../components/Icon/ChartIcon";
+import PostIcon from "../components/Icon/PostIcon";
 import DashboardSidebar from "../components/Sidebar/DashboardSidebar";
 import useNoSignInRedirect from "../hooks/useNoSignInRedirect";
 import useBoundStore from "../store/client/useBoundStore";
@@ -79,19 +81,21 @@ const KeywordPage = () => {
           keywordId={keywordId}
         />
         <article
-          className={`flex flex-col border-l-1 border-b-2 border-r-2 border-slate-200/80 shadow-md w-full ${dashboardType !== "chart" && "h-full"}`}
+          className={`flex flex-col border-l-1 border-b-2 border-r-2 border-slate-200/80 w-full ${dashboardType !== "chart" && "h-full"}`}
         >
-          <div className="flex gap-10 w-full h-40 px-10 pb-5 bg-gray-100/50 border-x-1">
+          <div className="flex gap-10 w-full h-40 px-10 py-5 bg-gray-100 border-x-1">
             <button
-              className={`p-5 h-full ${dashboardType === "chart" ? "font-bold" : "text-gray-500"} hover:text-green-800`}
+              className={`flex gap-5 p-5 h-full items-center justify-center ${dashboardType === "chart" ? "font-bold" : "text-gray-500"} hover:text-green-800`}
               onClick={() => setDashboardType("chart")}
             >
+              <ChartIcon width="20px" height="20px" />
               인사이트 보기
             </button>
             <button
-              className={`p-5 h-full ${dashboardType === "post" ? "font-bold" : "text-gray-500"} hover:text-green-800`}
+              className={`flex gap-5 p-5 h-full items-center justify-center ${dashboardType === "post" ? "font-bold" : "text-gray-500"} hover:text-green-800`}
               onClick={() => setDashboardType("post")}
             >
+              <PostIcon width="20px" height="20px" />
               게시물 목록
             </button>
           </div>
@@ -102,7 +106,7 @@ const KeywordPage = () => {
           ) : (
             <>
               {dashboardType === "chart" ? (
-                <div className="flex flex-col gap-10 p-10 w-full h-full">
+                <div className="flex flex-col gap-10 p-10 w-full h-full shadow-inner">
                   <div className="flex gap-10 w-full h-full">
                     <TodayPostCountCard keywordId={keywordId} />
                     <PeriodPostCountCard keywordId={keywordId} />
