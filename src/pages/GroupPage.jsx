@@ -45,7 +45,11 @@ const GroupPage = () => {
 
   return (
     <main className="flex justify-start items-start mx-auto pt-67 h-screen w-full max-w-1440">
-      <DashboardSidebar userGroupList={userGroupList?.groupListResult} groupId={groupId} />
+      <DashboardSidebar
+        userGroupList={userGroupList?.groupListResult}
+        userUid={userUid}
+        groupId={groupId}
+      />
       <section className="flex flex-col justify-start w-full">
         <DashboardHeader
           userGroupList={userGroupList?.groupListResult}
