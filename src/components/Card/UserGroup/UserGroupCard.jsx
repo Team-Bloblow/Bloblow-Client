@@ -16,8 +16,8 @@ const UserGroupCard = ({ groupId, groupName, keywordList, updatedAt }) => {
           {keywordList.map((keyword) => (
             <KeywordChip
               key={keyword._id}
-              keywordName={keyword.keyword}
-              styles="flex-center text-14 px-5 py-2 bg-green-500/10 text-black rounded-[3px]"
+              keywordName={"# " + keyword.keyword}
+              styles="flex-center text-17 px-7 py-3 bg-green-500/10 text-black rounded-[3px]"
             />
           ))}
         </div>

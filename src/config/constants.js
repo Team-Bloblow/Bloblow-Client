@@ -108,7 +108,7 @@ export const SIGNATURE_COLOR = Object.freeze({
 });
 
 export const GROUP_CHART_TYPE = Object.freeze({
-  POST: "주간 게시물 수",
-  LIKE: "주간 공감 수",
-  COMMENT: "주간 댓글 수",
+  POST: "주간 게시물 수 추이",
+  LIKE: "주간 공감 수 추이",
+  COMMENT: "주간 댓글 수 추이",
 });

@@ -16,6 +16,8 @@ import PropTypes from "prop-types";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, plugins);
 
 const GroupLineChart = ({ groupChartType, chartData }) => {
+  let maxData = 0;
+
   const data = {
     labels: chartData?.items[0]?.dates?.map((date) => changeMonthDateFormat(date)),
     datasets: chartData?.items?.map((keyword, index) => {
@@ -23,10 +25,13 @@ const GroupLineChart = ({ groupChartType, chartData }) => {
 
       if (groupChartType === GROUP_CHART_TYPE.POST) {
         data = keyword.postCountList;
+        maxData = Math.max(...data, maxData);
       } else if (groupChartType === GROUP_CHART_TYPE.LIKE) {
         data = keyword.likeCountList;
+        maxData = Math.max(...data, maxData);
       } else if (groupChartType === GROUP_CHART_TYPE.COMMENT) {
         data = keyword.commentCountList;
+        maxData = Math.max(...data, maxData);
       }
 
       return {
@@ -43,10 +48,11 @@ const GroupLineChart = ({ groupChartType, chartData }) => {
     scales: {
       y: {
         beginAtZero: true,
+        suggestedMax: maxData,
       },
     },
     maintainAspectRatio: true,
-    aspectRatio: 2.6,
+    aspectRatio: groupChartType === GROUP_CHART_TYPE.POST ? 3 : 1.9,
 
     plugins: {
       legend: {
@@ -54,14 +60,12 @@ const GroupLineChart = ({ groupChartType, chartData }) => {
         position: "top",
         align: "center",
         labels: {
-          padding: 11,
-          boxWidth: 11,
           color: "#000000",
-          usePointStyle: false,
-          pointStyle: "circle",
+          usePointStyle: true,
+          pointStyle: "rect",
           font: {
             family: "Pretendard",
-            size: 12,
+            size: 14,
             lineHeight: 2,
             weight: "normal",
           },

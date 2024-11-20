@@ -9,6 +9,8 @@ import PeriodReactionCountCard from "../components/Card/Chart/PeriodReactionCoun
 import TodayPostCountCard from "../components/Card/Chart/TodayPostCountCard";
 import PostCardList from "../components/Card/Post/PostCardList";
 import DashboardHeader from "../components/Header/DashboardHeader";
+import ChartIcon from "../components/Icon/ChartIcon";
+import PostIcon from "../components/Icon/PostIcon";
 import DashboardSidebar from "../components/Sidebar/DashboardSidebar";
 import { POST_LISTS } from "../config/constants";
 import useNoSignInRedirect from "../hooks/useNoSignInRedirect";
@@ -74,19 +76,21 @@ const KeywordPage = () => {
           keywordId={keywordId}
         />
         <article
-          className={`flex flex-col border-l-1 border-b-2 border-r-2 border-slate-200/80 shadow-md w-full ${dashboardType !== "chart" && "h-full"}`}
+          className={`flex flex-col border-l-1 border-b-2 border-r-2 border-slate-200/80 w-full ${dashboardType !== "chart" && "h-full"}`}
         >
-          <div className="flex gap-10 w-full h-40 px-10 bg-green-100/30">
+          <div className="flex gap-10 w-full h-44 bg-gray-100 border-x-1">
             <button
-              className={`p-5 h-full ${dashboardType === "chart" ? "font-bold" : "text-gray-500"} hover:text-green-800`}
+              className={`flex w-full gap-5 py-5 h-44 items-center justify-center ${dashboardType === "chart" ? "bg-white font-bold border-t-2 border-gray-500" : "text-gray-500"} hover:font-bold hover:text-gray-800`}
               onClick={() => setDashboardType("chart")}
             >
-              인사이트 보기
+              <ChartIcon className="w-20 h-20" />
+              대시보드
             </button>
             <button
-              className={`p-5 h-full ${dashboardType === "post" ? "font-bold" : "text-gray-500"} hover:text-green-800`}
+              className={`flex w-full gap-5 py-5 h-44 items-center justify-center ${dashboardType === "post" ? "bg-white font-bold border-t-2 border-gray-500" : "text-gray-500"} hover:font-bold hover:text-gray-800`}
               onClick={() => setDashboardType("post")}
             >
+              <PostIcon className="w-20 h-20" />
               게시물 목록
             </button>
           </div>

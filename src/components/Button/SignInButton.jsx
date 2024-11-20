@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import asyncPostSignIn from "../../api/auth/asyncPostSignIn";
 import { ERROR_MESSAGE, MODAL_TYPE, SIGN_BUTTON_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
+import SignOutIcon from "../Icon/SignOutIcon";
 import ErrorModal from "../Modal/ErrorModal";
 import Button from "../UI/Button";
 import { useMutation } from "@tanstack/react-query";
@@ -71,10 +72,17 @@ const SignInButton = ({ type }) => {
 
   return (
     <Button
-      styles="flex-center px-12 py-6 font-medium border-1 border-slate-400 bg-white rounded-[5px] text-black text-16 hover:bg-emerald-200/10 hover:shadow-md"
+      styles="flex-center px-12 py-6 font-medium border-1 border-slate-200 bg-white shadow rounded-[1px] text-black text-16 hover:bg-gray-200/30"
       onClick={handleButtonClick}
     >
-      {isSignIn ? "로그아웃" : "로그인"}
+      {isSignIn ? (
+        <>
+          <SignOutIcon />
+          로그아웃
+        </>
+      ) : (
+        "로그인"
+      )}
       {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.ERROR && (
         <ErrorModal errorMessage={ERROR_MESSAGE.SIGN_IN_ERROR} />
       )}

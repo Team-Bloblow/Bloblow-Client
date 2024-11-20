@@ -20,16 +20,16 @@ const StackBarChart = ({ chartData }) => {
     labels: chartData.dates.map((date) => changeMonthDateFormat(date)),
     datasets: [
       {
-        label: "광고 게시물",
+        label: "광고 외 게시물",
         data: chartData.items.nonAdCountList,
-        borderColor: "#0f9d58",
-        backgroundColor: "#0f9d58",
+        borderColor: "#13cc53",
+        backgroundColor: "#13cc53",
       },
       {
-        label: "광고 외 게시물",
+        label: "광고 게시물",
         data: chartData.items.adCountList,
-        borderColor: "#f4b400",
-        backgroundColor: "#f4b400",
+        borderColor: "#ffc728",
+        backgroundColor: "#ffc728",
       },
     ],
   };

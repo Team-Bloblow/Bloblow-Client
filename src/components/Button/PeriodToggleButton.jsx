@@ -8,12 +8,12 @@ const PeriodToggleButton = ({ period, setPeriod, setCursorId }) => {
   };
 
   return (
-    <div className="flex w-[60%] h-full border-gray-200 border-1 float-right">
+    <div className="flex w-260 h-full border-gray-200 border-1 float-right">
       <div
-        className={`inline-flex w-1/3 text-center justify-center cursor-pointer ${period === PERIOD_TYPE.WEEKLY && "text-white bg-[#00684A]"}`}
+        className={`inline-flex w-1/3 text-center justify-center cursor-pointer hover:bg-gray-100 hover:shadow-sm hover:font-semibold ${period === PERIOD_TYPE.WEEKLY ? "bg-gray-100 shadow-sm font-bold" : "bg-white opacity-70"}`}
         onClick={() => handleToggleClick(PERIOD_TYPE.WEEKLY)}
       >
-        <label className="radio text-center self-center py-4 px-5">
+        <label className="radio text-center self-center py-4 px-5 cursor-pointer">
           <input
             type="radio"
             name="period"
@@ -25,10 +25,10 @@ const PeriodToggleButton = ({ period, setPeriod, setCursorId }) => {
         </label>
       </div>
       <div
-        className={`inline-flex w-1/3 text-center justify-center border-x-1 cursor-pointer ${period === PERIOD_TYPE.MONTHLY_DAILY && "text-white bg-[#00684A]"}`}
+        className={`inline-flex w-1/3 text-center justify-center border-x-1 cursor-pointer hover:bg-gray-100 hover:shadow-sm hover:font-semibold ${period === PERIOD_TYPE.MONTHLY_DAILY ? "bg-gray-100 shadow-sm" : "bg-[#FFFFFF] opacity-70"}`}
         onClick={() => handleToggleClick(PERIOD_TYPE.MONTHLY_DAILY)}
       >
-        <label className="radio text-center self-center py-4 px-5">
+        <label className="radio text-center self-center py-4 px-5 cursor-pointer">
           <input
             type="radio"
             name="period"
@@ -40,10 +40,10 @@ const PeriodToggleButton = ({ period, setPeriod, setCursorId }) => {
         </label>
       </div>
       <div
-        className={`inline-flex w-1/3 text-center justify-center cursor-pointer ${period === PERIOD_TYPE.MONTHLY_WEEKLY && "text-white bg-[#00684A]"}`}
+        className={`inline-flex w-1/3 text-center justify-center cursor-pointer hover:bg-gray-100 hover:shadow-sm hover:font-semibold ${period === PERIOD_TYPE.MONTHLY_WEEKLY ? "bg-gray-100 shadow-sm font-semibold" : "bg-[#FFFFFF] opacity-70"}`}
         onClick={() => handleToggleClick(PERIOD_TYPE.MONTHLY_WEEKLY)}
       >
-        <label className="radio text-center self-center py-4 px-5">
+        <label className="radio text-center self-center py-4 px-5 cursor-pointer">
           <input
             type="radio"
             name="period"
