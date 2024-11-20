@@ -29,9 +29,9 @@ const HomePage = () => {
         <div className="flex-col-center w-[40%]">스크린샷</div>
         <section className="w-[60%] flex-center pr-100">
           <div className="flex flex-col items-start justify-center gap-20 animate-fadeInSlow text-gray-800">
-            <p className="text-26 font-bold">매일매일 업데이트 되는 여러 지표에 대한 추이</p>
+            <p className="text-26 font-bold">매일매일 업데이트 되는 대시보드 차트</p>
             <div className="flex flex-col items-start gap-10">
-              <p className="text-20">대시보드를 활용하여 수치화된 지표들을 분석할 수 있어요</p>
+              <p className="text-20">대시보드에서 수치화된 지표들의 추이를 분석할 수 있어요</p>
               <p className="text-20">그룹화한 키워드 간의 지표를 비교해보세요</p>
             </div>
           </div>
