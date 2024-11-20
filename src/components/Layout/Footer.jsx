@@ -16,7 +16,7 @@ const Footer = () => {
         </Link>
       </div>
       <p className="text-16">
-        © 2024 | <span className="font-semibold">Team Bloblow</span> all rights reserved.
+        © 2024 | <span className="font-semibold">Team Bloblow</span> All rights reserved.
       </p>
     </footer>
   );
