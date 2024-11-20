@@ -41,7 +41,7 @@ const PostCardList = ({ keywordId, filterList, setFilterList, resetFilterList })
 
   if (hasNotPostResponseForFirstRequest) {
     return (
-      <article className="flex-center bg-white p-10 w-full min-h-860">
+      <article className="flex-center bg-white p-10 w-full min-h-730">
         {isPending ? (
           <Loading width={100} height={100} text={""} />
         ) : (
@@ -54,7 +54,7 @@ const PostCardList = ({ keywordId, filterList, setFilterList, resetFilterList })
   return (
     <article
       ref={observeRootRef}
-      className={`flex flex-col gap-12 bg-white p-10 w-full min-h-860 overflow-y-scroll`}
+      className={`flex flex-col gap-12 bg-white p-10 w-full min-h-730 overflow-y-scroll`}
     >
       {isPending ? (
         <Loading width={100} height={100} text={""} />
