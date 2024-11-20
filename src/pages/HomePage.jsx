@@ -10,7 +10,7 @@ const HomePage = () => {
   return (
     <main className="flex flex-col items-center w-full gap-20 overflow-y-scroll">
       <div className="w-full h-screen flex-grow-1 flex-center gap-30 p-50 bg-emerald-100/30">
-        <section className="w-[60%] flex-center pr-100">
+        <section className="w-[60%] flex-center">
           <div className="flex flex-col items-start justify-center gap-10">
             <Logo styles="text-90 animate-fadeInFast hover:cursor-default" />
             <article className="flex flex-col items-start gap-20 animate-fadeInSlow text-gray-800 mb-20">
@@ -23,7 +23,9 @@ const HomePage = () => {
             <SignInButton type={SIGN_BUTTON_TYPE.LANDING_PAGE} />
           </div>
         </section>
-        <div className="flex-col-center w-[40%]">스크린샷</div>
+        <div className="flex-col-center w-[50%] border-2 border-green-100">
+          <img src="/assets/postListSample.png" alt="게시물 목록 샘플 이미지" />
+        </div>
       </div>
       <div className="w-full h-screen flex-grow-1 flex-center gap-30 p-50 mt-[-50px] mb-50">
         <div className="flex-col-center w-[40%]">스크린샷</div>
