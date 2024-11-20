@@ -6,7 +6,7 @@ import GithubIcon from "../Icon/GithubIcon";
 
 const Footer = () => {
   return (
-    <footer className="flex flex-col justify-start items-center py-33 gap-25 w-full h-200 bg-gradient-to-r from-[#00684A] via-[#009F55] via-40% to-[#00ED64]">
+    <footer className="flex flex-col justify-start items-center py-38 gap-25 w-full h-200 bg-gradient-to-r from-[#00684A] via-[#009F55] via-40% to-[#00ED64]">
       <div className="flex-center gap-20">
         <Link to={TEAM_INFO.GITHUB} target="_blank">
           <GithubIcon className="size-32 transition hover:fill-emerald-200" />
