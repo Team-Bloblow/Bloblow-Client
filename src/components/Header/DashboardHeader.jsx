@@ -1,6 +1,7 @@
 import getDate from "../../utils/getDate";
 import KeywordChip from "../Chip/KeywordChip";
 import CalendarIcon from "../Icon/CalendarIcon";
+import UpdateIcon from "../Icon/UpdateIcon";
 import PropTypes from "prop-types";
 
 const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordId }) => {
@@ -14,8 +15,6 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
 
   const createdDate = getDate(specificKeywordData?.createdAt);
   const updatedDate = getDate(specificKeywordData?.updatedAt);
-
-  const isNotUpdated = specificKeywordData?.createdAt === specificKeywordData?.updatedAt;
 
   if (keywordId === undefined) {
     return (
@@ -43,16 +42,18 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
 
   return (
     <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-r-2 border-violet-50 shadow-sm px-20 py-10 flex-shrink-0">
-      <div className="flex flex-col items-start gap-5">
-        <span className="flex items-center gap-10 text-21 text-green-950 font-bold">
+      <div className="flex justify-between items-center w-full">
+        <span className="flex items-center text-25 text-green-950 font-bold">
           {dashboardKeywordName}
         </span>
-        <p className="flex items-center gap-5 text-slate-500 text-13 font-light">
-          <CalendarIcon className="size-18 fill-none" />
-          <span className="pt-2">
-            {isNotUpdated
-              ? `${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일`
-              : `${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일 ~ ${updatedDate?.currentYear}년 ${updatedDate?.currentMonth}월 ${updatedDate?.currentDate}일`}
+        <p className="flex flex-col gap-5 text-black text-15 font-light">
+          <span className="flex items-center pt-2">
+            <CalendarIcon className="size-18 fill-none mr-5 font-bold" />
+            {`구독 시작일 : ${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일`}
+          </span>
+          <span className="flex items-center pt-2">
+            <UpdateIcon className="size-18 mr-5" />
+            {`마지막 업데이트 일 : ${updatedDate?.currentYear}년 ${updatedDate?.currentMonth}월 ${updatedDate?.currentDate}일`}
           </span>
         </p>
       </div>
