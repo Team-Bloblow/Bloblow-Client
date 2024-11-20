@@ -251,13 +251,16 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
           </div>
           <Button
             onClick={handleAllFilterListsApplyButtonClick}
-            styles="w-60 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 bg-green-100 border-2 border-green-100 font-semibold hover:bg-green-200"
+            styles="w-60 right-20 px-5 py-4 rounded-[3px] font-medium text-white bg-[#03ae5d]/90 border-1 border-[#03ae5d]/90 font-semibold hover:bg-white hover:text-[#03ae5d]"
           >
-            <span className="text-14">적용</span>
+            <span className="text-16">적용</span>
           </Button>
-          <Button styles="flex items-center gap-5" onClick={handleAllFilterListsResetButtonClick}>
-            <ResetIcon />
-            <span className="text-12 text-gray-400">초기화</span>
+          <Button
+            styles="flex items-center gap-5 ml-5"
+            onClick={handleAllFilterListsResetButtonClick}
+          >
+            <ResetIcon className="text-gray-500" />
+            <span className="text-14 text-gray-500">초기화</span>
           </Button>
           <div className="px-10 flex-center">
             <span className="font-light text-green-60">{errorMessage.aplliedFilter}</span>
