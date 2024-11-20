@@ -21,11 +21,11 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
 
   const checkActiveDashboard = (dashboardType, keywordId) => {
     if (dashboardType === "group" && params?.keywordId === undefined) {
-      return "bg-green-100/50 opacity-70 shadow-inner";
+      return "bg-gray-100 border-l-4 border-slate-700 text-slate-900";
     }
 
     if (dashboardType === "keyword" && params?.keywordId === keywordId) {
-      return "bg-green-100/50 opacity-70 font-semibold shadow-inner";
+      return "bg-gray-100 opacity-90 font-semibold border-l-4 border-slate-700 text-slate-900";
     }
 
     return "";
@@ -42,11 +42,11 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
           styles="flex items-center gap-12 w-full h-40 px-30 py-10 text-14 border-b-2 border-slate-200/80 opacity-70 bg-white hover:opacity-90"
           destination="/myPage"
         >
-          <RevertIcon className="size-14 fill-black" />
+          <RevertIcon className="size-20 fill-black" />
           마이페이지
         </Button>
         <Button
-          styles={`flex items-center gap-12 w-full h-60 px-30 py-10 text-22 border-b-1 border-slate-200/80 font-bold hover:opacity-90 ${checkActiveDashboard("group")}`}
+          styles={`flex items-center gap-12 w-full h-58 px-30 py-10 text-22 text-slate-700 font-semibold hover:opacity-70 ${checkActiveDashboard("group")}`}
           destination={`/dashboard/${groupId}`}
         >
           {dashboardGroupName}
@@ -58,10 +58,10 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
           return (
             <Button
               key={keywordId}
-              styles={`flex items-center gap-6 w-full h-44 px-30 py-10 text-18 border-b-2 border-slate-200/80 opacity-70 bg-emerald-50/10 hover:opacity-90 ${checkActiveDashboard("keyword", keywordId)}`}
+              styles={`flex items-center gap-6 w-full h-46 px-30 py-10 text-18 text-slate-700 hover:opacity-70 ${checkActiveDashboard("keyword", keywordId)}`}
               destination={`/dashboard/${groupId}/${keywordId}`}
             >
-              <HashtagIcon width="20px" height="20px" />
+              <HashtagIcon className="w-20 h-20" />
               {keywordName}
             </Button>
           );

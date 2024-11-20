@@ -78,16 +78,16 @@ const KeywordPage = () => {
         <article
           className={`flex flex-col border-l-1 border-b-2 border-r-2 border-slate-200/80 w-full ${dashboardType !== "chart" && "h-full"}`}
         >
-          <div className="flex gap-10 w-full h-40 bg-gray-100 border-x-1">
+          <div className="flex gap-10 w-full h-44 bg-gray-100 border-x-1">
             <button
-              className={`flex w-full gap-5 py-5 h-40 items-center justify-center ${dashboardType === "chart" ? "bg-white font-bold border-t-2 border-gray-500" : "text-gray-500"} hover:font-bold hover:text-gray-800`}
+              className={`flex w-full gap-5 py-5 h-44 items-center justify-center ${dashboardType === "chart" ? "bg-white font-bold border-t-2 border-gray-500" : "text-gray-500"} hover:font-bold hover:text-gray-800`}
               onClick={() => setDashboardType("chart")}
             >
               <ChartIcon className="w-20 h-20" />
               대시보드
             </button>
             <button
-              className={`flex w-full gap-5 py-5 h-40 items-center justify-center ${dashboardType === "post" ? "bg-white font-bold border-t-2 border-gray-500" : "text-gray-500"} hover:font-bold hover:text-gray-800`}
+              className={`flex w-full gap-5 py-5 h-44 items-center justify-center ${dashboardType === "post" ? "bg-white font-bold border-t-2 border-gray-500" : "text-gray-500"} hover:font-bold hover:text-gray-800`}
               onClick={() => setDashboardType("post")}
             >
               <PostIcon className="w-20 h-20" />
