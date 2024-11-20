@@ -67,7 +67,7 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
               : `${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일 ~ ${updatedDate?.currentYear}년 ${updatedDate?.currentMonth}월 ${updatedDate?.currentDate}일`}
           </span>
           <Button
-            styles="w-80 h-30 rounded-[4px] item-center text-center border-1 border-slate-300"
+            styles="w-80 h-30 rounded-[4px] item-center text-center border-1 border-slate-300 text-15 font-medium"
             onClick={handleKeywordDelete}
           >
             구독 해지
