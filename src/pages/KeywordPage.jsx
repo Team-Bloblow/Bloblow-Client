@@ -33,6 +33,7 @@ const KeywordPage = () => {
 
   useEffect(() => {
     if (keywordId !== null && keywordId !== undefined) {
+      setDashboardType("chart");
       resetFilterList();
     }
   }, [keywordId]);
