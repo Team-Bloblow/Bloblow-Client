@@ -26,7 +26,9 @@ const GroupPage = () => {
     staleTime: 3 * 1000,
   });
 
-  const invalidGroupId = userGroupList?.find((groupInfo) => groupInfo._id === groupId);
+  const invalidGroupId = userGroupList?.groupListResult?.find(
+    (groupInfo) => groupInfo._id === groupId
+  );
 
   if (invalidGroupId === undefined) {
     navigate("/notFoundPage");

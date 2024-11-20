@@ -52,7 +52,9 @@ const KeywordPage = () => {
     enabled: hasKeywordId,
   });
 
-  const invalidGroupId = userGroupList?.find((groupInfo) => groupInfo._id === groupId);
+  const invalidGroupId = userGroupList?.groupListResult?.find(
+    (groupInfo) => groupInfo._id === groupId
+  );
   const isInvalidKeywordId = specificKeywordData?.message?.includes("InvalidKeywordId");
 
   if (isInvalidKeywordId || invalidGroupId === undefined) {
