@@ -1,9 +1,17 @@
+import { ALERT_MESSAGE, CONFIRM_MESSAGE, ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
+import useBoundStore from "../../store/client/useBoundStore";
 import getDate from "../../utils/getDate";
 import KeywordChip from "../Chip/KeywordChip";
 import CalendarIcon from "../Icon/CalendarIcon";
+import AlertModal from "../Modal/AlertModal";
+import ConfirmModal from "../Modal/ConfirmModal";
+import ErrorModal from "../Modal/ErrorModal";
+import Button from "../UI/Button";
 import PropTypes from "prop-types";
 
 const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordId }) => {
+  const openModalTypeList = useBoundStore((state) => state.openModalTypeList);
+  const addModal = useBoundStore((state) => state.addModal);
   const dashboardGroup = userGroupList?.find((groupInfo) => groupInfo._id === groupId);
   const dashboardGroupName = dashboardGroup?.name;
   const dashboardKeywordList = dashboardGroup?.keywordIdList;
@@ -16,6 +24,10 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
   const updatedDate = getDate(specificKeywordData?.updatedAt);
 
   const isNotUpdated = specificKeywordData?.createdAt === specificKeywordData?.updatedAt;
+
+  const handleKeywordDelete = async () => {
+    addModal(MODAL_TYPE.CONFIRM);
+  };
 
   if (keywordId === undefined) {
     return (
@@ -54,8 +66,23 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
               ? `${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일`
               : `${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일 ~ ${updatedDate?.currentYear}년 ${updatedDate?.currentMonth}월 ${updatedDate?.currentDate}일`}
           </span>
+          <Button
+            styles="w-80 h-30 rounded-[4px] item-center text-center border-1 border-slate-300"
+            onClick={handleKeywordDelete}
+          >
+            구독 해지
+          </Button>
         </p>
       </div>
+      {openModalTypeList.includes(MODAL_TYPE.CONFIRM) && (
+        <ConfirmModal confirmMessage={CONFIRM_MESSAGE.DELETE_KEYWORD} confirmData={{ keywordId }} />
+      )}
+      {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.ALERT && (
+        <AlertModal alertMessage={ALERT_MESSAGE.DELETE_KEYWORD_SUCCESS} />
+      )}
+      {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.ERROR && (
+        <ErrorModal errorMessage={ERROR_MESSAGE.DELETE_KEYWORD_ERROR} />
+      )}
     </aside>
   );
 };

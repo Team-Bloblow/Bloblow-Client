@@ -7,6 +7,8 @@ export const MODAL_TYPE = Object.freeze({
   CREATE_KEYWORD_SUCCESS: "createKeywordSuccess",
   EDIT_KEYWORD_DASHBOARD: "editKeywordDashboard",
   ERROR: "error",
+  CONFIRM: "confirm",
+  ALERT: "alert",
 });
 
 export const ERROR_MESSAGE = Object.freeze({
@@ -16,9 +18,17 @@ export const ERROR_MESSAGE = Object.freeze({
   CREATE_KEYWORD_ERROR: "새로운 키워드 생성에 실패하였습니다.",
   KEYWORD_DUPLICATED_INPUT_VALUE: "이미 키워드가 필터로 등록되어 있어요.",
   FILTER_ALREADY_APPLIED: "이미 필터가 적용되었어요.",
-  FILTER_ALREADY_APPLIED: "이미 필터가 적용되었어요.",
   SIGN_IN_ERROR: "로그인에 실패하였습니다.",
   FETCH_POSTS: "블로그 정보를 불러오지 못했습니다.",
+  DELETE_KEYWORD_ERROR: "키워드 구독 해지에 실패하였습니다.",
+});
+
+export const CONFIRM_MESSAGE = Object.freeze({
+  DELETE_KEYWORD: "해당 키워드 구독을 해지하시겠습니까?",
+});
+
+export const ALERT_MESSAGE = Object.freeze({
+  DELETE_KEYWORD_SUCCESS: "키워드를 구독 해지했습니다.",
 });
 
 export const CHART_COLOR = Object.freeze(["#4285f4", "#db4437", "#f4b400", "#0f9d58", "#ab47bc"]);
