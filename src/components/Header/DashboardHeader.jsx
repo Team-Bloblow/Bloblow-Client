@@ -65,7 +65,7 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
             <CalendarIcon className="size-18 fill-none mr-5 font-bold" />
             {`구독 시작일 : ${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일`}
             <Button
-              styles="w-80 h-30 rounded-[4px] item-center text-center border-1 border-slate-300 text-15 font-medium ml-7"
+              styles="w-70 h-40 rounded-[4px] text-slate-500 item-center text-center text-15 font-medium ml-4 underline decoration-1"
               onClick={handleKeywordDelete}
             >
               구독 해지
