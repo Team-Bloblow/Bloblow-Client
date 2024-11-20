@@ -45,9 +45,17 @@ const GroupPage = () => {
 
   return (
     <main className="flex justify-start items-start mx-auto pt-67 h-screen w-full max-w-1440">
-      <DashboardSidebar userGroupList={userGroupList?.groupListResult} groupId={groupId} />
+      <DashboardSidebar
+        userGroupList={userGroupList?.groupListResult}
+        userUid={userUid}
+        groupId={groupId}
+      />
       <section className="flex flex-col justify-start w-full">
-        <DashboardHeader userGroupList={userGroupList?.groupListResult} groupId={groupId} />
+        <DashboardHeader
+          userGroupList={userGroupList?.groupListResult}
+          userUid={userUid}
+          groupId={groupId}
+        />
         <article className="flex flex-col border-l-1 border-b-2 border-r-2 border-slate-200/80 shadow-md w-full mb-30">
           <div className="flex flex-col gap-10 p-10 w-full">
             <GroupPeriodPostCountCard

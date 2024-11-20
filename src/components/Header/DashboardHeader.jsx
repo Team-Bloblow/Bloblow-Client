@@ -1,15 +1,23 @@
+import { useState } from "react";
+
+import asyncPutGroupName from "../../api/group/asyncPutGroupName";
 import { ALERT_MESSAGE, CONFIRM_MESSAGE, ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
 import getDate from "../../utils/getDate";
 import KeywordChip from "../Chip/KeywordChip";
 import CalendarIcon from "../Icon/CalendarIcon";
+import EditIcon from "../Icon/EditIcon";
 import UpdateIcon from "../Icon/UpdateIcon";
+import Button from "../UI/Button";
+import Label from "../UI/Label";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import AlertModal from "../Modal/AlertModal";
 import ConfirmModal from "../Modal/ConfirmModal";
 import ErrorModal from "../Modal/ErrorModal";
 import Button from "../UI/Button";
 import PropTypes from "prop-types";
 
+const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData, keywordId }) => {
 const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordId }) => {
   const openModalTypeList = useBoundStore((state) => state.openModalTypeList);
   const addModal = useBoundStore((state) => state.addModal);
@@ -21,6 +29,26 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
   );
   const dashboardKeywordName = dashboardKeyword?.keyword;
 
+  const [isEditing, setIsEditing] = useState(false);
+  const [inputValue, setInputValue] = useState(dashboardGroupName);
+  const queryClient = useQueryClient();
+  const editGroupNameMutation = useMutation({
+    mutationFn: (groupId, groupInfo) => asyncPutGroupName(groupId, groupInfo),
+    onMutate: async ({ groupId, groupInfo }) => {
+      await queryClient.cancelQueries({ queryKey: ["userGroupList", userUid] });
+      const preGroupInfo = queryClient.getQueryData(["userGroupList", userUid]);
+      const newGroupList = preGroupInfo.groupListResult.map((el) =>
+        el._id === groupId ? { ...el, name: groupInfo.groupNewName } : el
+      );
+      const newGroupInfo = {
+        ...preGroupInfo,
+        groupListResult: newGroupList,
+      };
+      queryClient.setQueryData(["userGroupList", userUid], newGroupInfo);
+      return { preGroupInfo, newGroupInfo };
+    },
+  });
+
   const createdDate = getDate(specificKeywordData?.createdAt);
   const updatedDate = getDate(specificKeywordData?.updatedAt);
 
@@ -31,10 +59,76 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
   };
 
   if (keywordId === undefined) {
+    const handleEditGroupButtonClick = () => {
+      if (isEditing === true) {
+        const inputValueTrimed = inputValue.trim();
+
+        if (inputValueTrimed === "") {
+          return;
+        }
+
+        if (inputValueTrimed !== dashboardGroupName) {
+          const groupInfo = {
+            groupOwnerUid: userUid,
+            groupNewName: inputValueTrimed,
+          };
+
+          editGroupNameMutation.mutate(
+            { groupId, groupInfo },
+            {
+              onSuccess: (data) => {
+                if (data?.message?.includes("Error occured")) {
+                  setInputValue(dashboardGroupName);
+                  return;
+                }
+
+                queryClient.invalidateQueries({ queryKey: ["userGroupList", userUid] });
+                setIsEditing(!isEditing);
+                return;
+              },
+              onError: () => {
+                setInputValue(dashboardGroupName);
+              },
+            }
+          );
+        }
+      }
+      setIsEditing(!isEditing);
+      return;
+    };
+
     return (
-      <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-r-2 border-slate-200/80 shadow-sm px-20 py-10 flex-shrink-0">
-        <div className="flex flex-col items-start gap-5">
-          <p className="text-20 text-green-950 font-bold">{dashboardGroupName}</p>
+      <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-r-2 border-slate-200/80 shadow-sm px-20 py-5 flex-shrink-0">
+        <div className="flex flex-col items-start gap-10 w-full h-70">
+          <div className="flex items-center w-full h-full">
+            {!isEditing && (
+              <div className="flex ">
+                <p className="text-21 text-green-950 font-bold">{dashboardGroupName}</p>
+                <Button styles="relative pl-15" onClick={handleEditGroupButtonClick}>
+                  <EditIcon className="absolute bottom-7 size-18" />
+                </Button>
+              </div>
+            )}
+            {isEditing && (
+              <>
+                <Label htmlFor="editGroupName"></Label>
+                <input
+                  type="text"
+                  id="editGroupName"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  className="h-full w-250 px-10 mr-20 font-medium font-light text-15 border-2 rounded outline-none"
+                  placeholder="변경할 그룹 이름을 입력해주세요"
+                ></input>
+                <Button
+                  styles="w-60 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 bg-green-100 border-2 border-green-100 font-semibold hover:bg-green-200"
+                  onClick={handleEditGroupButtonClick}
+                >
+                  저장
+                </Button>
+              </>
+            )}
+          </div>
           <div className="flex items-center gap-5">
             {dashboardKeywordList?.map((dashboardKeyword) => {
               const keywordId = dashboardKeyword._id;
@@ -94,6 +188,7 @@ export default DashboardHeader;
 
 DashboardHeader.propTypes = {
   userGroupList: PropTypes.array.isRequired,
+  userUid: PropTypes.string.isRequired,
   groupId: PropTypes.string.isRequired,
   specificKeywordData: PropTypes.object,
   keywordId: PropTypes.string,

@@ -53,16 +53,6 @@ export const POST_LISTS = Object.freeze({
     LIKE: "LIKE",
     COMMENT: "COMMENT",
   },
-  ORDER_KR: {
-    NEWEST: "최신 순",
-    LIKE: "공감 많은 순",
-    COMMENT: "댓글 많은 순",
-  },
-  ORDER_EN: {
-    NEWEST: "NEWEST",
-    LIKE: "LIKE",
-    COMMENT: "COMMENT",
-  },
   INCLUDED_KEYWORD: "포함할 키워드",
   EXCLUDED_KEYWORD: "제외할 키워드",
   IS_AD_KR: {
@@ -81,12 +71,6 @@ export const POST_LISTS = Object.freeze({
     ONLY_ADS: "광고만",
     NO_ADS: "광고 제외",
   },
-  ISAD_EN: {
-    ALL: "",
-    ONLY_ADS: true,
-    NO_ADS: false,
-  },
-  DEFAULT_ORDER: "NEWEST",
   DEFAULT_FILTER_LIST: {
     order: "NEWEST",
     includedKeyword: [],
