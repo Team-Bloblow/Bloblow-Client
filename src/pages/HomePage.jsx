@@ -28,8 +28,10 @@ const HomePage = () => {
         </div>
       </div>
       <div className="w-full h-screen flex-grow-1 flex-center gap-30 p-50 mt-[-50px] mb-50">
-        <div className="flex-col-center w-[40%]">스크린샷</div>
-        <section className="w-[60%] flex-center pr-100">
+        <div className="flex-col-center w-[50%] border-2 border-green-100">
+          <img src="/assets/groupChartSample.png" alt="그룹 차트 샘플 이미지" />
+        </div>
+        <section className="w-[60%] flex-center">
           <div className="flex flex-col items-start justify-center gap-20 animate-fadeInSlow text-gray-800">
             <p className="text-26 font-bold">매일매일 업데이트 되는 대시보드 차트</p>
             <div className="flex flex-col items-start gap-10">
