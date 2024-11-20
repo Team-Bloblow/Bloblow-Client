@@ -85,6 +85,7 @@ const KeywordPage = () => {
         <DashboardHeader
           userGroupList={userGroupList?.groupListResult}
           groupId={groupId}
+          userUid={userUid}
           specificKeywordData={specificKeywordData}
           keywordId={keywordId}
         />

@@ -8,17 +8,15 @@ import KeywordChip from "../Chip/KeywordChip";
 import CalendarIcon from "../Icon/CalendarIcon";
 import EditIcon from "../Icon/EditIcon";
 import UpdateIcon from "../Icon/UpdateIcon";
-import Button from "../UI/Button";
-import Label from "../UI/Label";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import AlertModal from "../Modal/AlertModal";
 import ConfirmModal from "../Modal/ConfirmModal";
 import ErrorModal from "../Modal/ErrorModal";
 import Button from "../UI/Button";
+import Label from "../UI/Label";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 
 const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData, keywordId }) => {
-const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordId }) => {
   const openModalTypeList = useBoundStore((state) => state.openModalTypeList);
   const addModal = useBoundStore((state) => state.addModal);
   const dashboardGroup = userGroupList?.find((groupInfo) => groupInfo._id === groupId);
@@ -51,8 +49,6 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
 
   const createdDate = getDate(specificKeywordData?.createdAt);
   const updatedDate = getDate(specificKeywordData?.updatedAt);
-
-  const isNotUpdated = specificKeywordData?.createdAt === specificKeywordData?.updatedAt;
 
   const handleKeywordDelete = async () => {
     addModal(MODAL_TYPE.CONFIRM);
@@ -117,9 +113,9 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
                   id="editGroupName"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  className="h-full w-250 px-10 mr-20 font-medium font-light text-15 border-2 rounded outline-none"
+                  className="h-full w-250 px-10 mr-20 font-medium text-15 border-2 rounded outline-none"
                   placeholder="변경할 그룹 이름을 입력해주세요"
-                ></input>
+                />
                 <Button
                   styles="w-60 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 bg-green-100 border-2 border-green-100 font-semibold hover:bg-green-200"
                   onClick={handleEditGroupButtonClick}
