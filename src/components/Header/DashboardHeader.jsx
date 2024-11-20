@@ -64,17 +64,17 @@ const DashboardHeader = ({ userGroupList, groupId, specificKeywordData, keywordI
           <span className="flex items-center pt-2">
             <CalendarIcon className="size-18 fill-none mr-5 font-bold" />
             {`구독 시작일 : ${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일`}
+            <Button
+              styles="w-80 h-30 rounded-[4px] item-center text-center border-1 border-slate-300 text-15 font-medium ml-7"
+              onClick={handleKeywordDelete}
+            >
+              구독 해지
+            </Button>
           </span>
           <span className="flex items-center pt-2">
             <UpdateIcon className="size-18 mr-5" />
             {`마지막 업데이트 일 : ${updatedDate?.currentYear}년 ${updatedDate?.currentMonth}월 ${updatedDate?.currentDate}일`}
           </span>
-          <Button
-            styles="w-80 h-30 rounded-[4px] item-center text-center border-1 border-slate-300 text-15 font-medium"
-            onClick={handleKeywordDelete}
-          >
-            구독 해지
-          </Button>
         </p>
       </div>
       {openModalTypeList.includes(MODAL_TYPE.CONFIRM) && (
