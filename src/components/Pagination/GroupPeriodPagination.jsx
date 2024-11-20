@@ -9,15 +9,15 @@ const GroupPeriodPagination = ({ chartData, setCursorId, isPlaceholderData }) =>
   const isNextButtonDisabled = !chartData?.hasNext || isPlaceholderData;
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center pt-10">
       <Button
-        styles={`z-30 px-4 h-full cursor-pointer group focus:outline-none ${isPreviousButtonDisabled && "hover:cursor-default"}`}
+        styles={`z-30 px-4 h-full cursor-pointer group focus:outline-none ${isPreviousButtonDisabled ? "hover:cursor-default" : ""}`}
         onClick={() => setCursorId(chartData?.previousCursorId)}
         isDisabled={isPreviousButtonDisabled}
       >
         <LeftCarouselIcon isDisabled={isPreviousButtonDisabled} />
       </Button>
-      <span className="text-14">
+      <span className="text-16">
         {changeDateWithDotFormat(chartData?.items[0]?.dates[0]) +
           " ~ " +
           changeDateWithDotFormat(
@@ -25,7 +25,7 @@ const GroupPeriodPagination = ({ chartData, setCursorId, isPlaceholderData }) =>
           )}
       </span>
       <Button
-        styles={`z-30 px-4 h-full cursor-pointer group focus:outline-none ${isNextButtonDisabled && "hover:cursor-default"}`}
+        styles={`z-30 px-4 h-full cursor-pointer group focus:outline-none ${isNextButtonDisabled ? "hover:cursor-default" : ""}`}
         onClick={() => setCursorId(chartData?.nextCursorId)}
         isDisabled={isNextButtonDisabled}
       >

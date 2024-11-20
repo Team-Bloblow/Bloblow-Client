@@ -56,12 +56,12 @@ const GroupPeriodPostCountCard = ({ groupChartType, groupId, hasUserUid }) => {
 
   return (
     <article
-      className={`flex flex-col gap-6 p-10 border-2 rounded-md ${groupChartType === GROUP_CHART_TYPE.POST ? "w-full" : "w-1/2"}`}
+      className={`flex flex-col gap-6 p-10 border-1 rounded-md ${groupChartType === GROUP_CHART_TYPE.POST ? "w-full" : "w-1/2"}`}
     >
-      <span className="flex-shrink-0 bg-green-100/20 px-10 py-5 rounded-[2px]">
-        {groupChartType}
-      </span>
-      <div className="flex-col-center gap-5">
+      <div className="flex justify-between items-center flex-shrink-0 px-10 py-5 rounded-[2px]">
+        <span className="flex items-center text-20 font-semibold">{groupChartType}</span>
+      </div>
+      <div className="flex-col-center">
         <GroupLineChart groupChartType={groupChartType} chartData={groupPostCountData} />
         <GroupPeriodPagination
           chartData={groupPostCountData}
