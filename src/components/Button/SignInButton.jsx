@@ -1,7 +1,12 @@
 import { useNavigate } from "react-router-dom";
 
 import asyncPostSignIn from "../../api/auth/asyncPostSignIn";
-import { ERROR_MESSAGE, MODAL_TYPE, SIGN_BUTTON_TYPE } from "../../config/constants";
+import {
+  ERROR_MESSAGE,
+  MODAL_TYPE,
+  SIGNIN_BUTTON_TEXT,
+  SIGN_BUTTON_TYPE,
+} from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
 import SignOutIcon from "../Icon/SignOutIcon";
 import ErrorModal from "../Modal/ErrorModal";
@@ -20,6 +25,8 @@ const SignInButton = ({ type }) => {
   const openModalTypeList = useBoundStore((state) => state.openModalTypeList);
   const googleSignInError = useBoundStore((state) => state.authError.googleSignInError);
   const addModal = useBoundStore((state) => state.addModal);
+
+  const randomSigninButtonTextIndex = Math.floor(Math.random() * 3);
 
   const signInMutation = useMutation({
     mutationFn: (userInfo) => asyncPostSignIn(userInfo),
@@ -62,7 +69,7 @@ const SignInButton = ({ type }) => {
         styles="flex-center px-12 py-6 font-medium border-1 border-slate-400 bg-white rounded-[5px] text-black text-18 transition duration-500 ease-in-out hover:text-white hover:bg-green-500 hover:shadow-md"
         onClick={handleButtonClick}
       >
-        놓친 인사이트 발견하기
+        {SIGNIN_BUTTON_TEXT[randomSigninButtonTextIndex]}
         {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.ERROR && (
           <ErrorModal errorMessage={ERROR_MESSAGE.SIGN_IN_ERROR} />
         )}

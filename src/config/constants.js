@@ -101,3 +101,9 @@ export const TEAM_INFO = Object.freeze({
   GITHUB: "https://github.com/Team-Bloblow",
   EMAIL: "ssongq92@gmail.com",
 });
+
+export const SIGNIN_BUTTON_TEXT = [
+  "놓친 인사이트 발견하기",
+  "키워드 구독하러 가기",
+  "블로그 게시물 살펴보기",
+];
