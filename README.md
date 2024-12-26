@@ -64,9 +64,10 @@
   - 프로덕트에 대한 블로그 게시물 및 경쟁사 블로그 게시물을 직접 지표화 하여 비교해야 했음
   - 해당 블로그 게시물이 광고글인지를 구분하기 위해 본문 전체 확인
 
-# 2. Feature / Preview
+<br/>
+<br/>
 
-## 2. 프로젝트 특징
+# 2. Feature / Preview
 
 ### 기능
 
@@ -83,11 +84,6 @@
   - React Query를 활용한 `Optimistic Updates`로 실시간 반영의 UX 제공
   - (코드)
 - (등등)
-
-### Back-end
-
-- (API 명세)
-- (데이터베이스 구조 다이어그램(Entity Relationship Diagram))
 
 ## 3. 개발 과정
 
@@ -140,7 +136,7 @@
 
 ### WIKI
 
-### 기술 스택
+# 8. 기술 스택
 
 **Front End**
 
@@ -170,9 +166,15 @@
 
 - Firebase-authentication
 
-(기술 스택 관계도 다이어그램 넣을 예정)
+<div align="center">
+  <img width="90%" src="/public/assets/bloblow_tech_stack.png" alt="블로블로 기술 스택"/>
+</div>
 
-### 팀 소개
+(API 명세 / ERD / 기술 선정 이유 넣을 예정)
+
+# 9. Team / Review
+
+## 팀 회고
 
 <table>
   <tbody>
@@ -212,3 +214,11 @@
     </tr>
   </tbody>
 </table>
+
+## 향후 확장 계획
+
+### 추후 추가 구현할 기능
+
+### 리팩토링 또는 최적화 예정 기능
+
+## 느낀 점 / 인사이트
