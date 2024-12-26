@@ -1,17 +1,11 @@
-# BloBlow
-
-<a href="https://bloblow.netlify.app/" target="_blank">
-  <div align="center">
-    <img width="80%" src="/public/assets/bloblow_green_crop.png" alt="블로블로 로고 이미지"/>
-  </div>
-  <div align="center">
-    <img width="49%" src="/public/assets/groupChartSample.png" alt="그룹 차트 이미지"/>
-    <img width="49%" src="/public/assets/postListSample.png" alt="키워드 게시물 리스트 이미지"/>
-  </div><br/>
-</a>
+<h1 style="font-size: 2em; font-weight: bold; background: linear-gradient(90deg, #00684A, #009F55 50%, #00ED64); -webkit-text-fill-color: transparent; -webkit-background-clip: text; 
+">Bloblow</h1>
 
 <div align="center">
-  <p><b>블로그를 불러오다. 블로블로</b></p>
+  <p>
+    <b>블로그를 불러오다. 블로블로</b><br/>
+    <b>특정 키워드 및 키워드 그룹에 대한 네이버 블로그 게시물 분석 서비스</b>
+  </p>
   <a href="https://github.com/Team-Bloblow/Bloblow-Client">클라이언트 </a> | <a href="https://github.com/Team-Bloblow/Bloblow-Server">서버 </a> | <a href="https://github.com/Team-Bloblow/Bloblow-puppeteer">크롤링 서버 </a>
 </div>
 
