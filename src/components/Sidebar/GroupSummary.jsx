@@ -1,4 +1,11 @@
+import useBoundStore from "../../store/client/useBoundStore";
+
 const GroupSummary = () => {
+  const userGroupList = useBoundStore((state) => state.userGroupList);
+  const groupLatestUpdated = userGroupList.reduce((prev, curr) => {
+    return new Date(prev.updatedAt) <= new Date(curr.updatedAt) ? curr : prev;
+  });
+
   return (
     <div className="flex flex-col gap-20 w-full h-full px-15 lg:px-15 py-10 lg:py-15">
       <div className="flex justify-between items-end">
