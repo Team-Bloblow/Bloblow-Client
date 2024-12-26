@@ -40,7 +40,7 @@
 
 ### 2. 설정한 키워드의 게시물에 대한 필터링 및 정렬
 
-블로블로를 통해 공감 혹은 댓글이 많은 순으로 게시물을 정렬할 수 있습니다. 그리고 특정 단어가 포함되거나 제외되는 게시물들만 모아서 볼 수 있습니다. 또한, 광고 칩을 통해 게시물이 광고를 목적으로 작성된 게시물 임을 알 수 있습니다. 
+블로블로를 통해 공감 혹은 댓글이 많은 순으로 게시물을 정렬할 수 있습니다. 그리고 특정 단어가 포함되거나 제외되는 게시물들만 모아서 볼 수 있습니다. 또한, 광고 칩을 통해 게시물이 광고를 목적으로 작성된 게시물 임을 알 수 있습니다.
 
 ### 3. 비교: 네이버 블로그 검색과 블로블로
 
@@ -48,10 +48,10 @@
 
 <br/>
 
-|   | 네이버 블로그 검색 | 블로블로 |
-| - | ------------- | ------ |
-| **탐색 목적**| 니즈를 충족하는 게시물을 1개라도 발견하면 대체로 문제가 해결됩니다. | 전반적인 동향이 궁금합니다. 포스팅 되는 게시물의 수, 경쟁 브랜드가 언급되는 수 트렌드를 수치로 확인하고 비교할 수 있기를 기대합니다. |
-| **탐색 과정**| 개인적인 이유, 계기로 검색을 이용합니다. 시간이 걸리더라도 합리적 결정이 중요하며 급하지 않습니다. 맛집이나 제품을 찾고 있다면, 구매후기를 꼼꼼히 살피며 여러 옵션을 비교합니다. | 내 회사 업무와 관련되며 개인적인 검색 보다 책임이 무겁고 기한이 정해져있습니다. 제품/마케팅 액션 아이템을 결과물로 도출할만한 인사이트를 발견할 수 있어야 합니다. 숫자로도 증명 가능해야 합니다. |
+|               | 네이버 블로그 검색                                                                                                                                                               | 블로블로                                                                                                                                                                                         |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **탐색 목적** | 니즈를 충족하는 게시물을 1개라도 발견하면 대체로 문제가 해결됩니다.                                                                                                              | 전반적인 동향이 궁금합니다. 포스팅 되는 게시물의 수, 경쟁 브랜드가 언급되는 수 트렌드를 수치로 확인하고 비교할 수 있기를 기대합니다.                                                             |
+| **탐색 과정** | 개인적인 이유, 계기로 검색을 이용합니다. 시간이 걸리더라도 합리적 결정이 중요하며 급하지 않습니다. 맛집이나 제품을 찾고 있다면, 구매후기를 꼼꼼히 살피며 여러 옵션을 비교합니다. | 내 회사 업무와 관련되며 개인적인 검색 보다 책임이 무겁고 기한이 정해져있습니다. 제품/마케팅 액션 아이템을 결과물로 도출할만한 인사이트를 발견할 수 있어야 합니다. 숫자로도 증명 가능해야 합니다. |
 
 </div>
 </details>
@@ -89,11 +89,11 @@
 
 ## 네이버 블로그 게시물을 어떻게 가져올 수 있을까?
 
-저희는 블로그 게시물 본문을 통해 키워드 언급 여부 뿐만 아니라 게시물의 다른 정보들도 활용하여 사용자에게 인사이트를 제공하는 것을 서비스의 주된 목적으로 설정했습니다. 
+저희는 블로그 게시물 본문을 통해 키워드 언급 여부 뿐만 아니라 게시물의 다른 정보들도 활용하여 사용자에게 인사이트를 제공하는 것을 서비스의 주된 목적으로 설정했습니다.
 
 게시물 본문을 확보하기 위해 네이버 검색 API를 사용하려 했으나 API를 통해선 본문 전체가 아닌 본문 내에서 키워드가 언급된 특정 부분만 전달해준다는 것을 파악하게 되었습니다. 그렇기 때문에 크롤링을 사용하여 본문 뿐만 아니라 댓글 수, 공감 수 등과 같은 부가 정보도 함께 파악하여 활용하기로 했습니다.
 
-puppeteer를 사용하여 API를 통해 전달받은 게시물의 링크로 게시물 본문을 크롤링하는 방법으로 구현했습니다. 하지만 본문 전체를 크롤링하기 위해 본문 전체를 감싸고 있는 선택자의 innerText를 파악하려했으나 null이 반환되는 문제가 발생했습니다. 
+puppeteer를 사용하여 API를 통해 전달받은 게시물의 링크로 게시물 본문을 크롤링하는 방법으로 구현했습니다. 하지만 본문 전체를 크롤링하기 위해 본문 전체를 감싸고 있는 선택자의 innerText를 파악하려했으나 null이 반환되는 문제가 발생했습니다.
 
 - 컨텐츠가 완전히 로딩되기 전에 선택자의 innerText 파악하는 것.
 - 선택자 스펠링을 틀린 것.
@@ -122,46 +122,46 @@ iframe 태그의 src 속성 값으로 게시물의 새로운 URL이 할당되어
 
 저희는 본문 뿐만 아니라 댓글과 공감 수와 같은 부가 정보 또한 추출하여 사용자에게 더 많은 인사이트를 제공드리려고 합니다.
 
-## 서버 상태는 어떻게 관리할 수 있을까? 우리는 왜 React Query를 도입했는가? 
+## 서버 상태는 어떻게 관리할 수 있을까? 우리는 왜 React Query를 도입했는가?
 
 팀 프로젝트를 시작하며, 우리는 코드를 효율적이고 통일된 방식으로 작성하고, 유저에게 자연스러운 UI를 노출시키는 방법을 고민했습니다. 이러한 고민은 서버와의 비동기 통신(HTTP 통신)에서도 마찬가지였습니다. 구체적으로는 크롤링 및 스크래핑 작업에서의 로딩 상태, 성공 여부, 실패 여부를 어떻게 일관성 있게 관리할지, 그룹 생성 후 그룹 리스트 데이터를 어떻게 서버와 자연스럽게 동기화할지 등이 있었습니다.
 
 - React Query 사용 전의 API 요청 상태 관리
 
 ```tsx
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+const [isLoading, setIsLoading] = useState(false);
+const [isSuccess, setIsSuccess] = useState(false);
+const [isError, setIsError] = useState(false);
+const [data, setData] = useState(null);
+const [error, setError] = useState(null);
 
-  const fetchData = async (...args) => {
-    setIsLoading(true);
-    setIsSuccess(false);
-    setIsError(false);
-    setData(null);
-    setError(null);
+const fetchData = async (...args) => {
+  setIsLoading(true);
+  setIsSuccess(false);
+  setIsError(false);
+  setData(null);
+  setError(null);
 
-    try {
-      const response = await apiFunction(...args);
-      
-      if (response.ok) {
-        const result = await response.json();
-        
-        setData(result);
-        setIsSuccess(true);
-      } else {
-        const errorMessage = await response.text();
-      
-        throw new Error(`Error ${response.status}: ${errorMessage}`);
-      }
-    } catch (error) {
-      setIsError(true);
-      setError(error.message);
-    } finally {
-      setIsLoading(false);
+  try {
+    const response = await apiFunction(...args);
+
+    if (response.ok) {
+      const result = await response.json();
+
+      setData(result);
+      setIsSuccess(true);
+    } else {
+      const errorMessage = await response.text();
+
+      throw new Error(`Error ${response.status}: ${errorMessage}`);
     }
-  };
+  } catch (error) {
+    setIsError(true);
+    setError(error.message);
+  } finally {
+    setIsLoading(false);
+  }
+};
 ```
 
 - 페이지(라우트)가 로드될 시, 바로 보여주고 싶은 데이터가 있는 경우
@@ -171,7 +171,7 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       const response = await apiFunction();
-      
+
       if (response.ok) {
         const parsedResponse = await response.json();
         setData(parsedResponse); // setter 실행으로 리렌더링 트리거
@@ -192,12 +192,12 @@ useEffect(() => {
 ```tsx
 const handleButtonClick = async (mutationPayload) => {
   try {
-    const response = await fetch('/api/mutate', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetch("/api/mutate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(mutationPayload),
     });
-    
+
     if (response.ok) {
       fetchData(); // Mutation 성공 후 서버 데이터 동기화
     } else {
@@ -259,7 +259,7 @@ const UserGroupCardList = () => {
   return (
 ```
 
-- 간단한 Mutation  핸들링 (실제 코드)
+- 간단한 Mutation 핸들링 (실제 코드)
 
 ```tsx
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -278,7 +278,7 @@ const asyncPostKeyword = async (keywordInfo) => {
 };
 
 const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) => {
-	
+
 	/* ... */
 
   **const queryClient = useQueryClient();**
@@ -286,7 +286,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
   const createKeywordMutation = useMutation({
     mutationFn: (keywordInfo) => asyncPostKeyword(keywordInfo),
   });
-  
+
   const handleKeywordSubmit = (e) => {
     e.preventDefault();
 
@@ -322,7 +322,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
 
 ## 모달을 root DOM node에서 분리하여 렌더링 시킬 수 있는 방법은 없을까?
 
-모달은 많은 웹 애플리케이션에서 흔히 볼 수 있는 기능입니다. 현재 페이지에서 벗어나지 않고도 컨텍스트를 분리하여 사용자를 집중 시킴으로써 정보를 표시하거나 입력을 수집할 수 있는 간단한 방법이기 때문입니다. 따라서, 당연하게도 저희 프로젝트에도 UI/UX를 위하여 모달을 사용하였습니다. 
+모달은 많은 웹 애플리케이션에서 흔히 볼 수 있는 기능입니다. 현재 페이지에서 벗어나지 않고도 컨텍스트를 분리하여 사용자를 집중 시킴으로써 정보를 표시하거나 입력을 수집할 수 있는 간단한 방법이기 때문입니다. 따라서, 당연하게도 저희 프로젝트에도 UI/UX를 위하여 모달을 사용하였습니다.
 
 프로젝트 진행 중에 모달을 DOM 내부의 기존 `#root` 노드에서 렌더링하면서 다소 염려가 되는 점이 있었고, 그 염려스러운 부분들을 해소할 수 있었던 과정에 대해서 설명하고자 합니다.
 
@@ -354,33 +354,34 @@ createRoot(document.getElementById("root")).render(
 ### root DOM node 내부에서 모달 렌더링 시 발생 가능한 문제점
 
 1. **스타일링 충돌**
-    - 아래 예시 코드에서 모달은 root DOM node 내부의 Profile 컴포넌트의 자식이기 때문에 Profile 컴포넌트에 적용되는 모든 CSS가 모달에 영향을 줄 수 있습니다. 따라서 모달을 독립적으로 스타일링하기 어려울 수 있습니다.
-    
-    ```tsx
-    // 예시 코드
-    
-    function Dashboard() {
-      return (
-        <div>
-          <h1>Dashboard</h1>
-          <Profile />
-        </div>
-      );
-    }
-    
-    function Profile() {
-      return (
-        <div>
-          <h2>Profile</h2>
-          <button>View More</button>
-          <Modal />
-        </div>
-      );
-    }
-    ```
-    
+
+   - 아래 예시 코드에서 모달은 root DOM node 내부의 Profile 컴포넌트의 자식이기 때문에 Profile 컴포넌트에 적용되는 모든 CSS가 모달에 영향을 줄 수 있습니다. 따라서 모달을 독립적으로 스타일링하기 어려울 수 있습니다.
+
+   ```tsx
+   // 예시 코드
+
+   function Dashboard() {
+     return (
+       <div>
+         <h1>Dashboard</h1>
+         <Profile />
+       </div>
+     );
+   }
+
+   function Profile() {
+     return (
+       <div>
+         <h2>Profile</h2>
+         <button>View More</button>
+         <Modal />
+       </div>
+     );
+   }
+   ```
+
 2. **포지셔닝**
-    - 모달은 일반적으로 다른 콘텐츠 위에 표시되도록 absolute position 또는 fixed position으로 배치됩니다. 그러나 만약 모달의 부모 요소에 CSS position이 설정되어 있는 경우(정적이 아닌 경우) 모달은 전체 페이지가 아닌 해당 요소에 의한 상대적인 위치로 지정될 수 있습니다.
+   - 모달은 일반적으로 다른 콘텐츠 위에 표시되도록 absolute position 또는 fixed position으로 배치됩니다. 그러나 만약 모달의 부모 요소에 CSS position이 설정되어 있는 경우(정적이 아닌 경우) 모달은 전체 페이지가 아닌 해당 요소에 의한 상대적인 위치로 지정될 수 있습니다.
 
 ### 문제 해결: react-dom의 `createPortal` API와 독립적인 `#modal` root 도입
 
@@ -420,18 +421,18 @@ Portal.propTypes = {
 ```
 
 1. **독립적인 DOM 계층에서 렌더링**
-    - `index.html`에 `<div id="modal"></div>`를 추가하여, 모달이 기존 `#root` DOM 구조와 분리된 독립적인 계층에서 렌더링되도록 했습니다.
-    - `createPortal`을 사용해 React의 컴포넌트 트리와는 독립적으로 DOM 트리 상의 `#modal` 노드에 모달을 렌더링하도록 구현했습니다. 따라서, Modal 컴포넌트를 DOM의 어느 곳에나 배치 가능합니다. React 컴포넌트 트리에서는 Modal 컴포넌트가 배치된 곳에 위치하지만 실제 DOM 트리에서는 그렇지 않게 됩니다.
+   - `index.html`에 `<div id="modal"></div>`를 추가하여, 모달이 기존 `#root` DOM 구조와 분리된 독립적인 계층에서 렌더링되도록 했습니다.
+   - `createPortal`을 사용해 React의 컴포넌트 트리와는 독립적으로 DOM 트리 상의 `#modal` 노드에 모달을 렌더링하도록 구현했습니다. 따라서, Modal 컴포넌트를 DOM의 어느 곳에나 배치 가능합니다. React 컴포넌트 트리에서는 Modal 컴포넌트가 배치된 곳에 위치하지만 실제 DOM 트리에서는 그렇지 않게 됩니다.
 2. **스타일링 충돌 방지**
-    - 모달이 부모 DOM의 스타일 속성 영향을 받지 않으므로, `position`, `z-index` (쌓임 맥락)와 같은 속성으로 인한 CSS 충돌 문제로부터 자유롭습니다.
-    - 항상 화면 최상단에 모달이 표시되도록 보장할 수 있게 되었습니다.
+   - 모달이 부모 DOM의 스타일 속성 영향을 받지 않으므로, `position`, `z-index` (쌓임 맥락)와 같은 속성으로 인한 CSS 충돌 문제로부터 자유롭습니다.
+   - 항상 화면 최상단에 모달이 표시되도록 보장할 수 있게 되었습니다.
 3. **포지셔닝**
-    - 모달은 DOM에서 body의 direct child이기 때문에 전체 페이지에 대해 상대적인 위치를 지정할 수 있습니다.
+   - 모달은 DOM에서 body의 direct child이기 때문에 전체 페이지에 대해 상대적인 위치를 지정할 수 있습니다.
 
-
->모달이 실제 DOM에서는 특정 컴포넌트의 자식이 아니더라도 모달 내의 이벤트는 React 컴포넌트 트리의 부모 컴포넌트까지 버블링 되므로 유의해야 합니다. 이는 React 이벤트 시스템의 특징이며 포털을 사용할 때 주의해야 할 사항입니다.
->- `createPortal`로 렌더링된 컴포넌트는 실제 DOM 트리에서는 다른 계층에 렌더링되지만, React의 컴포넌트 트리 상에서는 여전히 부모 컴포넌트와 연결되어 있습니다.
->- 따라서, 모달에서 발생한 이벤트는 React 트리의 부모 컴포넌트로 전파됩니다.
+> 모달이 실제 DOM에서는 특정 컴포넌트의 자식이 아니더라도 모달 내의 이벤트는 React 컴포넌트 트리의 부모 컴포넌트까지 버블링 되므로 유의해야 합니다. 이는 React 이벤트 시스템의 특징이며 포털을 사용할 때 주의해야 할 사항입니다.
+>
+> - `createPortal`로 렌더링된 컴포넌트는 실제 DOM 트리에서는 다른 계층에 렌더링되지만, React의 컴포넌트 트리 상에서는 여전히 부모 컴포넌트와 연결되어 있습니다.
+> - 따라서, 모달에서 발생한 이벤트는 React 트리의 부모 컴포넌트로 전파됩니다.
 
 ### 결과적으로 얻은 효과
 
@@ -464,12 +465,10 @@ const createModalSlice = (set) => ({
 });
 
 export default createModalSlice;
-
 ```
 
 ```tsx
 // MyPageSidebar.jsx
-
 import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
 import CreateKeywordModal from "../Modal/CreateKeywordModal";
@@ -508,7 +507,6 @@ const MyPageSidebar = () => {
 };
 
 export default MyPageSidebar;
-
 ```
 
 # 4. User Experience
@@ -517,7 +515,7 @@ export default MyPageSidebar;
 
 저희는 아이디어 단계에서 특정 키워드에 대해 언급된 모든 블로그 게시물에 대하여 모니터링이 가능한 서비스로 구상했기 때문에, 기획 단계에서 구독을 시작한 후 뿐만 아니라 구독 이전의 게시물에 대해서도 모니터링이 할 수 있도록 구체화했습니다.
 
-네이버 검색 API의 응답을 통해 블로그 게시물을 등록한 날짜(postdate)을 전달받기 때문에 특정 날짜까지 등록된 게시물들을 조회하여 개발을 진행하고자 했습니다. 
+네이버 검색 API의 응답을 통해 블로그 게시물을 등록한 날짜(postdate)을 전달받기 때문에 특정 날짜까지 등록된 게시물들을 조회하여 개발을 진행하고자 했습니다.
 
 ```jsx
 {
@@ -574,7 +572,7 @@ const isAd = await Promise.resolve(
 );
 ```
 
-**게시물 마다 문구 표기방법이 각양각색이었고, 제한된 일정과 중요도를 고려하여 '광고성 문구를 텍스트로 포함하는지' 여부로 광고성 글 판별 로직을 구현했습니다.** 일반적인 문구인 "이 글은 소정의 원고료를 받고 작성한 글입니다" 외에도 글 마다 문구의 표현과 사용한 단어들이 달랐습니다. (관련 정리된 문서 참고) 이에 초기에 `string` 타입으로 정의한 광고성 키워드를 `array` 타입으로 변경하여 블로그 게시물 작성자들이 주로 사용하는 여러 문구들을 명시했습니다. `string` 타입으로 특정 광고성 문구를 하나 만을 기준으로 검사하기에 블로그와 게시물 마다 상황이 다양했기 때문입니다. **`array` 타입으로 관리함으로써 문구가 다양하게 사용되는 상황에 대응하고, 추후 새롭게 발견되는 문구가 있다면 유연하게 추가할 수 있는 구조를 초기부터 구현하고자 했습니다.** (*참고: 프로젝트를 목적을 학습에도 두고 있어, 광고성 글 분류 로직에 AI 모델을 활용하는 옵션은 고려하지 않았습니다.)
+**게시물 마다 문구 표기방법이 각양각색이었고, 제한된 일정과 중요도를 고려하여 '광고성 문구를 텍스트로 포함하는지' 여부로 광고성 글 판별 로직을 구현했습니다.** 일반적인 문구인 "이 글은 소정의 원고료를 받고 작성한 글입니다" 외에도 글 마다 문구의 표현과 사용한 단어들이 달랐습니다. (관련 정리된 문서 참고) 이에 초기에 `string` 타입으로 정의한 광고성 키워드를 `array` 타입으로 변경하여 블로그 게시물 작성자들이 주로 사용하는 여러 문구들을 명시했습니다. `string` 타입으로 특정 광고성 문구를 하나 만을 기준으로 검사하기에 블로그와 게시물 마다 상황이 다양했기 때문입니다. **`array` 타입으로 관리함으로써 문구가 다양하게 사용되는 상황에 대응하고, 추후 새롭게 발견되는 문구가 있다면 유연하게 추가할 수 있는 구조를 초기부터 구현하고자 했습니다.** (\*참고: 프로젝트를 목적을 학습에도 두고 있어, 광고성 글 분류 로직에 AI 모델을 활용하는 옵션은 고려하지 않았습니다.)
 
 추가로 까다로웠던 점은 텍스트로 표기하지 않고, 해당 문구를 포함한 이미지로 대체한 게시물의 케이스 입니다. **이에 작업의 의존성을 기준으로, 텍스트 검사 로직을 먼저 구현하기로 결정했습니다. 이미지 검사 로직 또한, 이미지를 텍스틀로 변환하는 과정이 추가될 뿐 결국 변환된 텍스트를 검사하는 로직을 활용하는 것입니다.** 텍스트 검사 로직을 핵심으로 구현 후, 추후 이미지로 포함한 글에 대한 처리를 대응하기로 했습니다. (이미지를 텍스트로 변환시 활용할 기술은 Google Vision API, tesseract.js를 검토하였습니다. 리서치 결과 tesseract.js가 한글을 제대로 변환하지 못하는 케이스가 발견되어 추후 Google Vision API를 활용하여 기능을 업데이트할 예정입니다.)
 
@@ -632,7 +630,6 @@ const sanitizeHtmlEntity = (string) => {
 };
 
 export default sanitizeHtmlEntity;
-
 ```
 
 1. **타입 확인:** 입력 값이 문자열인지 확인합니다. 문자열이 아니면 빈 문자열을 반환합니다.
@@ -685,12 +682,11 @@ https://developer.mozilla.org/ko/docs/Glossary/Entity
 
 ## DB 업데이트, UI 반영의 자연스러운 전환을 고민했습니다. 총 4가지 옵션 중 Optimistic Update 방식을 채택해 자연스러운 동기화로 보이는 UX로 개선했습니다.
 
-
 ## 협업을 위한 로직 재사용성과 관심사 분리를 위해 커스텀 훅을 만들어볼까?
 
 팀 프로젝트 진행 중, 컴포넌트 내부의 점점 늘어나는 로직으로 인한 코드 복잡성을 직면하면서 협업의 효율성을 생각하지 않을 수 없었습니다. 여러 컴포넌트에서 동일하거나 유사한 로직을 반복적으로 구현하면서 코드가 중복된다는 것이 직접적으로 느껴졌고, 이는 유지보수성을 떨어뜨렸습니다. 실제로 중복이 일어나지 않았더라도, 해당 로직을 추후에 나 뿐만이 아닌 다른 팀원들이 재사용 할 수 있을 것이라 생각이 들기도 했습니다.
 
-각 함수형 컴포넌트에 UI 뿐 아니라 여러 로직이 혼재되어 있어 코드의 가독성이 낮아지는 것을 발견했습니다. 이로 인해, 다른 팀원이 코드를 읽으며 이해하는 시간이 증가될 것이라 생각이 되었습니다. 물론 PR 리뷰 시간도 마찬가지입니다. 또, 특정 로직을 수정하거나 확장하려면 여러 파일을 개별적으로 모두 수정해야 하는 상황이 발생했습니다.  
+각 함수형 컴포넌트에 UI 뿐 아니라 여러 로직이 혼재되어 있어 코드의 가독성이 낮아지는 것을 발견했습니다. 이로 인해, 다른 팀원이 코드를 읽으며 이해하는 시간이 증가될 것이라 생각이 되었습니다. 물론 PR 리뷰 시간도 마찬가지입니다. 또, 특정 로직을 수정하거나 확장하려면 여러 파일을 개별적으로 모두 수정해야 하는 상황이 발생했습니다.
 
 우리는 이러한 문제를 해결하기 위해 **로직의 재사용성과 관심사의 분리**를 목표로 설정했습니다. React의 철학인 **컴포지션(Composition)** 패턴에 따라 비즈니스 로직을 UI 컴포넌트에서 분리하고, 이를 캡슐화한 재사용 가능한 형태로 관리하기 위해 커스텀 훅(Custom Hook)을 적극 사용하기로 했습니다. 즉, 커스텀 훅으로 특정 로직과 상태를 캡슐화하여 어떻게 내부의 복잡한 로직이 구성되어 있는지는 숨기고, 외부로는 무엇을 할 수 있는지만 보여줌으로써 코드 복잡성을 감소시키고 로직의 재사용성을 증가시킴으로써 협업의 효율을 높입니다.
 
@@ -699,171 +695,162 @@ https://developer.mozilla.org/ko/docs/Glossary/Entity
 - 협업 효율성 향상: 로직이 중앙에서 관리되면서 팀원들 간 코드 일관성을 유지할 수 있었고, 새로운 기능 추가나 기존 로직 수정 시 훅만 수정하면 되어 유지보수 작업이 훨씬 간소화되었습니다.
 
 1. **모달 마운트 시 실행되는 커스텀 훅**(모달 layer 아래 root Element의 스크롤 방지 로직)
-    - 단순하게 `overflow: hidden`을 설정한 로직과는 다르게 `position: fixed`와 동시에 `overflow-y: scroll`로 기존 스크롤을 유지해 Layout shift 방지
-    - 모달이 언마운트될 경우, 클로저를 활용한 scrollY 변수로 스크롤 위치 복원
-    
-    ```tsx
-    // useScrollDisable.js
-    
-    import { useEffect } from "react";
-    
-    const useScrollDisable = () => {
-      useEffect(() => {
-        const scrollY = window.scrollY;
-        const hasScroll = document.documentElement.scrollHeight > document.documentElement.clientHeight;
-    
-        document.body.style.cssText = `
-          position: fixed;
-          top: -${scrollY}px;
-          left: 0;
-          right: 0;
-          ${hasScroll && "overflow-y: scroll;"}
-        `;
-    
-        return () => {
-          document.body.style.cssText = "";
-          window.scrollTo(0, scrollY);
-        };
-      }, []);
-    };
-    
-    export default useScrollDisable;
-    
-    ```
-    
+
+   - 단순하게 `overflow: hidden`을 설정한 로직과는 다르게 `position: fixed`와 동시에 `overflow-y: scroll`로 기존 스크롤을 유지해 Layout shift 방지
+   - 모달이 언마운트될 경우, 클로저를 활용한 scrollY 변수로 스크롤 위치 복원
+
+   ```tsx
+   // useScrollDisable.js
+   import { useEffect } from "react";
+
+   const useScrollDisable = () => {
+     useEffect(() => {
+       const scrollY = window.scrollY;
+       const hasScroll =
+         document.documentElement.scrollHeight > document.documentElement.clientHeight;
+
+       document.body.style.cssText = `
+         position: fixed;
+         top: -${scrollY}px;
+         left: 0;
+         right: 0;
+         ${hasScroll && "overflow-y: scroll;"}
+       `;
+
+       return () => {
+         document.body.style.cssText = "";
+         window.scrollTo(0, scrollY);
+       };
+     }, []);
+   };
+
+   export default useScrollDisable;
+   ```
 
 1. **무한스크롤 관련 api 요청 및 pageParam 로직을 위한 커스텀 훅**(React query의 useInfiniteQuery 사용)
-    
-    ```tsx
-    // useInfiniteData.js
-    
-    import useObserver from "./useObserver";
-    import { useInfiniteQuery } from "@tanstack/react-query";
-    
-    const useInfiniteData = ({
-      queryKey,
-      queryFn,
-      options,
-      initialPageParam,
-      getNextPageParam,
-      ref,
-      root,
-    }) => {
-      const { data, status, fetchNextPage, isPending, isError, ...rest } = useInfiniteQuery({
-        queryKey,
-        queryFn: ({ pageParam }) => queryFn(pageParam, options),
-        initialPageParam,
-        getNextPageParam,
-        staleTime: 10 * 1000,
-      });
-    
-      const onIntersect = (entries) => {
-        if (isPending) return;
-        if (!data?.pages[data?.pages.length - 1].hasNext) return;
-    
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            fetchNextPage();
-          }
-        });
-      };
-    
-      useObserver({ target: ref, root, threshold: 0.5, onIntersect });
-    
-      return { data, status, fetchNextPage, isPending, isError, ...rest };
-    };
-    
-    export default useInfiniteData;
-    
-    ```
-    
-    ```tsx
-    // PostCardList.jsx
-    
-    const PostCardList = ({ keywordId, filterList, setFilterList, resetFilterList }) => {
-      const observeRef = useRef(null);
-      const observeRootRef = useRef(null);
-    
-      const infiniteDataArgument = {
-        queryKey: ["posts", keywordId, filterList],
-        queryFn: asyncGetPosts,
-        options: {
-          keywordId,
-          order: filterList.order,
-          includedKeyword: filterList.includedKeyword,
-          excludedKeyword: filterList.excludedKeyword,
-          isAd: filterList.isAd,
-          limit: 5,
-        },
-        initialPageParam: "",
-        getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.nextCursorId : undefined),
-        ref: observeRef,
-        root: observeRootRef.current,
-      };
-    
-      const { data: postResponse, isPending, isError } = useInfiniteData(infiniteDataArgument);
-    ```
-    
+
+   ```tsx
+   // useInfiniteData.js
+   import useObserver from "./useObserver";
+   import { useInfiniteQuery } from "@tanstack/react-query";
+
+   const useInfiniteData = ({
+     queryKey,
+     queryFn,
+     options,
+     initialPageParam,
+     getNextPageParam,
+     ref,
+     root,
+   }) => {
+     const { data, status, fetchNextPage, isPending, isError, ...rest } = useInfiniteQuery({
+       queryKey,
+       queryFn: ({ pageParam }) => queryFn(pageParam, options),
+       initialPageParam,
+       getNextPageParam,
+       staleTime: 10 * 1000,
+     });
+
+     const onIntersect = (entries) => {
+       if (isPending) return;
+       if (!data?.pages[data?.pages.length - 1].hasNext) return;
+
+       entries.forEach((entry) => {
+         if (entry.isIntersecting) {
+           fetchNextPage();
+         }
+       });
+     };
+
+     useObserver({ target: ref, root, threshold: 0.5, onIntersect });
+
+     return { data, status, fetchNextPage, isPending, isError, ...rest };
+   };
+
+   export default useInfiniteData;
+   ```
+
+   ```tsx
+   // PostCardList.jsx
+
+   const PostCardList = ({ keywordId, filterList, setFilterList, resetFilterList }) => {
+     const observeRef = useRef(null);
+     const observeRootRef = useRef(null);
+
+     const infiniteDataArgument = {
+       queryKey: ["posts", keywordId, filterList],
+       queryFn: asyncGetPosts,
+       options: {
+         keywordId,
+         order: filterList.order,
+         includedKeyword: filterList.includedKeyword,
+         excludedKeyword: filterList.excludedKeyword,
+         isAd: filterList.isAd,
+         limit: 5,
+       },
+       initialPageParam: "",
+       getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.nextCursorId : undefined),
+       ref: observeRef,
+       root: observeRootRef.current,
+     };
+
+     const { data: postResponse, isPending, isError } = useInfiniteData(infiniteDataArgument);
+   ```
 
 1. **무한스크롤 관련 Intersection Observer 로직을 위한 커스텀 훅**(Intersection Observer API)
-    - 외부로부터 target, IntersectionObserver 생성자 옵션, 콜백함수를 받음
-    - IntersectionObserver 생성자의 옵션에 기본값 할당
-    
-    ```tsx
-    import { useEffect } from "react";
-    
-    const useObserver = ({
-      target,
-      root = null,
-      rootMargin = "0px 0px 0px 0px",
-      threshold = 1.0,
-      onIntersect,
-    }) => {
-      useEffect(() => {
-        let observer;
-    
-        if (target && target.current) {
-          observer = new IntersectionObserver(
-            (entries, observer) => {
-              onIntersect(entries, observer);
-            },
-            {
-              root,
-              rootMargin,
-              threshold,
-            }
-          );
-    
-          observer.observe(target.current);
-        }
-    
-        return () => {
-          if (observer) {
-            observer.disconnect();
-          }
-        };
-      }, [target, root, rootMargin, threshold, onIntersect]);
-    };
-    
-    export default useObserver;
-    
-    ```
-    
 
+   - 외부로부터 target, IntersectionObserver 생성자 옵션, 콜백함수를 받음
+   - IntersectionObserver 생성자의 옵션에 기본값 할당
 
->**Composition Pattern: React는 강력한 합성 모델을 가지고 있으며, 상속 대신 합성을 사용하여 컴포넌트 간에 코드를 재사용! ⇒ 관심사의 분리, 재사용성 증가**
->
->- 컴포넌트를 쪼개서 작은 단위로 관리: 단일 책임 원칙(Single Responsibility Principle)
->- Props를 통한 데이터 전달: 컴포넌트 간 결합도를 낮추고 재사용성을 높임
->- Children을 이용한 컴포넌트 확장: 부모 컴포넌트의 자식 컴포넌트 제어으로 재사용성 높임
->- memo와 같은 고차 컴포넌트
->
->**Container-Presentation 패턴: Composition Pattern과 같은 맥락. UI와 데이터 처리/관리 컴포넌트의 분리 ⇒ Hook으로 대체(로직 추상화와 재사용, UI와 로직의 유연한 조합)**
->
->https://ko.legacy.reactjs.org/docs/composition-vs-inheritance.html
->https://www.patterns.dev/react/presentational-container-pattern/
->https://medium.com/@console_log/presentational-container-component-pattern%EA%B3%BC-react-b0f65032ced3
+   ```tsx
+   import { useEffect } from "react";
 
+   const useObserver = ({
+     target,
+     root = null,
+     rootMargin = "0px 0px 0px 0px",
+     threshold = 1.0,
+     onIntersect,
+   }) => {
+     useEffect(() => {
+       let observer;
+
+       if (target && target.current) {
+         observer = new IntersectionObserver(
+           (entries, observer) => {
+             onIntersect(entries, observer);
+           },
+           {
+             root,
+             rootMargin,
+             threshold,
+           }
+         );
+
+         observer.observe(target.current);
+       }
+
+       return () => {
+         if (observer) {
+           observer.disconnect();
+         }
+       };
+     }, [target, root, rootMargin, threshold, onIntersect]);
+   };
+
+   export default useObserver;
+   ```
+
+> **Composition Pattern: React는 강력한 합성 모델을 가지고 있으며, 상속 대신 합성을 사용하여 컴포넌트 간에 코드를 재사용! ⇒ 관심사의 분리, 재사용성 증가**
+>
+> - 컴포넌트를 쪼개서 작은 단위로 관리: 단일 책임 원칙(Single Responsibility Principle)
+> - Props를 통한 데이터 전달: 컴포넌트 간 결합도를 낮추고 재사용성을 높임
+> - Children을 이용한 컴포넌트 확장: 부모 컴포넌트의 자식 컴포넌트 제어으로 재사용성 높임
+> - memo와 같은 고차 컴포넌트
+>
+> **Container-Presentation 패턴: Composition Pattern과 같은 맥락. UI와 데이터 처리/관리 컴포넌트의 분리 ⇒ Hook으로 대체(로직 추상화와 재사용, UI와 로직의 유연한 조합)**
+>
+> https://ko.legacy.reactjs.org/docs/composition-vs-inheritance.html >https://www.patterns.dev/react/presentational-container-pattern/ >https://medium.com/@console_log/presentational-container-component-pattern%EA%B3%BC-react-b0f65032ced3
 
 # 6. Feedback / Improvement
 
