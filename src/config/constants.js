@@ -1,4 +1,5 @@
 export const MODAL_TYPE = Object.freeze({
+  CREATE_GROUP: "createGroup",
   CREATE_KEYWORD: {
     DEFAULT: "createKeyword",
     MY_PAGE: "myPage",
