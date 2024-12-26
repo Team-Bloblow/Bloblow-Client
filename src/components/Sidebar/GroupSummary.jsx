@@ -16,7 +16,7 @@ const GroupSummary = () => {
       </div>
       <div className="flex justify-between">
         <span className="text-17 font-light text-gray-600">그룹</span>
-        <span className="text-17 font-semibold">그룹 이름</span>
+        <span className="text-17 font-semibold">{groupLatestUpdated.name}</span>
       </div>
       <div className="flex justify-between">
         <span className="text-15 font-light text-gray-600">키워드명</span>
