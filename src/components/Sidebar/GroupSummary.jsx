@@ -51,15 +51,15 @@ const GroupSummary = () => {
         )}
       </div>
       <div className="flex justify-between">
-        <span className="text-15 font-light text-gray-600">키워드명</span>
+        <span className="text-15 font-light text-gray-600">키워드</span>
         <span className="text-15 font-light text-gray-600">게시물 수</span>
       </div>
       <div>
         {summaryData?.postUpdateNewest?.map((keyword) => {
           return (
             <div key={keyword.id} className="flex justify-between">
-              <span className="text-17 font-medium">{keyword.name}</span>
-              <span className="text-17 font-medium">{keyword.postCount}</span>
+              <span className="text-15 font-medium">#{keyword.name}</span>
+              <span className="text-15 font-medium">{keyword.postCount}</span>
             </div>
           );
         })}
