@@ -1,14 +1,25 @@
 import { useEffect } from "react";
 
 import asyncGetUserGroup from "../../../api/group/asyncGetUserGroup";
+import { ERROR_MESSAGE, MODAL_TYPE } from "../../../config/constants";
 import useBoundStore from "../../../store/client/useBoundStore";
+import CreateGroupModal from "../../Modal/CreateGroupModal";
+import CreateKeywordSuccessModal from "../../Modal/CreateKeywordSuccessModal";
+import ErrorModal from "../../Modal/ErrorModal";
+import Button from "../../UI/Button";
 import UserGroupCard from "./UserGroupCard";
 import { useQuery } from "@tanstack/react-query";
 
 const UserGroupCardList = () => {
   const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
   const userUid = useBoundStore((state) => state.userInfo.uid);
+  const addModal = useBoundStore((state) => state.addModal);
+  const openModalTypeList = useBoundStore((state) => state.openModalTypeList);
   const hasUserUid = !!userUid;
+
+  const handleCreateGroupButtonClick = () => {
+    addModal(MODAL_TYPE.CREATE_GROUP);
+  };
 
   const { data: userGroupList, isError } = useQuery({
     queryKey: ["userGroupList", userUid],
@@ -36,6 +47,15 @@ const UserGroupCardList = () => {
 
   return (
     <section className="flex flex-col justify-start gap-15 bg-white rounded-[1px] px-30 w-full h-full overflow-y-scroll">
+      <div className="flex flex-col gap-10">
+        <span className="text-20 font-semibold">그룹</span>
+        <Button
+          styles="w-300 lg:w-full px-10 lg:px-20 lg:py-18 text-21 text-gray-400 font-light border-2 border-slate-200/80 rounded-[8px] bg-gray-100 hover:shadow hover:border-gray-300"
+          onClick={handleCreateGroupButtonClick}
+        >
+          +
+        </Button>
+      </div>
       {userGroupList?.groupListResult?.map((groupInfo) => (
         <UserGroupCard
           key={groupInfo?._id}
@@ -45,6 +65,13 @@ const UserGroupCardList = () => {
           updatedAt={groupInfo?.updatedAt}
         />
       ))}
+      {openModalTypeList.includes(MODAL_TYPE.CREATE_GROUP) && <CreateGroupModal />}
+      {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.CREATE_KEYWORD_SUCCESS && (
+        <CreateKeywordSuccessModal />
+      )}
+      {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.ERROR && (
+        <ErrorModal errorMessage={ERROR_MESSAGE.CREATE_KEYWORD_ERROR} />
+      )}
     </section>
   );
 };
