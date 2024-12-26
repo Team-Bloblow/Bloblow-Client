@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import asyncGetUserGroup from "../api/group/asyncGetUserGroup";
@@ -30,6 +31,12 @@ const GroupPage = () => {
     (groupInfo) => groupInfo._id === groupId
   );
 
+  useEffect(() => {
+    if (userGroupList?.groupListLength > 0 && userGroupList?.groupListResult?.length > 0) {
+      setUserGroupList(userGroupList?.groupListResult);
+    }
+  }, [userGroupList?.groupListLength, userGroupList?.groupListResult, setUserGroupList]);
+
   if (invalidGroupId === undefined) {
     navigate("/notFoundPage");
     return;
@@ -47,10 +54,6 @@ const GroupPage = () => {
 
   if (userGroupList === undefined) {
     return null;
-  }
-
-  if (userGroupList?.groupListLength > 0 && userGroupList?.groupListResult?.length > 0) {
-    setUserGroupList(userGroupList?.groupListResult);
   }
 
   return (

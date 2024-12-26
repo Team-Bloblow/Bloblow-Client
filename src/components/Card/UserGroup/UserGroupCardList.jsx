@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import asyncGetUserGroup from "../../../api/group/asyncGetUserGroup";
 import useBoundStore from "../../../store/client/useBoundStore";
 import UserGroupCard from "./UserGroupCard";
@@ -14,6 +16,12 @@ const UserGroupCardList = () => {
     enabled: hasUserUid,
   });
 
+  useEffect(() => {
+    if (hasUserUid && userGroupList?.groupListResult?.length > 0) {
+      setUserGroupList(userGroupList?.groupListResult);
+    }
+  }, [hasUserUid, userGroupList?.groupListResult, setUserGroupList]);
+
   if (isError || userGroupList?.message?.includes("Error occured")) {
     return (
       <div className="flex flex-center w-full h-full">
@@ -24,10 +32,6 @@ const UserGroupCardList = () => {
 
   if (userGroupList?.groupListLength === 0) {
     return <div className="flex flex-center w-full h-full">생성한 그룹이 없습니다</div>;
-  }
-
-  if (hasUserUid && userGroupList?.groupListResult?.length > 0) {
-    setUserGroupList(userGroupList?.groupListResult);
   }
 
   return (
