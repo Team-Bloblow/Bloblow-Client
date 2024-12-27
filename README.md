@@ -93,8 +93,10 @@
 
 그룹 대시보드 / 키워드 게시물 목록
 
-<div >
+<div>
   <img align="left" width="50%" src="/public/assets/docs-preview-group.png" alt="preview-group"/>
+</div>
+<div>
   <img align="right" width="50%" src="/public/assets/docs-preview-post-list.png" alt="preview-post-list"/>
 </div>
 
