@@ -595,6 +595,22 @@ const isAd = await Promise.resolve(
 
 <br>
 
+### 컴포넌트 리렌더링에도 의도를 담아야 한다는 것을, 필요한 최소한의 상태를 관리해보며 배웠습니다.
+
+- 리렌더링 범위를 정확히 파악한 후, 로컬 상태를 활용해 불필요한 리렌더링 범위를 줄였습니다.
+- 계산 가능한 값을 상태로 선언하지 않고 [DRY(Don’t Repeat Yourself) 원칙](https://react.dev/learn/thinking-in-react#step-3-find-the-minimal-but-complete-representation-of-ui-state)을 준수하고자 노력했습니다.
+- 리렌더링을 포함하여, 현재 작성하는 코드의 영향 범위를 정확히 인지하는 것의 중요성을 배웠습니다.
+
+세부내용
+
+- 게시물 목록을 렌더링 하는 `PostCardList` 컴포넌트가 `PostCardFilter`를 자식 컴포넌트로 렌더링 합니다. 자식 컴포넌트 `PostCardFilter`는 게시물 정렬 및 필터 입력 UI를 렌더링하는데, 필터가 적용된 게시물 목록은 부모 컴포넌트 `PostCardList` 에서 렌더링 됩니다. 때문에 상태 끌어올리기로 두 컴포넌트간 상태 `filterList`(현재 검색 결과에 적용된 필터 목록 값을 기억하는 상태)가 공유되는 구조를 구현했습니다.
+- 이 때 `PostCardFilter` 컴포넌트에서 사용자 입력으로 인해 특정 정렬/필터 `input` 의 value가 바뀔 때, props로 전달 받은 `filterList`를 직접 업데이트하지 않도록 했습니다. `filterList`를 직접 업데이트 하게 되면 부모 컴포넌트 까지 리렌더링 되는데 이는 불필요하다고 판단했기 때문입니다. 대신 로컬 상태 `tempFilterList`를 별도로 선언하여 사용자가 입력 중인 input value를 기억하도록 했습니다.
+- 이는 정렬/필터 조건 입력과 조건에 따른 게시물 요청을 분리했기 때문에 가능했습니다. 이렇게 로직을 분리함으로써, 사용자가 조건 입력을 완료했다는 뜻으로 '적용 버튼'을 클릭하면 필터 input value를 부모 컴포넌트 상태로 업데이트하여 실제 fetch를 진행하도록 구현했습니다.
+- 그외 `keywordFilterCount`(현재 필터로 적용된 키워드의 개수), `selectedKeywordTypeInDropDownKR`()와 같이 기존에 선언한 상태로 계산 가능한 값은 상태로 선언하지 않고 [DRY(Don’t Repeat Yourself) 원칙](https://react.dev/learn/thinking-in-react#step-3-find-the-minimal-but-complete-representation-of-ui-state)을 준수하며 state를 구조화 하고자 했습니다.
+- 리렌더링을 포함하여, 현재 작성하는 코드의 영향 범위를 정확히 인지하는 것의 중요성을 배울 수 있었습니다. 기존 컴포넌트 및 상태 구조에 얽매여 사고하지 않고, 현상의 원인을 분석하고 원점으로 돌아가 구조적으로 해결해본 값진 경험이었습니다. 특히 기한이 정해진 상황에서 기존 구조를 바꾸는 것을 쉽게 의사결정하지 못 했습니다. 이 결정이 변수가 되어 일정 관리에 변수가 될 수 있다는 걱정이 있었는데, 이렇게 구조적으로 가능한 빨리 해결하고 가는 것이 장기적으로 올바르고 빠른 해결방향임을 체득할 수 있었습니다.
+
+<br>
+
 ## 네이버 블로그 API의 응답 중 content와 title 내부의 &amp 은 무엇이며 어떻게 필터링할까?
 
 ## Naver Blog API 응답에서 HTML Entities 처리하기
