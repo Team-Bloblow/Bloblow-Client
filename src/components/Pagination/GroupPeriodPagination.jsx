@@ -10,27 +10,35 @@ const GroupPeriodPagination = ({ chartData, setCursorId, isPlaceholderData }) =>
 
   return (
     <div className="flex justify-center items-center pt-10">
-      <Button
-        styles={`z-30 px-4 h-full cursor-pointer group focus:outline-none ${isPreviousButtonDisabled ? "hover:cursor-default" : ""}`}
-        onClick={() => setCursorId(chartData?.previousCursorId)}
-        isDisabled={isPreviousButtonDisabled}
-      >
-        <LeftCarouselIcon isDisabled={isPreviousButtonDisabled} />
-      </Button>
-      <span className="text-16">
-        {changeDateWithDotFormat(chartData?.items[0]?.dates[0]) +
-          " ~ " +
-          changeDateWithDotFormat(
-            chartData?.items[0]?.dates[chartData?.items[0]?.dates.length - 1]
-          )}
-      </span>
-      <Button
-        styles={`z-30 px-4 h-full cursor-pointer group focus:outline-none ${isNextButtonDisabled ? "hover:cursor-default" : ""}`}
-        onClick={() => setCursorId(chartData?.nextCursorId)}
-        isDisabled={isNextButtonDisabled}
-      >
-        <RightCarouselIcon isDisabled={isNextButtonDisabled} />
-      </Button>
+      {chartData?.items?.length > 0 ? (
+        <>
+          <Button
+            styles={`z-30 px-4 h-full cursor-pointer group focus:outline-none ${isPreviousButtonDisabled ? "hover:cursor-default" : ""}`}
+            onClick={() => setCursorId(chartData?.previousCursorId)}
+            isDisabled={isPreviousButtonDisabled}
+          >
+            <LeftCarouselIcon isDisabled={isPreviousButtonDisabled} />
+          </Button>
+          <span className="text-16">
+            {changeDateWithDotFormat(chartData?.items[0]?.dates[0]) +
+              " ~ " +
+              changeDateWithDotFormat(
+                chartData?.items[0]?.dates[chartData?.items[0]?.dates.length - 1]
+              )}
+          </span>
+          <Button
+            styles={`z-30 px-4 h-full cursor-pointer group focus:outline-none ${isNextButtonDisabled ? "hover:cursor-default" : ""}`}
+            onClick={() => setCursorId(chartData?.nextCursorId)}
+            isDisabled={isNextButtonDisabled}
+          >
+            <RightCarouselIcon isDisabled={isNextButtonDisabled} />
+          </Button>
+        </>
+      ) : (
+        <>
+          <span className="text-16 text-gray-500">키워드 등록후 확인할 수 있어요</span>
+        </>
+      )}
     </div>
   );
 };
