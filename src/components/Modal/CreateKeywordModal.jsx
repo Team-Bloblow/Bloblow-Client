@@ -8,7 +8,6 @@ import Portal from "../Common/Portal";
 import SelectGroupDropDown from "../DropDown/SelectGroupDropDown";
 import PlusSquareIcon from "../Icon/PlusSquareIcon";
 import Label from "../UI/Label";
-import Loading from "../UI/Loading";
 import ModalBackground from "./ModalBackground";
 import ModalFrame from "./ModalFrame";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -140,90 +139,80 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
             className={`w-500 flex-col-center ${isPending || "pt-40"} gap-15`}
             onSubmit={handleKeywordSubmit}
           >
-            {isPending ? (
-              <Loading width={100} height={100} text={"블로그를 가져오는 중입니다"} />
+            {isCreatingNewGroup ? (
+              <div className="w-full flex items-start gap-20">
+                <Label
+                  htmlFor="newGroup"
+                  styles="w-100 text-20 text-slate-700 font-semibold flex-shrink-0 hover:text-emerald-900/80"
+                >
+                  새로운 그룹
+                </Label>
+                <div className="flex flex-col justify-center gap-3 w-full">
+                  <input
+                    type="text"
+                    id="newGroup"
+                    value={inputValue.newGroup}
+                    onChange={handleNewGroupInputChange}
+                    className="w-full h-40 px-15 border-2 border-black rounded-[5px] text-emerald-900 font-semibold"
+                    placeholder="새롭게 추가할 그룹명을 입력해주세요"
+                  />
+                  <p className="text-12 text-red-500 h-18 font-semibold">{errorMessage.newGroup}</p>
+                </div>
+              </div>
             ) : (
-              <>
-                {isCreatingNewGroup ? (
-                  <div className="w-full flex items-start gap-20">
-                    <Label
-                      htmlFor="newGroup"
-                      styles="w-100 text-20 text-slate-700 font-semibold flex-shrink-0 hover:text-emerald-900/80"
-                    >
-                      새로운 그룹
-                    </Label>
+              <div className="w-full flex items-start gap-20">
+                <Label
+                  htmlFor="group"
+                  styles="w-100 text-20 text-slate-700 font-semibold flex-shrink-0 hover:text-emerald-900/80"
+                >
+                  그룹
+                </Label>
+                {createType === "dashboard" ? (
+                  <p className="w-full h-40 text-18 text-slate-700 font-semibold">
+                    {selectedGroup.name}
+                  </p>
+                ) : (
+                  <>
                     <div className="flex flex-col justify-center gap-3 w-full">
-                      <input
-                        type="text"
-                        id="newGroup"
-                        value={inputValue.newGroup}
-                        onChange={handleNewGroupInputChange}
-                        className="w-full h-40 px-15 border-2 border-black rounded-[5px] text-emerald-900 font-semibold"
-                        placeholder="새롭게 추가할 그룹명을 입력해주세요"
+                      <SelectGroupDropDown
+                        selectedGroup={selectedGroup}
+                        groupList={groupList}
+                        setSelectedGroup={setSelectedGroup}
                       />
                       <p className="text-12 text-red-500 h-18 font-semibold">
-                        {errorMessage.newGroup}
+                        {errorMessage.group}
                       </p>
                     </div>
-                  </div>
-                ) : (
-                  <div className="w-full flex items-start gap-20">
-                    <Label
-                      htmlFor="group"
-                      styles="w-100 text-20 text-slate-700 font-semibold flex-shrink-0 hover:text-emerald-900/80"
-                    >
-                      그룹
-                    </Label>
-                    {createType === "dashboard" ? (
-                      <p className="w-full h-40 text-18 text-slate-700 font-semibold">
-                        {selectedGroup.name}
-                      </p>
-                    ) : (
-                      <>
-                        <div className="flex flex-col justify-center gap-3 w-full">
-                          <SelectGroupDropDown
-                            selectedGroup={selectedGroup}
-                            groupList={groupList}
-                            setSelectedGroup={setSelectedGroup}
-                          />
-                          <p className="text-12 text-red-500 h-18 font-semibold">
-                            {errorMessage.group}
-                          </p>
-                        </div>
-                        {!isNewGroupSelected && (
-                          <PlusSquareIcon
-                            className="size-40 flex-shrink-0 fill-black cursor-pointer hover:fill-emerald-950"
-                            onClick={handleCreateNewGroupButtonClick}
-                          />
-                        )}
-                      </>
+                    {!isNewGroupSelected && (
+                      <PlusSquareIcon
+                        className="size-40 flex-shrink-0 fill-black cursor-pointer hover:fill-emerald-950"
+                        onClick={handleCreateNewGroupButtonClick}
+                      />
                     )}
-                  </div>
+                  </>
                 )}
-                <div className="w-full flex items-start gap-20">
-                  <Label
-                    htmlFor="keyword"
-                    styles="w-100 text-20 text-slate-700 font-semibold flex-shrink-0 hover:text-emerald-900/80"
-                  >
-                    키워드
-                  </Label>
-                  <div className="flex flex-col justify-start gap-3 w-full">
-                    <input
-                      type="text"
-                      id="keyword"
-                      value={inputValue.keyword}
-                      onChange={handleKeywordInputChange}
-                      className="w-full h-40 px-15 border-2 border-slate-700 rounded-[5px] text-emerald-900 font-semibold"
-                      placeholder="새롭게 추가할 키워드를 입력해주세요"
-                    />
-                    <p className="text-12 text-red-500 h-18 font-semibold">
-                      {errorMessage.keyword}
-                    </p>
-                  </div>
-                </div>
-                <CreateKeywordButton isDisabled={isPending} />
-              </>
+              </div>
             )}
+            <div className="w-full flex items-start gap-20">
+              <Label
+                htmlFor="keyword"
+                styles="w-100 text-20 text-slate-700 font-semibold flex-shrink-0 hover:text-emerald-900/80"
+              >
+                키워드
+              </Label>
+              <div className="flex flex-col justify-start gap-3 w-full">
+                <input
+                  type="text"
+                  id="keyword"
+                  value={inputValue.keyword}
+                  onChange={handleKeywordInputChange}
+                  className="w-full h-40 px-15 border-2 border-slate-700 rounded-[5px] text-emerald-900 font-semibold"
+                  placeholder="새롭게 추가할 키워드를 입력해주세요"
+                />
+                <p className="text-12 text-red-500 h-18 font-semibold">{errorMessage.keyword}</p>
+              </div>
+            </div>
+            <CreateKeywordButton isDisabled={isPending} />
           </form>
         </ModalFrame>
       </ModalBackground>
