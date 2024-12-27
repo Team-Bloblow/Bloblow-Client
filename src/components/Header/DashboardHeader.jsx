@@ -6,6 +6,7 @@ import ConfirmModal from "../../components/Modal/ConfirmModal";
 import { ALERT_MESSAGE, CONFIRM_MESSAGE, ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
 import getDate from "../../utils/getDate";
+import StartCrawlingButton from "../Button/StartCrawlingButton";
 import KeywordChip from "../Chip/KeywordChip";
 import CalendarIcon from "../Icon/CalendarIcon";
 import EditIcon from "../Icon/EditIcon";
@@ -147,9 +148,12 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
   return (
     <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-r-2 border-violet-50 shadow-sm px-20 py-10 flex-shrink-0">
       <div className="flex justify-between items-center w-full">
-        <span className="flex items-center text-25 text-green-950 font-bold">
-          {dashboardKeywordName}
-        </span>
+        <div className="flex flex-col gap-5">
+          <span className="flex items-center text-25 text-green-950 font-bold">
+            {dashboardKeywordName}
+          </span>
+          <StartCrawlingButton />
+        </div>
         <p className="flex flex-col gap-5 text-black text-15 font-light">
           <span className="flex items-center pt-2">
             <CalendarIcon className="size-18 fill-none mr-5 font-bold" />
