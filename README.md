@@ -7,7 +7,15 @@
     <b>특정 키워드에 대한 네이버 블로그 게시물 분석 서비스</b>
   </p>
   <a href="https://github.com/Team-Bloblow/Bloblow-Client">클라이언트 </a> | <a href="https://github.com/Team-Bloblow/Bloblow-Server">서버 </a> | <a href="https://github.com/Team-Bloblow/Bloblow-puppeteer">크롤링 서버 </a>
-</div><br/>
+</div>
+
+<br/>
+
+<div align="center">
+  <img width="70%" src="/public/assets/docs-preview-home.png" alt=""/>
+</div>
+
+<br/>
 
 목차
 
@@ -78,7 +86,9 @@
 ### 미리보기
 
 <div align="center">
-  <img width="100%" src="/public/assets/docs-preview-home.png" alt=""/>
+  <img width="70%" src="/public/assets/docs-preview-group.png" alt=""/>
+  <img width="70%" src="/public/assets/docs-preview-keyword-chart.png" alt=""/>
+  <img width="70%" src="/public/assets/docs-preview-post-list.png" alt=""/>
 </div>
 
 ### 기능
@@ -958,9 +968,15 @@ https://developer.mozilla.org/ko/docs/Glossary/Entity
 
 ## 팀 내 시행 착오 공유로 학습 및 구현 속도를 높여보자
 
+(WIP)
+
 ## 코드 리뷰를 효과적으로 하려는 고민
 
+(WIP)
+
 ## Git 협업
+
+(WIP)
 
 <br>
 
