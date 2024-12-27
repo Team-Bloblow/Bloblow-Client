@@ -85,20 +85,21 @@
 
 ### 미리보기
 
-<div align="flex center">
-  <div>
-    키워드 대시보드
-    <img width="100%" src="/public/assets/docs-preview-keyword-chart.png" alt="preview-keyword-chart"/>
-  </div>
-  <div>
-    그룹 대시보드
-    <img width="45%" src="/public/assets/docs-preview-group.png" alt="preview-group"/>
-  </div>
-  <div>
-    키워드 게시물 목록
-    <img width="45%" src="/public/assets/docs-preview-post-list.png" alt="preview-post-list"/>
-  </div>
+키워드 대시보드
+
+<div align="center">
+  <img width="100%" src="/public/assets/docs-preview-keyword-chart.png" alt="preview-keyword-chart"/>
 </div>
+
+그룹 대시보드 / 키워드 게시물 목록
+
+<div >
+  <img align="left" width="45%" src="/public/assets/docs-preview-group.png" alt="preview-group"/>
+  <img align="right" width="45%" src="/public/assets/docs-preview-post-list.png" alt="preview-post-list"/>
+</div>
+
+<br>
+<br>
 
 ### 기능
 
