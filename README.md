@@ -11,9 +11,15 @@
 
 목차
 
-1. [Motivation](https://github.com/Team-Bloblow/Bloblow-Client/tree/doc/readme-template?tab=readme-ov-file#1-motivation)
-2. [Feature / Preview](https://github.com/Team-Bloblow/Bloblow-Client/tree/doc/readme-template?tab=readme-ov-file#2-feature--preview)
-
+1. [Motivation](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#1-motivation)
+2. [Feature / Preview](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#2-feature--preview)
+3. [Development](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#3-development)
+4. [User Experience](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#4-user-experience)
+5. [Optimization](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#5-optimization)
+6. [Feedback / Improvement](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#6-feedback--improvement)
+7. [Tech Stack](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#7-tech-stack)
+8. [Team Work / Collabration Rule](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#8-team-Work--collabration-rule)
+9. [Project Review](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#9-team-Work-collabration-rule)
 
 <br>
 <br>
@@ -685,9 +691,9 @@ export default sanitizeHtmlEntity;
 
 https://developer.mozilla.org/ko/docs/Glossary/Entity
 
-## (작성 중) 사용자들은 여러 키워드를 동시에 비교하고 싶지 않을까?
+<br>
 
-# 5. Code Quality / Optimization
+# 5. Optimization
 
 ## 여러 개의 블로그 게시물들을 크롤링하는 시간을 얼마나 줄일 수 있을까?
 
@@ -721,6 +727,8 @@ https://developer.mozilla.org/ko/docs/Glossary/Entity
 크롤링 시작하기 전에 네이버 블로그가 아닌 경우는 제외시키는 예외 처리만 추가할 수 있었지만, 예상하지 못한 문제들이 발생할 수 상황을 고려해야 했습니다.
 
 따라서, 요청한 10개의 게시물 크롤링 요청 도중 하나의 크롤링에서 오류가 발생하면 모든 크롤링 작업이 멈추게 되는 `Promise.all`을 택하기 보단 개별 크롤링 작업에 대한 결과가 포함되어 반환되는 `Promise.allSettled`를 택하였습니다.
+
+<br>
 
 ## DB 업데이트, UI 반영의 자연스러운 전환을 고민했습니다. 총 4가지 옵션 중 Optimistic Update 방식을 채택해 자연스러운 동기화로 보이는 UX로 개선했습니다.
 
@@ -894,21 +902,23 @@ https://developer.mozilla.org/ko/docs/Glossary/Entity
 >
 > https://ko.legacy.reactjs.org/docs/composition-vs-inheritance.html >https://www.patterns.dev/react/presentational-container-pattern/ >https://medium.com/@console_log/presentational-container-component-pattern%EA%B3%BC-react-b0f65032ced3
 
+<br>
+<br>
+
 # 6. Feedback / Improvement
 
 ## 전체 UI 수정
 
-## 차트를 일단위 뿐만 아니라 주 단위, 월 단위로도 볼 수 있었으면 어떨까요?
+(WIP)
 
-# 7. 협업 룰
+## 차트를 일단위 뿐만 아니라 주 단위, 월 단위로도 볼 수 있게 하면 어떨까?
 
-## 팀 내 시행 착오 공유로 학습 및 구현 속도 높이기
+(WIP)
 
-## 코드 리뷰
+<br>
+<br>
 
-## Git
-
-# 8. 기술 스택
+# 7. Tech Stack
 
 **Front End**
 
@@ -942,9 +952,19 @@ https://developer.mozilla.org/ko/docs/Glossary/Entity
   <img width="90%" src="/public/assets/bloblow_tech_stack.png" alt="블로블로 기술 스택"/>
 </div>
 
-(API 명세 / ERD / 기술 선정 이유 넣을 예정)
+<br>
 
-# 9. Team / Review
+# 8. Team Work / Collabration Rule
+
+## 팀 내 시행 착오 공유로 학습 및 구현 속도를 높여보자
+
+## 코드 리뷰를 효과적으로 하려는 고민
+
+## Git 협업
+
+<br>
+
+# 9. Project Review
 
 ## 팀 회고
 
@@ -989,8 +1009,16 @@ https://developer.mozilla.org/ko/docs/Glossary/Entity
 
 ## 향후 확장 계획
 
+(WIP)
+
 ### 추후 추가 구현할 기능
+
+(WIP)
 
 ### 리팩토링 또는 최적화 예정 기능
 
+(WIP)
+
 ## 느낀 점 / 인사이트
+
+(WIP)
