@@ -46,14 +46,13 @@ const UserGroupCardList = () => {
   }
 
   return (
-    <section className="flex flex-col justify-start gap-15 bg-white rounded-[1px] px-30 w-full h-full overflow-y-scroll">
+    <section className="flex flex-col justify-start gap-15 bg-white rounded-[1px] px-30 w-2/3 h-full overflow-y-scroll">
       <div className="flex flex-col gap-10">
-        <span className="text-20 font-semibold">그룹</span>
         <Button
-          styles="w-300 lg:w-full px-10 lg:px-20 lg:py-18 text-21 text-gray-400 font-light border-2 border-slate-200/80 rounded-[8px] bg-gray-100 hover:shadow hover:border-gray-300"
+          styles="w-300 lg:w-full px-10 lg:px-20 lg:py-18 text-21 text-gray-400 font-semibold border-2 border-slate-200/80 rounded-[8px] bg-gray-100 hover:shadow hover:border-gray-300"
           onClick={handleCreateGroupButtonClick}
         >
-          +
+          + 그룹 만들기
         </Button>
       </div>
       {userGroupList?.groupListResult?.map((groupInfo) => (

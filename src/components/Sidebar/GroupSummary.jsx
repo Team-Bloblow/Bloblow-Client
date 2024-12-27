@@ -40,12 +40,12 @@ const GroupSummary = () => {
         <span className="text-20 font-semibold">최근 업데이트</span>
         {passedDate && <span className="text-12 font-light text-gray-500">{passedDate}일 전</span>}
       </div>
-      <div className="flex flex-col gap-10">
+      <div className="flex justify-between gap-10">
         <span className="text-15 font-light text-gray-600">그룹</span>
         {summaryData?.group && (
           <span className="text-17 font-medium">
-            {summaryData?.group.length > 15
-              ? summaryData?.group.substring(0, 14) + "..."
+            {summaryData?.group.length > 20
+              ? summaryData?.group.substring(0, 19) + "..."
               : summaryData?.group}
           </span>
         )}
