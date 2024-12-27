@@ -9,6 +9,15 @@
   <a href="https://github.com/Team-Bloblow/Bloblow-Client">클라이언트 </a> | <a href="https://github.com/Team-Bloblow/Bloblow-Server">서버 </a> | <a href="https://github.com/Team-Bloblow/Bloblow-puppeteer">크롤링 서버 </a>
 </div><br/>
 
+목차
+
+1. [Motivation](https://github.com/Team-Bloblow/Bloblow-Client/tree/doc/readme-template?tab=readme-ov-file#1-motivation)
+2. [Feature / Preview](https://github.com/Team-Bloblow/Bloblow-Client/tree/doc/readme-template?tab=readme-ov-file#2-feature--preview)
+
+
+<br>
+<br>
+
 # 1. Motivation
 
 <details>
