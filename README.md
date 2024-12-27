@@ -83,6 +83,16 @@
 
 # 2. Feature / Preview
 
+### 기능
+
+- 키워드 구독
+  - 키워드를 하나의 그룹으로 묶어 각각의 데이터 지표와 통계 차트를 제공합니다.
+- 게시물 조회 (정렬/필터)
+  - 구독한 키워드의 블로그 게시물 리스트를 최신순, 공감순, 댓글 수 순으로 정렬할 수 있습니다.
+  - 게시물 중 광고글을 분류하거나, 특정 단어가 포함된 게시물을 불러오거나 제외할 수 있습니다.
+
+<br>
+
 ### 미리보기
 
 키워드 대시보드
@@ -94,22 +104,11 @@
 그룹 대시보드 / 키워드 게시물 목록
 
 <div align="left" width="50%">
-  <img width="100%" src="/public/assets/docs-preview-group.png" alt="preview-group"/>
+  <img src="/public/assets/docs-preview-group.png" alt="preview-group"/>
 </div>
 <div align="right" width="50%">
-  <img width="100%" src="/public/assets/docs-preview-post-list.png" alt="preview-post-list"/>
+  <img src="/public/assets/docs-preview-post-list.png" alt="preview-post-list"/>
 </div>
-
-<br>
-<br>
-
-### 기능
-
-- 키워드 구독
-  - 키워드를 하나의 그룹으로 묶어 각각의 데이터 지표와 통계 차트를 제공합니다.
-- 게시물 조회 (정렬/필터)
-  - 구독한 키워드의 블로그 게시물 리스트를 최신순, 공감순, 댓글 수 순으로 정렬할 수 있습니다.
-  - 게시물 중 광고글을 분류하거나, 특정 단어가 포함된 게시물을 불러오거나 제외할 수 있습니다.
 
 <br>
 
