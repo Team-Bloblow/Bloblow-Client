@@ -98,16 +98,19 @@
 키워드 대시보드
 
 <div align="center">
-  <img width="100%" src="/public/assets/docs-preview-keyword-chart.png" alt="preview-keyword-chart"/>
+  <img width="70%" src="/public/assets/docs-preview-keyword-chart.png" alt="preview-keyword-chart"/>
 </div>
 
-그룹 대시보드 / 키워드 게시물 목록
+그룹 대시보드
 
-<div align="left" width="50%">
-  <img src="/public/assets/docs-preview-group.png" alt="preview-group"/>
+<div align="center">
+  <img width="70%" src="/public/assets/docs-preview-group.png" alt="preview-group"/>
 </div>
-<div align="right" width="50%">
-  <img src="/public/assets/docs-preview-post-list.png" alt="preview-post-list"/>
+
+키워드 게시물 목록
+
+<div align="center">
+  <img width="70%" src="/public/assets/docs-preview-post-list.png" alt="preview-post-list"/>
 </div>
 
 <br>
