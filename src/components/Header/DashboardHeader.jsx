@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import asyncPostKeywords from "../../api/crawl/asyncPostKeywords";
 import asyncPutGroupName from "../../api/group/asyncPutGroupName";
 import AlertModal from "../../components/Modal/AlertModal";
 import ConfirmModal from "../../components/Modal/ConfirmModal";
@@ -14,6 +15,7 @@ import UpdateIcon from "../Icon/UpdateIcon";
 import ErrorModal from "../Modal/ErrorModal";
 import Button from "../UI/Button";
 import Label from "../UI/Label";
+import Loading from "../UI/Loading";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 
@@ -46,6 +48,10 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
       queryClient.setQueryData(["userGroupList", userUid], newGroupInfo);
       return { preGroupInfo, newGroupInfo };
     },
+  });
+
+  const startCrawlingMutation = useMutation({
+    mutationFn: (keywordId) => asyncPostKeywords(keywordId),
   });
 
   const createdDate = getDate(specificKeywordData?.createdAt);
@@ -145,6 +151,10 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
     );
   }
 
+  const handleStartCrawlingButtonClick = () => {
+    startCrawlingMutation.mutate(keywordId);
+  };
+
   return (
     <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-r-2 border-violet-50 shadow-sm px-20 py-10 flex-shrink-0">
       <div className="flex justify-between items-center w-full">
@@ -152,7 +162,13 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
           <span className="flex items-center text-25 text-green-950 font-bold">
             {dashboardKeywordName}
           </span>
-          <StartCrawlingButton />
+          <div className="flex items-center gap-5">
+            <StartCrawlingButton
+              isDisabled={startCrawlingMutation.isPending}
+              onButtonClick={handleStartCrawlingButtonClick}
+            />
+            {startCrawlingMutation.isPending && <Loading width={25} height={25} />}
+          </div>
         </div>
         <p className="flex flex-col gap-5 text-black text-15 font-light">
           <span className="flex items-center pt-2">

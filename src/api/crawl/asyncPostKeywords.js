@@ -4,9 +4,8 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const asyncPostKeywords = async (keywordId) => {
   const fetchInfo = {
-    url: `${API_BASE_URL}/keywords`,
+    url: `${API_BASE_URL}/keywords/${keywordId}`,
     method: "POST",
-    params: keywordId,
   };
 
   const response = await fetchHandler(fetchInfo);
