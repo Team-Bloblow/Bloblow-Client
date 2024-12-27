@@ -66,7 +66,9 @@ const PostCardList = ({ keywordId, filterList, setFilterList, resetFilterList })
             setFilterList={setFilterList}
             resetFilterList={resetFilterList}
           />
-          <div className={`${hasPostResponse ? "" : "flex-col-center w-full h-full flex-grow"}`}>
+          <div
+            className={`${hasPostResponse ? "flex flex-col gap-10" : "flex-col-center w-full h-full flex-grow"}`}
+          >
             {hasPostResponse ? (
               postResponse?.pages?.map((page) => {
                 return page.items?.map((postInfo) => {
