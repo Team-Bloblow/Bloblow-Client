@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
-const useBrowserSize = () => {
+import throttle from "../utils/throttle";
+
+const useViewportSize = () => {
   const [windowSize, setWindowSize] = useState({
     width: null,
     height: null,
@@ -8,12 +10,12 @@ const useBrowserSize = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const handleResize = () => {
+      const handleResize = throttle(() => {
         setWindowSize({
           width: window.innerWidth,
           height: window.innerHeight,
         });
-      };
+      }, 300);
 
       window.addEventListener("resize", handleResize);
 
@@ -26,4 +28,4 @@ const useBrowserSize = () => {
   return windowSize;
 };
 
-export default useBrowserSize;
+export default useViewportSize;
