@@ -101,12 +101,12 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
     };
 
     return (
-      <aside className="flex justify-between items-center w-full h-100 bg-white md:border-b-2 md:border-r-2 border-l-2 border-b-2 border-r-2 border-slate-200/80 shadow-sm px-20 py-5 flex-shrink-0">
-        <div className="flex flex-col items-start gap-10 w-full h-70">
+      <aside className="flex justify-between items-center w-full md:h-100 h-full bg-white md:border-b-2 md:border-r-2 border-l-2 border-b-2 border-r-2 border-slate-200/80 shadow-sm px-20 md:py-5 py-10 flex-shrink-0">
+        <div className="flex flex-col items-start gap-10 w-full md:h-70 h-full">
           <div className="flex items-center w-full h-full">
             {!isEditing && (
-              <div className="flex ">
-                <p className="text-21 text-green-950 font-bold">{dashboardGroupName}</p>
+              <div className="flex">
+                <p className="text-17 md:text-21 text-green-950 font-bold">{dashboardGroupName}</p>
                 <Button styles="relative pl-15" onClick={handleEditGroupButtonClick}>
                   <EditIcon className="absolute bottom-7 size-18" />
                 </Button>
@@ -120,11 +120,11 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
                   id="editGroupName"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  className="h-full w-250 px-10 mr-20 font-medium text-15 border-2 rounded outline-none"
+                  className="h-full w-250 px-10 mr-20 font-medium text-15 border-2 rounded outline-none py-5"
                   placeholder="변경할 그룹 이름을 입력해주세요"
                 />
                 <Button
-                  styles="w-60 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 bg-green-100 border-2 border-green-100 font-semibold hover:bg-green-200"
+                  styles="md:w-60 w-40 right-20 px-5 py-4 rounded-[5px] font-medium text-gray-900/80 bg-green-100 border-2 border-green-100 font-semibold hover:bg-green-200 md:text-16 text-12"
                   onClick={handleEditGroupButtonClick}
                 >
                   저장
@@ -132,7 +132,7 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
               </>
             )}
           </div>
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-5 flex-wrap">
             {dashboardKeywordList?.map((dashboardKeyword) => {
               const keywordId = dashboardKeyword._id;
               const keywordName = dashboardKeyword.keyword;
@@ -141,7 +141,7 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
                 <KeywordChip
                   key={keywordId}
                   keywordName={keywordName}
-                  styles="flex-center text-14 px-5 py-2 bg-green-500/10 text-black rounded-[3px]"
+                  styles="flex-center text-12 md:text-14 px-5 py-2 bg-green-500/10 text-black rounded-[3px]"
                 />
               );
             })}

@@ -79,7 +79,7 @@ const GroupPage = () => {
               groupId={groupId}
               hasUserUid={hasUserUid}
             />
-            <div className="flex gap-10">
+            <div className="flex flex-col md:flex-row gap-10 w-full">
               <GroupPeriodPostCountCard
                 groupChartType={GROUP_CHART_TYPE.LIKE}
                 groupId={groupId}

@@ -51,11 +51,11 @@ const DashboardSidebar = ({ userGroupList, groupId, keywordId }) => {
         <span className="hidden md:inline">마이페이지</span>
       </Button>
       <Button
-        styles={`flex flex-shrink-0 break-keep items-center md:gap-12 w-full md:h-58 h-50 md:px-30 px-20 py-10 md:text-22 text-16 text-slate-700 border-l-2 border-r-2 md:border-0 border-slate-200/80 font-semibold hover:opacity-70 ${checkActiveDashboard("group")}`}
+        styles={`flex flex-shrink-0 break-keep items-center md:gap-12 w-full md:h-58 h-50 md:px-30 px-10 py-10 md:text-22 text-14 text-slate-700 border-l-2 border-r-2 md:border-0 border-slate-200/80 font-semibold hover:opacity-70 ${checkActiveDashboard("group")}`}
         destination={`/dashboard/${groupId}`}
       >
-        {dashboardGroupName.length > 8
-          ? `${dashboardGroupName.slice(0, 8)}...`
+        {dashboardGroupName.length > 7
+          ? `${dashboardGroupName.slice(0, 7)}...`
           : dashboardGroupName}
       </Button>
       <div className="hidden md:flex flex-col">
@@ -91,11 +91,11 @@ const DashboardSidebar = ({ userGroupList, groupId, keywordId }) => {
               return (
                 <Button
                   key={keywordId}
-                  styles={`flex items-center gap-6 w-full h-46 px-30 py-10 text-14 text-slate-700 hover:opacity-70 hover:bg-gray-200/30 ${checkActiveDashboard("keyword", keywordId)}`}
+                  styles={`flex items-center gap-6 w-full h-46 px-10 py-10 text-13 text-slate-700 hover:opacity-70 hover:bg-gray-200/30 ${checkActiveDashboard("keyword", keywordId)}`}
                   destination={`/dashboard/${groupId}/${keywordId}`}
                 >
                   <HashtagIcon className="w-13 h-13" />
-                  {keywordName.length > 20 ? `${keywordName.slice(0, 20)}...` : keywordName}
+                  {keywordName.length > 7 ? `${keywordName.slice(0, 7)}...` : keywordName}
                 </Button>
               );
             })}
@@ -103,7 +103,7 @@ const DashboardSidebar = ({ userGroupList, groupId, keywordId }) => {
         )}
       </div>
       <Button
-        styles="flex-center flex-shrink-0 md:w-full w-120 md:h-70 h-50 md:px-30 px-12 py-10 text-14 md:text-18 text-gray-900/80 md:border-t-2 md:border-b-2 border-l-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
+        styles="flex-center flex-shrink-0 md:h-70 h-50 md:px-30 px-8 md:py-10 text-12 md:text-18 text-gray-900/80 md:border-t-2 md:border-b-2 border-l-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
         onClick={handleCreateKeywordButton}
       >
         + 키워드 만들기
