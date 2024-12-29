@@ -65,27 +65,33 @@ const PostCardList = ({ keywordId, filterList, setFilterList, resetFilterList })
       <div
         className={`${hasPostResponse ? "flex flex-col w-full h-full gap-10" : "flex-col-center w-full h-full flex-grow"}`}
       >
-        {hasPostResponse ? (
-          postResponse?.pages?.map((page) => {
-            return page.items?.map((postInfo) => {
-              return (
-                <PostCard
-                  key={postInfo?._id}
-                  postTitle={postInfo?.title}
-                  postDescription={postInfo?.description}
-                  likeCount={postInfo?.likeCount}
-                  commentCount={postInfo?.commentCount}
-                  link={postInfo?.link}
-                  createdAt={postInfo?.createdAt}
-                  isAd={postInfo?.isAd ?? false}
-                />
-              );
-            });
-          })
+        {isPending ? (
+          <Loading width={100} height={100} text={""} />
         ) : (
-          <p className="text-22">확인할 수 있는 게시물이 없어요</p>
+          <>
+            {hasPostResponse ? (
+              postResponse?.pages?.map((page) => {
+                return page.items?.map((postInfo) => {
+                  return (
+                    <PostCard
+                      key={postInfo?._id}
+                      postTitle={postInfo?.title}
+                      postDescription={postInfo?.description}
+                      likeCount={postInfo?.likeCount}
+                      commentCount={postInfo?.commentCount}
+                      link={postInfo?.link}
+                      createdAt={postInfo?.createdAt}
+                      isAd={postInfo?.isAd ?? false}
+                    />
+                  );
+                });
+              })
+            ) : (
+              <p className="text-22">확인할 수 있는 게시물이 없어요</p>
+            )}
+            {isFetchingNextPage && <Loading width={50} height={50} text={""} />}
+          </>
         )}
-        {isFetchingNextPage && <Loading width={50} height={50} text={""} />}
       </div>
       <div ref={observeRef} className="h-1" />
     </article>
