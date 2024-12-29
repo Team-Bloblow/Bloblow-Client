@@ -49,7 +49,7 @@ const UserGroupCardList = () => {
     <section className="flex flex-col justify-start gap-15 bg-white rounded-[1px] w-full md:w-2/3 h-full">
       <div className="flex flex-col gap-10">
         <Button
-          styles="w-300 w-full px-10 md:px-20 md:py-18 text-21 text-gray-400 font-semibold border-2 border-slate-200/80 rounded-[8px] bg-gray-100 hover:shadow hover:border-gray-300"
+          styles="w-300 w-full px-10 md:px-20 md:py-18 text-21 text-gray-400 font-semibold border-2 border-slate-200/80 rounded-[5px] bg-gray-100 hover:shadow hover:border-gray-300"
           onClick={handleCreateGroupButtonClick}
         >
           + 그룹 만들기
