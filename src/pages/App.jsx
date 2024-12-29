@@ -39,7 +39,7 @@ const App = () => {
 
   return (
     <ReactQueryProviders>
-      <Header />
+      <Header isAuthChecked={isAuthChecked} />
       {isAuthChecked ? (
         <Routes>
           <Route path="/" exact element={<HomePage />} />
