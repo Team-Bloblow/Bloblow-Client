@@ -31,7 +31,16 @@ const GroupSummary = () => {
   }
 
   if (summaryDataPending) {
-    return null;
+    return (
+      <div className="flex flex-col gap-20 w-full h-full px-15 md:px-15 py-10 md:py-15">
+        <div className="text-20 font-semibold">최근 업데이트</div>
+        <div className="animate-pulse flex flex-col gap-20">
+          <div className="w-full h-25 bg-slate-200/60" />
+          <div className="w-full h-25 bg-slate-200/60" />
+          <div className="w-full h-25 bg-slate-200/60" />
+        </div>
+      </div>
+    );
   }
 
   return (
