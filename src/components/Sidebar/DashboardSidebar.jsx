@@ -49,7 +49,9 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
           styles={`flex items-center gap-12 w-full h-58 px-30 py-10 text-22 text-slate-700 font-semibold hover:opacity-70 ${checkActiveDashboard("group")}`}
           destination={`/dashboard/${groupId}`}
         >
-          {dashboardGroupName}
+          {dashboardGroupName.length > 8
+            ? `${dashboardGroupName.slice(0, 8)}...`
+            : dashboardGroupName}
         </Button>
         {dashboardKeywordList.map((dashboardKeyword) => {
           const keywordId = dashboardKeyword._id;
@@ -62,7 +64,7 @@ const DashboardSidebar = ({ userGroupList, groupId }) => {
               destination={`/dashboard/${groupId}/${keywordId}`}
             >
               <HashtagIcon className="w-20 h-20" />
-              {keywordName}
+              {keywordName.length > 8 ? `${keywordName.slice(0, 8)}...` : keywordName}
             </Button>
           );
         })}
