@@ -18,12 +18,12 @@ const Header = () => {
   return (
     <header className="flex-center fixed top-0 z-header w-full border-b-1 bg-white shadow-sm">
       <div className="mt-2 flex h-64 w-full max-w-1440 items-center justify-between px-20">
-        <Logo styles="text-36" destination="/" />
-        <div className="flex-center gap-30">
+        <Logo styles="text-26 md:text-36" destination="/" />
+        <div className="flex-center gap-10 md:gap-30">
           {isSignIn && (
             <div className="flex-center gap-8">
-              <ProfileIcon size="w-35 h-35 lg:w-35 lg:h-35" photoURL={userInfo.photoURL} />
-              <p className="text-15 font-semibold">{userInfo.displayName}</p>
+              <ProfileIcon size="w-28 h-28 md:w-35 md:h-35" photoURL={userInfo.photoURL} />
+              <p className="hidden md:block text-15 font-semibold">{userInfo.displayName}</p>
             </div>
           )}
           <SignInButton />

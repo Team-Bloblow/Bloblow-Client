@@ -22,7 +22,7 @@ const GroupSummary = () => {
 
   if (isError) {
     return (
-      <div className="flex flex-col gap-20 w-full h-full px-15 lg:px-15 py-10 lg:py-15">
+      <div className="flex flex-col gap-20 w-full h-full px-15 md:px-15 py-10 md:py-15">
         <span className="text-12 font-light text-gray-600">
           최근 업데이트를 불러오는데 실패했습니다. 잠시 후에 다시 시도해주세요.
         </span>
@@ -35,7 +35,7 @@ const GroupSummary = () => {
   }
 
   return (
-    <div className="flex flex-col gap-20 w-full h-full px-15 lg:px-15 py-10 lg:py-15">
+    <div className="flex flex-col gap-20 w-full h-full px-15 md:px-15 py-10 md:py-15">
       <div className="flex justify-between items-end">
         <span className="text-20 font-semibold">최근 업데이트</span>
         {passedDate && <span className="text-12 font-light text-gray-500">{passedDate}일 전</span>}

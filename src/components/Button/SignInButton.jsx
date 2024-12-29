@@ -79,13 +79,13 @@ const SignInButton = ({ type }) => {
 
   return (
     <Button
-      styles="flex-center px-12 py-6 font-medium border-1 border-slate-200 bg-white shadow rounded-[1px] text-black text-16 hover:bg-gray-200/30"
+      styles="flex-center px-8 py-4 md:px-12 md:py-6 font-medium border-1 border-slate-200 bg-white shadow rounded-[1px] text-black text-16 hover:bg-gray-200/30"
       onClick={handleButtonClick}
     >
       {isSignIn ? (
         <>
-          <SignOutIcon />
-          로그아웃
+          <SignOutIcon className="size-20 mr-5 md:size-25" />
+          <span className="text-14 md:text-16">로그아웃</span>
         </>
       ) : (
         "로그인"

@@ -37,7 +37,7 @@ const HomePage = () => {
           <img src="/assets/groupChartSample.png" alt="그룹 차트 샘플 이미지" />
         </div>
         <section className="w-full lg:w-[60%] flex-center">
-          <div className="flex flex-col lg:items-start items-end justify-center gap-20 animate-fadeInSlow text-gray-800">
+          <div className="flex flex-col lg:items-start items-end justify-center gap-20 animate-fadeInSlow text-gray-800 text-right lg:text-left">
             <p className="text-20 sm:text-24 lg:text-26 font-bold">
               매일매일 업데이트 되는 대시보드 차트
             </p>
