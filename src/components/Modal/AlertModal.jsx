@@ -21,10 +21,10 @@ const AlertModal = ({ alertMessage }) => {
       <ModalBackground isClear={false} modalType={MODAL_TYPE.ALERT}>
         <ModalFrame isClear={false} hasCloseButton={false} modalType={MODAL_TYPE.ALERT}>
           <main className="flex flex-col gap-10 items-center">
-            <h1 className="text-20">{alertMessage}</h1>
+            <h1 className="md:text-20 text-16">{alertMessage}</h1>
             <Button
               type="button"
-              styles="flex-center px-14 py-8 font-medium border-2 border-slate-200 bg-slate-400/90 rounded-[5px] text-white text-18 mt-15"
+              styles="flex-center md:px-14 md:py-6 px-10 py-4 font-medium border-2 border-slate-200 bg-slate-400/90 rounded-[5px] text-white md:text-18 text-14 mt-15"
               destination={`/dashboard/${groupId}`}
               onClick={handleConfirmClick}
             >

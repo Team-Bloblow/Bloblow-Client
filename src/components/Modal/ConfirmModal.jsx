@@ -49,18 +49,18 @@ const ConfirmModal = ({ confirmMessage, confirmData }) => {
       <ModalBackground isClear={false} modalType={MODAL_TYPE.CONFIRM}>
         <ModalFrame isClear={false} hasCloseButton={false} modalType={MODAL_TYPE.CONFIRM}>
           <main className="flex flex-col gap-10 items-center">
-            <h1 className="text-20">{confirmMessage}</h1>
+            <h1 className="md:text-20 text-16">{confirmMessage}</h1>
             <p className="flex flex-row gap-15 mt-15">
               <Button
                 type="button"
-                styles="flex-center px-14 py-8 font-medium border-2 border-slate-200 bg-white rounded-[5px] text-slate-900 text-18"
+                styles="flex-center md:px-14 md:py-6 px-10 py-4 font-medium border-2 border-slate-200 bg-white rounded-[5px] text-slate-900 md:text-18 text-14"
                 onClick={handleCancelClick}
               >
                 취소
               </Button>
               <Button
                 type="button"
-                styles="flex-center px-14 py-8 font-medium border-2 border-slate-200 bg-slate-400/90 rounded-[5px] text-white text-18"
+                styles="flex-center md:px-14 md:py-6 px-10 py-4 font-medium border-2 border-slate-200 bg-slate-400/90 rounded-[5px] text-white md:text-18 text-14"
                 onClick={handleConfirmClick}
               >
                 확인
