@@ -77,10 +77,10 @@ const DashboardSidebar = ({ userGroupList, groupId, keywordId }) => {
       </div>
       <div
         ref={containerRef}
-        className={`relative flex w-full flex-grow items-center md:hidden gap-10 cursor-pointer text-18 ${currentKeywordName && "bg-gray-100"}`}
+        className={`relative flex w-full flex-grow items-center md:hidden gap-4 cursor-pointer text-14 ${currentKeywordName && "bg-gray-100"}`}
         onClick={() => setIsDropDownOpen(!isDropDownOpen)}
       >
-        <HashtagIcon className={`${keywordId === undefined && "hidden"} ml-30 w-20 h-20`} />
+        <HashtagIcon className={`${keywordId === undefined && "hidden"} ml-10 w-12 h-12`} />
         {currentKeywordName}
         {isDropDownOpen && (
           <div className="absolute top-60 flex flex-col gap-10 w-full bg-white border-2 border-slate-200/80 shadow-lg">

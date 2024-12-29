@@ -158,11 +158,11 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
   return (
     <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-r-2 border-violet-50 shadow-sm px-20 py-10 flex-shrink-0">
       <div className="flex justify-between items-center w-full">
-        <div className="flex flex-col gap-5">
-          <span className="flex items-center text-25 text-green-950 font-bold">
+        <div className="flex flex-col md:gap-5">
+          <span className="flex items-center text-18 md:text-25 text-green-950 font-bold">
             {dashboardKeywordName}
           </span>
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-5 md:mt-0 mt-10">
             <StartCrawlingButton
               isDisabled={startCrawlingMutation.isPending}
               onButtonClick={handleStartCrawlingButtonClick}
@@ -170,20 +170,23 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
             {startCrawlingMutation.isPending && <Loading width={25} height={25} />}
           </div>
         </div>
-        <p className="flex flex-col gap-5 text-black text-15 font-light">
-          <span className="flex items-center pt-2">
-            <CalendarIcon className="size-18 fill-none mr-5 font-bold" />
-            {`구독 시작일 : ${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일`}
+        <p className="flex flex-col md:gap-5 text-black text-15 font-light">
+          <span className="flex items-center md:justify-start justify-end pt-2">
+            <span className="hidden md:flex">
+              <CalendarIcon className="size-18 fill-none mr-5 font-bold" />
+              {`구독 시작일 : ${createdDate?.currentYear}년 ${createdDate?.currentMonth}월 ${createdDate?.currentDate}일`}
+            </span>
             <Button
-              styles="w-70 h-40 rounded-[4px] text-slate-500 item-center text-center text-15 font-medium ml-4 underline decoration-1"
+              styles="h-40 rounded-[4px] text-slate-500 item-center text-center md:text-15 text-13 font-medium md:ml-20 underline decoration-1"
               onClick={handleKeywordDelete}
             >
               구독 해지
             </Button>
           </span>
-          <span className="flex items-center pt-2">
-            <UpdateIcon className="size-18 mr-5" />
-            {`마지막 업데이트 일 : ${updatedDate?.currentYear}년 ${updatedDate?.currentMonth}월 ${updatedDate?.currentDate}일`}
+          <span className="flex items-center pt-2 md:text-16 text-12">
+            <UpdateIcon className="md:size-18 size-16 mr-5" />
+            <span className="hidden md:inline">마지막 업데이트 일 : </span>
+            {`${updatedDate?.currentYear}년 ${updatedDate?.currentMonth}월 ${updatedDate?.currentDate}일`}
           </span>
         </p>
       </div>
