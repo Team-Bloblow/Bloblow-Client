@@ -27,20 +27,27 @@ const GroupPage = () => {
     staleTime: 3 * 1000,
   });
 
-  const invalidGroupId = userGroupList?.groupListResult?.find(
-    (groupInfo) => groupInfo._id === groupId
-  );
-
   useEffect(() => {
+    const invalidGroupId = userGroupList?.groupListResult?.find(
+      (groupInfo) => groupInfo._id === groupId
+    );
+
     if (userGroupList?.groupListLength > 0 && userGroupList?.groupListResult?.length > 0) {
       setUserGroupList(userGroupList?.groupListResult);
     }
-  }, [userGroupList?.groupListLength, userGroupList?.groupListResult, setUserGroupList]);
 
-  if (invalidGroupId === undefined) {
-    navigate("/notFoundPage");
-    return;
-  }
+    if (invalidGroupId === undefined) {
+      navigate("/notFoundPage");
+
+      return;
+    }
+  }, [
+    userGroupList?.groupListLength,
+    userGroupList?.groupListResult,
+    setUserGroupList,
+    groupId,
+    navigate,
+  ]);
 
   const isError = isUserGroupListError || userGroupList?.message?.includes("Error occured");
 
