@@ -77,8 +77,12 @@ const KeywordPage = () => {
   }
 
   return (
-    <main className="flex justify-start items-stretch mx-auto pt-67 w-full h-full max-w-1440">
-      <DashboardSidebar userGroupList={userGroupList?.groupListResult} groupId={groupId} />
+    <main className="flex flex-col md:flex-row justify-start items-stretch mx-auto pt-67 w-full h-full max-w-1440">
+      <DashboardSidebar
+        userGroupList={userGroupList?.groupListResult}
+        groupId={groupId}
+        keywordId={keywordId}
+      />
       <section
         className={`w-full flex flex-col justify-start ${dashboardType !== "chart" && "h-full"}`}
       >

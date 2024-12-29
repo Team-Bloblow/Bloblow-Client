@@ -101,7 +101,7 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
     };
 
     return (
-      <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-r-2 border-slate-200/80 shadow-sm px-20 py-5 flex-shrink-0">
+      <aside className="flex justify-between items-center w-full h-100 bg-white md:border-b-2 md:border-r-2 border-l-2 border-b-2 border-r-2 border-slate-200/80 shadow-sm px-20 py-5 flex-shrink-0">
         <div className="flex flex-col items-start gap-10 w-full h-70">
           <div className="flex items-center w-full h-full">
             {!isEditing && (

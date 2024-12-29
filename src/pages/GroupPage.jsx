@@ -65,11 +65,7 @@ const GroupPage = () => {
 
   return (
     <main className="flex flex-col md:flex-row justify-start items-stretch mx-auto pt-67 w-full h-full max-w-1440">
-      <DashboardSidebar
-        userGroupList={userGroupList?.groupListResult}
-        groupId={groupId}
-        userUid={userUid}
-      />
+      <DashboardSidebar userGroupList={userGroupList?.groupListResult} groupId={groupId} />
       <section className="flex flex-col justify-stretch w-full">
         <DashboardHeader
           userGroupList={userGroupList?.groupListResult}
