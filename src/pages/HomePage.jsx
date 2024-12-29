@@ -2,11 +2,8 @@ import SignInButton from "../components/Button/SignInButton";
 import Logo from "../components/Common/Logo";
 import Footer from "../components/Layout/Footer";
 import { SIGN_BUTTON_TYPE } from "../config/constants";
-import useSignInRedirect from "../hooks/useSignInRedirect";
 
 const HomePage = () => {
-  useSignInRedirect();
-
   return (
     <main className="flex flex-col items-center w-full gap-20 overflow-y-scroll">
       <div className="w-full h-screen flex-grow-1 flex-center gap-30 p-50 bg-emerald-100/30">
