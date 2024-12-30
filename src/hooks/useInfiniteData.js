@@ -8,15 +8,14 @@ const useInfiniteData = ({
   initialPageParam,
   getNextPageParam,
   ref,
-  root,
 }) => {
-  const { data, status, fetchNextPage, isPending, isError, ...rest } = useInfiniteQuery({
-    queryKey,
-    queryFn: ({ pageParam }) => queryFn(pageParam, options),
-    initialPageParam,
-    getNextPageParam,
-    staleTime: 10 * 1000,
-  });
+  const { data, status, fetchNextPage, isPending, isFetchingNextPage, isError, ...rest } =
+    useInfiniteQuery({
+      queryKey,
+      queryFn: ({ pageParam }) => queryFn(pageParam, options),
+      initialPageParam,
+      getNextPageParam,
+    });
 
   const onIntersect = (entries) => {
     if (isPending) return;
@@ -29,9 +28,9 @@ const useInfiniteData = ({
     });
   };
 
-  useObserver({ target: ref, root, threshold: 0.5, onIntersect });
+  useObserver({ target: ref, threshold: 1.0, onIntersect });
 
-  return { data, status, fetchNextPage, isPending, isError, ...rest };
+  return { data, status, fetchNextPage, isPending, isError, isFetchingNextPage, ...rest };
 };
 
 export default useInfiniteData;

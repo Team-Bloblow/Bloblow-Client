@@ -1,4 +1,4 @@
-import asyncGetGroupSummary from "../../api/group/asyncGet\bGroupSummary";
+import asyncGetGroupSummary from "../../api/group/asyncGetGroupSummary";
 import useBoundStore from "../../store/client/useBoundStore";
 import getDateDiff from "../../utils/getDateDiff";
 import { useQuery } from "@tanstack/react-query";

@@ -61,6 +61,7 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
         return POST_LISTS.IS_AD_KR.NO_ADS;
     }
   };
+
   const vaildateEqualOriginalAndTempFilter = () => {
     const filters = Object.values(filterList).flat().sort();
     const tempFilters = Object.values(tempFilterList).flat().sort();
@@ -68,7 +69,7 @@ const PostListFilter = ({ keywordId, filterList, setFilterList, resetFilterList 
     if (filters.length !== tempFilters.length) {
       return false;
     }
-    const isEqualFilter = tempFilters.every((filter, index) => filter === filters[index]); // 완전 동일해야 하는데 지금은 포함하면 통과됨.
+    const isEqualFilter = tempFilters.every((filter, index) => filter === filters[index]);
 
     return isEqualFilter;
   };
