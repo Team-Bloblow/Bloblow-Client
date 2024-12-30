@@ -17,13 +17,16 @@ const ModalFrame = ({ isClear, hasCloseButton, modalType, children }) => {
 
   return (
     <div
-      className="relative py-30 px-50 rounded-[5px] bg-white border-3 border-slate-200/80 hover:border-emerald-900/30"
+      className="relative md:py-30 py-10 md:px-50 px-20 rounded-[5px] bg-white border-3 border-slate-200/80 hover:border-emerald-900/30"
       onClick={(e) => e.stopPropagation()}
     >
       {children}
       {hasCloseButton && (
-        <Button styles="absolute top-15 right-17" onClick={handleCloseIconClick}>
-          <CloseIcon className="size-40" />
+        <Button
+          styles="absolute md:top-15 top-10 md:right-17 right-13"
+          onClick={handleCloseIconClick}
+        >
+          <CloseIcon className="size-35 md:size-40" />
         </Button>
       )}
     </div>
