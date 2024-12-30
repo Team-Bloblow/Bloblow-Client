@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
 import useDropDown from "../../hooks/useDropDown";
 import useBoundStore from "../../store/client/useBoundStore";
+import ClickIcon from "../Icon/ClickIcon";
 import HashtagIcon from "../Icon/HashtagIcon";
 import RevertIcon from "../Icon/RevertIcon";
 import CreateKeywordModal from "../Modal/CreateKeywordModal";
@@ -79,13 +80,21 @@ const DashboardSidebar = ({ userGroupList, groupId, keywordId }) => {
       </div>
       <div
         ref={containerRef}
-        className={`relative flex w-full flex-grow items-center md:hidden gap-4 cursor-pointer text-14 ${currentKeywordName && "bg-gray-100"}`}
+        className={`relative flex w-full flex-grow items-center md:hidden gap-4 cursor-pointer text-12 ${currentKeywordName && "bg-gray-100"}`}
         onClick={() => setIsDropDownOpen(!isDropDownOpen)}
       >
-        <HashtagIcon
-          className={`${keywordId === undefined && "hidden"} ml-10 w-12 h-12 pointer-events-none`}
-        />
-        {currentKeywordName}
+        {keywordId ? (
+          <HashtagIcon className="ml-10 w-12 h-12 pointer-events-none" />
+        ) : (
+          <ClickIcon className="ml-6 w-12 h-12 pointer-events-none" />
+        )}
+        {currentKeywordName ? (
+          currentKeywordName
+        ) : (
+          <span className=" pointer-events-none text-10 text-slate-700">
+            키워드 대시보드로 이동
+          </span>
+        )}
         {isDropDownOpen &&
           (dashboardKeywordList.length > 0 ? (
             <div className="absolute top-55 flex flex-col gap-10 w-full bg-white border-2 border-slate-200/80 shadow-lg z-header">
@@ -112,7 +121,7 @@ const DashboardSidebar = ({ userGroupList, groupId, keywordId }) => {
           ))}
       </div>
       <Button
-        styles="flex-center flex-shrink-0 md:h-70 h-50 md:px-30 px-8 md:py-10 text-12 md:text-18 text-gray-900/80 md:border-t-2 md:border-b-2 border-l-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
+        styles="flex-center flex-shrink-0 md:h-70 h-50 md:px-30 px-8 md:py-10 text-12 md:text-18 text-gray-900/80 md:border-t-2 md:border-b-2 border-l-2 md:border-l-0 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
         onClick={handleCreateKeywordButton}
       >
         + 키워드 만들기
