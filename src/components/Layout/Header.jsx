@@ -4,8 +4,9 @@ import useBoundStore from "../../store/client/useBoundStore";
 import SignInButton from "../Button/SignInButton";
 import Logo from "../Common/Logo";
 import ProfileIcon from "../Icon/ProfileIcon";
+import PropTypes from "prop-types";
 
-const Header = () => {
+const Header = ({ isAuthChecked }) => {
   const location = useLocation();
   const pathname = location.pathname;
   const userInfo = useBoundStore((state) => state.userInfo);
@@ -26,7 +27,7 @@ const Header = () => {
               <p className="hidden md:block text-15 font-semibold">{userInfo.displayName}</p>
             </div>
           )}
-          <SignInButton />
+          {isAuthChecked && <SignInButton />}
         </div>
       </div>
     </header>
@@ -34,3 +35,7 @@ const Header = () => {
 };
 
 export default Header;
+
+Header.propTypes = {
+  isAuthChecked: PropTypes.bool.isRequired,
+};

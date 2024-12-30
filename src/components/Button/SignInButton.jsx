@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
 import asyncPostSignIn from "../../api/auth/asyncPostSignIn";
 import {
   ERROR_MESSAGE,
@@ -15,13 +13,9 @@ import { useMutation } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 
 const SignInButton = ({ type }) => {
-  const navigate = useNavigate();
-
   const isSignIn = useBoundStore((state) => state.isSignIn);
   const asyncSignIn = useBoundStore((state) => state.asyncSignIn);
   const signOut = useBoundStore((state) => state.signOut);
-  const setIsSignIn = useBoundStore((state) => state.setIsSignIn);
-  const setUserInfo = useBoundStore((state) => state.setUserInfo);
   const openModalTypeList = useBoundStore((state) => state.openModalTypeList);
   const googleSignInError = useBoundStore((state) => state.authError.googleSignInError);
   const addModal = useBoundStore((state) => state.addModal);
@@ -49,11 +43,6 @@ const SignInButton = ({ type }) => {
               addModal(MODAL_TYPE.ERROR);
               return;
             }
-
-            const { uid, email, displayName, photoURL } = data.userResult;
-            setIsSignIn(true);
-            setUserInfo({ uid, email, displayName, photoURL });
-            navigate("/myPage");
           },
           onError: () => {
             addModal(MODAL_TYPE.ERROR);
