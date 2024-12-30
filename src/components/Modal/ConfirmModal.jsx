@@ -5,14 +5,12 @@ import Portal from "../Common/Portal";
 import Button from "../UI/Button";
 import ModalBackground from "./ModalBackground";
 import ModalFrame from "./ModalFrame";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 
 const ConfirmModal = ({ confirmMessage, confirmData }) => {
   const addModal = useBoundStore((state) => state.addModal);
   const closeModal = useBoundStore((state) => state.closeModal);
-
-  const queryClient = useQueryClient();
 
   const deleteKeywordMutation = useMutation({
     mutationFn: (keywordId) => asyncDeleteKeyword(keywordId),
@@ -35,7 +33,6 @@ const ConfirmModal = ({ confirmMessage, confirmData }) => {
 
           closeModal(MODAL_TYPE.CONFIRM);
           addModal(MODAL_TYPE.ALERT);
-          queryClient.invalidateQueries({ queryKey: ["userGroupList", data.ownerUid] });
         },
         onError: () => {
           addModal(MODAL_TYPE.ERROR);
