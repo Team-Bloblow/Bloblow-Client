@@ -50,14 +50,16 @@ const DashboardSidebar = ({ userGroupList, groupId, keywordId }) => {
         <RevertIcon className="size-16 md:size-20 fill-black" />
         <span className="hidden md:inline">마이페이지</span>
       </Button>
-      <Button
-        styles={`flex flex-shrink-0 break-keep items-center md:gap-12 w-full md:h-58 h-50 md:px-30 px-10 py-10 md:text-22 text-14 text-slate-700 border-l-2 border-r-2 md:border-0 border-slate-200/80 font-semibold hover:opacity-70 ${checkActiveDashboard("group")}`}
-        destination={`/dashboard/${groupId}`}
-      >
-        {dashboardGroupName.length > 7
-          ? `${dashboardGroupName.slice(0, 7)}...`
-          : dashboardGroupName}
-      </Button>
+      <div className="flex-shrink-0">
+        <Button
+          styles={`flex break-keep items-center md:gap-12 md:w-full md:h-58 h-50 md:px-30 px-10 py-10 md:text-22 text-14 text-slate-700 border-l-2 border-r-2 md:border-0 border-slate-200/80 font-semibold hover:opacity-70 ${checkActiveDashboard("group")}`}
+          destination={`/dashboard/${groupId}`}
+        >
+          {dashboardGroupName.length > 7
+            ? `${dashboardGroupName.slice(0, 7)}...`
+            : dashboardGroupName}
+        </Button>
+      </div>
       <div className="hidden md:flex flex-col">
         {dashboardKeywordList.map((dashboardKeyword) => {
           const keywordId = dashboardKeyword._id;
@@ -84,25 +86,30 @@ const DashboardSidebar = ({ userGroupList, groupId, keywordId }) => {
           className={`${keywordId === undefined && "hidden"} ml-10 w-12 h-12 pointer-events-none`}
         />
         {currentKeywordName}
-        {isDropDownOpen && (
-          <div className="absolute top-60 flex flex-col gap-10 w-full bg-white border-2 border-slate-200/80 shadow-lg">
-            {dashboardKeywordList.map((dashboardKeyword) => {
-              const keywordId = dashboardKeyword._id;
-              const keywordName = dashboardKeyword.keyword;
+        {isDropDownOpen &&
+          (dashboardKeywordList.length > 0 ? (
+            <div className="absolute top-55 flex flex-col gap-10 w-full bg-white border-2 border-slate-200/80 shadow-lg z-header">
+              {dashboardKeywordList.map((dashboardKeyword) => {
+                const keywordId = dashboardKeyword._id;
+                const keywordName = dashboardKeyword.keyword;
 
-              return (
-                <Button
-                  key={keywordId}
-                  styles={`flex items-center gap-6 w-full h-46 px-10 py-10 text-13 text-slate-700 hover:opacity-70 hover:bg-gray-200/30 ${checkActiveDashboard("keyword", keywordId)}`}
-                  destination={`/dashboard/${groupId}/${keywordId}`}
-                >
-                  <HashtagIcon className="w-13 h-13" />
-                  {keywordName.length > 7 ? `${keywordName.slice(0, 7)}...` : keywordName}
-                </Button>
-              );
-            })}
-          </div>
-        )}
+                return (
+                  <Button
+                    key={keywordId}
+                    styles={`flex items-center gap-6 w-full h-46 px-10 py-10 text-13 text-slate-700 hover:opacity-70 hover:bg-gray-200/30 ${checkActiveDashboard("keyword", keywordId)}`}
+                    destination={`/dashboard/${groupId}/${keywordId}`}
+                  >
+                    <HashtagIcon className="w-13 h-13" />
+                    {keywordName.length > 7 ? `${keywordName.slice(0, 7)}...` : keywordName}
+                  </Button>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="absolute top-55 flex-center px-10 py-10 w-full bg-white border-2 border-slate-200/80 shadow-lg z-header">
+              생성한 키워드가 없습니다. 키워드를 생성해주세요.
+            </div>
+          ))}
       </div>
       <Button
         styles="flex-center flex-shrink-0 md:h-70 h-50 md:px-30 px-8 md:py-10 text-12 md:text-18 text-gray-900/80 md:border-t-2 md:border-b-2 border-l-2 border-slate-200/80 font-semibold hover:bg-emerald-100/10 hover:border-emerald-900/20"
