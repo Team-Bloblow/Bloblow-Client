@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
 import asyncPostSignIn from "../../api/auth/asyncPostSignIn";
 import {
   ERROR_MESSAGE,
@@ -15,8 +13,6 @@ import { useMutation } from "@tanstack/react-query";
 import PropTypes from "prop-types";
 
 const SignInButton = ({ type }) => {
-  const navigate = useNavigate();
-
   const isSignIn = useBoundStore((state) => state.isSignIn);
   const asyncSignIn = useBoundStore((state) => state.asyncSignIn);
   const signOut = useBoundStore((state) => state.signOut);
@@ -47,7 +43,6 @@ const SignInButton = ({ type }) => {
               addModal(MODAL_TYPE.ERROR);
               return;
             }
-            navigate("/myPage");
           },
           onError: () => {
             addModal(MODAL_TYPE.ERROR);
