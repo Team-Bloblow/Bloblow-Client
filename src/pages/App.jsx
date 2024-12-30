@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 import Header from "../components/Layout/Header";
 import Loading from "../components/UI/Loading";
@@ -15,8 +15,8 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const App = () => {
   const setIsSignIn = useBoundStore((state) => state.setIsSignIn);
   const setUserInfo = useBoundStore((state) => state.setUserInfo);
-  const signOut = useBoundStore((state) => state.signOut);
   const [isAuthChecked, setIsAuthChecked] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const auth = getAuth();
@@ -29,13 +29,13 @@ const App = () => {
         setUserInfo({ uid, email, displayName, photoURL });
         setIsAuthChecked(true);
       } else {
-        signOut();
+        navigate("/");
         setIsAuthChecked(true);
       }
     });
 
     return () => unsubscribe();
-  }, [setIsSignIn, setUserInfo, signOut]);
+  }, [setIsSignIn, setUserInfo, navigate]);
 
   return (
     <ReactQueryProviders>

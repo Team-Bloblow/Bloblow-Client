@@ -28,7 +28,7 @@ const GroupPage = () => {
   });
 
   useEffect(() => {
-    const invalidGroupId = userGroupList?.groupListResult?.find(
+    const validGroupId = userGroupList?.groupListResult?.find(
       (groupInfo) => groupInfo._id === groupId
     );
 
@@ -36,18 +36,12 @@ const GroupPage = () => {
       setUserGroupList(userGroupList?.groupListResult);
     }
 
-    if (invalidGroupId === undefined) {
+    if (userGroupList && validGroupId === undefined) {
       navigate("/notFoundPage");
 
       return;
     }
-  }, [
-    userGroupList?.groupListLength,
-    userGroupList?.groupListResult,
-    setUserGroupList,
-    groupId,
-    navigate,
-  ]);
+  }, [userGroupList, setUserGroupList, groupId, navigate]);
 
   const isError = isUserGroupListError || userGroupList?.message?.includes("Error occured");
 

@@ -52,15 +52,18 @@ const KeywordPage = () => {
     enabled: hasKeywordId,
   });
 
-  const invalidGroupId = userGroupList?.groupListResult?.find(
-    (groupInfo) => groupInfo._id === groupId
-  );
-  const isInvalidKeywordId = specificKeywordData?.message?.includes("InvalidKeywordId");
+  useEffect(() => {
+    const validGroupId = userGroupList?.groupListResult?.find(
+      (groupInfo) => groupInfo._id === groupId
+    );
+    const isInvalidKeywordId = specificKeywordData?.message?.includes("InvalidKeywordId");
 
-  if (isInvalidKeywordId || invalidGroupId === undefined) {
-    navigate("/notFoundPage");
-    return;
-  }
+    if (isInvalidKeywordId || (userGroupList && validGroupId === undefined)) {
+      navigate("/notFoundPage");
+
+      return;
+    }
+  }, [groupId, navigate, specificKeywordData, userGroupList]);
 
   const isError =
     isUserGroupListError ||
