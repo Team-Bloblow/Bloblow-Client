@@ -81,37 +81,60 @@
 
 <br/>
 
-# 2. Feature / Preview
+# 2. Feature
 
-### 기능
+- 로그인
+  - 구글 아이디로 로그인하여 서비스를 시작할 수 있습니다.
+  - 가입 시에 사용자의 서비스 이해도를 높이기 위한 샘플 데이터가 자동으로 추가됩니다.
+- 마이 페이지
+  - 신규 그룹을 생성할 수 있습니다.
+  - 최근에 업데이트된 그룹에 대한 간략한 정보를 확인할 수 있습니다.
+  - 사용자가 등록한 그룹 목록이 각 그룹에 포함되어 있는 키워드 목록과 함께 표시됩니다.
+- 그룹 대시보드
 
-- 키워드 구독
-  - 키워드를 하나의 그룹으로 묶어 각각의 데이터 지표와 통계 차트를 제공합니다.
-- 게시물 조회 (정렬/필터)
-  - 구독한 키워드의 블로그 게시물 리스트를 최신순, 공감순, 댓글 수 순으로 정렬할 수 있습니다.
-  - 게시물 중 광고글을 분류하거나, 특정 단어가 포함된 게시물을 불러오거나 제외할 수 있습니다.
+  - 키워드들의 게시물 수, 공감 수, 댓글 수의 추이를 비교할 수 있는 주간 차트가 표시됩니다.
+  - 해당 그룹에 포함할 신규 키워드를 생성할 수 있습니다.
+  - 그룹명을 수정할 수 있습니다.
+    <details>
+      <summary>Preview</summary>
+      <div markdown="1">
+        <div align="center">
+          <img width="70%" src="/public/assets/docs-preview-group.png" alt="preview-group"/>
+        </div>
+      </div>
+    </details>
 
-<br>
+- 키워드 대시보드 - 차트
 
-### 미리보기
+  - 키워드에 대한 정보와 3가지 종류의 차트가 표시됩니다.
+    - 게시물 수 추이
+    - 광고성 게시물 비율 추이
+    - 반응 수 추이
+  - 설정할 수 있는 기간은 주간, 월간의 일자, 월간의 주간으로 이루어져 있으며, 각 기간에 대한 차트 데이터를 확인할 수 있습니다.
+    <details>
+      <summary>Preview</summary>
+      <div markdown="1">
+        <div align="center">
+          <img width="70%" src="/public/assets/docs-preview-keyword-chart.png" alt="preview-keyword-chart"/>
+        </div>
+      </div>
+    </details>
 
-키워드 대시보드
-
-<div align="center">
-  <img width="70%" src="/public/assets/docs-preview-keyword-chart.png" alt="preview-keyword-chart"/>
-</div>
-
-그룹 대시보드
-
-<div align="center">
-  <img width="70%" src="/public/assets/docs-preview-group.png" alt="preview-group"/>
-</div>
-
-키워드 게시물 목록
-
-<div align="center">
-  <img width="70%" src="/public/assets/docs-preview-post-list.png" alt="preview-post-list"/>
-</div>
+- 키워드 대시보드 - 게시물 목록
+  - 해당 키워드가 언급된 게시물 목록과 해당 게시물의 작성일, 공감 수, 댓글 수도 함께 확인할 수 있습니다.
+  - 필터를 통해 사용자가 원하는 조건이 설정된 게시물의 결과를 확인할 수 있습니다.
+    - 정렬: 최신 순, 공감 많은 순, 댓글 많은 순
+    - 키워드 필터: 포함 키워드, 제외 키워드
+    - 광고 포함: 광고 포함, 광고만, 광고 제
+  - 해당 게시물을 클릭하면 새로운 창에서 해당 블로그 게시물이 표시됩니다.
+    <details>
+      <summary>Preview</summary>
+      <div markdown="1">
+        <div align="center">
+          <img width="70%" src="/public/assets/docs-preview-post-list.png" alt="preview-post-list"/>
+        </div>
+      </div>
+    </details>
 
 <br>
 
