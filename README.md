@@ -3,7 +3,7 @@
 
 <div align="center">
   <p>
-    <b>블로그를 불러오다. 블로블로</b><br/>
+    <b>블로블로, 블로그를 불러오다.</b><br/>
     <b>특정 키워드에 대한 네이버 블로그 게시물 분석 서비스</b>
   </p>
   <a href="https://github.com/Team-Bloblow/Bloblow-Client">클라이언트 </a> | <a href="https://github.com/Team-Bloblow/Bloblow-Server">서버 </a> | <a href="https://github.com/Team-Bloblow/Bloblow-puppeteer">크롤링 서버 </a>
@@ -12,46 +12,62 @@
 <br/>
 
 <div align="center">
-  <img width="70%" src="/public/assets/docs-preview-home.png" alt="preview-home"/>
+  <img width="100%" src="/public/assets/docs-preview-home.png" alt="preview-home"/>
 </div>
 
 <br/>
 
-목차
+# 목차
 
-1. [Motivation](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#1-motivation)
-2. [Feature / Preview](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#2-feature--preview)
-3. [Development](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#3-development)
-4. [User Experience](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#4-user-experience)
-5. [Optimization](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#5-optimization)
-6. [Feedback / Improvement](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#6-feedback--improvement)
-7. [Tech Stack](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#7-tech-stack)
-8. [Team Work / Collabration Rule](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#8-team-Work--collabration-rule)
-9. [Project Review](https://github.com/Team-Bloblow/Bloblow-Client/tree/dev?tab=readme-ov-file#9-team-Work-collabration-rule)
+1. [Motivation](#1-motivation)
+   <br>
+   1.1 [블로그 검색 결과에 대해 사용자가 일일이 게시물을 읽고 유용한 글을 선별하는 과정이 번거롭지 않을까?](#블로그-검색-결과에-대해-사용자가-일일이-게시물을-읽고-유용한-글을-선별하는-과정이-번거롭지-않을까)
+   <br>
+   1.2 [직접 네이버 블로그를 검색하는 것과 차별성을 두고 서비스 이용에 대한 만족도도 높이려면 어떻게 해야할까?](#직접-네이버-블로그를-검색하는-것과-차별성을-두고-서비스-이용에-대한-만족도도-높이려면-어떻게-해야할까)
+
+2. [Feature](#2-feature)
+3. [Development](#3-development)
+   <br>
+   3.1 [네이버 블로그 게시물을 어떻게 가져올 수 있을까?](#3-1-네이버-블로그-게시물을-어떻게-가져올-수-있을까)
+   <br>
+   3.2 [서버 상태는 어떻게 관리할 수 있을까? 우리는 왜 react-query를 도입했는가?](#3-2-서버-상태는-어떻게-관리할-수-있을까-우리는-왜-react-query를-도입했는가)
+   <br>
+   3.3 [모달을 root-dom-node에서 분리하며 렌더링 시킬 수 있는 방법을 없을까?](#3-3-모달을-root-dom-node에서-분리하여-렌더링-시킬-수-있는-방법은-없을까)
+   <br>
+   3.4 [모달을 전역적으로 어떻게 관리하면 좋을까?](#3-4-모달을-전역적으로-어떻게-관리하면-좋을까)
+4. [User Experience](#4-user-experience)
+   <br>
+   4.1 [구독을 시작했을 때 언제 등록된 게시물부터 보여주는 것이 좋을까?](#4-1-구독을-시작했을-때-언제-등록된-게시물부터-보여주는-것이-좋을까)
+   <br>
+   4.2 [크롤링 과정에서 광고성 글을 1차 선별하여, 광고성 게시물인지 목록에서 미리 알 수 있게 하자.](#4-2-크롤링-과정에서-광고성-글을-1차-선별하여-광고성-게시물인지-목록에서-미리-알-수-있게-하자)
+   <br>
+   4.3 [정렬/필터: 사용자 탐색 경험을 어떻게 개선할 수 있을까?](#4-3-정렬필터-사용자-탐색-경험을-어떻게-개선할-수-있을까)
+   <br>
+   4.4 [네이버 블로그 API의 응답 중 content와 title 내부의 &amp 은 무엇이며 어떻게 필터링할까?](#4-4-네이버-블로그-api의-응답-중-content와-title-내부의-amp-은-무엇이며-어떻게-필터링할까)
+   <br>
+   4.5 [Naver Blog API 응답에서 HTML Entities 처리하기](#4-5-naver-blog-api-응답에서-html-entities-처리하기)
+   <br>
+5. [Optimization](#5-optimization)
+   <br>
+   5.1 [여러 개의 블로그 게시물들을 크롤링하는 시간을 얼마나 줄일 수 있을까?](#5-1-여러-개의-블로그-게시물들을-크롤링하는-시간을-얼마나-줄일-수-있을까)
+   <br>
+   5.2 [DB업데이트와 UI반영을 자연스럽게 전환할 수 없을까?](#5-2-db-업데이트-ui-반영의-자연스러운-전환을-고민했습니다-총-4가지-옵션-중-optimistic-update-방식을-채택해-자연스러운-동기화로-보이는-ux로-개선했습니다)
+   5.3 [협업을 위한 로직 재사용성과 관심사 분리를 위해 커스텀 훅을 만들어볼까?](#5-3-협업을-위한-로직-재사용성과-관심사-분리를-위해-커스텀-훅을-만들어볼까)
+6. [Tech Stack](#6-tech-stack)
+7. [Project Review](#7-project-review)
 
 <br>
 <br>
 
 # 1. Motivation
 
-<details>
-<summary><b>블로그 검색 결과에 대해 사용자가 일일이 게시물을 읽고 유용한 글을 선별하는 과정이 번거롭지 않을까?</b></summary>
-<div markdown="1">
-
-<br/>
+## 1.1블로그 검색 결과에 대해 사용자가 일일이 게시물을 읽고 유용한 글을 선별하는 과정이 번거롭지 않을까?
 
 주 타겟층인 `브랜드 마케터`는 바쁩니다. 우리가, 그리고 사용자가 Bloblow 웹 애플리케이션에 기대하는 바는, 네이버 블로그를 통해 볼 수 있는 국내 시장 및 소비자 선호도 등을 보다 효율적으로 이해하는 것입니다. Bloblow를 사용함에도 여전히 직접 게시물에 들어가 글을 모두 읽고 선별하는 과정을 가진다면, 우리가 의도한대로 서비스가 제 기능과 역할을 하지 못하는 것이라고 생각했습니다. 크롤링으로 수집한 게시물 본문 HTML 태그 및 코드를 활용해서, 사용자가 설정한 키워드를 올바르게 분석하고 여러 키워드들을 비교하는 시도를 해보았습니다. 특히 개별 게시물을 클릭하지 않고도, 가공된 핵심 정보를 list view 만으로 파악할 수 있는 UX가 바쁜 사용자의 문제를 해결할 수 있다고 판단했습니다.
 
-</div>
-</details>
-
 <br/>
 
-<details>
-<summary><b>직접 네이버 블로그를 검색하는 것과 차별성을 두고 서비스 이용에 대한 만족도도 높이려면 어떻게 해야할까?</b></summary>
-<div markdown="1">
-
-<br/>
+## 직접 네이버 블로그를 검색하는 것과 차별성을 두고 서비스 이용에 대한 만족도도 높이려면 어떻게 해야할까?
 
 > [방향성] <br> 블로그 검색 결과를 2차 가공한 정보를 제공해서 사용자의 시간을 아껴주자.
 
@@ -73,9 +89,6 @@
 | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **탐색 목적** | 정확하고 원하던 게시물 1개라도 발견하면 대체로 니즈, 문제가 해결됩니다.                                                                                                          | 전반적인 동향이 궁금합니다. 포스팅 되는 게시물의 수, 경쟁 브랜드가 언급되는 수 트렌드를 수치로 확인하고 비교할 수 있기를 기대합니다.                                                             |
 | **탐색 과정** | 개인적인 이유, 계기로 검색을 이용합니다. 시간이 걸리더라도 합리적 결정이 중요하며 급하지 않습니다. 맛집이나 제품을 찾고 있다면, 구매후기를 꼼꼼히 살피며 여러 옵션을 비교합니다. | 내 회사 업무와 관련되며 개인적인 검색 보다 책임이 무겁고 기한이 정해져있습니다. 제품/마케팅 액션 아이템을 결과물로 도출할만한 인사이트를 발견할 수 있어야 합니다. 숫자로도 증명 가능해야 합니다. |
-
-</div>
-</details>
 
 <br/>
 
@@ -140,7 +153,7 @@
 
 # 3. Development
 
-## 네이버 블로그 게시물을 어떻게 가져올 수 있을까?
+## 3-1. 네이버 블로그 게시물을 어떻게 가져올 수 있을까?
 
 저희는 블로그 게시물 본문을 통해 키워드 언급 여부 뿐만 아니라 게시물의 다른 정보들도 활용하여 사용자에게 인사이트를 제공하는 것을 서비스의 주된 목적으로 설정했습니다.
 
@@ -173,7 +186,7 @@ iframe 태그의 src 속성 값으로 게시물의 새로운 URL이 할당되어
 
 저희는 본문 뿐만 아니라 댓글과 공감 수와 같은 부가 정보 또한 추출하여 사용자에게 더 많은 인사이트를 제공드리려고 합니다.
 
-## 서버 상태는 어떻게 관리할 수 있을까? 우리는 왜 React Query를 도입했는가?
+## 3-2. 서버 상태는 어떻게 관리할 수 있을까? 우리는 왜 React Query를 도입했는가?
 
 팀 프로젝트를 시작하며, 우리는 코드를 효율적이고 통일된 방식으로 작성하고, 유저에게 자연스러운 UI를 노출시키는 방법을 고민했습니다. 이러한 고민은 서버와의 비동기 통신(HTTP 통신)에서도 마찬가지였습니다. 구체적으로는 크롤링 및 스크래핑 작업에서의 로딩 상태, 성공 여부, 실패 여부를 어떻게 일관성 있게 관리할지, 그룹 생성 후 그룹 리스트 데이터를 어떻게 서버와 자연스럽게 동기화할지 등이 있었습니다.
 
@@ -373,7 +386,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
 
 <br>
 
-## 모달을 root DOM node에서 분리하여 렌더링 시킬 수 있는 방법은 없을까?
+## 3-3. 모달을 root DOM node에서 분리하여 렌더링 시킬 수 있는 방법은 없을까?
 
 모달은 많은 웹 애플리케이션에서 흔히 볼 수 있는 기능입니다. 현재 페이지에서 벗어나지 않고도 컨텍스트를 분리하여 사용자를 집중 시킴으로써 정보를 표시하거나 입력을 수집할 수 있는 간단한 방법이기 때문입니다. 따라서, 당연하게도 저희 프로젝트에도 UI/UX를 위하여 모달을 사용하였습니다.
 
@@ -502,7 +515,7 @@ https://medium.com/@KiranMohan27/simplifying-modals-in-react-with-portals-4c528e
 
 <br>
 
-## 모달을 전역적으로 어떻게 관리하면 좋을까?
+## 3-4. 모달을 전역적으로 어떻게 관리하면 좋을까?
 
 모든 모달을 개별적인 상태로 관리하기에는 모달의 종류가 많아짐에 따라 상태도 늘어나기에, 확장성이 없다고 느껴졌습니다. 그리고, 여러 모달을 동시에 열어야 하는 상황에서는 개별 `boolean` 값으로 관리하는 방식이 비효율적이라고 생각되었습니다. 따라서 아래와 같이 모달의 타입이 배열 안에 있고 없음을 따져서 렌더링 되도록 구현하였습니다. 아래의 방법이 모달 위에 모달을 띄우는 다중 모달 관리에도 용이하다고 생각했습니다.
 
@@ -568,7 +581,7 @@ export default MyPageSidebar;
 
 # 4. User Experience
 
-## 구독을 시작했을 때 언제 등록된 게시물부터 보여주는 것이 좋을까?
+## 4-1. 구독을 시작했을 때 언제 등록된 게시물부터 보여주는 것이 좋을까?
 
 저희는 아이디어 단계에서 특정 키워드에 대해 언급된 모든 블로그 게시물에 대하여 모니터링이 가능한 서비스로 구상했기 때문에, 기획 단계에서 구독을 시작한 후 뿐만 아니라 구독 이전의 게시물에 대해서도 모니터링이 할 수 있도록 구체화했습니다.
 
@@ -610,7 +623,7 @@ export default MyPageSidebar;
 
 <br>
 
-## 크롤링 과정에서 광고성 글을 1차 선별하여, 광고성 게시물인지 목록에서 미리 알 수 있게 하자.
+## 4-2. 크롤링 과정에서 광고성 글을 1차 선별하여, 광고성 게시물인지 목록에서 미리 알 수 있게 하자.
 
 **Bloblow 블로그 게시물 목록에서 게시물에 달린 '광고' 뱃지와 필터링 기능을 활용해 광고성 글을 구분할 수 있습니다.** 마케터는 광고성 글 보다, 실제 소비자의 VoC([Voice of Customer](https://en.wikipedia.org/wiki/Voice_of_the_customer))를 확인하고 싶은 니즈가 강할 것입니다. 실제 소비자 반응을 토대로 다음 제품 혹은 마케팅 계획을 합리적으로 세울 수 있기 때문입니다. 이를 고려해서 게시물을 들어가서 보지 않더라도 게시물 목록에서 광고성 글을 구분할 수 있도록 했습니다.
 
@@ -637,7 +650,7 @@ const isAd = await Promise.resolve(
 
 <br>
 
-## 정렬/필터: 사용자 탐색 경험을 어떻게 개선할 수 있을까?
+## 4-3. 정렬/필터: 사용자 탐색 경험을 어떻게 개선할 수 있을까?
 
 가장 먼저 구현한 기능은 정렬 및 필터 기능입니다. 사용자는 블로그 게시물들을 정렬하거나, 특정 키워드로 필터링 할 수 있는 기능입니다.
 
@@ -673,9 +686,9 @@ const isAd = await Promise.resolve(
 
 <br>
 
-## 네이버 블로그 API의 응답 중 content와 title 내부의 &amp 은 무엇이며 어떻게 필터링할까?
+## 4-4. 네이버 블로그 API의 응답 중 content와 title 내부의 &amp 은 무엇이며 어떻게 필터링할까?
 
-## Naver Blog API 응답에서 HTML Entities 처리하기
+## 4-5. Naver Blog API 응답에서 HTML Entities 처리하기
 
 **Naver Blog API**를 사용하면서, 응답에 특수문자(예: `&amp;`나 `&lt;` )가 포함되어 해당 응답의 title과 description을 활용하는 PostCard 컴포넌트에 잘못된 텍스트가 표시되는 문제를 발견했습니다. 이를 조사한 결과, 이 특수문자들이 공통적으로 `&`로 시작하거나 HTML 태그와 비슷한 형태를 가지고 있었고, 이것이 **HTML Entities**라는 것을 알게 되었습니다.
 
@@ -742,7 +755,7 @@ https://developer.mozilla.org/ko/docs/Glossary/Entity
 
 # 5. Optimization
 
-## 여러 개의 블로그 게시물들을 크롤링하는 시간을 얼마나 줄일 수 있을까?
+## 5-1. 여러 개의 블로그 게시물들을 크롤링하는 시간을 얼마나 줄일 수 있을까?
 
 저희는 네이버 검색 API를 통해 사용자가 구독한 키워드가 언급된 블로그 게시물들을 먼저 파악한 후, 해당 게시물 링크로 이동하여 본문 내용을 크롤링해야 했습니다.
 
@@ -777,9 +790,7 @@ https://developer.mozilla.org/ko/docs/Glossary/Entity
 
 <br>
 
-## DB 업데이트, UI 반영의 자연스러운 전환을 고민했습니다. 총 4가지 옵션 중 Optimistic Update 방식을 채택해 자연스러운 동기화로 보이는 UX로 개선했습니다.
-
-## 협업을 위한 로직 재사용성과 관심사 분리를 위해 커스텀 훅을 만들어볼까?
+## 5-2. 협업을 위한 로직 재사용성과 관심사 분리를 위해 커스텀 훅을 만들어볼까?
 
 팀 프로젝트 진행 중, 컴포넌트 내부의 점점 늘어나는 로직으로 인한 코드 복잡성을 직면하면서 협업의 효율성을 생각하지 않을 수 없었습니다. 여러 컴포넌트에서 동일하거나 유사한 로직을 반복적으로 구현하면서 코드가 중복된다는 것이 직접적으로 느껴졌고, 이는 유지보수성을 떨어뜨렸습니다. 실제로 중복이 일어나지 않았더라도, 해당 로직을 추후에 나 뿐만이 아닌 다른 팀원들이 재사용 할 수 있을 것이라 생각이 들기도 했습니다.
 
@@ -952,20 +963,12 @@ https://developer.mozilla.org/ko/docs/Glossary/Entity
 <br>
 <br>
 
-# 6. Feedback / Improvement
+# 6. Tech Stack
 
-## 전체 UI 수정
-
-(WIP)
-
-## 차트를 일단위 뿐만 아니라 주 단위, 월 단위로도 볼 수 있게 하면 어떨까?
-
-(WIP)
-
+<div>
+  <img width="90%" src="/public/assets/bloblow_tech_stack.png" alt="블로블로 기술 스택"/>
+</div>
 <br>
-<br>
-
-# 7. Tech Stack
 
 **Front End**
 
@@ -995,83 +998,30 @@ https://developer.mozilla.org/ko/docs/Glossary/Entity
 
 - Firebase-authentication
 
-<div align="center">
-  <img width="90%" src="/public/assets/bloblow_tech_stack.png" alt="블로블로 기술 스택"/>
-</div>
-
 <br>
 
-# 8. Team Work / Collabration Rule
+# 7. Project Review
 
-## 팀 내 시행 착오 공유로 학습 및 구현 속도를 높여보자
-
-(WIP)
-
-## 코드 리뷰를 효과적으로 하려는 고민
-
-(WIP)
-
-## Git 협업
-
-(WIP)
-
+<details>
+  <summary>송규경</summary>
+  <div markdown="1">
+    <div>
+    </div>
+  </div>
+</details>
 <br>
-
-# 9. Project Review
-
-## 팀 회고
-
-<table>
-  <tbody>
-    <tr>
-      <td align="center">
-        <a href="https://github.com/SsongQ-92" target="_blank">
-          <img width=200px src="https://avatars.githubusercontent.com/u/122101706?v=4" alt=""/>
-        </a>
-      </td>
-      <td align="center">
-        <a href="https://github.com/jin-ttao" target="_blank">
-          <img width=200px src="https://avatars.githubusercontent.com/u/133551021?v=4" alt=""/>
-        </a>
-      </td>
-      <td align="center">
-        <a href="https://github.com/only-pine" target="_blank">
-          <img width=200px src="https://avatars.githubusercontent.com/u/65760535?v=4" alt=""/>
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td align="center">
-        <a href="https://github.com/SsongQ-92" target="_blank">
-          <sub><b>송규경</b></sub><br />
-        </a>
-      </td>
-      <td align="center">
-        <a href="https://github.com/jin-ttao" target="_blank">
-          <sub><b>송진태</b></sub><br />
-        </a>
-      </td>
-      <td align="center">
-        <a href="https://github.com/only-pine" target="_blank">
-          <sub><b>장한솔</b></sub><br />
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-## 향후 확장 계획
-
-(WIP)
-
-### 추후 추가 구현할 기능
-
-(WIP)
-
-### 리팩토링 또는 최적화 예정 기능
-
-(WIP)
-
-## 느낀 점 / 인사이트
-
-(WIP)
+<details>
+  <summary>송진태</summary>
+  <div markdown="1">
+    <div>
+    </div>
+  </div>
+</details>
+<br>
+<details>
+  <summary>장한솔</summary>
+  <div markdown="1">
+    <div>
+    </div>
+  </div>
+</details>
