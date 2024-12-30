@@ -22,7 +22,7 @@ const HomePage = () => {
                 <p className="text-16 sm:text-20">원하는대로 게시물들을 필터링할 수 있어요</p>
               </div>
             </article>
-            <div className="flex lg:hidden justify-center w-[90%] sm:w-[80%] md:w-[60%] border-2 border-green-100 mb-10 sm:mb-20">
+            <div className="flex lg:hidden justify-center w-[90%] sm:w-[70%] md:w-[50%] border-2 border-green-100 mb-10 sm:mb-20">
               <img src="/assets/postListSample.png" alt="게시물 목록 샘플 이미지" />
             </div>
             <SignInButton type={SIGN_BUTTON_TYPE.LANDING_PAGE} />
@@ -47,7 +47,7 @@ const HomePage = () => {
               </p>
               <p className="text-16 sm:text-20">그룹화한 키워드 간의 지표를 비교해보세요</p>
             </div>
-            <div className="flex lg:hidden justify-center w-full sm:w-[80%] border-2 border-green-100 mb-20">
+            <div className="flex lg:hidden justify-center w-full sm:w-[70%] md:w-[65%] border-2 border-green-100 mb-20">
               <img src="/assets/groupChartSample.png" alt="그룹 차트 샘플 이미지" />
             </div>
           </div>
