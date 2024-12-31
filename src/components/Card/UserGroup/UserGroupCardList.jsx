@@ -42,19 +42,34 @@ const UserGroupCardList = () => {
   }
 
   if (userGroupList?.groupListLength === 0) {
-    return <div className="flex flex-center w-full h-full">생성한 그룹이 없습니다</div>;
-  }
-
-  return (
-    <section className="flex flex-col justify-start gap-15 bg-white rounded-[1px] w-full md:w-2/3 h-full">
-      <div className="flex flex-col gap-10">
+    return (
+      <div className="flex flex-col justify-start bg-white w-full md:w-2/3 h-full">
         <Button
-          styles="w-300 w-full px-10 md:px-20 md:py-18 text-21 text-gray-400 font-semibold border-2 border-slate-200/80 rounded-[5px] bg-gray-100 hover:shadow hover:border-gray-300"
+          styles="w-full px-10 md:px-20 md:py-18 py-5 text-21 text-gray-400 font-semibold border-2 border-slate-200/80 rounded-[5px] bg-gray-100 hover:shadow hover:border-gray-300 flex-shrink-0"
           onClick={handleCreateGroupButtonClick}
         >
           + 그룹 만들기
         </Button>
+        <p className="flex-grow w-full h-full flex-center">생성한 그룹이 없습니다</p>
+        {openModalTypeList.includes(MODAL_TYPE.CREATE_GROUP) && <CreateGroupModal />}
+        {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.CREATE_KEYWORD_SUCCESS && (
+          <CreateKeywordSuccessModal />
+        )}
+        {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.ERROR && (
+          <ErrorModal errorMessage={ERROR_MESSAGE.CREATE_KEYWORD_ERROR} />
+        )}
       </div>
+    );
+  }
+
+  return (
+    <section className="flex flex-col justify-start gap-15 bg-white rounded-[1px] w-full md:w-2/3 h-full">
+      <Button
+        styles="w-full px-10 md:px-20 md:py-18 py-5 text-21 text-gray-400 font-semibold border-2 border-slate-200/80 rounded-[5px] bg-gray-100 hover:shadow hover:border-gray-300"
+        onClick={handleCreateGroupButtonClick}
+      >
+        + 그룹 만들기
+      </Button>
       {userGroupList?.groupListResult?.map((groupInfo) => (
         <UserGroupCard
           key={groupInfo?._id}
