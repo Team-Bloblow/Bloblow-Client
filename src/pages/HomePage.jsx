@@ -32,7 +32,7 @@ const HomePage = () => {
                 styles="flex-center px-12 py-6 font-medium border-1 border-slate-400 bg-green-300/60 rounded-[5px] text-black text-13 sm:text-18 transition duration-500 ease-in-out hover:text-white hover:bg-green-500 hover:shadow-md"
                 destination={"/dashboard/sample"}
               >
-                서비스 체험하기
+                로그인 없이 둘러보기
               </Button>
             </div>
           </div>
