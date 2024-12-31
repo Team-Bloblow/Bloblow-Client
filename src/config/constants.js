@@ -31,7 +31,7 @@ export const CONFIRM_MESSAGE = Object.freeze({
 
 export const ALERT_MESSAGE = Object.freeze({
   DELETE_KEYWORD_SUCCESS: "키워드를 구독 해지했습니다.",
-  SAMPLE: "홈페이지로 이동하여 로그인 후 이용해주세요.",
+  SAMPLE: "메인화면으로 이동하여 로그인 후 이용해주세요.",
 });
 
 export const CHART_COLOR = Object.freeze(["#4285f4", "#db4437", "#f4b400", "#0f9d58", "#ab47bc"]);
