@@ -33,7 +33,7 @@ const SampleDashboardHeader = ({ groupName, keywordList, specificKeywordData, ke
       <aside className="flex justify-between items-center w-full md:h-100 h-full bg-white md:border-b-2 md:border-r-2 border-l-2 border-b-2 border-r-2 border-slate-200/80 shadow-sm px-20 md:py-5 py-10 flex-shrink-0">
         <div className="flex flex-col items-start gap-10 w-full md:h-70 h-full">
           <div className="relative first-letter:flex items-center h-full">
-            <p className="first-letter:text-17 md:text-21 text-green-950 font-bold">{groupName}</p>
+            <p className="md:text-21 text-green-950 font-bold">{groupName}</p>
             <Button styles="absolute -right-25 bottom-10" onClick={handleEditGroupButtonClick}>
               <EditIcon className="size-18" />
             </Button>
