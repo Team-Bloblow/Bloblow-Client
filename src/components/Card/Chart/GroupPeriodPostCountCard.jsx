@@ -15,6 +15,7 @@ const GroupPeriodPostCountCard = ({ groupChartType, groupId, hasUserUid }) => {
   const [cursorId, setCursorId] = useState("");
   const { width } = useViewportSize();
 
+  const isSampleRoute = groupId === import.meta.env.VITE_SAMPLE_GROUP_ID;
   const hasGroupId = !!groupId;
   let queryFunction;
 
@@ -39,7 +40,7 @@ const GroupPeriodPostCountCard = ({ groupChartType, groupId, hasUserUid }) => {
     queryKey: ["groupPostCount", cursorId, groupId, groupChartType],
     queryFn: () => queryFunction(cursorId, groupId),
     placeholderData: keepPreviousData,
-    enabled: hasUserUid && hasGroupId,
+    enabled: isSampleRoute ? hasGroupId : hasUserUid && hasGroupId,
     staleTime: 5 * 1000,
   });
 
@@ -98,5 +99,5 @@ export default GroupPeriodPostCountCard;
 GroupPeriodPostCountCard.propTypes = {
   groupChartType: PropTypes.string.isRequired,
   groupId: PropTypes.string.isRequired,
-  hasUserUid: PropTypes.bool.isRequired,
+  hasUserUid: PropTypes.bool,
 };

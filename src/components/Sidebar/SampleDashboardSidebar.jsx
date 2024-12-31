@@ -1,19 +1,17 @@
 import { useRef } from "react";
 import { useParams } from "react-router-dom";
 
-import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
+import { ALERT_MESSAGE, MODAL_TYPE } from "../../config/constants";
 import useDropDown from "../../hooks/useDropDown";
 import useBoundStore from "../../store/client/useBoundStore";
 import ClickIcon from "../Icon/ClickIcon";
 import HashtagIcon from "../Icon/HashtagIcon";
 import RevertIcon from "../Icon/RevertIcon";
-import CreateKeywordModal from "../Modal/CreateKeywordModal";
-import CreateKeywordSuccessModal from "../Modal/CreateKeywordSuccessModal";
-import ErrorModal from "../Modal/ErrorModal";
+import AlertModal from "../Modal/AlertModal";
 import Button from "../UI/Button";
 import PropTypes from "prop-types";
 
-const DashboardSidebar = ({ userGroupList, groupId, keywordId }) => {
+const SampleDashboardSidebar = ({ groupName, keywordList, keywordId }) => {
   const addModal = useBoundStore((state) => state.addModal);
   const openModalTypeList = useBoundStore((state) => state.openModalTypeList);
   const params = useParams();
@@ -21,12 +19,10 @@ const DashboardSidebar = ({ userGroupList, groupId, keywordId }) => {
 
   const [isDropDownOpen, setIsDropDownOpen] = useDropDown(containerRef);
 
-  const dashboardGroup = userGroupList?.find((groupInfo) => groupInfo._id === groupId);
-  const dashboardGroupName = dashboardGroup?.name;
-  const dashboardKeywordList = dashboardGroup?.keywordIdList;
+  const SAMPLE_KEYWORD_ONE_ID = import.meta.env.VITE_SAMPLE_KEYWORD_ONE_ID;
+
   const currentKeywordName =
-    keywordId &&
-    dashboardKeywordList?.find((keywordInfo) => keywordInfo._id === keywordId)?.keyword;
+    keywordId && keywordList?.find((keywordInfo) => keywordInfo._id === keywordId)?.keyword;
 
   const checkActiveDashboard = (dashboardType, keywordId) => {
     if (dashboardType === "group" && params?.keywordId === undefined) {
@@ -39,38 +35,37 @@ const DashboardSidebar = ({ userGroupList, groupId, keywordId }) => {
   };
 
   const handleCreateKeywordButton = () => {
-    addModal(MODAL_TYPE.CREATE_KEYWORD.DEFAULT);
+    addModal(MODAL_TYPE.ALERT);
   };
 
   return (
     <nav className="flex md:flex-col flex-row w-full md:w-250 flex-shrink-0 bg-white border-l-2 md:border-r-2 border-b-1 border-r-2 border-slate-200/80 shadow-lg">
       <Button
         styles="flex items-center gap-12 md:w-full md:h-40 h-full px-12 md:px-30 py-10 md:text-14 text-13 md:border-b-2 border-slate-200/80 opacity-70 bg-white hover:opacity-90"
-        destination="/myPage"
+        destination="/"
       >
         <RevertIcon className="size-16 md:size-20 fill-black" />
-        <span className="hidden md:inline">마이페이지</span>
+        <span className="hidden md:inline">홈페이지</span>
       </Button>
       <div className="flex-shrink-0">
         <Button
           styles={`flex break-keep items-center md:gap-12 md:w-full md:h-58 h-50 md:px-30 px-10 py-10 md:text-22 text-14 text-slate-700 border-l-2 border-r-2 md:border-0 border-slate-200/80 font-semibold hover:opacity-70 ${checkActiveDashboard("group")}`}
-          destination={`/dashboard/${groupId}`}
+          destination={`/dashboard/sample`}
         >
-          {dashboardGroupName.length > 7
-            ? `${dashboardGroupName.slice(0, 7)}...`
-            : dashboardGroupName}
+          {groupName}
         </Button>
       </div>
       <div className="hidden md:flex flex-col">
-        {dashboardKeywordList.map((dashboardKeyword) => {
+        {keywordList.map((dashboardKeyword) => {
           const keywordId = dashboardKeyword._id;
           const keywordName = dashboardKeyword.keyword;
+          const keywordRoute = keywordId === SAMPLE_KEYWORD_ONE_ID ? "keyword-one" : "keyword-two";
 
           return (
             <Button
               key={keywordId}
               styles={`flex items-center gap-6 w-full h-46 px-30 py-10 text-18 text-slate-700 hover:opacity-70 ${checkActiveDashboard("keyword", keywordId)}`}
-              destination={`/dashboard/${groupId}/${keywordId}`}
+              destination={`/dashboard/sample/${keywordRoute}`}
             >
               <HashtagIcon className="w-20 h-20" />
               {keywordName.length > 8 ? `${keywordName.slice(0, 8)}...` : keywordName}
@@ -86,7 +81,7 @@ const DashboardSidebar = ({ userGroupList, groupId, keywordId }) => {
         {keywordId ? (
           <HashtagIcon className="ml-10 w-12 h-12 pointer-events-none" />
         ) : (
-          <ClickIcon className="ml-6 w-12 h-12 pointer-events-none" />
+          <ClickIcon className="ml-8 w-12 h-12 pointer-events-none" />
         )}
         {currentKeywordName ? (
           currentKeywordName
@@ -96,17 +91,19 @@ const DashboardSidebar = ({ userGroupList, groupId, keywordId }) => {
           </span>
         )}
         {isDropDownOpen &&
-          (dashboardKeywordList.length > 0 ? (
+          (keywordList.length > 0 ? (
             <div className="absolute top-55 flex flex-col gap-10 w-full bg-white border-2 border-slate-200/80 shadow-lg z-header">
-              {dashboardKeywordList.map((dashboardKeyword) => {
+              {keywordList.map((dashboardKeyword) => {
                 const keywordId = dashboardKeyword._id;
                 const keywordName = dashboardKeyword.keyword;
+                const keywordRoute =
+                  keywordId === SAMPLE_KEYWORD_ONE_ID ? "keyword-one" : "keyword-two";
 
                 return (
                   <Button
                     key={keywordId}
                     styles={`flex items-center gap-6 w-full h-46 px-10 py-10 text-13 text-slate-700 hover:opacity-70 hover:bg-gray-200/30 ${checkActiveDashboard("keyword", keywordId)}`}
-                    destination={`/dashboard/${groupId}/${keywordId}`}
+                    destination={`/dashboard/sample/${keywordRoute}`}
                   >
                     <HashtagIcon className="-mt-1 w-13 h-13" />
                     {keywordName.length > 7 ? `${keywordName.slice(0, 7)}...` : keywordName}
@@ -126,27 +123,17 @@ const DashboardSidebar = ({ userGroupList, groupId, keywordId }) => {
       >
         + 키워드 만들기
       </Button>
-      {openModalTypeList.includes(MODAL_TYPE.CREATE_KEYWORD.DEFAULT) && (
-        <CreateKeywordModal
-          createType={MODAL_TYPE.CREATE_KEYWORD.DASHBOARD}
-          selectedGroupId={groupId}
-          selectedGroupName={dashboardGroupName}
-        />
-      )}
-      {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.CREATE_KEYWORD_SUCCESS && (
-        <CreateKeywordSuccessModal />
-      )}
-      {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.ERROR && (
-        <ErrorModal errorMessage={ERROR_MESSAGE.CREATE_KEYWORD_ERROR} />
+      {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.ALERT && (
+        <AlertModal alertMessage={ALERT_MESSAGE.SAMPLE} />
       )}
     </nav>
   );
 };
 
-export default DashboardSidebar;
+export default SampleDashboardSidebar;
 
-DashboardSidebar.propTypes = {
-  userGroupList: PropTypes.array.isRequired,
-  groupId: PropTypes.string.isRequired,
+SampleDashboardSidebar.propTypes = {
+  groupName: PropTypes.string.isRequired,
+  keywordList: PropTypes.array.isRequired,
   keywordId: PropTypes.string,
 };

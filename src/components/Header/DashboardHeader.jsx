@@ -102,15 +102,15 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
 
     return (
       <aside className="flex justify-between items-center w-full md:h-100 h-full bg-white md:border-b-2 md:border-r-2 border-l-2 border-b-2 border-r-2 border-slate-200/80 shadow-sm px-20 md:py-5 py-10 flex-shrink-0">
-        <div className="flex flex-col items-start gap-10 w-full md:h-70 h-full">
-          <div className="flex items-center w-full h-full">
+        <div className="flex flex-col items-start gap-10 md:h-70 w-full h-full">
+          <div className="relative flex items-center h-full">
             {!isEditing && (
-              <div className="flex">
+              <>
                 <p className="text-17 md:text-21 text-green-950 font-bold">{dashboardGroupName}</p>
-                <Button styles="relative pl-15" onClick={handleEditGroupButtonClick}>
-                  <EditIcon className="absolute bottom-7 size-18" />
+                <Button styles="absolute -right-25 bottom-10" onClick={handleEditGroupButtonClick}>
+                  <EditIcon className="size-18" />
                 </Button>
-              </div>
+              </>
             )}
             {isEditing && (
               <>
@@ -194,7 +194,10 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
         <ConfirmModal confirmMessage={CONFIRM_MESSAGE.DELETE_KEYWORD} confirmData={{ keywordId }} />
       )}
       {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.ALERT && (
-        <AlertModal alertMessage={ALERT_MESSAGE.DELETE_KEYWORD_SUCCESS} />
+        <AlertModal
+          alertMessage={ALERT_MESSAGE.DELETE_KEYWORD_SUCCESS}
+          destination={`/dashboard/${groupId}`}
+        />
       )}
       {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.ERROR && (
         <ErrorModal errorMessage={ERROR_MESSAGE.DELETE_KEYWORD_ERROR} />

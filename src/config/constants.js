@@ -31,6 +31,7 @@ export const CONFIRM_MESSAGE = Object.freeze({
 
 export const ALERT_MESSAGE = Object.freeze({
   DELETE_KEYWORD_SUCCESS: "키워드를 구독 해지했습니다.",
+  SAMPLE: "홈페이지로 이동하여 로그인 후 이용해주세요.",
 });
 
 export const CHART_COLOR = Object.freeze(["#4285f4", "#db4437", "#f4b400", "#0f9d58", "#ab47bc"]);
@@ -109,9 +110,3 @@ export const SIGNIN_BUTTON_TEXT = [
   "키워드 구독하러 가기",
   "블로그 게시물 살펴보기",
 ];
-
-export const SAMPLE_ROUTE = {
-  GROUP_ID: "676bacaa98cdcd850d3b9c78",
-  KEYWORD_ONE_ID: "676bacaa98cdcd850d3b9c76",
-  KEYWORD_TWO_ID: "676bae7e98cdcd850d3b9cf6",
-};

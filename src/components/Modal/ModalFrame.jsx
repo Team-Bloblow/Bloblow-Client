@@ -17,7 +17,7 @@ const ModalFrame = ({ isClear, hasCloseButton, modalType, children }) => {
 
   return (
     <div
-      className="relative md:py-30 py-10 md:px-50 px-20 rounded-[5px] bg-white border-3 border-slate-200/80 hover:border-emerald-900/30"
+      className="relative md:py-30 py-15 md:px-50 px-20 rounded-[5px] bg-white border-3 border-slate-200/80 hover:border-emerald-900/30"
       onClick={(e) => e.stopPropagation()}
     >
       {children}
