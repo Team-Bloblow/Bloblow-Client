@@ -1,6 +1,7 @@
 import SignInButton from "../components/Button/SignInButton";
 import Logo from "../components/Common/Logo";
 import Footer from "../components/Layout/Footer";
+import Button from "../components/UI/Button";
 import { SIGN_BUTTON_TYPE } from "../config/constants";
 import useSignInRedirect from "../hooks/useSignInRedirect";
 
@@ -25,7 +26,15 @@ const HomePage = () => {
             <div className="flex lg:hidden justify-center w-[90%] sm:w-[70%] md:w-[50%] border-2 border-green-100 mb-10 sm:mb-20">
               <img src="/assets/postListSample.png" alt="게시물 목록 샘플 이미지" />
             </div>
-            <SignInButton type={SIGN_BUTTON_TYPE.LANDING_PAGE} />
+            <div className="flex gap-10 w-full">
+              <SignInButton type={SIGN_BUTTON_TYPE.LANDING_PAGE} />
+              <Button
+                styles="flex-center px-12 py-6 font-medium border-1 border-slate-400 bg-green-300/60 rounded-[5px] text-black text-13 sm:text-18 transition duration-500 ease-in-out hover:text-white hover:bg-green-500 hover:shadow-md"
+                destination={"/dashboard/sample"}
+              >
+                서비스 체험하기
+              </Button>
+            </div>
           </div>
         </section>
         <div className="hidden lg:flex flex-col justify-center items-center w-[60%] border-2 border-green-100">

@@ -109,3 +109,9 @@ export const SIGNIN_BUTTON_TEXT = [
   "키워드 구독하러 가기",
   "블로그 게시물 살펴보기",
 ];
+
+export const SAMPLE_ROUTE = {
+  GROUP_ID: "676bacaa98cdcd850d3b9c78",
+  KEYWORD_ONE_ID: "676bacaa98cdcd850d3b9c76",
+  KEYWORD_TWO_ID: "676bae7e98cdcd850d3b9cf6",
+};
