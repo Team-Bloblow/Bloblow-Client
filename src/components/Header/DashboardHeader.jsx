@@ -183,10 +183,10 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
               구독 해지
             </Button>
           </span>
-          <span className="flex items-center pt-2 md:text-16 text-12">
-            <UpdateIcon className="md:size-18 size-16 mr-5" />
-            <span className="hidden md:inline">마지막 업데이트 일 : </span>
-            {`${updatedDate?.currentYear}년 ${updatedDate?.currentMonth}월 ${updatedDate?.currentDate}일`}
+          <span className="flex items-center gap-5 pt-2 md:text-16 text-12">
+            <UpdateIcon className="md:size-18 size-16" />
+            <span className="hidden md:inline">마지막 업데이트일 :</span>
+            <span>{`${updatedDate?.currentYear}년 ${updatedDate?.currentMonth}월 ${updatedDate?.currentDate}일`}</span>
           </span>
         </p>
       </div>
