@@ -12,7 +12,7 @@ const UserGroupCard = ({ groupId, groupName, keywordList, updatedAt }) => {
     <Link to={`/dashboard/${groupId}`}>
       <div className="flex flex-col items-start justify-center gap-7 w-full border-2 border-slate-200/80 bg-white rounded-[5px] px-30 py-12 shadow-sm hover:border-emerald-900/30 hover:shadow-md">
         <p className="flex items-center text-black text-20 font-semibold">{groupName}</p>
-        <div className="flex items-center gap-5 w-full mb-2">
+        <div className="flex items-center flex-wrap gap-5 w-full mb-2">
           {keywordList.map((keyword) => (
             <KeywordChip
               key={keyword._id}

@@ -15,7 +15,7 @@ const Footer = () => {
           <EmailIcon className="size-32 fill-black transition hover:fill-emerald-200" />
         </Link>
       </div>
-      <p className="text-16">
+      <p className="text-13 sm:text-14 lg:text-16">
         © 2024 | <span className="font-semibold">Team Bloblow</span> All rights reserved.
       </p>
     </footer>

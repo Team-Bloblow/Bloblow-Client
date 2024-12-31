@@ -30,6 +30,7 @@ const createAuthSlice = (set) => ({
   },
   signOut: () => {
     const auth = getAuth();
+    signOut(auth);
     set((state) => ({
       ...state,
       isSignIn: false,
@@ -48,7 +49,6 @@ const createAuthSlice = (set) => ({
       },
       userGroupList: [],
     }));
-    signOut(auth);
   },
 });
 

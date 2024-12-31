@@ -1,5 +1,6 @@
 import { Line } from "react-chartjs-2";
 
+import useViewportSize from "../../hooks/useViewportSize";
 import { changeMonthDateFormat } from "../../utils/date";
 import {
   CategoryScale,
@@ -15,6 +16,9 @@ import PropTypes from "prop-types";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, plugins);
 
 const LineChart = ({ chartData }) => {
+  const { width } = useViewportSize();
+  const isBreakPoint = width < 768;
+
   const data = {
     labels: chartData.dates.map((date) => changeMonthDateFormat(date)),
     datasets: [
@@ -30,7 +34,7 @@ const LineChart = ({ chartData }) => {
   const options = {
     responsive: true,
     maintainAspectRatio: true,
-    aspectRatio: 3,
+    aspectRatio: isBreakPoint ? 1.5 : 3,
     scales: {
       y: {
         beginAtZero: true,
@@ -48,7 +52,7 @@ const LineChart = ({ chartData }) => {
           pointStyle: "rect",
           font: {
             family: "Pretendard",
-            size: 13,
+            size: isBreakPoint ? 11 : 13,
             weight: "normal",
           },
         },

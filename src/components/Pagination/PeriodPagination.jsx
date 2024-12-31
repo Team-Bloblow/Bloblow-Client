@@ -25,7 +25,7 @@ const PeriodPagination = ({ chartData, setCursorId, isPlaceholderData }) => {
       >
         <LeftCarouselIcon isDisabled={isPreviousButtonDisabled} />
       </button>
-      <span className="text-16">
+      <span className="text-12 md:text-16">
         {changeDateWithDotFormat(chartData?.dates[0]) +
           " ~ " +
           changeDateWithDotFormat(chartData?.dates[chartData?.dates.length - 1])}

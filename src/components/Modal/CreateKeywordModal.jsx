@@ -136,7 +136,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
           modalType={MODAL_TYPE.CREATE_KEYWORD.DEFAULT}
         >
           <form
-            className={`w-500 flex-col-center ${isPending || "pt-40"} gap-15`}
+            className={`md:w-500 flex-col-center ${isPending || "pt-40"} md:gap-15 gap-5`}
             onSubmit={handleKeywordSubmit}
           >
             {isCreatingNewGroup ? (
@@ -160,15 +160,15 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
                 </div>
               </div>
             ) : (
-              <div className="w-full flex items-start gap-20">
+              <div className="w-full flex items-start md:gap-20 gap-10">
                 <Label
                   htmlFor="group"
-                  styles="w-100 text-20 text-slate-700 font-semibold flex-shrink-0 hover:text-emerald-900/80"
+                  styles="md:w-100 w-45 md:text-20 text-16 text-slate-700 font-semibold flex-shrink-0 hover:text-emerald-900/80"
                 >
                   그룹
                 </Label>
                 {createType === "dashboard" ? (
-                  <p className="w-full h-40 text-18 text-slate-700 font-semibold">
+                  <p className="w-full h-40 md:text-18 text-16 text-slate-700 font-semibold">
                     {selectedGroup.name}
                   </p>
                 ) : (
@@ -193,10 +193,10 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
                 )}
               </div>
             )}
-            <div className="w-full flex items-start gap-20">
+            <div className="w-full flex items-start md:gap-20 gap-10">
               <Label
                 htmlFor="keyword"
-                styles="w-100 text-20 text-slate-700 font-semibold flex-shrink-0 hover:text-emerald-900/80"
+                styles="md:w-100 w-45 md:text-20 text-16 text-slate-700 font-semibold flex-shrink-0 hover:text-emerald-900/80"
               >
                 키워드
               </Label>
@@ -206,7 +206,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
                   id="keyword"
                   value={inputValue.keyword}
                   onChange={handleKeywordInputChange}
-                  className="w-full h-40 px-15 border-2 border-slate-700 rounded-[5px] text-emerald-900 font-semibold"
+                  className="w-full h-40 px-15 border-2 border-slate-700 rounded-[5px] text-emerald-900 font-semibold md:placeholder:text-16 placeholder:text-14 md:text-16 text-14"
                   placeholder="새롭게 추가할 키워드를 입력해주세요"
                 />
                 <p className="text-12 text-red-500 h-18 font-semibold">{errorMessage.keyword}</p>

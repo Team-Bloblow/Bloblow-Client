@@ -19,7 +19,7 @@ const GroupPeriodPagination = ({ chartData, setCursorId, isPlaceholderData }) =>
           >
             <LeftCarouselIcon isDisabled={isPreviousButtonDisabled} />
           </Button>
-          <span className="text-16">
+          <span className="text-12 md:text-16">
             {changeDateWithDotFormat(chartData?.items[0]?.dates[0]) +
               " ~ " +
               changeDateWithDotFormat(

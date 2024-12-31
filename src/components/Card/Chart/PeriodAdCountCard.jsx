@@ -28,7 +28,7 @@ const PeriodAdCountCard = ({ keywordId }) => {
 
   if (isError || chartData?.message?.includes("Error occured")) {
     return (
-      <div className="flex flex-col gap-6 w-1/2 h-full p-10 border-1 rounded-md justify-center items-center">
+      <div className="flex flex-col gap-6 md:w-1/2 w-full h-full p-10 border-1 rounded-md justify-center items-center">
         광고성 게시물 구분 차트를 불러오는 데 실패했습니다.
       </div>
     );
@@ -37,7 +37,7 @@ const PeriodAdCountCard = ({ keywordId }) => {
   if (isChartDataPending && cursorId === "") {
     return (
       <ChartSkeleton
-        containerStyle="flex flex-col gap-6 w-1/2 p-10 border-2 rounded-md"
+        containerStyle="flex flex-col gap-6 md:w-1/2 w-full p-10 border-2 rounded-md"
         chartTitle="광고성 게시물 구분"
         chartAspect="2"
       />
@@ -49,9 +49,11 @@ const PeriodAdCountCard = ({ keywordId }) => {
   }
 
   return (
-    <article className="flex flex-col gap-6 w-1/2 h-full p-10 border-1 rounded-md">
+    <article className="flex flex-col gap-6 md:w-1/2 w-full h-full p-10 border-1 rounded-md">
       <div className="flex justify-between items-center flex-shrink-0 px-10 py-5 rounded-[2px]">
-        <span className="flex items-center text-20 font-semibold">광고성 게시물 비율</span>
+        <span className="flex items-center text-16 md:text-20 font-semibold">
+          광고성 게시물 비율
+        </span>
         <PeriodToggleButton
           keywordId={keywordId}
           period={period}

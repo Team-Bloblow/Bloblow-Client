@@ -27,20 +27,21 @@ const GroupPage = () => {
     staleTime: 3 * 1000,
   });
 
-  const invalidGroupId = userGroupList?.groupListResult?.find(
-    (groupInfo) => groupInfo._id === groupId
-  );
-
   useEffect(() => {
+    const validGroupId = userGroupList?.groupListResult?.find(
+      (groupInfo) => groupInfo._id === groupId
+    );
+
     if (userGroupList?.groupListLength > 0 && userGroupList?.groupListResult?.length > 0) {
       setUserGroupList(userGroupList?.groupListResult);
     }
-  }, [userGroupList?.groupListLength, userGroupList?.groupListResult, setUserGroupList]);
 
-  if (invalidGroupId === undefined) {
-    navigate("/notFoundPage");
-    return;
-  }
+    if (userGroupList && validGroupId === undefined) {
+      navigate("/notFoundPage");
+
+      return;
+    }
+  }, [userGroupList, setUserGroupList, groupId, navigate]);
 
   const isError = isUserGroupListError || userGroupList?.message?.includes("Error occured");
 
@@ -57,12 +58,8 @@ const GroupPage = () => {
   }
 
   return (
-    <main className="flex justify-start items-stretch mx-auto pt-67 w-full h-full max-w-1440">
-      <DashboardSidebar
-        userGroupList={userGroupList?.groupListResult}
-        groupId={groupId}
-        userUid={userUid}
-      />
+    <main className="flex flex-col md:flex-row justify-start items-stretch mx-auto pt-67 w-full h-full max-w-1440">
+      <DashboardSidebar userGroupList={userGroupList?.groupListResult} groupId={groupId} />
       <section className="flex flex-col justify-stretch w-full">
         <DashboardHeader
           userGroupList={userGroupList?.groupListResult}
@@ -76,7 +73,7 @@ const GroupPage = () => {
               groupId={groupId}
               hasUserUid={hasUserUid}
             />
-            <div className="flex gap-10">
+            <div className="flex flex-col md:flex-row gap-10 w-full">
               <GroupPeriodPostCountCard
                 groupChartType={GROUP_CHART_TYPE.LIKE}
                 groupId={groupId}

@@ -1,33 +1,36 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
-import asyncGetUserGroup from "../api/group/asyncGetUserGroup";
+import asyncGetSpecificGroup from "../api/group/asyncGetSpecificGroup";
 import asyncGetKeyword from "../api/keyword/asyncGetKeyword";
 import PeriodAdCountCard from "../components/Card/Chart/PeriodAdCountCard";
 import PeriodPostCountCard from "../components/Card/Chart/PeriodPostCountCard";
 import PeriodReactionCountCard from "../components/Card/Chart/PeriodReactionCountCard";
 import TodayPostCountCard from "../components/Card/Chart/TodayPostCountCard";
 import PostCardList from "../components/Card/Post/PostCardList";
-import DashboardHeader from "../components/Header/DashboardHeader";
+import SampleDashboardHeader from "../components/Header/SampleDashboardHeader";
 import ChartIcon from "../components/Icon/ChartIcon";
 import PostIcon from "../components/Icon/PostIcon";
-import DashboardSidebar from "../components/Sidebar/DashboardSidebar";
+import SampleDashboardSidebar from "../components/Sidebar/SampleDashboardSidebar";
 import { POST_LISTS } from "../config/constants";
-import useNoSignInRedirect from "../hooks/useNoSignInRedirect";
-import useBoundStore from "../store/client/useBoundStore";
+import useSignInRedirect from "../hooks/useSignInRedirect";
 import { useQuery } from "@tanstack/react-query";
 
-const KeywordPage = () => {
-  useNoSignInRedirect();
+const SampleKeywordPage = () => {
+  useSignInRedirect();
 
-  const { groupId, keywordId } = useParams();
-  const navigate = useNavigate();
+  const pathname = useLocation().pathname;
+
+  const groupId = import.meta.env.VITE_SAMPLE_GROUP_ID;
+  const keywordId =
+    pathname === "/dashboard/sample/keyword-one"
+      ? import.meta.env.VITE_SAMPLE_KEYWORD_ONE_ID
+      : pathname === "/dashboard/sample/keyword-two"
+        ? import.meta.env.VITE_SAMPLE_KEYWORD_TWO_ID
+        : null;
 
   const [dashboardType, setDashboardType] = useState("chart");
   const [filterList, setFilterList] = useState(POST_LISTS.DEFAULT_FILTER_LIST);
-  const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
-  const userUid = useBoundStore((state) => state.userInfo.uid);
-  const hasUserUid = !!userUid;
   const hasKeywordId = !!keywordId;
   const resetFilterList = () => {
     setFilterList(POST_LISTS.DEFAULT_FILTER_LIST);
@@ -40,59 +43,43 @@ const KeywordPage = () => {
     }
   }, [keywordId]);
 
-  const { data: userGroupList, isError: isUserGroupListError } = useQuery({
-    queryKey: ["userGroupList", userUid],
-    queryFn: () => asyncGetUserGroup(userUid),
-    enabled: hasUserUid,
+  const { data: sampleGroupData, isError: isUserGroupListError } = useQuery({
+    queryKey: ["sampleGroupData"],
+    queryFn: () => asyncGetSpecificGroup(groupId),
   });
 
   const { data: specificKeywordData, isError: isSpecificKeywordDataError } = useQuery({
-    queryKey: ["specificKeyword", keywordId],
+    queryKey: ["specificSampleKeyword", keywordId],
     queryFn: () => asyncGetKeyword(keywordId),
     enabled: hasKeywordId,
   });
 
-  useEffect(() => {
-    const validGroupId = userGroupList?.groupListResult?.find(
-      (groupInfo) => groupInfo._id === groupId
-    );
-    const isInvalidKeywordId = specificKeywordData?.message?.includes("InvalidKeywordId");
-
-    if (isInvalidKeywordId || (userGroupList && validGroupId === undefined)) {
-      navigate("/notFoundPage");
-
-      return;
-    }
-  }, [groupId, navigate, specificKeywordData, userGroupList]);
+  const groupName = sampleGroupData?.name;
+  const keywordList = sampleGroupData?.keywordIdList;
 
   const isError =
     isUserGroupListError ||
     isSpecificKeywordDataError ||
-    userGroupList?.message?.includes("Error occured") ||
+    sampleGroupData?.message?.includes("Error occured") ||
     specificKeywordData?.message?.includes("Error occured");
 
-  if (userGroupList?.groupListLength > 0 && userGroupList?.groupListResult?.length > 0) {
-    setUserGroupList(userGroupList?.groupListResult);
-  }
-
-  if (userGroupList === undefined || specificKeywordData === undefined) {
+  if (sampleGroupData === undefined || specificKeywordData === undefined) {
     return null;
   }
 
   return (
     <main className="flex flex-col md:flex-row justify-start items-stretch mx-auto pt-67 w-full h-full max-w-1440">
-      <DashboardSidebar
-        userGroupList={userGroupList?.groupListResult}
-        groupId={groupId}
+      <SampleDashboardSidebar
+        groupName={groupName}
+        keywordList={keywordList}
         keywordId={keywordId}
       />
       <section
         className={`w-full flex flex-col justify-start ${dashboardType !== "chart" && "h-full"}`}
       >
-        <DashboardHeader
-          userGroupList={userGroupList?.groupListResult}
-          groupId={groupId}
-          userUid={userUid}
+        <SampleDashboardHeader
+          groupName={groupName}
+          keywordList={keywordList}
           specificKeywordData={specificKeywordData}
           keywordId={keywordId}
         />
@@ -150,4 +137,4 @@ const KeywordPage = () => {
   );
 };
 
-export default KeywordPage;
+export default SampleKeywordPage;

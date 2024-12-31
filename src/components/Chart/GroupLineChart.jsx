@@ -15,8 +15,9 @@ import PropTypes from "prop-types";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, plugins);
 
-const GroupLineChart = ({ groupChartType, chartData }) => {
+const GroupLineChart = ({ width, groupChartType, chartData }) => {
   let maxData = 0;
+  const isBreakPoint = width < 768;
 
   const data = {
     labels: chartData?.items[0]?.dates?.map((date) => changeMonthDateFormat(date)),
@@ -52,7 +53,14 @@ const GroupLineChart = ({ groupChartType, chartData }) => {
       },
     },
     maintainAspectRatio: true,
-    aspectRatio: groupChartType === GROUP_CHART_TYPE.POST ? 3 : 1.9,
+    aspectRatio:
+      groupChartType === GROUP_CHART_TYPE.POST
+        ? isBreakPoint
+          ? 1.5
+          : 3
+        : isBreakPoint
+          ? 1.5
+          : 1.9,
 
     plugins: {
       legend: {
@@ -65,7 +73,7 @@ const GroupLineChart = ({ groupChartType, chartData }) => {
           pointStyle: "rect",
           font: {
             family: "Pretendard",
-            size: 14,
+            size: isBreakPoint ? 11 : 14,
             lineHeight: 2,
             weight: "normal",
           },
@@ -80,6 +88,7 @@ const GroupLineChart = ({ groupChartType, chartData }) => {
 export default GroupLineChart;
 
 GroupLineChart.propTypes = {
+  width: PropTypes.number,
   groupChartType: PropTypes.string.isRequired,
   chartData: PropTypes.shape({
     groupId: PropTypes.string.isRequired,

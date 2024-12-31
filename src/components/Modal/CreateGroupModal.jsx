@@ -68,11 +68,14 @@ const CreateGroupModal = () => {
     <Portal>
       <ModalBackground isClear={true} modalType={MODAL_TYPE.CREATE_GROUP}>
         <ModalFrame isClear={true} hasCloseButton={true} modalType={MODAL_TYPE.CREATE_GROUP}>
-          <form className="w-500 flex-col-center gap-15 mt-45" onSubmit={handleGroupSubmit}>
-            <div className="w-full flex items-start gap-20">
+          <form
+            className="md:w-500 flex-col-center md:gap-15 gap-5 md:mt-45 mt-25"
+            onSubmit={handleGroupSubmit}
+          >
+            <div className="w-full flex flex-col md:flex-row items-start md:gap-20 gap-10">
               <Label
                 htmlFor="newGroup"
-                styles="w-100 text-20 text-slate-700 font-semibold flex-shrink-0 hover:text-emerald-900/80"
+                styles="md:text-20 text-16 text-slate-700 font-semibold flex-shrink-0 hover:text-emerald-900/80"
               >
                 새로운 그룹
               </Label>
@@ -82,7 +85,7 @@ const CreateGroupModal = () => {
                   id="newGroup"
                   value={inputGroup}
                   onChange={handleNewGroupInputChange}
-                  className="w-full h-40 px-15 border-2 border-black rounded-[5px] text-emerald-900 font-semibold"
+                  className="w-full h-40 px-15 border-2 border-black rounded-[5px] text-emerald-900 font-semibold md:placeholder:text-16 placeholder:text-14"
                   placeholder="새롭게 추가할 그룹명을 입력해주세요"
                 />
                 <p className="text-12 text-red-500 h-18 font-semibold">{errorMessage}</p>
