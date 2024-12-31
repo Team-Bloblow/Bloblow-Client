@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { ALERT_MESSAGE, MODAL_TYPE } from "../../config/constants";
 import useDropDown from "../../hooks/useDropDown";
@@ -14,22 +14,28 @@ import PropTypes from "prop-types";
 const SampleDashboardSidebar = ({ groupName, keywordList, keywordId }) => {
   const addModal = useBoundStore((state) => state.addModal);
   const openModalTypeList = useBoundStore((state) => state.openModalTypeList);
-  const params = useParams();
   const containerRef = useRef(null);
 
   const [isDropDownOpen, setIsDropDownOpen] = useDropDown(containerRef);
+  const pathname = useLocation().pathname;
 
   const SAMPLE_KEYWORD_ONE_ID = import.meta.env.VITE_SAMPLE_KEYWORD_ONE_ID;
+  const keywordIdFromPathname =
+    pathname === "/dashboard/sample/keyword-one"
+      ? import.meta.env.VITE_SAMPLE_KEYWORD_ONE_ID
+      : pathname === "/dashboard/sample/keyword-two"
+        ? import.meta.env.VITE_SAMPLE_KEYWORD_TWO_ID
+        : null;
 
   const currentKeywordName =
     keywordId && keywordList?.find((keywordInfo) => keywordInfo._id === keywordId)?.keyword;
 
   const checkActiveDashboard = (dashboardType, keywordId) => {
-    if (dashboardType === "group" && params?.keywordId === undefined) {
+    if (dashboardType === "group" && keywordId === undefined) {
       return "bg-gray-100 border-l-2 md:border-l-4 md:border-slate-700 text-slate-900";
     }
 
-    if (dashboardType === "keyword" && params?.keywordId === keywordId) {
+    if (dashboardType === "keyword" && keywordId === keywordIdFromPathname) {
       return "bg-gray-100 opacity-90 font-semibold border-l-4 border-slate-700 text-slate-900";
     }
   };
@@ -49,7 +55,7 @@ const SampleDashboardSidebar = ({ groupName, keywordList, keywordId }) => {
       </Button>
       <div className="flex-shrink-0">
         <Button
-          styles={`flex break-keep items-center md:gap-12 md:w-full md:h-58 h-50 md:px-30 px-10 py-10 md:text-22 text-14 text-slate-700 border-l-2 border-r-2 md:border-0 border-slate-200/80 font-semibold hover:opacity-70 ${checkActiveDashboard("group")}`}
+          styles={`flex break-keep items-center md:gap-12 md:w-full md:h-58 h-50 md:px-30 px-10 py-10 md:text-22 text-14 text-slate-700 border-l-2 border-r-2 md:border-0 border-slate-200/80 font-semibold hover:opacity-70 ${checkActiveDashboard("group", keywordId)}`}
           destination={`/dashboard/sample`}
         >
           {groupName}
@@ -92,7 +98,7 @@ const SampleDashboardSidebar = ({ groupName, keywordList, keywordId }) => {
         )}
         {isDropDownOpen &&
           (keywordList.length > 0 ? (
-            <div className="absolute top-55 flex flex-col gap-10 w-full bg-white border-2 border-slate-200/80 shadow-lg z-header">
+            <div className="absolute top-55 flex flex-col w-full bg-white border-2 border-slate-200/80 shadow-lg z-header">
               {keywordList.map((dashboardKeyword) => {
                 const keywordId = dashboardKeyword._id;
                 const keywordName = dashboardKeyword.keyword;

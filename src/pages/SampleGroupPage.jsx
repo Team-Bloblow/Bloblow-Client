@@ -9,16 +9,16 @@ import { useQuery } from "@tanstack/react-query";
 const SampleGroupPage = () => {
   useSignInRedirect();
 
-  const GROUP_ID = import.meta.env.VITE_SAMPLE_GROUP_ID;
+  const groupId = import.meta.env.VITE_SAMPLE_GROUP_ID;
 
-  const { data: sampleGroupList, isError } = useQuery({
-    queryKey: ["sampleGroupList"],
-    queryFn: () => asyncGetSpecificGroup(GROUP_ID),
+  const { data: sampleGroupData, isError } = useQuery({
+    queryKey: ["sampleGroupData"],
+    queryFn: () => asyncGetSpecificGroup(groupId),
     staleTime: 3 * 1000,
   });
 
-  const groupName = sampleGroupList?.name;
-  const keywordList = sampleGroupList?.keywordIdList;
+  const groupName = sampleGroupData?.name;
+  const keywordList = sampleGroupData?.keywordIdList;
 
   if (isError) {
     return (
@@ -28,7 +28,7 @@ const SampleGroupPage = () => {
     );
   }
 
-  if (sampleGroupList === undefined) {
+  if (sampleGroupData === undefined) {
     return null;
   }
 
@@ -39,12 +39,12 @@ const SampleGroupPage = () => {
         <SampleDashboardHeader groupName={groupName} keywordList={keywordList} />
         <article className="flex flex-col border-l-1 border-b-2 border-r-2 border-slate-200/80 shadow-md w-full">
           <div className="flex flex-col gap-10 p-10 w-full">
-            <GroupPeriodPostCountCard groupChartType={GROUP_CHART_TYPE.POST} groupId={GROUP_ID} />
+            <GroupPeriodPostCountCard groupChartType={GROUP_CHART_TYPE.POST} groupId={groupId} />
             <div className="flex flex-col md:flex-row gap-10 w-full">
-              <GroupPeriodPostCountCard groupChartType={GROUP_CHART_TYPE.LIKE} groupId={GROUP_ID} />
+              <GroupPeriodPostCountCard groupChartType={GROUP_CHART_TYPE.LIKE} groupId={groupId} />
               <GroupPeriodPostCountCard
                 groupChartType={GROUP_CHART_TYPE.COMMENT}
-                groupId={GROUP_ID}
+                groupId={groupId}
               />
             </div>
           </div>

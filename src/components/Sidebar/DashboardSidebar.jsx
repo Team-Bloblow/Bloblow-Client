@@ -97,7 +97,7 @@ const DashboardSidebar = ({ userGroupList, groupId, keywordId }) => {
         )}
         {isDropDownOpen &&
           (dashboardKeywordList.length > 0 ? (
-            <div className="absolute top-55 flex flex-col gap-10 w-full bg-white border-2 border-slate-200/80 shadow-lg z-header">
+            <div className="absolute top-55 flex flex-col w-full bg-white border-2 border-slate-200/80 shadow-lg z-header">
               {dashboardKeywordList.map((dashboardKeyword) => {
                 const keywordId = dashboardKeyword._id;
                 const keywordName = dashboardKeyword.keyword;

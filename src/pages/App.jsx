@@ -11,6 +11,7 @@ import KeywordPage from "./KeywordPage";
 import MyPage from "./MyPage";
 import NotFoundPage from "./NotFoundPage";
 import SampleGroupPage from "./SampleGroupPage";
+import SampleKeywordPage from "./SampleKeywordPage";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const App = () => {
@@ -54,6 +55,8 @@ const App = () => {
           <Route path="/dashboard">
             <Route path="sample">
               <Route index element={<SampleGroupPage />} />
+              <Route path="keyword-one" element={<SampleKeywordPage />} />
+              <Route path="keyword-two" element={<SampleKeywordPage />} />
             </Route>
             <Route path=":groupId">
               <Route index element={<GroupPage />} />
