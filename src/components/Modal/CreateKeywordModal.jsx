@@ -92,6 +92,12 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
         keyword: ERROR_MESSAGE.KEYWORD_EMPTY_INPUT_VALUE,
       }));
       return;
+    } else if (keywordValue.length >= 15) {
+      setErrorMessage((prev) => ({
+        ...prev,
+        keyword: ERROR_MESSAGE.KEYWORD_EMPTY_INPUT_VALUE_LONG,
+      }));
+      return;
     } else {
       setErrorMessage((prev) => ({
         ...prev,
