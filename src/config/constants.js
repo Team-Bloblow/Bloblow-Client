@@ -36,7 +36,7 @@ export const ALERT_MESSAGE = Object.freeze({
     TITLE: "게시물을 분석하고 있어요.",
     BODY: "게시물 수에 따라 최대 10분 소요될 수 있어요. 잠시만 기다려주세요.",
   },
-  SAMPLE: "메인화면으로 이동하여 로그인 후 이용해주세요.",
+  SAMPLE: "메인 화면으로 이동하여 로그인 후 이용해주세요.",
 });
 
 export const CHART_COLOR = Object.freeze(["#4285f4", "#db4437", "#f4b400", "#0f9d58", "#ab47bc"]);

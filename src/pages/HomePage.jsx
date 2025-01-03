@@ -16,11 +16,15 @@ const HomePage = () => {
             <Logo styles="text-60 lg:text-90 animate-fadeInFast hover:cursor-default" />
             <article className="flex flex-col items-start gap-20 animate-fadeInSlow text-gray-800 mb-5 sm:mb-20">
               <p className="text-20 sm:text-24 lg:text-26 font-bold">
-                관심있는 키워드의 블로그 게시물만 쏙
+                우리 브랜드를 언급한
+                <br />
+                네이버 블로그 게시물을 한 곳에
               </p>
               <div className="flex flex-col items-start gap-10">
-                <p className="text-16 sm:text-20">키워드를 구독하여 게시물 소식을 받아보세요</p>
-                <p className="text-16 sm:text-20">원하는대로 게시물들을 필터링할 수 있어요</p>
+                <p className="text-16 sm:text-20">
+                  사용자들은 우리 브랜드에 대해 어떻게 생각하고 있을까?
+                </p>
+                <p className="text-16 sm:text-20">실제 사용자들의 이야기와 후기를 모아보세요.</p>
               </div>
             </article>
             <div className="flex lg:hidden justify-center w-[90%] sm:w-[70%] md:w-[50%] border-2 border-green-100 mb-10 sm:mb-20">
@@ -37,7 +41,7 @@ const HomePage = () => {
             </div>
           </div>
         </section>
-        <div className="hidden lg:flex flex-col justify-center items-center w-[60%] border-2 border-green-100">
+        <div className="hidden lg:flex flex-col justify-center items-center w-[60%]">
           <img src="/assets/postListSample.png" alt="게시물 목록 샘플 이미지" />
         </div>
       </div>
@@ -46,15 +50,22 @@ const HomePage = () => {
           <img src="/assets/groupChartSample.png" alt="그룹 차트 샘플 이미지" />
         </div>
         <section className="w-full lg:w-[60%] flex-center">
-          <div className="flex flex-col lg:items-start items-end justify-center gap-20 animate-fadeInSlow text-gray-800 text-right lg:text-left">
+          <div className="flex flex-col lg:items-start items-end justify-center gap-5 animate-fadeInSlow text-gray-800 text-right lg:text-left">
             <p className="text-20 sm:text-24 lg:text-26 font-bold">
-              매일매일 업데이트 되는 대시보드 차트
+              여러 키워드를 구독하고 분석 결과를 비교해보세요
             </p>
+            <a href="https://bloblow.netlify.app/dashboard/sample" className="mb-20">
+              <p className="text-20 sm:text-24 lg:text-26 font-bold underline text-emerald-800 hover:text-emerald-600">
+                로그인 없이 둘러보세요 (바로가기)
+              </p>
+            </a>
             <div className="flex flex-col lg:items-start items-end gap-10 mb-20">
               <p className="text-16 sm:text-20">
-                대시보드에서 수치화된 지표들의 추이를 분석할 수 있어요
+                분석 버튼을 직접 눌러, 당일 게시물을 업데이트 할 수 있습니다.
               </p>
-              <p className="text-16 sm:text-20">그룹화한 키워드 간의 지표를 비교해보세요</p>
+              <p className="text-16 sm:text-20">
+                게시물 업데이트 자동화 소식을 빠른 시일 내에 전해드릴게요!
+              </p>
             </div>
             <div className="flex lg:hidden justify-center w-full sm:w-[70%] md:w-[65%] border-2 border-green-100 mb-20">
               <img src="/assets/groupChartSample.png" alt="그룹 차트 샘플 이미지" />
