@@ -54,7 +54,7 @@ const CreateKeywordModal = ({ selectedGroupId, selectedGroupName }) => {
           return;
         }
 
-        closeModal(MODAL_TYPE.CREATE_KEYWORD);
+        closeModal(MODAL_TYPE.CREATE_KEYWORD.DEFAULT);
         addModal(MODAL_TYPE.CREATE_KEYWORD_SUCCESS);
         queryClient.invalidateQueries({ queryKey: ["userGroupList", data.ownerUid] });
       },
