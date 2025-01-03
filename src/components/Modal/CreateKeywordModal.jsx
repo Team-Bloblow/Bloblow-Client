@@ -143,7 +143,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
               <div className="w-full flex items-start gap-20">
                 <Label
                   htmlFor="newGroup"
-                  styles="w-100 text-20 text-slate-700 font-semibold flex-shrink-0 hover:text-emerald-900/80"
+                  styles="w-100 text-20 text-slate-700 font-semibold flex-shrink-0"
                 >
                   새로운 그룹
                 </Label>
@@ -153,7 +153,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
                     id="newGroup"
                     value={inputValue.newGroup}
                     onChange={handleNewGroupInputChange}
-                    className="w-full h-40 px-15 border-2 border-black rounded-[5px] text-emerald-900 font-semibold"
+                    className="w-full h-40 px-15 border-2 border-black rounded-[5px] text-black font-semibold"
                     placeholder="새롭게 추가할 그룹명을 입력해주세요"
                   />
                   <p className="text-12 text-red-500 h-18 font-semibold">{errorMessage.newGroup}</p>
@@ -163,7 +163,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
               <div className="w-full flex items-start md:gap-20 gap-10">
                 <Label
                   htmlFor="group"
-                  styles="md:w-100 w-45 md:text-20 text-16 text-slate-700 font-semibold flex-shrink-0 hover:text-emerald-900/80"
+                  styles="md:w-100 w-45 md:text-20 text-16 text-slate-700 font-semibold flex-shrink-0"
                 >
                   그룹
                 </Label>
@@ -196,7 +196,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
             <div className="w-full flex items-start md:gap-20 gap-10">
               <Label
                 htmlFor="keyword"
-                styles="md:w-100 w-45 md:text-20 text-16 text-slate-700 font-semibold flex-shrink-0 hover:text-emerald-900/80"
+                styles="md:w-100 w-45 md:text-20 text-16 text-slate-700 font-semibold flex-shrink-0"
               >
                 키워드
               </Label>
@@ -206,7 +206,7 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
                   id="keyword"
                   value={inputValue.keyword}
                   onChange={handleKeywordInputChange}
-                  className="w-full h-40 px-15 border-2 border-slate-700 rounded-[5px] text-emerald-900 font-semibold md:placeholder:text-16 placeholder:text-14 md:text-16 text-14"
+                  className="w-full h-40 px-15 border-2 border-slate-700 rounded-[5px] text-black font-semibold md:placeholder:text-16 placeholder:text-14 md:text-16 text-14"
                   placeholder="새롭게 추가할 키워드를 입력해주세요"
                 />
                 <p className="text-12 text-red-500 h-18 font-semibold">{errorMessage.keyword}</p>
