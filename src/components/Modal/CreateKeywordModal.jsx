@@ -112,10 +112,10 @@ const CreateKeywordModal = ({ selectedGroupId, selectedGroupName }) => {
               </div>
             </div>
             <div className="relative w-full p-12 mb-5 flex justify-center items-center bg-gray-100 rounded">
-              <div className="absolute left-25">
+              <div className="md:visible invisible absolute left-25">
                 <LightIcon />
               </div>
-              <span className="text-14 text-gray-500 text-center">
+              <span className="md:text-14 text-11 text-gray-500 text-center">
                 키워드는 네이버 블로그 게시물을 불러올 때 검색어로 활용돼요.
                 <br />
                 구체적인 키워드는 게시물 검색 결과의 정확도를 높일 수 있어요.
