@@ -6,6 +6,7 @@ import useBoundStore from "../../store/client/useBoundStore";
 import CreateKeywordButton from "../Button/CreateKeywordButton";
 import Portal from "../Common/Portal";
 import SelectGroupDropDown from "../DropDown/SelectGroupDropDown";
+import LightIcon from "../Icon/LightIcon";
 import PlusSquareIcon from "../Icon/PlusSquareIcon";
 import Label from "../UI/Label";
 import ModalBackground from "./ModalBackground";
@@ -211,6 +212,18 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
                 />
                 <p className="text-12 text-red-500 h-18 font-semibold">{errorMessage.keyword}</p>
               </div>
+            </div>
+            <div className="relative w-full p-12 mb-5 flex justify-center items-center bg-gray-100 rounded">
+              <div className="absolute left-25">
+                <LightIcon />
+              </div>
+              <span className="text-14 text-gray-500 text-center">
+                키워드는 네이버 블로그 게시물을 불러올 때 검색어로 활용돼요.
+                <br />
+                구체적인 키워드는 게시물 검색 결과의 정확도를 높일 수 있어요.
+                <br />
+                띄어쓰기에 따라 검색 결과가 다를 수 있어요. (예 : 카페라떼, 카페 라떼)
+              </span>
             </div>
             <CreateKeywordButton isDisabled={isPending} />
           </form>
