@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import asyncPostKeyword from "../../api/keyword/asyncPostKeyword";
-import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
+import { ERROR_MESSAGE, GROUP_CHART_TYPE, MODAL_TYPE } from "../../config/constants";
 import useBoundStore from "../../store/client/useBoundStore";
 import CreateKeywordButton from "../Button/CreateKeywordButton";
 import Portal from "../Common/Portal";
@@ -57,6 +57,15 @@ const CreateKeywordModal = ({ selectedGroupId, selectedGroupName }) => {
         closeModal(MODAL_TYPE.CREATE_KEYWORD.DEFAULT);
         addModal(MODAL_TYPE.CREATE_KEYWORD_SUCCESS);
         queryClient.invalidateQueries({ queryKey: ["userGroupList", data.ownerUid] });
+        queryClient.invalidateQueries({
+          queryKey: ["groupPostCount", "", selectedGroupId, GROUP_CHART_TYPE.POST],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["groupPostCount", "", selectedGroupId, GROUP_CHART_TYPE.LIKE],
+        });
+        queryClient.invalidateQueries({
+          queryKey: ["groupPostCount", "", selectedGroupId, GROUP_CHART_TYPE.COMMENT],
+        });
       },
       onError: () => {
         addModal(MODAL_TYPE.ERROR);
