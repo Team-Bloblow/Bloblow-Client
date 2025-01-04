@@ -47,6 +47,7 @@ const AmplitudeTracker = () => {
           title: pageType,
           path: location.pathname,
           url: window.location.href,
+          timestamp: new Date().toISOString(),
         });
       }
     }
