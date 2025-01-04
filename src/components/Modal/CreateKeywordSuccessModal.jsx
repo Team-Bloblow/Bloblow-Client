@@ -21,11 +21,17 @@ const CreateKeywordSuccessModal = () => {
           modalType={MODAL_TYPE.CREATE_KEYWORD_SUCCESS}
         >
           <main className="flex flex-col md:gap-15 gap-8 items-center">
-            <div className="flex flex-col items-center gap-5">
-              <h1 className="md:text-18 text-16 font-semibold">키워드 등록에 성공하였습니다.</h1>
-              <span className="md:text-16 text-14">
-                게시물 수집, 분석 까지 최대 24시간이 소요될 수 있어요.
+            <div className="flex flex-col items-center gap-5 mb-10">
+              <h1 className="md:text-18 text-16 font-semibold">키워드를 등록했어요</h1>
+              <span className="font-bold mb-15 text-18">
+                직접 버튼을 눌러 게시물 분석을 시작할 수 있어요.
               </span>
+              <div className="flex flex-col gap-5 md:text-16 text-14 text-center">
+                <span className="">
+                  키워드 대시보드로 이동해서 [오늘 게시물 불러오기] 버튼을 눌러주세요.
+                </span>
+                <span>게시물 수에 따라 최대 10분이 소요될 수 있습니다.</span>
+              </div>
             </div>
             <Button
               type="button"

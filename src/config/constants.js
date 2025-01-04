@@ -8,15 +8,16 @@ export const MODAL_TYPE = Object.freeze({
   },
   CREATE_KEYWORD_SUCCESS: "createKeywordSuccess",
   EDIT_KEYWORD_DASHBOARD: "editKeywordDashboard",
+  IS_CRAWLING_IN_PROGRESS: "crawlingInProgress",
   ERROR: "error",
   CONFIRM: "confirm",
   ALERT: "alert",
 });
 
 export const ERROR_MESSAGE = Object.freeze({
-  MUST_GROUP_SELECT: "그룹을 선택해주세요.",
   NEW_GROUP_EMPTY_INPUT_VALUE: "그룹명을 입력해주세요.",
   KEYWORD_EMPTY_INPUT_VALUE: "키워드를 입력해주세요.",
+  KEYWORD_EMPTY_INPUT_VALUE_LONG: "키워드를 15자 이하로 입력해주세요.",
   CREATE_KEYWORD_ERROR: "새로운 키워드 생성에 실패하였습니다.",
   KEYWORD_DUPLICATED_INPUT_VALUE: "이미 키워드가 필터로 등록되어 있어요.",
   FILTER_ALREADY_APPLIED: "이미 필터가 적용되었어요.",
@@ -31,7 +32,7 @@ export const CONFIRM_MESSAGE = Object.freeze({
 
 export const ALERT_MESSAGE = Object.freeze({
   DELETE_KEYWORD_SUCCESS: "키워드를 구독 해지했습니다.",
-  SAMPLE: "메인화면으로 이동하여 로그인 후 이용해주세요.",
+  SAMPLE: "메인 화면으로 이동하여 로그인 후 이용해주세요.",
 });
 
 export const CHART_COLOR = Object.freeze(["#4285f4", "#db4437", "#f4b400", "#0f9d58", "#ab47bc"]);

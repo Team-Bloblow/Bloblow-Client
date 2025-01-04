@@ -13,6 +13,7 @@ import CalendarIcon from "../Icon/CalendarIcon";
 import EditIcon from "../Icon/EditIcon";
 import UpdateIcon from "../Icon/UpdateIcon";
 import ErrorModal from "../Modal/ErrorModal";
+import GuideCrawlingModal from "../Modal/GuideCrawlingModal";
 import Button from "../UI/Button";
 import Label from "../UI/Label";
 import Loading from "../UI/Loading";
@@ -56,6 +57,11 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
 
   const createdDate = getDate(specificKeywordData?.createdAt);
   const updatedDate = getDate(specificKeywordData?.updatedAt);
+
+  const handleStartCrawlingButtonClick = () => {
+    addModal(MODAL_TYPE.IS_CRAWLING_IN_PROGRESS);
+    startCrawlingMutation.mutate(keywordId);
+  };
 
   const handleKeywordDelete = async () => {
     addModal(MODAL_TYPE.CONFIRM);
@@ -151,10 +157,6 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
     );
   }
 
-  const handleStartCrawlingButtonClick = () => {
-    startCrawlingMutation.mutate(keywordId);
-  };
-
   return (
     <aside className="flex justify-between items-center w-full h-100 bg-white border-b-2 border-r-2 border-violet-50 shadow-sm px-20 py-10 flex-shrink-0">
       <div className="flex justify-between items-center w-full">
@@ -202,6 +204,7 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
       {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.ERROR && (
         <ErrorModal errorMessage={ERROR_MESSAGE.DELETE_KEYWORD_ERROR} />
       )}
+      {openModalTypeList.includes(MODAL_TYPE.IS_CRAWLING_IN_PROGRESS) && <GuideCrawlingModal />}
     </aside>
   );
 };

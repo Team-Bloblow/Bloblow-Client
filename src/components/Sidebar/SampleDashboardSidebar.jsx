@@ -51,7 +51,7 @@ const SampleDashboardSidebar = ({ groupName, keywordList, keywordId }) => {
         destination="/"
       >
         <RevertIcon className="size-16 md:size-20 fill-black" />
-        <span className="hidden md:inline">메인화면</span>
+        <span className="hidden md:inline">메인 화면</span>
       </Button>
       <div className="flex-shrink-0">
         <Button
