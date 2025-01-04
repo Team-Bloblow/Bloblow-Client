@@ -24,7 +24,7 @@ const HomePage = () => {
                 <p className="text-16 sm:text-20">
                   사용자들은 우리 브랜드를 어떻게 생각하고 있을까?
                 </p>
-                <p className="text-16 sm:text-20">실제 사용자들의 이야기와 후기를 모아보세요.</p>
+                <p className="text-16 sm:text-20">실제 사용자들의 이야기와 후기를 모아 보세요.</p>
               </div>
             </article>
             <div className="flex lg:hidden justify-center w-[90%] sm:w-[70%] md:w-[60%] mb-10 sm:mb-20">
