@@ -127,11 +127,7 @@ const DashboardSidebar = ({ userGroupList, groupId, keywordId }) => {
         + 키워드 만들기
       </Button>
       {openModalTypeList.includes(MODAL_TYPE.CREATE_KEYWORD.DEFAULT) && (
-        <CreateKeywordModal
-          createType={MODAL_TYPE.CREATE_KEYWORD.DASHBOARD}
-          selectedGroupId={groupId}
-          selectedGroupName={dashboardGroupName}
-        />
+        <CreateKeywordModal selectedGroupId={groupId} selectedGroupName={dashboardGroupName} />
       )}
       {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.CREATE_KEYWORD_SUCCESS && (
         <CreateKeywordSuccessModal />

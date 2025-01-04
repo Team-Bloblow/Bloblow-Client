@@ -30,7 +30,15 @@ const SignInButton = ({ type }) => {
     if (isSignIn) {
       signOut();
     } else {
+      if (window.amplitude) {
+        window.amplitude.track("clicked_button", {
+          title: "sign_in",
+          timestamp: new Date().toISOString(),
+        });
+      }
+
       const { uid, email, displayName, photoURL } = await asyncSignIn();
+
       if (googleSignInError) {
         addModal(MODAL_TYPE.ERROR);
       }

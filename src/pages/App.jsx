@@ -3,7 +3,9 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 import Header from "../components/Layout/Header";
 import Loading from "../components/UI/Loading";
+import AmplitudeTracker from "../config/AmplitudeTracker";
 import ReactQueryProviders from "../config/ReactQueryProvider";
+import { initAmplitude } from "../config/amplitude";
 import useBoundStore from "../store/client/useBoundStore";
 import GroupPage from "./GroupPage";
 import HomePage from "./HomePage";
@@ -22,6 +24,10 @@ const App = () => {
   const navigate = useNavigate();
   const pathname = useLocation().pathname;
   const isSampleRoute = pathname.startsWith("/dashboard/sample");
+
+  useEffect(() => {
+    initAmplitude();
+  }, []);
 
   useEffect(() => {
     const auth = getAuth();
@@ -48,6 +54,7 @@ const App = () => {
   return (
     <ReactQueryProviders>
       <Header isAuthChecked={isAuthChecked} />
+      <AmplitudeTracker />
       {isAuthChecked ? (
         <Routes>
           <Route path="/" exact element={<HomePage />} />
