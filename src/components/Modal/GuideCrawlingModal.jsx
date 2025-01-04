@@ -22,7 +22,7 @@ const GuideCrawlingModal = () => {
         >
           <main className="flex flex-col items-center">
             <div className="flex flex-col text-center gap-5">
-              <h1 className="font-semibold md:text-22 text-15 mb-5">게시물을 분석하고 있습니다.</h1>
+              <h1 className="font-semibold md:text-22 text-15 mb-5">게시물을 불러오고 있습니다.</h1>
               <span className="md:text-20 text-12">
                 게시물 수에 따라 최대 10분 소요될 수 있어요.
               </span>
