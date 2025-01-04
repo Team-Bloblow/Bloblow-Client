@@ -32,10 +32,6 @@ export const CONFIRM_MESSAGE = Object.freeze({
 
 export const ALERT_MESSAGE = Object.freeze({
   DELETE_KEYWORD_SUCCESS: "키워드를 구독 해지했습니다.",
-  IS_CRAWLING_IN_PROGRESS: {
-    TITLE: "게시물을 분석하고 있어요.",
-    BODY: "게시물 수에 따라 최대 10분 소요될 수 있어요. 잠시만 기다려주세요.",
-  },
   SAMPLE: "메인 화면으로 이동하여 로그인 후 이용해주세요.",
 });
 

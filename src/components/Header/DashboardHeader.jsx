@@ -204,12 +204,7 @@ const DashboardHeader = ({ userGroupList, userUid, groupId, specificKeywordData,
       {openModalTypeList[openModalTypeList.length - 1] === MODAL_TYPE.ERROR && (
         <ErrorModal errorMessage={ERROR_MESSAGE.DELETE_KEYWORD_ERROR} />
       )}
-      {openModalTypeList.includes(MODAL_TYPE.IS_CRAWLING_IN_PROGRESS) && (
-        <GuideCrawlingModal
-          alertTitle={ALERT_MESSAGE.IS_CRAWLING_IN_PROGRESS.TITLE}
-          alertBody={ALERT_MESSAGE.IS_CRAWLING_IN_PROGRESS.BODY}
-        />
-      )}
+      {openModalTypeList.includes(MODAL_TYPE.IS_CRAWLING_IN_PROGRESS) && <GuideCrawlingModal />}
     </aside>
   );
 };
