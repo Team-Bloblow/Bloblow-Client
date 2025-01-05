@@ -325,11 +325,12 @@ export default sanitizeHtmlEntity;
 
 <br />
 
-| 항목                | React Query 사용 전                             | React Query 사용 후                             |
-|---------------------|-----------------------------------------------|-----------------------------------------------|
-| 상태 관리 방식       | 여러 `useState`로 개별 상태 관리              | React Query가 `isPending`, `isError` 자동 관리 |
-| 코드 중복            | 수동으로 반복되는 API 상태 처리 로직 필요      | 단일 인터페이스로 비동기 작업 처리 가능       |
-| 데이터 동기화        | 추가적인 로직 필요                            | `invalidateQueries`로 간단히 동기화           |
+| **항목**                       | **React Query 사용 전**                                                                                       | **React Query 사용 후**                                                                                 |
+|--------------------------------|-----------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| **상태 관리의 복잡성**          | isLoading, isSuccess, isError, data, error 등 여러 개의 useState로 상태를 수동으로 관리해야 함                    | isLoading, isError, data 등의 상태를 React Query가 자동으로 관리해줌                                      |
+| **반복적인 로직**               | API 호출 전 상태 초기화(setIsLoading(true) 등), 성공/실패 처리, 최종 상태 업데이트 등의 로직이 반복됨               | API 호출, 로딩/에러 처리, 상태 관리가 간단한 코드로 표현됨                                               |
+| **의존적인 로직**               | useEffect 안에서 데이터를 가져오는 로직을 직접 작성해야 하며, 의존성 및 에러 핸들링 코드가 분산됨                    | React Query 훅을 사용해 의존성 및 에러 핸들링을 간결하게 처리 가능                                        |
+| **서버 데이터 동기화 문제**      | 데이터가 갱신될 때 수동으로 추가적인 로직을 작성해야만 함                                                          | staleTime, cacheTime 등을 활용해 캐싱 및 네트워크 요청을 최적화하고, invalidateQueries로 데이터 동기화를 자동으로 처리 가능      |
 
 <br />
 
@@ -364,11 +365,6 @@ React Query를 도입함으로써 우리는 중복된 코드와 상태를 줄이
 
 **1. [React Query 사용 전]**
 
-- 상태 관리의 복잡성: isLoading, isSuccess, isError, data, error 등 여러 개의 useState로 상태를 수동으로 관리해야 합니다.
-- 반복적인 로직: API 호출 전 상태 초기화(setIsLoading(true) 등), 성공/실패 처리, 최종 상태 업데이트 등의 로직이 반복됩니다.
-- 의존적인 로직: useEffect 안에서 데이터를 가져오는 로직을 직접 작성해야 하며, 이로 인해 의존성, 에러 핸들링 코드가 분산됩니다.
-- 서버 데이터 동기화 문제: 데이터가 갱신될 때 수동으로 추가적인 로직을 작성해야만 합니다.
-
 ```jsx
 const [isLoading, setIsLoading] = useState(false);
 const [isSuccess, setIsSuccess] = useState(false);
@@ -399,7 +395,7 @@ useEffect(() => {
     } catch (error) {
       setIsError(true);
       setError(error.message);
-      
+
       console.error(`Fetch error: ${error.message}`);
     } finally {
       setIsLoading(false);
@@ -411,10 +407,6 @@ useEffect(() => {
 ```
 
 **2. [React Query 사용 후]**
-
-- 상태 관리의 단순화: isLoading, isError, data 등의 상태를 React Query가 자동으로 관리해줍니다.
-- 간결한 코드: API 호출, 로딩/에러 처리, 상태 관리가 모두 간단한 코드로 표현됩니다.
-- 캐싱 등 다양한 기능 제공: 추가적으로 staleTime, cacheTime 등을 활용해 캐싱 및 네트워크 요청을 최적화할 수 있습니다.
 
 ```jsx
 const { data, isError, isPending, isSuccess } = useQuery('data', fetchData);
@@ -512,18 +504,24 @@ const queryClient = useQueryClient();
 
 const mutation = useMutation({
   mutationFn: (mutationPayload) => asyncMutate(mutationPayload),
-  onSuccess: () => { /* .. */ },
-  onError: () => { /* .. */ }
-})
+  onSuccess: () => {
+    /* .. */
+  },
+  onError: () => {
+    /* .. */
+  },
+});
 
 const handleButtonClick = (mutationPayload) => {
   mutation.mutate(mutationPayload, {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["data"] });
     },
-    onError: () => { /* .. */ }
+    onError: () => {
+      /* .. */
+    },
   });
-}
+};
 
 const { isPending, isError, isSuccess } = mutation;
 ```
@@ -580,7 +578,7 @@ const isPending = createKeywordMutation.isPending;
 
 모달은 많은 웹 애플리케이션에서 흔히 볼 수 있는 기능입니다. 현재 페이지에서 벗어나지 않고도 컨텍스트를 분리하여 사용자를 집중 시킴으로써 정보를 표시하거나 입력을 수집할 수 있는 간단한 방법이기 때문입니다. 따라서, 당연하게도 저희 프로젝트에도 UI/UX를 위하여 모달을 사용하였습니다.
 
-프로젝트 진행 중에 모달을 DOM 내부의 기존 `#root` 노드에서 렌더링하면서 다소 염려가 되는 점이 있었고, 해당 부분에 대해서 설명하고자 합니다. 
+프로젝트 진행 중에 모달을 DOM 내부의 기존 `#root` 노드에서 렌더링하면서 다소 염려가 되는 점이 있었고, 해당 부분에 대해서 설명하고자 합니다.
 
 **1. [스타일링 충돌]**
 
@@ -621,10 +619,12 @@ function Profile() {
 <br />
 
 1. **독립적인 DOM 계층에서 렌더링**
+
    - `index.html`에 `<div id="modal"></div>`를 추가하여, 모달이 기존 `#root` DOM 구조와 분리된 독립적인 계층에서 렌더링되도록 했습니다.
    - `createPortal`을 사용해 React의 컴포넌트 트리와는 독립적으로 DOM 트리 상의 `#modal` 노드에 모달을 렌더링하도록 구현했습니다. 따라서, Modal 컴포넌트를 DOM의 어느 곳에나 배치 가능합니다. React 컴포넌트 트리에서는 Modal 컴포넌트가 배치된 곳에 위치하지만 실제 DOM 트리에서는 그렇지 않게 됩니다.
 
 2. **스타일링 충돌 방지**
+
    - 모달이 부모 DOM의 스타일 속성 영향을 받지 않으므로, `position`, `z-index` (쌓임 맥락)와 같은 속성으로 인한 CSS 충돌 문제로부터 자유롭습니다.
    - 항상 화면 최상단에 모달이 표시되도록 보장할 수 있게 되었습니다.
 
@@ -648,7 +648,6 @@ function Profile() {
 
 ```jsx
 // Portal.jsx
-
 import { createPortal } from "react-dom";
 
 import PropTypes from "prop-types";
@@ -665,7 +664,6 @@ Portal.propTypes = {
   children: PropTypes.node.isRequired,
   currentRef: PropTypes.node,
 };
-
 ```
 
 ```jsx
@@ -680,8 +678,7 @@ const AlertModal = ({ alertMessage, destination }) => {
     <Portal>
       <ModalBackground isClear={false} modalType={MODAL_TYPE.ALERT}>
         <ModalFrame isClear={false} hasCloseButton={false} modalType={MODAL_TYPE.ALERT}>
-          <main className="flex flex-col items-center">
-          </main>
+          <main className="flex flex-col items-center"></main>
         </ModalFrame>
       </ModalBackground>
     </Portal>
@@ -690,6 +687,7 @@ const AlertModal = ({ alertMessage, destination }) => {
 
 export default AlertModal;
 ```
+
   </div>
 </details>
 
@@ -733,11 +731,7 @@ const MyPageSidebar = () => {
 
   return (
     <aside>
-      <Button
-        onClick={handleCreateKeywordButton}
-      >
-        키워드 만들기
-      </Button>
+      <Button onClick={handleCreateKeywordButton}>키워드 만들기</Button>
       {openModalTypeList.includes(MODAL_TYPE.CREATE_KEYWORD.DEFAULT) && (
         <CreateKeywordModal createType={MODAL_TYPE.CREATE_KEYWORD.MY_PAGE} />
       )}
@@ -751,6 +745,7 @@ const MyPageSidebar = () => {
   );
 };
 ```
+
   </div>
 </details>
 
@@ -810,6 +805,7 @@ const useScrollDisable = () => {
   }, []);
 };
 ```
+
   </div>
 </details>
 
@@ -828,12 +824,13 @@ const useInfiniteData = ({
   getNextPageParam,
   ref,
 }) => {
-  const { data, status, fetchNextPage, isPending, isFetchingNextPage, isError, ...rest } = useInfiniteQuery({
-    queryKey,
-    queryFn: ({ pageParam }) => queryFn(pageParam, options),
-    initialPageParam,
-    getNextPageParam,
-  });
+  const { data, status, fetchNextPage, isPending, isFetchingNextPage, isError, ...rest } =
+    useInfiniteQuery({
+      queryKey,
+      queryFn: ({ pageParam }) => queryFn(pageParam, options),
+      initialPageParam,
+      getNextPageParam,
+    });
 
   const onIntersect = (entries) => {
     if (isPending) return;
@@ -879,6 +876,7 @@ const PostCardList = ({ keywordId, filterList, setFilterList, resetFilterList })
     isError,
   } = useInfiniteData(infiniteDataArgument);
 ```
+
   </div>
 </details>
    
@@ -924,6 +922,7 @@ const useObserver = ({
   }, [target, root, rootMargin, threshold, onIntersect]);
 };
 ```
+
   </div>
 </details>
 
