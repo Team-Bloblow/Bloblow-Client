@@ -102,7 +102,7 @@
 # 2. 기술 스택
 
 <div>
-  <img width="60%" src="./public/assets/bloblow_tech_stack.png" alt="블로블로 기술 스택"/>
+  <img width="100%" src="./public/assets/bloblow_tech_stack.png" alt="서비스 기술 스택"/>
 </div>
 <br>
 
@@ -253,13 +253,22 @@ iframe 태그의 src 속성 값으로 게시물의 새로운 URL이 할당되어
 
 저희는 본문 뿐만 아니라 댓글과 공감 수와 같은 부가 정보 또한 추출하여 사용자에게 더 많은 인사이트를 제공드리려고 합니다.
 
-## 4-2. 네이버 블로그 API의 응답 중 content와 title 내부의 &amp 은 무엇이며 어떻게 필터링할까?
+## 4-2. 네이버 API 응답 내부의 `&amp;` 은 무엇이며 어떻게 필터링할까?
 
-### Naver Blog API 응답에서 HTML Entities 처리하기
+- **`&amp;`은 HTML Entities입니다. HTML Entities는 HTML에서 특수문자를 안전하게 표현하기 위한 방식으로, `&amp;`는 &를, `&lt;`는 <를 의미합니다.**
+- **이를 처리하기 위해 HTML Entities를 디코딩하고 `<b>`와 같은 불필요한 태그를 제거하는 유틸리티 함수를 작성하여 깨끗한 텍스트를 반환하도록 했습니다.**
 
-**Naver Blog API**를 사용하면서, 응답에 특수문자(예: `&amp;`나 `&lt;` )가 포함되어 해당 응답의 title과 description을 활용하는 PostCard 컴포넌트에 잘못된 텍스트가 표시되는 문제를 발견했습니다. 이를 조사한 결과, 이 특수문자들이 공통적으로 `&`로 시작하거나 HTML 태그와 비슷한 형태를 가지고 있었고, 이것이 **HTML Entities**라는 것을 알게 되었습니다.
+<details>
+  <summary><b>[상세 설명] HTML Entities란?</b></summary>
+  <div markdown="1">
 
-### HTML Entities란 무엇인가?
+<br />
+
+**1. [Naver Blog API 응답에서 HTML Entities 처리하기]**
+
+Naver Blog API를 사용하면서, 응답에 특수문자(예: `&amp;`나 `&lt;` )가 포함되어 해당 응답의 title과 description을 활용하는 PostCard 컴포넌트에 잘못된 텍스트가 표시되는 문제를 발견했습니다. 이를 조사한 결과, 이 특수문자들이 공통적으로 `&`로 시작하거나 HTML 태그와 비슷한 형태를 가지고 있었고, 이것이 **HTML Entities**라는 것을 알게 되었습니다.
+
+**2. [HTML Entities란 무엇인가?]**
 
 HTML Entities는 HTML에서 예약되거나 특수한 의미를 가지는 문자를 안전하게 표현하기 위해 사용됩니다. 예를 들어:
 
@@ -269,23 +278,20 @@ HTML Entities는 HTML에서 예약되거나 특수한 의미를 가지는 문자
 
 HTML Entities는 다음과 같은 이유로 사용됩니다.
 
-1. **HTML 구조 보호:** `<`나 `>`와 같은 문자가 HTML 태그로 잘못 해석되는 것을 방지합니다.
-2. **보안:** HTML Entities는 악성 코드 삽입(XSS 공격)을 방지하는 데 도움을 줍니다.
-3. **호환성:** 특수문자를 다양한 환경에서 일관되게 표현할 수 있도록 보장합니다.
+1. HTML 구조 보호: `<`나 `>`와 같은 문자가 HTML 태그로 잘못 해석되는 것을 방지합니다. 만약 일반 텍스트에서 `<`나 `>`와 같은 문자를 그대로 사용할 경우, 브라우저가 이를 태그로 오인할 수 있습니다.
+2. 보안: 특수문자가 HTML, JavaScript, CSS 코드로 해석되는 경우, 악성 코드 삽입(예: XSS 공격)의 위험이 있습니다. HTML Entities는 이러한 공격을 방지하기 위해 특수문자를 변환하여 브라우저가 실행 가능한 코드로 인식하지 않도록 보호합니다.
+3. 호환성: 특수문자를 다양한 환경에서 일관되게 표현할 수 있도록 보장합니다.
 
-### HTML Entities가 API 응답에 포함된 이유
+  </div>
+</details>
 
-네이버 블로그 API 응답에 HTML Entities가 포함된 이유는 다음과 같습니다:
+<details>
+  <summary><b>[코드] HTML Entities를 디코딩하고 불필요한 태그를 제거하는 함수</b></summary>
+  <div markdown="1">
 
-1. **HTML 구조 보존:** 일부 응답에는 `<b>`와 같은 HTML 태그가 포함될 수 있으므로 이를 엔티티로 인코딩하여 안전하게 전달합니다.
-2. **보안 강화:** 특수문자를 엔코딩하여 실행 가능한 HTML이나 JavaScript로 해석되지 않도록 방지합니다.
-3. **표준화:** 여러 플랫폼에서 데이터 표현을 일관되게 유지하기 위해 자동으로 엔티티로 변환했을 가능성이 높습니다.
+<br />
 
-### 해결책: HTML Entities 디코딩 유틸 함수
-
-사용자가 깨끗한 텍스트를 볼 수 있도록 HTML Entities를 디코딩하는 유틸리티 함수를 작성했습니다. 이 함수는 일반적인 HTML Entities를 디코딩하고, `<b>`와 같은 불필요한 태그를 제거합니다.
-
-```jsx
+```js
 const sanitizeHtmlEntity = (string) => {
   if (typeof string !== "string") {
     return "";
@@ -307,208 +313,37 @@ const sanitizeHtmlEntity = (string) => {
 export default sanitizeHtmlEntity;
 ```
 
-1. **타입 확인:** 입력 값이 문자열인지 확인합니다. 문자열이 아니면 빈 문자열을 반환합니다.
-2. **엔티티 디코딩:** `&amp;`, `&lt;`, `&gt;` 등 주요 HTML Entities를 실제 문자로 변환합니다.
-3. **태그 제거:** `<b>`와 같은 불필요한 HTML 태그를 제거합니다.
-4. **최종 출력:** 깨끗하고 안전한 텍스트를 반환합니다.
+  </div>
+</details>
 
----
-
-### Reference
-
-https://developer.mozilla.org/ko/docs/Glossary/Entity
-
-<br>
+<br />
 
 ## 4-3. 서버 상태는 어떻게 관리할 수 있을까? 우리는 왜 React Query를 도입했는가?
 
+- React Query 도입 이유: API 요청 상태(로딩, 성공, 실패) 관리의 반복적인 코드와 비효율성을 줄이고, 서버 상태를 간편하고 일관되게 관리하기 위해 React Query를 도입했습니다.
+- React Query의 강점: 데이터 캐싱, Optimistic Updates, 비동기 작업의 통합 관리를 통해 네트워크 요청을 줄이고 사용자 경험을 개선하며, 복잡한 비동기 상태 관리를 단순화할 수 있었습니다.
+
+<br />
+
+| 항목                | React Query 사용 전                             | React Query 사용 후                             |
+|---------------------|-----------------------------------------------|-----------------------------------------------|
+| 상태 관리 방식       | 여러 `useState`로 개별 상태 관리              | React Query가 `isPending`, `isError` 자동 관리 |
+| 코드 중복            | 수동으로 반복되는 API 상태 처리 로직 필요      | 단일 인터페이스로 비동기 작업 처리 가능       |
+| 데이터 동기화        | 추가적인 로직 필요                            | `invalidateQueries`로 간단히 동기화           |
+
+<br />
+
+<details>
+  <summary><b>[상세 설명] React Query를 도입한 이유</b></summary>
+  <div markdown="1">
+
+<br />
+
 팀 프로젝트를 시작하며, 우리는 코드를 효율적이고 통일된 방식으로 작성하고, 유저에게 자연스러운 UI를 노출시키는 방법을 고민했습니다. 이러한 고민은 서버와의 비동기 통신(HTTP 통신)에서도 마찬가지였습니다. 구체적으로는 크롤링 및 스크래핑 작업에서의 로딩 상태, 성공 여부, 실패 여부를 어떻게 일관성 있게 관리할지, 그룹 생성 후 그룹 리스트 데이터를 어떻게 서버와 자연스럽게 동기화할지 등이 있었습니다.
 
-- React Query 사용 전의 API 요청 상태 관리
-
-```tsx
-const [isLoading, setIsLoading] = useState(false);
-const [isSuccess, setIsSuccess] = useState(false);
-const [isError, setIsError] = useState(false);
-const [data, setData] = useState(null);
-const [error, setError] = useState(null);
-
-const fetchData = async (...args) => {
-  setIsLoading(true);
-  setIsSuccess(false);
-  setIsError(false);
-  setData(null);
-  setError(null);
-
-  try {
-    const response = await apiFunction(...args);
-
-    if (response.ok) {
-      const result = await response.json();
-
-      setData(result);
-      setIsSuccess(true);
-    } else {
-      const errorMessage = await response.text();
-
-      throw new Error(`Error ${response.status}: ${errorMessage}`);
-    }
-  } catch (error) {
-    setIsError(true);
-    setError(error.message);
-  } finally {
-    setIsLoading(false);
-  }
-};
-```
-
-- 페이지(라우트)가 로드될 시, 바로 보여주고 싶은 데이터가 있는 경우
-
-```tsx
-useEffect(() => {
-  const fetchData = async () => {
-    try {
-      const response = await apiFunction();
-
-      if (response.ok) {
-        const parsedResponse = await response.json();
-        setData(parsedResponse); // setter 실행으로 리렌더링 트리거
-      } else {
-        console.error(`Error: ${response.status}`);
-      }
-    } catch (error) {
-      console.error(`Fetch error: ${error.message}`);
-    }
-  };
-
-  fetchData();
-}, []);
-```
-
-- DB mutation 이후, 서버 데이터 동기화의 경우
-
-```tsx
-const handleButtonClick = async (mutationPayload) => {
-  try {
-    const response = await fetch("/api/mutate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(mutationPayload),
-    });
-
-    if (response.ok) {
-      fetchData(); // Mutation 성공 후 서버 데이터 동기화
-    } else {
-      console.error(`Mutation error: ${response.status}`);
-    }
-  } catch (error) {
-    console.error(`Mutation error: ${error.message}`);
-  }
-};
-```
-
-React Query를 도입하지 않았다면, 위와 같이 API 요청 핸들링을 위해 직접 커스텀 훅을 작성하거나, 매번 새로운 서버 상태(Server State)를 수동으로 관리해야 했을 것입니다. 이러한 방식은 비슷한 로직의 반복으로 코드 중복을 야기할 수 있습니다. 또한, 여러 상태의 초기화 및 에러 처리, 로딩 상태 관리 등의 작업은 꽤 번거롭습니다. 페이지가 로드되거나 특정 컴포넌트가 마운트 될 때, 유저에게 즉각적으로 보여주고 싶은 데이터가 있다면, useEffect를 사용해 데이터를 불러와야 합니다. 그리고 특정 mutation 요청이 완료된 직후 서버 데이터를 다시 가지고 오려면 위와 같이 조건에 따른 추가적인 로직을 작성해야만 합니다.
+React Query를 도입하지 않았다면, API 요청 핸들링을 위해 직접 커스텀 훅을 작성하거나, 매번 새로운 서버 상태(Server State)를 수동으로 관리해야 했을 것입니다. 이러한 방식은 비슷한 로직의 반복으로 코드 중복을 야기할 수 있습니다. 또한, 여러 상태의 초기화 및 에러 처리, 로딩 상태 관리 등의 작업은 꽤 번거롭습니다. 페이지가 로드되거나 특정 컴포넌트가 마운트 될 때, 유저에게 즉각적으로 보여주고 싶은 데이터가 있다면, useEffect를 사용해 데이터를 불러와야 합니다. 그리고 특정 mutation 요청이 완료된 직후 서버 데이터를 다시 가지고 오려면 위와 같이 조건에 따른 추가적인 로직을 작성해야만 합니다.
 
 React Query를 도입함으로써 우리는 중복된 코드와 상태를 줄이며 서버 상태를 관리할 수 있었습니다. 특히, 데이터베이스에서의 Create/Update/Delete와 같은 mutation 작업 후에도 간단히 최신 데이터를 동기화(fetching)하거나, 에러 처리하는 코드를 작성할 수 있었습니다.
-
-- 요청 상태 관리 간소화 (실제 코드)
-
-```tsx
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
-const asyncGetUserGroup = async (userUid) => {
-  const fetchInfo = {
-    url: `${API_BASE_URL}/groups/${userUid}`,
-    params: "",
-  };
-
-  const response = await fetchHandler(fetchInfo);
-
-  return response;
-};
-
-const UserGroupCardList = () => {
-  const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
-  const userUid = useBoundStore((state) => state.userInfo.uid);
-  const hasUserUid = !!userUid;
-
-  **const { data: userGroupList, isError } = useQuery({
-    queryKey: ["userGroupList", userUid],
-    queryFn: () => asyncGetUserGroup(userUid),
-    enabled: hasUserUid,
-  });**
-
-  if (isError || userGroupList?.message?.includes("Error occured")) {
-    return (
-      <div className="flex flex-center w-full h-full">
-        에러가 발생하였습니다. 잠시 후 다시 시도해주시기 바랍니다.
-      </div>
-    );
-  }
-
-  if (userGroupList?.groupListLength === 0) {
-    return <div className="flex flex-center w-full h-full">생성한 그룹이 없습니다</div>;
-  }
-
-  if (hasUserUid && userGroupList?.groupListResult?.length > 0) {
-    setUserGroupList(userGroupList?.groupListResult);
-  }
-
-  return (
-```
-
-- 간단한 Mutation 핸들링 (실제 코드)
-
-```tsx
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
-const asyncPostKeyword = async (keywordInfo) => {
-  const fetchInfo = {
-    url: `${API_BASE_URL}/keyword`,
-    method: "POST",
-    params: "",
-    body: keywordInfo,
-  };
-
-  const response = await fetchHandler(fetchInfo);
-
-  return response;
-};
-
-const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) => {
-
-	/* ... */
-
-  **const queryClient = useQueryClient();**
-
-  const createKeywordMutation = useMutation({
-    mutationFn: (keywordInfo) => asyncPostKeyword(keywordInfo),
-  });
-
-  const handleKeywordSubmit = (e) => {
-    e.preventDefault();
-
-    /* ... */
-
-    **createKeywordMutation.mutate(keywordInfo, {
-      onSuccess: (data) => {**
-        if (data?.message?.includes("Error occured")) {
-          addModal(MODAL_TYPE.ERROR);
-          return;
-        }
-
-        ****closeModal(MODAL_TYPE.CREATE_KEYWORD);
-        addModal(MODAL_TYPE.CREATE_KEYWORD_SUCCESS);
-        **queryClient.invalidateQueries({ queryKey: ["userGroupList", data.ownerUid] });
-      },
-      onError: () => {**
-        addModal(MODAL_TYPE.ERROR);
-      **},
-    });
-  };**
-
-  const isPending = createKeywordMutation.**isPending**;
-```
 
 뿐만 아니라, 다음과 같은 React Query의 강점들이 프로젝트에 큰 도움이 되었습니다.
 
@@ -518,74 +353,283 @@ const CreateKeywordModal = ({ createType, selectedGroupId, selectedGroupName }) 
 
 결국, React Query는 서버 상태 관리를 단순화하고, 데이터 가져오기(fetching), 캐싱(caching), 동기화(synchronization), 그리고 업데이트(update) 작업을 효율적으로 처리할 수 있는 강력한 도구입니다. 이를 통해 비동기 상태 관리의 복잡성을 줄이고, 비즈니스 로직과 사용자 경험 개선에 집중할 수 있었습니다.
 
+  </div>
+</details>
+
+<details>
+  <summary><b>[코드] React Query 사용 전후의 비교: API 요청 상태 관리 및 페이지 로드 시 데이터 불러오기</b></summary>
+  <div markdown="1">
+
+<br />
+
+**1. [React Query 사용 전]**
+
+- 상태 관리의 복잡성: isLoading, isSuccess, isError, data, error 등 여러 개의 useState로 상태를 수동으로 관리해야 합니다.
+- 반복적인 로직: API 호출 전 상태 초기화(setIsLoading(true) 등), 성공/실패 처리, 최종 상태 업데이트 등의 로직이 반복됩니다.
+- 의존적인 로직: useEffect 안에서 데이터를 가져오는 로직을 직접 작성해야 하며, 이로 인해 의존성, 에러 핸들링 코드가 분산됩니다.
+- 서버 데이터 동기화 문제: 데이터가 갱신될 때 수동으로 추가적인 로직을 작성해야만 합니다.
+
+```jsx
+const [isLoading, setIsLoading] = useState(false);
+const [isSuccess, setIsSuccess] = useState(false);
+const [isError, setIsError] = useState(false);
+const [data, setData] = useState(null);
+const [error, setError] = useState(null);
+
+useEffect(() => {
+  const fetchData = async () => {
+    setIsLoading(true);
+    setIsSuccess(false);
+    setIsError(false);
+    setError(null);
+
+    try {
+      const response = await apiFunction();
+
+      if (response.ok) {
+        const parsedResponse = await response.json();
+
+        setData(parsedResponse);
+        setIsSuccess(true);
+      } else {
+        const errorMessage = await response.text();
+
+        throw new Error(`Error ${response.status}: ${errorMessage}`);
+      }
+    } catch (error) {
+      setIsError(true);
+      setError(error.message);
+      
+      console.error(`Fetch error: ${error.message}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  fetchData();
+}, []);
+```
+
+**2. [React Query 사용 후]**
+
+- 상태 관리의 단순화: isLoading, isError, data 등의 상태를 React Query가 자동으로 관리해줍니다.
+- 간결한 코드: API 호출, 로딩/에러 처리, 상태 관리가 모두 간단한 코드로 표현됩니다.
+- 캐싱 등 다양한 기능 제공: 추가적으로 staleTime, cacheTime 등을 활용해 캐싱 및 네트워크 요청을 최적화할 수 있습니다.
+
+```jsx
+const { data, isError, isPending, isSuccess } = useQuery('data', fetchData);
+
+if (isError) {
+  return <div>Error occurred</div>;
+}
+
+if (isPending) {
+  return <div>Loading...</div>;
+}
+```
+
+**3. [실제 코드]**
+
+```jsx
+const setUserGroupList = useBoundStore((state) => state.setUserGroupList);
+const userUid = useBoundStore((state) => state.userInfo.uid);
+const hasUserUid = !!userUid;
+
+**const { data: userGroupList, isError, isPending } = useQuery({
+  queryKey: ["userGroupList", userUid],
+  queryFn: () => asyncGetUserGroup(userUid),
+  enabled: hasUserUid,
+});**
+
+if (isError || userGroupList?.message?.includes("Error occured")) {
+  return (
+    <div className="flex flex-center w-full h-full">
+      에러가 발생하였습니다. 잠시 후 다시 시도해주시기 바랍니다.
+    </div>
+  );
+}
+
+if (userGroupList?.groupListLength === 0) {
+  return <div className="flex flex-center w-full h-full">생성한 그룹이 없습니다</div>;
+}
+
+if (hasUserUid && userGroupList?.groupListResult?.length > 0) {
+  setUserGroupList(userGroupList?.groupListResult);
+}
+```
+
+  </div>
+</details>
+
+<details>
+  <summary><b>[코드] React Query 사용 전후의 비교: DB mutation 이후, 서버 데이터 동기화의 경우</b></summary>
+  <div markdown="1">
+
+<br />
+
+**1. [React Query 사용 전]**
+
+```jsx
+const [isLoading, setIsLoading] = useState(false);
+const [isSuccess, setIsSuccess] = useState(false);
+const [isError, setIsError] = useState(false);
+const [error, setError] = useState(null);
+
+const handleButtonClick = async (mutationPayload) => {
+  setIsLoading(true);
+  setIsSuccess(false);
+  setIsError(false);
+  setError(null);
+
+  try {
+    const response = await fetch("/api/mutate", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(mutationPayload),
+    });
+
+    if (response.ok) {
+      fetchData(); // Mutation 성공 후 서버 데이터 동기화
+      setIsSuccess(true);
+    } else {
+      const errorMessage = await response.text();
+      throw new Error(`Error ${response.status}: ${errorMessage}`);
+    }
+  } catch (error) {
+    setIsError(true);
+    setError(error.message);
+    console.error(`Mutation error: ${error.message}`);
+  } finally {
+    setIsLoading(false);
+  }
+};
+```
+
+**2. [React Query 사용 후]**
+
+```jsx
+const queryClient = useQueryClient();
+
+const mutation = useMutation({
+  mutationFn: (mutationPayload) => asyncMutate(mutationPayload),
+  onSuccess: () => { /* .. */ },
+  onError: () => { /* .. */ }
+})
+
+const handleButtonClick = (mutationPayload) => {
+  mutation.mutate(mutationPayload, {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["data"] });
+    },
+    onError: () => { /* .. */ }
+  });
+}
+
+const { isPending, isError, isSuccess } = mutation;
+```
+
+**3. [실제 코드]**
+
+```jsx
+const queryClient = useQueryClient();
+
+const createKeywordMutation = useMutation({
+  mutationFn: (keywordInfo) => asyncPostKeyword(keywordInfo),
+});
+
+const handleKeywordSubmit = (e) => {
+  e.preventDefault();
+
+  /* ... */
+
+  createKeywordMutation.mutate(keywordInfo, {
+    onSuccess: (data) => {
+      if (data?.message?.includes("Error occured")) {
+        addModal(MODAL_TYPE.ERROR);
+        return;
+      }
+
+      closeModal(MODAL_TYPE.CREATE_KEYWORD);
+      addModal(MODAL_TYPE.CREATE_KEYWORD_SUCCESS);
+      queryClient.invalidateQueries({ queryKey: ["userGroupList", data.ownerUid] });
+    },
+    onError: () => {
+      addModal(MODAL_TYPE.ERROR);
+    },
+  });
+};**
+
+const isPending = createKeywordMutation.isPending;
+```
+
+  </div>
+</details>
+
 <br>
 
 ## 4-4. 모달을 root DOM node에서 분리하여 렌더링 시킬 수 있는 방법은 없을까?
 
+- 문제 해결 방법: `react-dom`의 `createPortal` API와 독립적인 `#modal` DOM 계층을 도입하여, 모달을 기존 `#root`와 분리된 DOM 트리에 렌더링하도록 구현했습니다.
+- 얻은 효과: 스타일링 충돌 방지와 포지셔닝 문제를 해결하고, 모달을 독립적으로 관리할 수 있어 유지보수성이 향상됩니다.
+
+<details>
+  <summary><b>[상세 설명] root DOM node 내부에서 모달 렌더링 시 발생 가능한 문제점</b></summary>
+  <div markdown="1">
+
+<br />
+
 모달은 많은 웹 애플리케이션에서 흔히 볼 수 있는 기능입니다. 현재 페이지에서 벗어나지 않고도 컨텍스트를 분리하여 사용자를 집중 시킴으로써 정보를 표시하거나 입력을 수집할 수 있는 간단한 방법이기 때문입니다. 따라서, 당연하게도 저희 프로젝트에도 UI/UX를 위하여 모달을 사용하였습니다.
 
-프로젝트 진행 중에 모달을 DOM 내부의 기존 `#root` 노드에서 렌더링하면서 다소 염려가 되는 점이 있었고, 그 염려스러운 부분들을 해소할 수 있었던 과정에 대해서 설명하고자 합니다.
+프로젝트 진행 중에 모달을 DOM 내부의 기존 `#root` 노드에서 렌더링하면서 다소 염려가 되는 점이 있었고, 해당 부분에 대해서 설명하고자 합니다. 
+
+**1. [스타일링 충돌]**
+
+- 아래 예시 코드에서 모달은 root DOM node 내부의 Profile 컴포넌트의 자식이기 때문에 Profile 컴포넌트에 적용되는 모든 CSS가 모달에 영향을 줄 수 있습니다. 따라서 모달을 독립적으로 스타일링하기 어려울 수 있습니다.
 
 ```jsx
-// index.html
+function Dashboard() {
+  return (
+    <div>
+      <h1>Dashboard</h1>
+      <Profile />
+    </div>
+  );
+}
 
-<!doctype html>
-<html lang="ko">
-  <head>
-    <!-- ... -->
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
-</html>
-
-// main.jsx
-
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>
-);
-
+function Profile() {
+  return (
+    <div>
+      <h2>Profile</h2>
+      <button>View More</button>
+      <Modal />
+    </div>
+  );
+}
 ```
 
-<br>
+**2. [포지셔닝]**
 
-### root DOM node 내부에서 모달 렌더링 시 발생 가능한 문제점
+- 모달은 일반적으로 다른 콘텐츠 위에 표시되도록 absolute position 또는 fixed position으로 배치됩니다. 그러나 만약 모달의 부모 요소에 CSS position이 설정되어 있는 경우(정적이 아닌 경우) 모달은 전체 페이지가 아닌 해당 요소에 의한 상대적인 위치로 지정될 수 있습니다.
 
-1. **스타일링 충돌**
+  </div>
+</details>
 
-   - 아래 예시 코드에서 모달은 root DOM node 내부의 Profile 컴포넌트의 자식이기 때문에 Profile 컴포넌트에 적용되는 모든 CSS가 모달에 영향을 줄 수 있습니다. 따라서 모달을 독립적으로 스타일링하기 어려울 수 있습니다.
+<details>
+  <summary><b>[상세 설명] `Portal`과 독립적인 `#modal` root 도입</b></summary>
+  <div markdown="1">
 
-   ```jsx
-   // 예시 코드
+<br />
 
-   function Dashboard() {
-     return (
-       <div>
-         <h1>Dashboard</h1>
-         <Profile />
-       </div>
-     );
-   }
+1. **독립적인 DOM 계층에서 렌더링**
+   - `index.html`에 `<div id="modal"></div>`를 추가하여, 모달이 기존 `#root` DOM 구조와 분리된 독립적인 계층에서 렌더링되도록 했습니다.
+   - `createPortal`을 사용해 React의 컴포넌트 트리와는 독립적으로 DOM 트리 상의 `#modal` 노드에 모달을 렌더링하도록 구현했습니다. 따라서, Modal 컴포넌트를 DOM의 어느 곳에나 배치 가능합니다. React 컴포넌트 트리에서는 Modal 컴포넌트가 배치된 곳에 위치하지만 실제 DOM 트리에서는 그렇지 않게 됩니다.
 
-   function Profile() {
-     return (
-       <div>
-         <h2>Profile</h2>
-         <button>View More</button>
-         <Modal />
-       </div>
-     );
-   }
-   ```
+2. **스타일링 충돌 방지**
+   - 모달이 부모 DOM의 스타일 속성 영향을 받지 않으므로, `position`, `z-index` (쌓임 맥락)와 같은 속성으로 인한 CSS 충돌 문제로부터 자유롭습니다.
+   - 항상 화면 최상단에 모달이 표시되도록 보장할 수 있게 되었습니다.
 
-2. **포지셔닝**
-   - 모달은 일반적으로 다른 콘텐츠 위에 표시되도록 absolute position 또는 fixed position으로 배치됩니다. 그러나 만약 모달의 부모 요소에 CSS position이 설정되어 있는 경우(정적이 아닌 경우) 모달은 전체 페이지가 아닌 해당 요소에 의한 상대적인 위치로 지정될 수 있습니다.
-
-### 문제 해결: react-dom의 `createPortal` API와 독립적인 `#modal` root 도입
+3. **포지셔닝**
+   - 모달은 DOM에서 body의 direct child이기 때문에 전체 페이지에 대해 상대적인 위치를 지정할 수 있습니다.
 
 ```jsx
 // index.html
@@ -600,7 +644,9 @@ createRoot(document.getElementById("root")).render(
     <div id="modal"></div>
   </body>
 </html>
+```
 
+```jsx
 // Portal.jsx
 
 import { createPortal } from "react-dom";
@@ -622,40 +668,47 @@ Portal.propTypes = {
 
 ```
 
-1. **독립적인 DOM 계층에서 렌더링**
-   - `index.html`에 `<div id="modal"></div>`를 추가하여, 모달이 기존 `#root` DOM 구조와 분리된 독립적인 계층에서 렌더링되도록 했습니다.
-   - `createPortal`을 사용해 React의 컴포넌트 트리와는 독립적으로 DOM 트리 상의 `#modal` 노드에 모달을 렌더링하도록 구현했습니다. 따라서, Modal 컴포넌트를 DOM의 어느 곳에나 배치 가능합니다. React 컴포넌트 트리에서는 Modal 컴포넌트가 배치된 곳에 위치하지만 실제 DOM 트리에서는 그렇지 않게 됩니다.
-2. **스타일링 충돌 방지**
-   - 모달이 부모 DOM의 스타일 속성 영향을 받지 않으므로, `position`, `z-index` (쌓임 맥락)와 같은 속성으로 인한 CSS 충돌 문제로부터 자유롭습니다.
-   - 항상 화면 최상단에 모달이 표시되도록 보장할 수 있게 되었습니다.
-3. **포지셔닝**
-   - 모달은 DOM에서 body의 direct child이기 때문에 전체 페이지에 대해 상대적인 위치를 지정할 수 있습니다.
+```jsx
+const AlertModal = ({ alertMessage, destination }) => {
+  const closeModal = useBoundStore((state) => state.closeModal);
 
-> 모달이 실제 DOM에서는 특정 컴포넌트의 자식이 아니더라도 모달 내의 이벤트는 React 컴포넌트 트리의 부모 컴포넌트까지 버블링 되므로 유의해야 합니다. 이는 React 이벤트 시스템의 특징이며 포털을 사용할 때 주의해야 할 사항입니다.
->
-> - `createPortal`로 렌더링된 컴포넌트는 실제 DOM 트리에서는 다른 계층에 렌더링되지만, React의 컴포넌트 트리 상에서는 여전히 부모 컴포넌트와 연결되어 있습니다.
-> - 따라서, 모달에서 발생한 이벤트는 React 트리의 부모 컴포넌트로 전파됩니다.
+  const handleConfirmClick = () => {
+    closeModal(MODAL_TYPE.ALERT);
+  };
 
-### 결과적으로 얻은 효과
+  return (
+    <Portal>
+      <ModalBackground isClear={false} modalType={MODAL_TYPE.ALERT}>
+        <ModalFrame isClear={false} hasCloseButton={false} modalType={MODAL_TYPE.ALERT}>
+          <main className="flex flex-col items-center">
+          </main>
+        </ModalFrame>
+      </ModalBackground>
+    </Portal>
+  );
+};
 
-- **유지보수성 증가**: 모달을 독립적으로 관리하면서 관련 로직과 스타일을 한 곳에 집중시킬 수 있게 되어 코드의 가독성과 유지보수성이 크게 향상되었습니다.
-
----
-
-### Reference
-
-https://ko.react.dev/reference/react-dom/createPortal
-https://medium.com/@KiranMohan27/simplifying-modals-in-react-with-portals-4c528eb32139
+export default AlertModal;
+```
+  </div>
+</details>
 
 <br>
 
 ## 4-5. 모달을 전역적으로 어떻게 관리하면 좋을까?
 
-모든 모달을 개별적인 상태로 관리하기에는 모달의 종류가 많아짐에 따라 상태도 늘어나기에, 확장성이 없다고 느껴졌습니다. 그리고, 여러 모달을 동시에 열어야 하는 상황에서는 개별 `boolean` 값으로 관리하는 방식이 비효율적이라고 생각되었습니다. 따라서 아래와 같이 모달의 타입이 배열 안에 있고 없음을 따져서 렌더링 되도록 구현하였습니다. 아래의 방법이 모달 위에 모달을 띄우는 다중 모달 관리에도 용이하다고 생각했습니다.
+- 전역 상태 관리 방식: 모달의 종류를 배열로 관리하여, 모달의 타입이 배열에 포함되는지 확인해 렌더링하도록 구현했습니다. 이를 통해 개별 boolean 값으로 관리하는 비효율성을 해소하고, 다중 모달 관리가 용이해졌습니다.
+- 구현 효과: 모달 상태를 통합적으로 관리함으로써 확장성이 향상되었습니다. 동시에 여러 모달을 열거나, 특정 순서로 모달을 표시하는 기능을 간단히 구현할 수 있습니다.
+
+<details>
+  <summary><b>[코드] 모달 관리와 렌더링</b></summary>
+  <div markdown="1">
+
+<br />
+
+모든 모달을 개별적인 상태로 관리하기에는 모달의 종류가 많아짐에 따라 상태도 늘어나기에, 확장성이 없다고 느껴졌습니다. 그리고 여러 모달을 동시에 열어야 하는 상황에서는 개별 `boolean` 값으로 관리하는 방식이 비효율적이라고 생각되었습니다. 따라서 아래와 같이 모달의 타입이 배열 안에 있고 없음을 따져서 렌더링 되도록 구현하였습니다. 아래의 방법이 모달 위에 모달을 띄우는 다중 모달 관리 및 특정 모달을 조건에 따라 쉽게 교체하거나 추가하는데에도 용이하다고 생각했습니다.
 
 ```jsx
-//modalSlice.js
-
 const createModalSlice = (set) => ({
   openModalTypeList: [],
   addModal: (modalType) =>
@@ -667,19 +720,9 @@ const createModalSlice = (set) => ({
     })),
   clearOpenModalTypeList: () => set((state) => ({ ...state, openModalTypeList: [] })),
 });
-
-export default createModalSlice;
 ```
 
 ```jsx
-// MyPageSidebar.jsx
-import { ERROR_MESSAGE, MODAL_TYPE } from "../../config/constants";
-import useBoundStore from "../../store/client/useBoundStore";
-import CreateKeywordModal from "../Modal/CreateKeywordModal";
-import CreateKeywordSuccessModal from "../Modal/CreateKeywordSuccessModal";
-import ErrorModal from "../Modal/ErrorModal";
-import Button from "../UI/Button";
-
 const MyPageSidebar = () => {
   const addModal = useBoundStore((state) => state.addModal);
   const openModalTypeList = useBoundStore((state) => state.openModalTypeList);
@@ -689,10 +732,8 @@ const MyPageSidebar = () => {
   };
 
   return (
-    <aside className="flex gap-20 w-full px-30 lg:px-0 lg:w-fit lg:flex-col">
-      <div className="flex lg:flex-col items-center gap-25 w-full lg:w-220 h-100 lg:h-320 px-30 lg:px-30 py-10 lg:py-20 rounded-[8px] bg-white border-2 border-slate-200/80 flex-grow lg:flex-grow-0 shadow-sm"></div>
+    <aside>
       <Button
-        styles="w-300 lg:w-full px-10 lg:px-20 lg:py-18 text-21 text-gray-900/80 font-bold border-2 border-slate-200/80 rounded-[8px] shadow-sm hover:shadow-md hover:bg-emerald-200/10 hover:border-emerald-900/30"
         onClick={handleCreateKeywordButton}
       >
         키워드 만들기
@@ -709,181 +750,182 @@ const MyPageSidebar = () => {
     </aside>
   );
 };
-
-export default MyPageSidebar;
 ```
+  </div>
+</details>
 
 <br>
 
 ## 4-6. 협업을 위한 로직 재사용성과 관심사 분리를 위해 커스텀 훅을 만들어볼까?
 
+- 문제 해결 방법: 컴포넌트에 혼재된 비즈니스 로직과 UI를 분리하고, 공통 로직을 커스텀 훅으로 캡슐화하여 재사용성과 유지보수성을 높였습니다. 이를 통해 코드 중복을 줄이고, 협업 시 코드 가독성과 효율성을 향상시켰습니다.
+- 구현 효과: 커스텀 훅으로 로직을 중앙 관리함으로써 팀원 간 일관성을 유지하고, 로직 수정 시 여러 파일을 일일이 수정하지 않아도 되는 확장성과 편의성을 확보했습니다.
+
+<details>
+  <summary><b>[상세 설명] 커스텀 훅의 사용 이유와 목적</b></summary>
+  <div markdown="1">
+
+<br />
+
 팀 프로젝트 진행 중, 컴포넌트 내부의 점점 늘어나는 로직으로 인한 코드 복잡성을 직면하면서 협업의 효율성을 생각하지 않을 수 없었습니다. 여러 컴포넌트에서 동일하거나 유사한 로직을 반복적으로 구현하면서 코드가 중복된다는 것이 직접적으로 느껴졌고, 이는 유지보수성을 떨어뜨렸습니다. 실제로 중복이 일어나지 않았더라도, 해당 로직을 추후에 나 뿐만이 아닌 다른 팀원들이 재사용 할 수 있을 것이라 생각이 들기도 했습니다.
 
 각 함수형 컴포넌트에 UI 뿐 아니라 여러 로직이 혼재되어 있어 코드의 가독성이 낮아지는 것을 발견했습니다. 이로 인해, 다른 팀원이 코드를 읽으며 이해하는 시간이 증가될 것이라 생각이 되었습니다. 물론 PR 리뷰 시간도 마찬가지입니다. 또, 특정 로직을 수정하거나 확장하려면 여러 파일을 개별적으로 모두 수정해야 하는 상황이 발생했습니다.
 
-우리는 이러한 문제를 해결하기 위해 **로직의 재사용성과 관심사의 분리**를 목표로 설정했습니다. React의 철학인 **컴포지션(Composition)** 패턴에 따라 비즈니스 로직을 UI 컴포넌트에서 분리하고, 이를 캡슐화한 재사용 가능한 형태로 관리하기 위해 커스텀 훅(Custom Hook)을 적극 사용하기로 했습니다. 즉, 커스텀 훅으로 특정 로직과 상태를 캡슐화하여 어떻게 내부의 복잡한 로직이 구성되어 있는지는 숨기고, 외부로는 무엇을 할 수 있는지만 보여줌으로써 코드 복잡성을 감소시키고 로직의 재사용성을 증가시킴으로써 협업의 효율을 높입니다.
+우리는 이러한 문제를 해결하기 위해 **로직의 재사용성과 관심사의 분리**를 목표로 설정했습니다. React의 철학인 **컴포지션(Composition)** 패턴에 따라 비즈니스 로직을 UI 컴포넌트에서 분리하고, 이를 캡슐화한 재사용 가능한 형태로 관리하기 위해 커스텀 훅(Custom Hook)을 적극 사용하기로 했습니다. 즉, 커스텀 훅으로 특정 로직과 상태를 캡슐화하여 어떻게 내부의 복잡한 로직이 구성되어 있는지는 숨기고, 외부로는 무엇을 할 수 있는지만 보여줌으로써 코드 복잡성을 감소시키고 로직의 재사용성을 증가시킴으로써 협업의 효율을 높였습니다.
 
 - 코드 중복 제거: 여러 컴포넌트에서 동일한 로직을 반복하지 않고, 하나의 훅으로 관리할 수 있었습니다.
 - 관심사의 분리: UI 렌더링은 컴포넌트가 담당하고, 비즈니스 로직은 커스텀 훅으로 분리하여 컴포넌트의 역할과 코드의 가독성을 명확히 할 수 있었습니다.
 - 협업 효율성 향상: 로직이 중앙에서 관리되면서 팀원들 간 코드 일관성을 유지할 수 있었고, 새로운 기능 추가나 기존 로직 수정 시 훅만 수정하면 되어 유지보수 작업이 훨씬 간소화되었습니다.
 
-1. **모달 마운트 시 실행되는 커스텀 훅**(모달 layer 아래 root Element의 스크롤 방지 로직)
+  </div>
+</details>
 
-   - 단순하게 `overflow: hidden`을 설정한 로직과는 다르게 `position: fixed`와 동시에 `overflow-y: scroll`로 기존 스크롤을 유지해 Layout shift 방지
-   - 모달이 언마운트될 경우, 클로저를 활용한 scrollY 변수로 스크롤 위치 복원
+<details>
+  <summary><b>[코드] 모달 마운트 시 백그라운드 레이어의 스크롤 방지 커스텀 훅</b></summary>
+  <div markdown="1">
 
-   ```tsx
-   // useScrollDisable.js
-   import { useEffect } from "react";
+<br />
 
-   const useScrollDisable = () => {
-     useEffect(() => {
-       const scrollY = window.scrollY;
-       const hasScroll =
-         document.documentElement.scrollHeight > document.documentElement.clientHeight;
+- 간단하게 `overflow: hidden`을 설정하는 로직과는 다르게 `position: fixed`와 동시에 스크롤이 있는 경우, `overflow-y: scroll`로 기존 스크롤을 유지해 Layout shift 방지
+- 모달이 언마운트될 경우, 클로저를 활용한 scrollY 변수로 스크롤 위치 복원
 
-       document.body.style.cssText = `
-         position: fixed;
-         top: -${scrollY}px;
-         left: 0;
-         right: 0;
-         ${hasScroll && "overflow-y: scroll;"}
-       `;
+```jsx
+const useScrollDisable = () => {
+  useEffect(() => {
+    const scrollY = window.scrollY;
+    const hasScroll = document.documentElement.scrollHeight > document.documentElement.clientHeight;
 
-       return () => {
-         document.body.style.cssText = "";
-         window.scrollTo(0, scrollY);
-       };
-     }, []);
-   };
+    document.body.style.cssText = `
+      position: fixed;
+      top: -${scrollY}px;
+      left: 0;
+      right: 0;
+      ${hasScroll && "overflow-y: scroll;"}
+    `;
 
-   export default useScrollDisable;
-   ```
+    return () => {
+      document.body.style.cssText = "";
+      window.scrollTo(0, scrollY);
+    };
+  }, []);
+};
+```
+  </div>
+</details>
 
-1. **무한스크롤 관련 api 요청 및 pageParam 로직을 위한 커스텀 훅**(React query의 useInfiniteQuery 사용)
+<details>
+  <summary><b>[코드] React Query의 useInfiniteQuery를 활용한 무한스크롤 관련 커스텀 훅</b></summary>
+  <div markdown="1">
 
-   ```tsx
-   // useInfiniteData.js
-   import useObserver from "./useObserver";
-   import { useInfiniteQuery } from "@tanstack/react-query";
+<br />
 
-   const useInfiniteData = ({
-     queryKey,
-     queryFn,
-     options,
-     initialPageParam,
-     getNextPageParam,
-     ref,
-     root,
-   }) => {
-     const { data, status, fetchNextPage, isPending, isError, ...rest } = useInfiniteQuery({
-       queryKey,
-       queryFn: ({ pageParam }) => queryFn(pageParam, options),
-       initialPageParam,
-       getNextPageParam,
-       staleTime: 10 * 1000,
-     });
+```jsx
+const useInfiniteData = ({
+  queryKey,
+  queryFn,
+  options,
+  initialPageParam,
+  getNextPageParam,
+  ref,
+}) => {
+  const { data, status, fetchNextPage, isPending, isFetchingNextPage, isError, ...rest } = useInfiniteQuery({
+    queryKey,
+    queryFn: ({ pageParam }) => queryFn(pageParam, options),
+    initialPageParam,
+    getNextPageParam,
+  });
 
-     const onIntersect = (entries) => {
-       if (isPending) return;
-       if (!data?.pages[data?.pages.length - 1].hasNext) return;
+  const onIntersect = (entries) => {
+    if (isPending) return;
+    if (!data?.pages[data?.pages.length - 1].hasNext) return;
 
-       entries.forEach((entry) => {
-         if (entry.isIntersecting) {
-           fetchNextPage();
-         }
-       });
-     };
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        fetchNextPage();
+      }
+    });
+  };
 
-     useObserver({ target: ref, root, threshold: 0.5, onIntersect });
+  useObserver({ target: ref, threshold: 1.0, onIntersect });
 
-     return { data, status, fetchNextPage, isPending, isError, ...rest };
-   };
+  return { data, status, fetchNextPage, isPending, isError, isFetchingNextPage, ...rest };
+};
+```
 
-   export default useInfiniteData;
-   ```
+```jsx
+const PostCardList = ({ keywordId, filterList, setFilterList, resetFilterList }) => {
+  const observeRef = useRef(null);
 
-   ```tsx
-   // PostCardList.jsx
+  const infiniteDataArgument = {
+    queryKey: ["posts", keywordId, filterList],
+    queryFn: asyncGetPosts,
+    options: {
+      keywordId,
+      order: filterList.order,
+      includedKeyword: filterList.includedKeyword,
+      excludedKeyword: filterList.excludedKeyword,
+      isAd: filterList.isAd,
+      limit: 5,
+    },
+    initialPageParam: "",
+    getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.nextCursorId : undefined),
+    ref: observeRef,
+  };
 
-   const PostCardList = ({ keywordId, filterList, setFilterList, resetFilterList }) => {
-     const observeRef = useRef(null);
-     const observeRootRef = useRef(null);
+  const {
+    data: postResponse,
+    isPending,
+    isFetchingNextPage,
+    isError,
+  } = useInfiniteData(infiniteDataArgument);
+```
+  </div>
+</details>
+   
+<details>
+  <summary><b>[코드] 무한스크롤 관련 Intersection Observer 로직을 위한 커스텀 훅</b></summary>
+  <div markdown="1">
 
-     const infiniteDataArgument = {
-       queryKey: ["posts", keywordId, filterList],
-       queryFn: asyncGetPosts,
-       options: {
-         keywordId,
-         order: filterList.order,
-         includedKeyword: filterList.includedKeyword,
-         excludedKeyword: filterList.excludedKeyword,
-         isAd: filterList.isAd,
-         limit: 5,
-       },
-       initialPageParam: "",
-       getNextPageParam: (lastPage) => (lastPage.hasNext ? lastPage.nextCursorId : undefined),
-       ref: observeRef,
-       root: observeRootRef.current,
-     };
+<br />
 
-     const { data: postResponse, isPending, isError } = useInfiniteData(infiniteDataArgument);
-   ```
+- Intersection Observer API
 
-1. **무한스크롤 관련 Intersection Observer 로직을 위한 커스텀 훅**(Intersection Observer API)
+```jsx
+const useObserver = ({
+  target,
+  root = null,
+  rootMargin = "0px 0px 0px 0px",
+  threshold = 1.0,
+  onIntersect,
+}) => {
+  useEffect(() => {
+    let observer;
 
-   - 외부로부터 target, IntersectionObserver 생성자 옵션, 콜백함수를 받음
-   - IntersectionObserver 생성자의 옵션에 기본값 할당
+    if (target && target.current) {
+      observer = new IntersectionObserver(
+        (entries, observer) => {
+          onIntersect(entries, observer);
+        },
+        {
+          root,
+          rootMargin,
+          threshold,
+        }
+      );
 
-   ```tsx
-   import { useEffect } from "react";
+      observer.observe(target.current);
+    }
 
-   const useObserver = ({
-     target,
-     root = null,
-     rootMargin = "0px 0px 0px 0px",
-     threshold = 1.0,
-     onIntersect,
-   }) => {
-     useEffect(() => {
-       let observer;
-
-       if (target && target.current) {
-         observer = new IntersectionObserver(
-           (entries, observer) => {
-             onIntersect(entries, observer);
-           },
-           {
-             root,
-             rootMargin,
-             threshold,
-           }
-         );
-
-         observer.observe(target.current);
-       }
-
-       return () => {
-         if (observer) {
-           observer.disconnect();
-         }
-       };
-     }, [target, root, rootMargin, threshold, onIntersect]);
-   };
-
-   export default useObserver;
-   ```
-
-> **Composition Pattern: React는 강력한 합성 모델을 가지고 있으며, 상속 대신 합성을 사용하여 컴포넌트 간에 코드를 재사용! ⇒ 관심사의 분리, 재사용성 증가**
->
-> - 컴포넌트를 쪼개서 작은 단위로 관리: 단일 책임 원칙(Single Responsibility Principle)
-> - Props를 통한 데이터 전달: 컴포넌트 간 결합도를 낮추고 재사용성을 높임
-> - Children을 이용한 컴포넌트 확장: 부모 컴포넌트의 자식 컴포넌트 제어으로 재사용성 높임
-> - memo와 같은 고차 컴포넌트
->
-> **Container-Presentation 패턴: Composition Pattern과 같은 맥락. UI와 데이터 처리/관리 컴포넌트의 분리 ⇒ Hook으로 대체(로직 추상화와 재사용, UI와 로직의 유연한 조합)**
->
-> https://ko.legacy.reactjs.org/docs/composition-vs-inheritance.html >https://www.patterns.dev/react/presentational-container-pattern/ >https://medium.com/@console_log/presentational-container-component-pattern%EA%B3%BC-react-b0f65032ced3
+    return () => {
+      if (observer) {
+        observer.disconnect();
+      }
+    };
+  }, [target, root, rootMargin, threshold, onIntersect]);
+};
+```
+  </div>
+</details>
 
 <br>
 
