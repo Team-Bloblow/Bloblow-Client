@@ -1,12 +1,11 @@
-<h1 style="font-size: 2em; font-weight: bold; background: linear-gradient(90deg, #00684A, #009F55 50%, #00ED64); -webkit-text-fill-color: transparent; -webkit-background-clip: text;
-">Bloblow</h1>
+<h1 style="color: #009F55">Bloblow</h1>
 
 <div align="center">
   <p>
     <b>블로블로, 블로그를 불러오다.</b><br/>
     <b>키워드 기반 네이버 블로그 게시물 분석 서비스</b>
   </p>
-  <a href="https://github.com/Team-Bloblow/Bloblow-Client">클라이언트 </a> | <a href="https://github.com/Team-Bloblow/Bloblow-Server">서버 </a> | <a href="https://github.com/Team-Bloblow/Bloblow-puppeteer">크롤링 서버 </a>
+  <a href="https://github.com/Team-Bloblow/Bloblow-Client" rel="noopener noreferrer" target="_blank">클라이언트 </a> | <a href="https://github.com/Team-Bloblow/Bloblow-Server" rel="noopener noreferrer" target="_blank">서버 </a> | <a href="https://github.com/Team-Bloblow/Bloblow-puppeteer" rel="noopener noreferrer" target="_blank">크롤링 서버 </a>
 </div>
 
 <br/>
@@ -447,6 +446,8 @@ HTML Entities는 다음과 같은 이유로 사용됩니다.
 2. 보안: 특수문자가 HTML, JavaScript, CSS 코드로 해석되는 경우, 악성 코드 삽입(예: XSS 공격)의 위험이 있습니다. HTML Entities는 이러한 공격을 방지하기 위해 특수문자를 변환하여 브라우저가 실행 가능한 코드로 인식하지 않도록 보호합니다.
 3. 호환성: 특수문자를 다양한 환경에서 일관되게 표현할 수 있도록 보장합니다.
 
+<br />
+
   </div>
 </details>
 
@@ -518,6 +519,8 @@ React Query를 도입함으로써 우리는 중복된 코드와 상태를 줄이
 - **비동기 작업의 통합 관리**: 데이터 fetching, 캐싱, 동기화, 에러 처리와 같은 비동기 작업을 React Query의 통일된 인터페이스로 쉽게 관리할 수 있었습니다.
 
 결국, React Query는 서버 상태 관리를 단순화하고, 데이터 가져오기(fetching), 캐싱(caching), 동기화(synchronization), 그리고 업데이트(update) 작업을 효율적으로 처리할 수 있는 강력한 도구입니다. 이를 통해 비동기 상태 관리의 복잡성을 줄이고, 비즈니스 로직과 사용자 경험 개선에 집중할 수 있었습니다.
+
+<br />
 
   </div>
 </details>
@@ -619,7 +622,7 @@ if (hasUserUid && userGroupList?.groupListResult?.length > 0) {
 </details>
 
 <details>
-  <summary>React Query 사용 전후의 비교: DB mutation 이후, 서버 데이터 동기화의 경우</summary>
+  <summary>React Query 사용 전후의 비교: DB mutation 이후, 서버 데이터 동기화에 대한 코드</summary>
   <div markdown="1">
 
 <br />
@@ -736,7 +739,7 @@ const isPending = createKeywordMutation.isPending;
 - 얻은 효과: 스타일링 충돌 방지와 포지셔닝 문제를 해결하고, 모달을 독립적으로 관리할 수 있어 유지보수성이 향상됩니다.
 
 <details>
-  <summary>root DOM node 내부에서 모달 렌더링 시 발생 가능한 문제점</summary>
+  <summary>Root DOM node 내부에서 모달 렌더링 시 발생 가능한 문제점</summary>
   <div markdown="1">
 
 <br />
@@ -778,7 +781,7 @@ function Profile() {
 </details>
 
 <details>
-  <summary>`Portal`과 독립적인 `#modal` root 도입</summary>
+  <summary>Portal과 독립적인 #modal root 도입</summary>
   <div markdown="1">
 
 <br />
@@ -852,6 +855,8 @@ const AlertModal = ({ alertMessage, destination }) => {
 
 export default AlertModal;
 ```
+
+<br />
 
   </div>
 </details>
@@ -941,7 +946,7 @@ const MyPageSidebar = () => {
 </details>
 
 <details>
-  <summary>모달 마운트 시 백그라운드 레이어의 스크롤 방지 커스텀 훅</summary>
+  <summary>모달 마운트 시 백그라운드 레이어의 스크롤 방지 커스텀 훅 코드</summary>
   <div markdown="1">
 
 <br />
