@@ -22,25 +22,25 @@
 <!-- toc -->
 
 - [1. 개발 배경](#1-%EA%B0%9C%EB%B0%9C-%EB%B0%B0%EA%B2%BD)
-  * [1-1. 브랜드가 언급된 블로그 게시물을 일일이 찾는 과정이 번거롭지 않을까?](#1-1-%EB%B8%8C%EB%9E%9C%EB%93%9C%EA%B0%80-%EC%96%B8%EA%B8%89%EB%90%9C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EC%9D%84-%EC%9D%BC%EC%9D%BC%EC%9D%B4-%EC%B0%BE%EB%8A%94-%EA%B3%BC%EC%A0%95%EC%9D%B4-%EB%B2%88%EA%B1%B0%EB%A1%AD%EC%A7%80-%EC%95%8A%EC%9D%84%EA%B9%8C)
-  * [1-2. 네이버 블로그 검색과 차별화된 가치를 어떻게 제공할까?](#1-2-%EB%84%A4%EC%9D%B4%EB%B2%84-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%80%EC%83%89%EA%B3%BC-%EC%B0%A8%EB%B3%84%ED%99%94%EB%90%9C-%EA%B0%80%EC%B9%98%EB%A5%BC-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%A0%9C%EA%B3%B5%ED%95%A0%EA%B9%8C)
+  - [1-1. 브랜드가 언급된 블로그 게시물을 일일이 찾는 과정이 번거롭지 않을까?](#1-1-%EB%B8%8C%EB%9E%9C%EB%93%9C%EA%B0%80-%EC%96%B8%EA%B8%89%EB%90%9C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EC%9D%84-%EC%9D%BC%EC%9D%BC%EC%9D%B4-%EC%B0%BE%EB%8A%94-%EA%B3%BC%EC%A0%95%EC%9D%B4-%EB%B2%88%EA%B1%B0%EB%A1%AD%EC%A7%80-%EC%95%8A%EC%9D%84%EA%B9%8C)
+  - [1-2. 네이버 블로그 검색과 차별화된 가치를 어떻게 제공할까?](#1-2-%EB%84%A4%EC%9D%B4%EB%B2%84-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%80%EC%83%89%EA%B3%BC-%EC%B0%A8%EB%B3%84%ED%99%94%EB%90%9C-%EA%B0%80%EC%B9%98%EB%A5%BC-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%A0%9C%EA%B3%B5%ED%95%A0%EA%B9%8C)
 - [2. 기술 스택](#2-%EA%B8%B0%EC%88%A0-%EC%8A%A4%ED%83%9D)
-  * [2-1. 기술 스택](#2-1-%EA%B8%B0%EC%88%A0-%EC%8A%A4%ED%83%9D)
-  * [2-2. Zustand 전역 상태 관리](#2-2-zustand-%EC%A0%84%EC%97%AD-%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC)
-  * [2-3. React Query 서버 상태 관리](#2-3-react-query-%EC%84%9C%EB%B2%84-%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC)
+  - [2-1. 기술 스택](#2-1-%EA%B8%B0%EC%88%A0-%EC%8A%A4%ED%83%9D)
+  - [2-2. Zustand 전역 상태 관리](#2-2-zustand-%EC%A0%84%EC%97%AD-%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC)
+  - [2-3. React Query 서버 상태 관리](#2-3-react-query-%EC%84%9C%EB%B2%84-%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC)
 - [3. 기능](#3-%EA%B8%B0%EB%8A%A5)
 - [4. 개발 과정](#4-%EA%B0%9C%EB%B0%9C-%EA%B3%BC%EC%A0%95)
-  * [4-1. 네이버 블로그 게시물을 어떻게 가져올 수 있을까?](#4-1-%EB%84%A4%EC%9D%B4%EB%B2%84-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EC%9D%84-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B0%80%EC%A0%B8%EC%98%AC-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C)
-  * [4-2. 네이버 API 응답 내부의 `&amp;` 은 무엇이며 어떻게 필터링할까?](#4-2-%EB%84%A4%EC%9D%B4%EB%B2%84-api-%EC%9D%91%EB%8B%B5-%EB%82%B4%EB%B6%80%EC%9D%98-amp-%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B4%EB%A9%B0-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%95%84%ED%84%B0%EB%A7%81%ED%95%A0%EA%B9%8C)
-  * [4-3. 서버 상태는 어떻게 관리할 수 있을까? 우리는 왜 React Query를 도입했는가?](#4-3-%EC%84%9C%EB%B2%84-%EC%83%81%ED%83%9C%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B4%80%EB%A6%AC%ED%95%A0-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C-%EC%9A%B0%EB%A6%AC%EB%8A%94-%EC%99%9C-react-query%EB%A5%BC-%EB%8F%84%EC%9E%85%ED%96%88%EB%8A%94%EA%B0%80)
-  * [4-4. 모달을 root DOM node에서 분리하여 렌더링 시킬 수 있는 방법은 없을까?](#4-4-%EB%AA%A8%EB%8B%AC%EC%9D%84-root-dom-node%EC%97%90%EC%84%9C-%EB%B6%84%EB%A6%AC%ED%95%98%EC%97%AC-%EB%A0%8C%EB%8D%94%EB%A7%81-%EC%8B%9C%ED%82%AC-%EC%88%98-%EC%9E%88%EB%8A%94-%EB%B0%A9%EB%B2%95%EC%9D%80-%EC%97%86%EC%9D%84%EA%B9%8C)
-  * [4-5. 모달을 전역적으로 어떻게 관리하면 좋을까?](#4-5-%EB%AA%A8%EB%8B%AC%EC%9D%84-%EC%A0%84%EC%97%AD%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B4%80%EB%A6%AC%ED%95%98%EB%A9%B4-%EC%A2%8B%EC%9D%84%EA%B9%8C)
-  * [4-6. 협업을 위한 로직 재사용성과 관심사 분리를 위해 커스텀 훅을 만들어볼까?](#4-6-%ED%98%91%EC%97%85%EC%9D%84-%EC%9C%84%ED%95%9C-%EB%A1%9C%EC%A7%81-%EC%9E%AC%EC%82%AC%EC%9A%A9%EC%84%B1%EA%B3%BC-%EA%B4%80%EC%8B%AC%EC%82%AC-%EB%B6%84%EB%A6%AC%EB%A5%BC-%EC%9C%84%ED%95%B4-%EC%BB%A4%EC%8A%A4%ED%85%80-%ED%9B%85%EC%9D%84-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%BC%EA%B9%8C)
+  - [4-1. 네이버 블로그 게시물을 어떻게 가져올 수 있을까?](#4-1-%EB%84%A4%EC%9D%B4%EB%B2%84-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EC%9D%84-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B0%80%EC%A0%B8%EC%98%AC-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C)
+  - [4-2. 네이버 API 응답 내부의 `&amp;` 은 무엇이며 어떻게 필터링할까?](#4-2-%EB%84%A4%EC%9D%B4%EB%B2%84-api-%EC%9D%91%EB%8B%B5-%EB%82%B4%EB%B6%80%EC%9D%98-amp-%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B4%EB%A9%B0-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%95%84%ED%84%B0%EB%A7%81%ED%95%A0%EA%B9%8C)
+  - [4-3. 서버 상태는 어떻게 관리할 수 있을까? 우리는 왜 React Query를 도입했는가?](#4-3-%EC%84%9C%EB%B2%84-%EC%83%81%ED%83%9C%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B4%80%EB%A6%AC%ED%95%A0-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C-%EC%9A%B0%EB%A6%AC%EB%8A%94-%EC%99%9C-react-query%EB%A5%BC-%EB%8F%84%EC%9E%85%ED%96%88%EB%8A%94%EA%B0%80)
+  - [4-4. 모달을 root DOM node에서 분리하여 렌더링 시킬 수 있는 방법은 없을까?](#4-4-%EB%AA%A8%EB%8B%AC%EC%9D%84-root-dom-node%EC%97%90%EC%84%9C-%EB%B6%84%EB%A6%AC%ED%95%98%EC%97%AC-%EB%A0%8C%EB%8D%94%EB%A7%81-%EC%8B%9C%ED%82%AC-%EC%88%98-%EC%9E%88%EB%8A%94-%EB%B0%A9%EB%B2%95%EC%9D%80-%EC%97%86%EC%9D%84%EA%B9%8C)
+  - [4-5. 모달을 전역적으로 어떻게 관리하면 좋을까?](#4-5-%EB%AA%A8%EB%8B%AC%EC%9D%84-%EC%A0%84%EC%97%AD%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B4%80%EB%A6%AC%ED%95%98%EB%A9%B4-%EC%A2%8B%EC%9D%84%EA%B9%8C)
+  - [4-6. 협업을 위한 로직 재사용성과 관심사 분리를 위해 커스텀 훅을 만들어볼까?](#4-6-%ED%98%91%EC%97%85%EC%9D%84-%EC%9C%84%ED%95%9C-%EB%A1%9C%EC%A7%81-%EC%9E%AC%EC%82%AC%EC%9A%A9%EC%84%B1%EA%B3%BC-%EA%B4%80%EC%8B%AC%EC%82%AC-%EB%B6%84%EB%A6%AC%EB%A5%BC-%EC%9C%84%ED%95%B4-%EC%BB%A4%EC%8A%A4%ED%85%80-%ED%9B%85%EC%9D%84-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%BC%EA%B9%8C)
 - [5. 사용자 편의성 개선](#5-%EC%82%AC%EC%9A%A9%EC%9E%90-%ED%8E%B8%EC%9D%98%EC%84%B1-%EA%B0%9C%EC%84%A0)
-  * [5-1. 여러 개의 블로그 게시물들을 크롤링하는 시간을 얼마나 줄일 수 있을까?](#5-1-%EC%97%AC%EB%9F%AC-%EA%B0%9C%EC%9D%98-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EB%93%A4%EC%9D%84-%ED%81%AC%EB%A1%A4%EB%A7%81%ED%95%98%EB%8A%94-%EC%8B%9C%EA%B0%84%EC%9D%84-%EC%96%BC%EB%A7%88%EB%82%98-%EC%A4%84%EC%9D%BC-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C)
-  * [5-2. 구독을 시작했을 때 언제 등록된 게시물부터 보여주는 것이 좋을까?](#5-2-%EA%B5%AC%EB%8F%85%EC%9D%84-%EC%8B%9C%EC%9E%91%ED%96%88%EC%9D%84-%EB%95%8C-%EC%96%B8%EC%A0%9C-%EB%93%B1%EB%A1%9D%EB%90%9C-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EB%B6%80%ED%84%B0-%EB%B3%B4%EC%97%AC%EC%A3%BC%EB%8A%94-%EA%B2%83%EC%9D%B4-%EC%A2%8B%EC%9D%84%EA%B9%8C)
-  * [5-3. 게시물 목록에서 광고성 글을 바로 확인할 수 있도록, 크롤링 직후에 미리 선별해두자.](#5-3-%EA%B2%8C%EC%8B%9C%EB%AC%BC-%EB%AA%A9%EB%A1%9D%EC%97%90%EC%84%9C-%EA%B4%91%EA%B3%A0%EC%84%B1-%EA%B8%80%EC%9D%84-%EB%B0%94%EB%A1%9C-%ED%99%95%EC%9D%B8%ED%95%A0-%EC%88%98-%EC%9E%88%EB%8F%84%EB%A1%9D-%ED%81%AC%EB%A1%A4%EB%A7%81-%EC%A7%81%ED%9B%84%EC%97%90-%EB%AF%B8%EB%A6%AC-%EC%84%A0%EB%B3%84%ED%95%B4%EB%91%90%EC%9E%90)
-  * [5-4. 기존 게시물 페이지네이션 구조에서 정렬, 필터링 기능을 어떻게 더할 수 있을까?](#5-4-%EA%B8%B0%EC%A1%B4-%EA%B2%8C%EC%8B%9C%EB%AC%BC-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-%EA%B5%AC%EC%A1%B0%EC%97%90%EC%84%9C-%EC%A0%95%EB%A0%AC-%ED%95%84%ED%84%B0%EB%A7%81-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%8D%94%ED%95%A0-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C)
+  - [5-1. 여러 개의 블로그 게시물들을 크롤링하는 시간을 얼마나 줄일 수 있을까?](#5-1-%EC%97%AC%EB%9F%AC-%EA%B0%9C%EC%9D%98-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EB%93%A4%EC%9D%84-%ED%81%AC%EB%A1%A4%EB%A7%81%ED%95%98%EB%8A%94-%EC%8B%9C%EA%B0%84%EC%9D%84-%EC%96%BC%EB%A7%88%EB%82%98-%EC%A4%84%EC%9D%BC-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C)
+  - [5-2. 구독을 시작했을 때 언제 등록된 게시물부터 보여주는 것이 좋을까?](#5-2-%EA%B5%AC%EB%8F%85%EC%9D%84-%EC%8B%9C%EC%9E%91%ED%96%88%EC%9D%84-%EB%95%8C-%EC%96%B8%EC%A0%9C-%EB%93%B1%EB%A1%9D%EB%90%9C-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EB%B6%80%ED%84%B0-%EB%B3%B4%EC%97%AC%EC%A3%BC%EB%8A%94-%EA%B2%83%EC%9D%B4-%EC%A2%8B%EC%9D%84%EA%B9%8C)
+  - [5-3. 게시물 목록에서 광고성 글을 바로 확인할 수 있도록, 크롤링 직후에 미리 선별해두자.](#5-3-%EA%B2%8C%EC%8B%9C%EB%AC%BC-%EB%AA%A9%EB%A1%9D%EC%97%90%EC%84%9C-%EA%B4%91%EA%B3%A0%EC%84%B1-%EA%B8%80%EC%9D%84-%EB%B0%94%EB%A1%9C-%ED%99%95%EC%9D%B8%ED%95%A0-%EC%88%98-%EC%9E%88%EB%8F%84%EB%A1%9D-%ED%81%AC%EB%A1%A4%EB%A7%81-%EC%A7%81%ED%9B%84%EC%97%90-%EB%AF%B8%EB%A6%AC-%EC%84%A0%EB%B3%84%ED%95%B4%EB%91%90%EC%9E%90)
+  - [5-4. 기존 게시물 페이지네이션 구조에서 정렬, 필터링 기능을 어떻게 더할 수 있을까?](#5-4-%EA%B8%B0%EC%A1%B4-%EA%B2%8C%EC%8B%9C%EB%AC%BC-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-%EA%B5%AC%EC%A1%B0%EC%97%90%EC%84%9C-%EC%A0%95%EB%A0%AC-%ED%95%84%ED%84%B0%EB%A7%81-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%8D%94%ED%95%A0-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C)
 - [6. 회고](#6-%ED%9A%8C%EA%B3%A0)
 
 <!-- tocstop -->
@@ -1196,10 +1196,10 @@ const isAd = await Promise.resolve(
   - 관련 규정을 확인해보니 [공정거래위원회 추천·보증 등에 관한 표시·광고 심사지침](https://www.ftc.go.kr/www/selectReportUserView.do?key=10&rpttype=1&report_data_no=10886)에 따라 최근 까지 엄격히 관리되고 있었습니다.
   - **이에 해당 문구들을 신뢰할만한 선별 기준이라 판단하고, 이를 광고성 글 분류 로직에 녹여보자는 아이디어를 구현하기로 결정했습니다.**
 
-    <br>
+      <br>
 
-    </div>
-  </details>
+      </div>
+    </details>
 
 <details>
   <summary>
@@ -1223,13 +1223,14 @@ const isAd = await Promise.resolve(
 
   - 이미지 검사 로직 또한, 이미지를 텍스틀로 변환하는 과정이 추가될 뿐 결국 변환된 텍스트를 검사하는 로직을 활용하기 때문이기도 합니다.
   - OCR API를 활용하여 이미지로 포함한 글에 대해 대응 예정입니다. 먼저 아래 사항을 검토한 후 의사결정 했습니다.
+
     - API/라이브러리 검토 : Google Vision API, tesseract.js
     - 리서치 결과 tesseract.js가 한글을 제대로 변환하지 못하는 케이스가 발견되어 추후 Google Vision API를 활용하여 기능을 업데이트할 예정입니다.
 
-    <br>
+      <br>
 
-    </div>
-  </details>
+      </div>
+    </details>
 
 <br>
 
