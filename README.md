@@ -306,7 +306,7 @@
 </tr>
 <tr>
   <td width="50%">
-    <img width="100%" alt="그룹 대시보드" src="./public/assets/docs-preview-keyword-chart.png">
+    <img width="100%" alt="그룹 대시보드" src="./public/assets/docs-preview-post-list.png">
   </td>
   <td width="50%">
 
@@ -1163,7 +1163,7 @@ const useObserver = ({
 저희 서비스의 기능인 당일에 등록된 게시물을 당일에 크롤링하는 것을 생각한다면, 당일에 등록되지 않은 게시물을 크롤링하는 것은 기획 의도와 맞지 않는다고 판단하여 구독한 날로부터 당일에 등록한 게시물에 대해서만 크롤링하는 것으로 결정하게 되었습니다.
 
 <details>
-  <summary>네이버 검색 API 응답 구조 (키워드: 아메리카노)</summary>
+  <summary>네이버 검색 API 응답 구조 (키워드 예시: 아메리카노)</summary>
   <div markdown="1">
 
 ```jsx
