@@ -95,7 +95,6 @@
 
 <figure>
   <img width="100%" src="./public/assets/docs-postList.png" alt="블로블로 게시물 탭" style="margin: 5px; border-radius: 3px 3px 3px 3px" />
-  <figcaption style="font-size: 0.9rem; font-style: italic; color: gray;">게시물 목록 탭</figcaption>
 </figure>
 
 <br>
