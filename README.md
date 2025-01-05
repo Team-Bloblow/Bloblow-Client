@@ -288,13 +288,13 @@
     </tr>
     <tr>
       <td width="50%">
-        <img width="100%" alt="그룹 대시보드" src="./public/assets/docs-preview-group.png">
+      <img width="100%" alt="그룹 대시보드" src="./public/assets/docs-preview-group.png">
       </td>
       <td width="50%">
 
-- 키워드들의 게시물 수, 공감 수, 댓글 수의 추이를 비교할 수 있는 주간 차트가 표시됩니다.
-- 해당 그룹에 포함할 신규 키워드를 생성할 수 있습니다.
-- 그룹명을 수정할 수 있습니다.
+<li>키워드들의 게시물 수, 공감 수, 댓글 수의 추이를 비교할 수 있는 주간 차트가 표시됩니다.</li>
+<li>해당 그룹에 포함할 신규 키워드를 생성할 수 있습니다.</li>
+<li>그룹명을 수정할 수 있습니다.</li>
 
   </td>
 </tr>
@@ -356,28 +356,49 @@
 
 - 게시물의 본문뿐만 아니라 부가 정보(댓글 수, 공감 수 등)도 파악하기 위해 크롤링을 사용하게 되었습니다.
 
-  저희 서비스는 특정 키워드가 언급된 네이버 블로그 게시물을 모아 볼 수 있는 환경을 제공하여 마케터들에게 인사이트를 제공하는 것을 주된 목적으로 설정했습니다. 언급된 블로그만 제공하는 것이 아니라 더 많은 인사이트를 제공하기 위해 게시물의 본문을 활용하려 했습니다. 그러기 위해선 게시물 본문을 확보해야 했는데, 네이버 검색 API는 본문 전체가 아닌 본문 내에서 키워드가 언급된 단락만 전달해준다는 것을 파악하게 되었습니다. 크롤링을 사용하여 본문 뿐만 아니라 댓글 수, 공감 수 등과 같은 게시물의 부가 정보도 함께 파악하여 활용하기로 했습니다.
+게시물의 크롤링 로직을 다음과 같이 구현하였습니다.
 
-  Puppeteer라는 크롤링 라이브러리를 사용하여 네이버 검색 API에서 전달받은 게시물의 URL를 통해 게시물 본문을 크롤링하는 방법으로 구현했습니다.
+1. 네이버 검색 API를 통해 블로그 게시물의 URL 파악
+2. puppeteer를 통해 해당 게시물 URL로 이동
+3. 해당 게시물 내 iframe의 src 속성의 URL 파악
+4. 파악한 URL로 이동
+5. 해당 페이지에서 게시물의 본문 파악
 
-  본문 전체를 크롤링하기 위해 본문 전체를 감싸고 있는 선택자의 innerText를 파악하려 했으나 null이 반환되는 문제에 직면하게 되었습니다.
+크롤링을 사용하면서 게시물의 본문뿐만 아니라 댓글 수, 공감 수와 같은 게시물의 부가 정보 또한 가져올 수 있게 되어, 해당 정보를 활용하여 사용자에게 더 나은 인사이트를 제공할 수 있게 되었습니다.
 
-  아래와 같이 문제 상황에 대한 가정을 하여 해결하려 했습니다.
+<br>
 
-  - 컨텐츠가 완전히 로딩되기 전에 선택자의 innerText 파악하는 것.
-  - 선택자 스펠링을 틀린 것.
+<details>
+  <summary>크롤링을 도입하게 된 계기</summary>
+  <div markdown="1">
+    <div>
+      저희 서비스는 특정 키워드가 언급된 네이버 블로그 게시물을 모아 볼 수 있는 환경을 제공하여 마케터들에게 인사이트를 제공하는 것을 주된 목적으로 설정했습니다. 언급된 블로그만 제공하는 것이 아니라 더 많은 인사이트를 제공하기 위해 게시물의 본문을 활용하려 했습니다. 그러기 위해선 게시물 본문을 확보해야 했는데, 네이버 검색 API는 본문 전체가 아닌 본문 내에서 키워드가 언급된 단락만 전달해준다는 것을 파악하게 되었습니다. 크롤링을 사용하여 본문 뿐만 아니라 댓글 수, 공감 수 등과 같은 게시물의 부가 정보도 함께 파악하여 활용하기로 했습니다.
+    <br>
+    <br>
+    Puppeteer라는 크롤링 라이브러리를 사용하여 네이버 검색 API에서 전달받은 게시물의 URL를 통해 게시물 본문을 크롤링하는 방법으로 구현했습니다.
 
-  컨텐츠의 로딩이 완료된 후, 선택자의 innerText를 파악하거나 선택자 스펠링을 다시 확인해봤으나 결과는 같았습니다. API로 전달받은 블로그 게시물 URL를 통해 게시물의 HTML을 다시 파악해보니, 아래 첨부 이미지처럼 게시물 자체가 iframe 태그를 통해 표시되고 있단 것을 파악하게 되었습니다. 해당 iframe 태그의 src 속성값으로 게시물의 새로운 URL이 할당되어 있고, 네이버 블로그 주소 뒤에 해당 URL을 붙이면 같은 게시물이 표시되며 iframe 태그에 감싸여 있지 않은 구조인 것 또한 확인했습니다.
+  </div>
+  </div>
+</details>
 
-  다음과 같이 게시물의 크롤링 로직을 구현하였습니다.
-
-  1. 네이버 검색 API를 통해 블로그 게시물의 URL 파악
-  2. puppeteer를 통해 해당 게시물 URL로 이동
-  3. 해당 게시물 내 iframe의 src 속성의 URL 파악
-  4. 파악한 URL로 이동
-  5. 해당 페이지에서 게시물의 본문 파악
-
-  크롤링을 사용하면서 게시물의 본문뿐만 아니라 댓글 수, 공감 수와 같은 게시물의 부가 정보 또한 가져올 수 있게 되어, 해당 정보를 활용하여 사용자에게 더 나은 인사이트를 제공할 수 있게 되었습니다.
+<details>
+  <summary>특이한 네이버 블로그 구조</summary>
+  <div markdown="1">
+    <div>
+    구현을 하는 과정에서 본문 전체를 크롤링하기 위해 본문 전체를 감싸고 있는 선택자의 innerText를 파악하려 했으나 null이 반환되는 문제에 직면하게 되었습니다.
+    <br>
+    <br>
+    아래와 같이 문제 상황에 대한 가정을 하여 해결하려 했습니다.
+    <br>
+    <br>
+    - 컨텐츠가 완전히 로딩되기 전에 선택자의 innerText 파악하는 것.
+    - 선택자 스펠링을 틀린 것.
+    <br>
+    <br>
+    컨텐츠의 로딩이 완료된 후, 선택자의 innerText를 파악하거나 선택자 스펠링을 다시 확인해봤으나 결과는 같았습니다. API로 전달받은 블로그 게시물 URL를 통해 게시물의 HTML을 다시 파악해보니, 아래 첨부 이미지처럼 게시물 자체가 iframe 태그를 통해 표시되고 있단 것을 파악하게 되었습니다. 해당 iframe 태그의 src 속성값으로 게시물의 새로운 URL이 할당되어 있고, 네이버 블로그 주소 뒤에 해당 URL을 붙이면 같은 게시물이 표시되며 iframe 태그에 감싸여 있지 않은 구조인 것 또한 확인했습니다.
+  </div>
+  </div>
+</details>
 
 <details>
   <summary>두 URL의 HTML 구조 비교</summary>
@@ -403,7 +424,7 @@
 - 이를 처리하기 위해 HTML Entities를 디코딩하고 `<b>`와 같은 불필요한 태그를 제거하는 유틸리티 함수를 작성하여 깨끗한 텍스트를 반환하도록 했습니다.
 
 <details>
-  <summary><b>[상세 설명] HTML Entities란?</b></summary>
+  <summary>HTML Entities란?</summary>
   <div markdown="1">
 
 <br />
@@ -430,7 +451,7 @@ HTML Entities는 다음과 같은 이유로 사용됩니다.
 </details>
 
 <details>
-  <summary><b>[코드] HTML Entities를 디코딩하고 불필요한 태그를 제거하는 함수</b></summary>
+  <summary>HTML Entities를 디코딩하고 불필요한 태그를 제거하는 함수 코드</summary>
   <div markdown="1">
 
 <br />
@@ -479,7 +500,7 @@ export default sanitizeHtmlEntity;
 <br />
 
 <details>
-  <summary><b>[상세 설명] React Query를 도입한 이유</b></summary>
+  <summary>React Query를 도입한 이유</summary>
   <div markdown="1">
 
 <br />
@@ -502,7 +523,7 @@ React Query를 도입함으로써 우리는 중복된 코드와 상태를 줄이
 </details>
 
 <details>
-  <summary><b>[코드] React Query 사용 전후의 비교: API 요청 상태 관리 및 페이지 로드 시 데이터 불러오기</b></summary>
+  <summary>React Query 사용 전후의 비교: API 요청 상태 관리 및 페이지 로드 시 데이터 불러오는 코드</summary>
   <div markdown="1">
 
 <br />
@@ -598,7 +619,7 @@ if (hasUserUid && userGroupList?.groupListResult?.length > 0) {
 </details>
 
 <details>
-  <summary><b>[코드] React Query 사용 전후의 비교: DB mutation 이후, 서버 데이터 동기화의 경우</b></summary>
+  <summary>React Query 사용 전후의 비교: DB mutation 이후, 서버 데이터 동기화의 경우</summary>
   <div markdown="1">
 
 <br />
@@ -715,7 +736,7 @@ const isPending = createKeywordMutation.isPending;
 - 얻은 효과: 스타일링 충돌 방지와 포지셔닝 문제를 해결하고, 모달을 독립적으로 관리할 수 있어 유지보수성이 향상됩니다.
 
 <details>
-  <summary><b>[상세 설명] root DOM node 내부에서 모달 렌더링 시 발생 가능한 문제점</b></summary>
+  <summary>root DOM node 내부에서 모달 렌더링 시 발생 가능한 문제점</summary>
   <div markdown="1">
 
 <br />
@@ -757,7 +778,7 @@ function Profile() {
 </details>
 
 <details>
-  <summary><b>[상세 설명] `Portal`과 독립적인 `#modal` root 도입</b></summary>
+  <summary>`Portal`과 독립적인 `#modal` root 도입</summary>
   <div markdown="1">
 
 <br />
@@ -843,7 +864,7 @@ export default AlertModal;
 - 구현 효과: 모달 상태를 통합적으로 관리함으로써 확장성이 향상되었습니다. 동시에 여러 모달을 열거나, 특정 순서로 모달을 표시하는 기능을 간단히 구현할 수 있습니다.
 
 <details>
-  <summary><b>[코드] 모달 관리와 렌더링</b></summary>
+  <summary>모달 관리와 렌더링 코드</summary>
   <div markdown="1">
 
 <br />
@@ -901,7 +922,7 @@ const MyPageSidebar = () => {
 - 구현 효과: 커스텀 훅으로 로직을 중앙 관리함으로써 팀원 간 일관성을 유지하고, 로직 수정 시 여러 파일을 일일이 수정하지 않아도 되는 확장성과 편의성을 확보했습니다.
 
 <details>
-  <summary><b>[상세 설명] 커스텀 훅의 사용 이유와 목적</b></summary>
+  <summary>커스텀 훅의 사용 이유와 목적</summary>
   <div markdown="1">
 
 <br />
@@ -920,7 +941,7 @@ const MyPageSidebar = () => {
 </details>
 
 <details>
-  <summary><b>[코드] 모달 마운트 시 백그라운드 레이어의 스크롤 방지 커스텀 훅</b></summary>
+  <summary>모달 마운트 시 백그라운드 레이어의 스크롤 방지 커스텀 훅</summary>
   <div markdown="1">
 
 <br />
@@ -954,7 +975,7 @@ const useScrollDisable = () => {
 </details>
 
 <details>
-  <summary><b>[코드] React Query의 useInfiniteQuery를 활용한 무한스크롤 관련 커스텀 훅</b></summary>
+  <summary>React Query의 useInfiniteQuery를 활용한 무한스크롤 관련 커스텀 훅 코드</summary>
   <div markdown="1">
 
 <br />
@@ -1025,7 +1046,7 @@ const PostCardList = ({ keywordId, filterList, setFilterList, resetFilterList })
 </details>
    
 <details>
-  <summary><b>[코드] 무한스크롤 관련 Intersection Observer 로직을 위한 커스텀 훅</b></summary>
+  <summary>무한스크롤 관련 Intersection Observer 로직을 위한 커스텀 훅 코드</summary>
   <div markdown="1">
 
 <br />
@@ -1076,13 +1097,14 @@ const useObserver = ({
 
 ## 5-1. 블로그 게시물을 크롤링하는 시간 줄이기
 
-- **Promise.allSettled를 사용하여 병렬로 크롤링을 진행하며, 한 번에 크롤링을 진행하는 게시물 수를 줄여 크롤링하는 데 걸리는 소요 시간을 줄였습니다.**
-- **Promise.allSettled를 통해 병렬 처리뿐만 아니라 크롤링 중 발생할 수 있는 에러에 대한 처리도 할 수 있게 되었습니다.**
+- Promise.allSettled를 사용하여 병렬로 크롤링을 진행하며, 한 번에 크롤링을 진행하는 게시물 수를 줄여 크롤링하는 데 걸리는 소요 시간을 줄였습니다.
+- Promise.allSettled를 통해 병렬 처리뿐만 아니라 크롤링 중 발생할 수 있는 에러에 대한 처리도 할 수 있게 되었습니다.
 
 <br>
 
-**[시도 #1] 게시물 수를 줄여서 요청하기**
-
+<details>
+  <summary>[시도 #1] 게시물 수를 줄여서 요청하기</summary>
+  <div markdown="1">
 소요 시간을 줄이기 위해 네이버 검색 API의 검색 결과 개수를 다르게 한 후 크롤링을 시도해본 결과,
 
 - 100개 게시물을 검색한 후 크롤링하는 데 걸리는 시간 : 약 3분 49초 소요 (약 229초 소요)
@@ -1090,8 +1112,12 @@ const useObserver = ({
 
 게시물 개수를 다르게 하여도 유의미한 속도 차이가 발생하지 않는다는 것을 확인할 수 있었습니다.
 
-**[시도 #2] 병렬로 크롤링하기**
+  </div>
+</details>
 
+<details>
+  <summary>[시도 #2] 병렬로 크롤링하기</summary>
+  <div markdown="1">
 기존 직렬로 진행했던 방식을 병렬로 진행할 수 있도록 `Promise.all`을 사용하여 네이버 검색 API의 검색 결과 개수를 다르게 한 후 크롤링을 시도해본 결과,
 
 - 10개 게시물을 검색한 후 `Promise.all`을 사용하여 크롤링하는 데 걸리는 시간 : 약 12초
@@ -1100,17 +1126,24 @@ const useObserver = ({
 
 이러한 결과가 도출되었으며, 게시물 수가 5개 증가함에 따라 시간은 약 11초가 증가한다는 것을 파악할 수 있었습니다. 크롤링 속도를 줄이는 방법으로 블로그 게시물 10개씩 요청하여 크롤링을 진행하는 방식을 택하였습니다.
 
-**[시도 #3] Promise.all과 Promise.allSettled**
+  </div>
+</details>
 
+<details>
+  <summary>[시도 #3] Promise.all과 Promise.allSettled</summary>
+  <div markdown="1">
 `Promise.all`로 크롤링 테스트를 진행하던 중, 네이버 검색 API를 통해 전달받은 검색 결과 내 외부 블로그 게시물이 포함되어 있어 크롤링이 완료되지 못한 문제가 발생하였습니다. 크롤링 시작하기 전에 네이버 블로그가 아닌 경우 제외하는 예외 처리만 추가할 수 있었지만, 예상하지 못한 문제들이 발생할 수 상황을 고려해야 했습니다.
 
 따라서, 요청한 10개의 게시물 크롤링 요청 도중 하나의 크롤링에서 오류가 발생하면 모든 크롤링 작업이 멈추게 되는 `Promise.all`을 택하기보단 개별 크롤링 작업에 대한 결과가 포함되어 반환되는 `Promise.allSettled`를 택하였습니다.
+
+  </div>
+</details>
 
 <br>
 
 ## 5-2. 구독을 시작했을 때 언제 등록된 게시물부터 보여주는 것이 좋을까?
 
-- **당일에 등록된 게시물을 당일에 크롤링하는 기능의 통일성을 유지하기 위해 구독한 날로부터 당일에 등록한 게시물에 대해서만 보여주고 있습니다.**
+- 당일에 등록된 게시물을 당일에 크롤링하는 기능의 통일성을 유지하기 위해 구독한 날로부터 당일에 등록한 게시물에 대해서만 보여주고 있습니다.
 
 저희는 아이디어 단계에서 특정 키워드에 대해 언급된 모든 블로그 게시물에 대하여 모니터링이 가능한 서비스로 구상했기 때문에, 기획 단계에서 구독을 시작한 후뿐만 아니라 구독 이전의 게시물에 대해서도 모니터링이 할 수 있도록 구체화했습니다.
 
