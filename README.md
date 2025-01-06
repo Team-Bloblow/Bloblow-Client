@@ -306,7 +306,7 @@
 </tr>
 <tr>
   <td width="50%">
-    <img width="100%" alt="그룹 대시보드" src="./public/assets/docs-preview-post-list.png">
+    <img width="100%" alt="그룹 대시보드" src="./public/assets/docs-preview-keyword-chart.png">
   </td>
   <td width="50%">
 
@@ -328,7 +328,7 @@
 </tr>
 <tr>
   <td width="50%">
-    <img width="100%" alt="그룹 대시보드" src="./public/assets/docs-preview-keyword-chart.png">
+    <img width="100%" alt="그룹 대시보드" src="./public/assets/docs-preview-post-list.png">
   </td>
   <td width="50%">
 
