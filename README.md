@@ -21,31 +21,31 @@
 <!-- toc -->
 
 - [1. 개발 배경](#1-%EA%B0%9C%EB%B0%9C-%EB%B0%B0%EA%B2%BD)
-  * [1-1. 브랜드가 언급된 블로그 게시물을 일일이 찾는 과정이 번거롭지 않을까?](#1-1-%EB%B8%8C%EB%9E%9C%EB%93%9C%EA%B0%80-%EC%96%B8%EA%B8%89%EB%90%9C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EC%9D%84-%EC%9D%BC%EC%9D%BC%EC%9D%B4-%EC%B0%BE%EB%8A%94-%EA%B3%BC%EC%A0%95%EC%9D%B4-%EB%B2%88%EA%B1%B0%EB%A1%AD%EC%A7%80-%EC%95%8A%EC%9D%84%EA%B9%8C)
-  * [1-2. 네이버 블로그 검색과 차별화된 가치를 어떻게 제공할까?](#1-2-%EB%84%A4%EC%9D%B4%EB%B2%84-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%80%EC%83%89%EA%B3%BC-%EC%B0%A8%EB%B3%84%ED%99%94%EB%90%9C-%EA%B0%80%EC%B9%98%EB%A5%BC-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%A0%9C%EA%B3%B5%ED%95%A0%EA%B9%8C)
+  - [1-1. 브랜드가 언급된 블로그 게시물을 일일이 찾는 과정이 번거롭지 않을까?](#1-1-%EB%B8%8C%EB%9E%9C%EB%93%9C%EA%B0%80-%EC%96%B8%EA%B8%89%EB%90%9C-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EC%9D%84-%EC%9D%BC%EC%9D%BC%EC%9D%B4-%EC%B0%BE%EB%8A%94-%EA%B3%BC%EC%A0%95%EC%9D%B4-%EB%B2%88%EA%B1%B0%EB%A1%AD%EC%A7%80-%EC%95%8A%EC%9D%84%EA%B9%8C)
+  - [1-2. 네이버 블로그 검색과 차별화된 가치를 어떻게 제공할까?](#1-2-%EB%84%A4%EC%9D%B4%EB%B2%84-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%80%EC%83%89%EA%B3%BC-%EC%B0%A8%EB%B3%84%ED%99%94%EB%90%9C-%EA%B0%80%EC%B9%98%EB%A5%BC-%EC%96%B4%EB%96%BB%EA%B2%8C-%EC%A0%9C%EA%B3%B5%ED%95%A0%EA%B9%8C)
 - [2. 기술 스택](#2-%EA%B8%B0%EC%88%A0-%EC%8A%A4%ED%83%9D)
-  * [2-1. 기술 스택](#2-1-%EA%B8%B0%EC%88%A0-%EC%8A%A4%ED%83%9D)
-    + [2-1-1. Zustand 전역 상태 관리](#2-1-1-zustand-%EC%A0%84%EC%97%AD-%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC)
-    + [2-1-2. React Query 서버 상태 관리](#2-1-2-react-query-%EC%84%9C%EB%B2%84-%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC)
-    + [2-1-3. MongoDB NoSQL 데이터 베이스](#2-1-3-mongodb-nosql-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B2%A0%EC%9D%B4%EC%8A%A4)
+  - [2-1. 기술 스택](#2-1-%EA%B8%B0%EC%88%A0-%EC%8A%A4%ED%83%9D)
+    - [2-1-1. Zustand 전역 상태 관리](#2-1-1-zustand-%EC%A0%84%EC%97%AD-%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC)
+    - [2-1-2. React Query 서버 상태 관리](#2-1-2-react-query-%EC%84%9C%EB%B2%84-%EC%83%81%ED%83%9C-%EA%B4%80%EB%A6%AC)
+    - [2-1-3. MongoDB NoSQL 데이터 베이스](#2-1-3-mongodb-nosql-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EB%B2%A0%EC%9D%B4%EC%8A%A4)
 - [3. 기능](#3-%EA%B8%B0%EB%8A%A5)
 - [4. 개발 과정](#4-%EA%B0%9C%EB%B0%9C-%EA%B3%BC%EC%A0%95)
-  * [4-1. 크롤링을 사용하여 네이버 블로그 게시물을 가져오는 이유](#4-1-%ED%81%AC%EB%A1%A4%EB%A7%81%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-%EB%84%A4%EC%9D%B4%EB%B2%84-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EC%9D%84-%EA%B0%80%EC%A0%B8%EC%98%A4%EB%8A%94-%EC%9D%B4%EC%9C%A0)
-    + [크롤링을 도입하게 된 계기](#%ED%81%AC%EB%A1%A4%EB%A7%81%EC%9D%84-%EB%8F%84%EC%9E%85%ED%95%98%EA%B2%8C-%EB%90%9C-%EA%B3%84%EA%B8%B0)
-    + [특이한 구조로 이루어진 네이버 블로그](#%ED%8A%B9%EC%9D%B4%ED%95%9C-%EA%B5%AC%EC%A1%B0%EB%A1%9C-%EC%9D%B4%EB%A3%A8%EC%96%B4%EC%A7%84-%EB%84%A4%EC%9D%B4%EB%B2%84-%EB%B8%94%EB%A1%9C%EA%B7%B8)
-  * [4-2. 네이버 API 응답 내부의 `&amp;` 은 무엇이며 어떻게 필터링할까?](#4-2-%EB%84%A4%EC%9D%B4%EB%B2%84-api-%EC%9D%91%EB%8B%B5-%EB%82%B4%EB%B6%80%EC%9D%98-amp-%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B4%EB%A9%B0-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%95%84%ED%84%B0%EB%A7%81%ED%95%A0%EA%B9%8C)
-  * [4-3. 서버 상태는 어떻게 관리할 수 있을까? 우리는 왜 React Query를 도입했는가?](#4-3-%EC%84%9C%EB%B2%84-%EC%83%81%ED%83%9C%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B4%80%EB%A6%AC%ED%95%A0-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C-%EC%9A%B0%EB%A6%AC%EB%8A%94-%EC%99%9C-react-query%EB%A5%BC-%EB%8F%84%EC%9E%85%ED%96%88%EB%8A%94%EA%B0%80)
-  * [4-4. 모달을 root DOM node에서 분리하여 렌더링 시킬 수 있는 방법은 없을까?](#4-4-%EB%AA%A8%EB%8B%AC%EC%9D%84-root-dom-node%EC%97%90%EC%84%9C-%EB%B6%84%EB%A6%AC%ED%95%98%EC%97%AC-%EB%A0%8C%EB%8D%94%EB%A7%81-%EC%8B%9C%ED%82%AC-%EC%88%98-%EC%9E%88%EB%8A%94-%EB%B0%A9%EB%B2%95%EC%9D%80-%EC%97%86%EC%9D%84%EA%B9%8C)
-  * [4-5. 모달을 전역적으로 어떻게 관리하면 좋을까?](#4-5-%EB%AA%A8%EB%8B%AC%EC%9D%84-%EC%A0%84%EC%97%AD%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B4%80%EB%A6%AC%ED%95%98%EB%A9%B4-%EC%A2%8B%EC%9D%84%EA%B9%8C)
-  * [4-6. 협업을 위한 로직 재사용성과 관심사 분리를 위해 커스텀 훅을 만들어볼까?](#4-6-%ED%98%91%EC%97%85%EC%9D%84-%EC%9C%84%ED%95%9C-%EB%A1%9C%EC%A7%81-%EC%9E%AC%EC%82%AC%EC%9A%A9%EC%84%B1%EA%B3%BC-%EA%B4%80%EC%8B%AC%EC%82%AC-%EB%B6%84%EB%A6%AC%EB%A5%BC-%EC%9C%84%ED%95%B4-%EC%BB%A4%EC%8A%A4%ED%85%80-%ED%9B%85%EC%9D%84-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%BC%EA%B9%8C)
+  - [4-1. 크롤링을 사용하여 네이버 블로그 게시물을 가져오는 이유](#4-1-%ED%81%AC%EB%A1%A4%EB%A7%81%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-%EB%84%A4%EC%9D%B4%EB%B2%84-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EC%9D%84-%EA%B0%80%EC%A0%B8%EC%98%A4%EB%8A%94-%EC%9D%B4%EC%9C%A0)
+    - [크롤링을 도입하게 된 계기](#%ED%81%AC%EB%A1%A4%EB%A7%81%EC%9D%84-%EB%8F%84%EC%9E%85%ED%95%98%EA%B2%8C-%EB%90%9C-%EA%B3%84%EA%B8%B0)
+    - [특이한 구조로 이루어진 네이버 블로그](#%ED%8A%B9%EC%9D%B4%ED%95%9C-%EA%B5%AC%EC%A1%B0%EB%A1%9C-%EC%9D%B4%EB%A3%A8%EC%96%B4%EC%A7%84-%EB%84%A4%EC%9D%B4%EB%B2%84-%EB%B8%94%EB%A1%9C%EA%B7%B8)
+  - [4-2. 네이버 API 응답 내부의 `&amp;` 은 무엇이며 어떻게 필터링할까?](#4-2-%EB%84%A4%EC%9D%B4%EB%B2%84-api-%EC%9D%91%EB%8B%B5-%EB%82%B4%EB%B6%80%EC%9D%98-amp-%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B4%EB%A9%B0-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%95%84%ED%84%B0%EB%A7%81%ED%95%A0%EA%B9%8C)
+  - [4-3. 서버 상태는 어떻게 관리할 수 있을까? 우리는 왜 React Query를 도입했는가?](#4-3-%EC%84%9C%EB%B2%84-%EC%83%81%ED%83%9C%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B4%80%EB%A6%AC%ED%95%A0-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C-%EC%9A%B0%EB%A6%AC%EB%8A%94-%EC%99%9C-react-query%EB%A5%BC-%EB%8F%84%EC%9E%85%ED%96%88%EB%8A%94%EA%B0%80)
+  - [4-4. 모달을 root DOM node에서 분리하여 렌더링 시킬 수 있는 방법은 없을까?](#4-4-%EB%AA%A8%EB%8B%AC%EC%9D%84-root-dom-node%EC%97%90%EC%84%9C-%EB%B6%84%EB%A6%AC%ED%95%98%EC%97%AC-%EB%A0%8C%EB%8D%94%EB%A7%81-%EC%8B%9C%ED%82%AC-%EC%88%98-%EC%9E%88%EB%8A%94-%EB%B0%A9%EB%B2%95%EC%9D%80-%EC%97%86%EC%9D%84%EA%B9%8C)
+  - [4-5. 모달을 전역적으로 어떻게 관리하면 좋을까?](#4-5-%EB%AA%A8%EB%8B%AC%EC%9D%84-%EC%A0%84%EC%97%AD%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B4%80%EB%A6%AC%ED%95%98%EB%A9%B4-%EC%A2%8B%EC%9D%84%EA%B9%8C)
+  - [4-6. 협업을 위한 로직 재사용성과 관심사 분리를 위해 커스텀 훅을 만들어볼까?](#4-6-%ED%98%91%EC%97%85%EC%9D%84-%EC%9C%84%ED%95%9C-%EB%A1%9C%EC%A7%81-%EC%9E%AC%EC%82%AC%EC%9A%A9%EC%84%B1%EA%B3%BC-%EA%B4%80%EC%8B%AC%EC%82%AC-%EB%B6%84%EB%A6%AC%EB%A5%BC-%EC%9C%84%ED%95%B4-%EC%BB%A4%EC%8A%A4%ED%85%80-%ED%9B%85%EC%9D%84-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%BC%EA%B9%8C)
 - [5. 사용자 편의성 개선](#5-%EC%82%AC%EC%9A%A9%EC%9E%90-%ED%8E%B8%EC%9D%98%EC%84%B1-%EA%B0%9C%EC%84%A0)
-  * [5-1. 블로그 게시물을 크롤링하는 시간 단축하기](#5-1-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EC%9D%84-%ED%81%AC%EB%A1%A4%EB%A7%81%ED%95%98%EB%8A%94-%EC%8B%9C%EA%B0%84-%EB%8B%A8%EC%B6%95%ED%95%98%EA%B8%B0)
-    + [[시도 #1] 게시물 수를 줄여서 요청하기](#%EC%8B%9C%EB%8F%84-%231-%EA%B2%8C%EC%8B%9C%EB%AC%BC-%EC%88%98%EB%A5%BC-%EC%A4%84%EC%97%AC%EC%84%9C-%EC%9A%94%EC%B2%AD%ED%95%98%EA%B8%B0)
-    + [[시도 #2] 병렬로 크롤링하기](#%EC%8B%9C%EB%8F%84-%232-%EB%B3%91%EB%A0%AC%EB%A1%9C-%ED%81%AC%EB%A1%A4%EB%A7%81%ED%95%98%EA%B8%B0)
-    + [[시도 #3] Promise.all과 Promise.allSettled](#%EC%8B%9C%EB%8F%84-%233-promiseall%EA%B3%BC-promiseallsettled)
-  * [5-2. 구독을 시작했을 때 언제 등록된 게시물부터 보여주는 것이 좋을까?](#5-2-%EA%B5%AC%EB%8F%85%EC%9D%84-%EC%8B%9C%EC%9E%91%ED%96%88%EC%9D%84-%EB%95%8C-%EC%96%B8%EC%A0%9C-%EB%93%B1%EB%A1%9D%EB%90%9C-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EB%B6%80%ED%84%B0-%EB%B3%B4%EC%97%AC%EC%A3%BC%EB%8A%94-%EA%B2%83%EC%9D%B4-%EC%A2%8B%EC%9D%84%EA%B9%8C)
-  * [5-3. 게시물 목록에서 광고성 글을 바로 확인할 수 있도록, 크롤링 직후에 미리 선별해두자.](#5-3-%EA%B2%8C%EC%8B%9C%EB%AC%BC-%EB%AA%A9%EB%A1%9D%EC%97%90%EC%84%9C-%EA%B4%91%EA%B3%A0%EC%84%B1-%EA%B8%80%EC%9D%84-%EB%B0%94%EB%A1%9C-%ED%99%95%EC%9D%B8%ED%95%A0-%EC%88%98-%EC%9E%88%EB%8F%84%EB%A1%9D-%ED%81%AC%EB%A1%A4%EB%A7%81-%EC%A7%81%ED%9B%84%EC%97%90-%EB%AF%B8%EB%A6%AC-%EC%84%A0%EB%B3%84%ED%95%B4%EB%91%90%EC%9E%90)
-  * [5-4. 기존 게시물 페이지네이션 구조에서 정렬, 필터링 기능을 어떻게 더할 수 있을까?](#5-4-%EA%B8%B0%EC%A1%B4-%EA%B2%8C%EC%8B%9C%EB%AC%BC-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-%EA%B5%AC%EC%A1%B0%EC%97%90%EC%84%9C-%EC%A0%95%EB%A0%AC-%ED%95%84%ED%84%B0%EB%A7%81-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%8D%94%ED%95%A0-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C)
+  - [5-1. 블로그 게시물을 크롤링하는 시간 단축하기](#5-1-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EC%9D%84-%ED%81%AC%EB%A1%A4%EB%A7%81%ED%95%98%EB%8A%94-%EC%8B%9C%EA%B0%84-%EB%8B%A8%EC%B6%95%ED%95%98%EA%B8%B0)
+    - [[시도 #1] 게시물 수를 줄여서 요청하기](#%EC%8B%9C%EB%8F%84-%231-%EA%B2%8C%EC%8B%9C%EB%AC%BC-%EC%88%98%EB%A5%BC-%EC%A4%84%EC%97%AC%EC%84%9C-%EC%9A%94%EC%B2%AD%ED%95%98%EA%B8%B0)
+    - [[시도 #2] 병렬로 크롤링하기](#%EC%8B%9C%EB%8F%84-%232-%EB%B3%91%EB%A0%AC%EB%A1%9C-%ED%81%AC%EB%A1%A4%EB%A7%81%ED%95%98%EA%B8%B0)
+    - [[시도 #3] Promise.all과 Promise.allSettled](#%EC%8B%9C%EB%8F%84-%233-promiseall%EA%B3%BC-promiseallsettled)
+  - [5-2. 구독을 시작했을 때 언제 등록된 게시물부터 보여주는 것이 좋을까?](#5-2-%EA%B5%AC%EB%8F%85%EC%9D%84-%EC%8B%9C%EC%9E%91%ED%96%88%EC%9D%84-%EB%95%8C-%EC%96%B8%EC%A0%9C-%EB%93%B1%EB%A1%9D%EB%90%9C-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EB%B6%80%ED%84%B0-%EB%B3%B4%EC%97%AC%EC%A3%BC%EB%8A%94-%EA%B2%83%EC%9D%B4-%EC%A2%8B%EC%9D%84%EA%B9%8C)
+  - [5-3. 게시물 목록에서 광고성 글을 바로 확인할 수 있도록, 크롤링 직후에 미리 선별해두자.](#5-3-%EA%B2%8C%EC%8B%9C%EB%AC%BC-%EB%AA%A9%EB%A1%9D%EC%97%90%EC%84%9C-%EA%B4%91%EA%B3%A0%EC%84%B1-%EA%B8%80%EC%9D%84-%EB%B0%94%EB%A1%9C-%ED%99%95%EC%9D%B8%ED%95%A0-%EC%88%98-%EC%9E%88%EB%8F%84%EB%A1%9D-%ED%81%AC%EB%A1%A4%EB%A7%81-%EC%A7%81%ED%9B%84%EC%97%90-%EB%AF%B8%EB%A6%AC-%EC%84%A0%EB%B3%84%ED%95%B4%EB%91%90%EC%9E%90)
+  - [5-4. 기존 게시물 페이지네이션 구조에서 정렬, 필터링 기능을 어떻게 더할 수 있을까?](#5-4-%EA%B8%B0%EC%A1%B4-%EA%B2%8C%EC%8B%9C%EB%AC%BC-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-%EA%B5%AC%EC%A1%B0%EC%97%90%EC%84%9C-%EC%A0%95%EB%A0%AC-%ED%95%84%ED%84%B0%EB%A7%81-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%8D%94%ED%95%A0-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C)
 - [6. 회고](#6-%ED%9A%8C%EA%B3%A0)
 
 <!-- tocstop -->
@@ -379,7 +379,7 @@
 <br>
 Puppeteer라는 크롤링 라이브러리를 사용하여 네이버 검색 API에서 전달받은 게시물의 URL를 통해 게시물 본문을 크롤링하는 방법으로 구현했습니다.
 
-### 특이한 구조로 이루어진 네이버 블로그
+### iframe에 숨겨진 네이버 블로그 게시물을 크롤링하는 방법
 
 구현을 하는 과정에서 본문 전체를 크롤링하기 위해 본문 전체를 감싸고 있는 선택자의 innerText를 파악하려 했으나 null이 반환되는 문제에 직면하게 되었습니다.
 <br>
@@ -389,22 +389,10 @@ Puppeteer라는 크롤링 라이브러리를 사용하여 네이버 검색 API�
 - 컨텐츠가 완전히 로딩되기 전에 선택자의 innerText 파악하는 것.
 - 선택자 스펠링을 틀린 것.
 
-컨텐츠의 로딩이 완료된 후, 선택자의 innerText를 파악하거나 선택자 스펠링을 다시 확인해봤으나 결과는 같았습니다. API로 전달받은 블로그 게시물 URL를 통해 게시물의 HTML을 다시 파악해보니, 아래 첨부 이미지처럼 게시물 자체가 iframe 태그를 통해 표시되고 있단 것을 파악하게 되었습니다. 해당 iframe 태그의 src 속성값으로 게시물의 새로운 URL이 할당되어 있고, 네이버 블로그 주소 뒤에 해당 URL을 붙이면 같은 게시물이 표시되며 iframe 태그에 감싸여 있지 않은 구조인 것 또한 확인했습니다.
-
-게시물의 크롤링 로직을 다음과 같이 구현하였습니다.
-
-1. 네이버 검색 API를 통해 블로그 게시물의 URL 파악
-2. puppeteer를 통해 해당 게시물 URL로 이동
-3. 해당 게시물 내 iframe의 src 속성의 URL 파악
-4. 파악한 URL로 이동
-5. 해당 페이지에서 게시물의 본문 파악
-
-크롤링을 사용하면서 게시물의 본문뿐만 아니라 댓글 수, 공감 수와 같은 게시물의 부가 정보 또한 가져올 수 있게 되어, 해당 정보를 활용하여 사용자에게 더 나은 인사이트를 제공할 수 있게 되었습니다.
-
-<br>
+컨텐츠의 로딩이 완료된 후, 선택자의 innerText를 파악하거나 선택자 스펠링을 다시 확인해봤으나 결과는 같았습니다. API로 전달받은 블로그 게시물 URL를 통해 게시물의 HTML을 다시 파악해보니, 게시물 자체가 iframe 태그를 통해 표시되고 있단 것을 파악하게 되었습니다. 해당 iframe 태그의 src 속성값으로 게시물의 새로운 URL이 할당되어 있고, 네이버 블로그 주소 뒤에 해당 URL을 붙이면 같은 게시물이 표시되며 iframe 태그에 감싸여 있지 않은 구조인 것 또한 확인했습니다.
 
 <details>
-  <summary>두 URL의 HTML 구조 비교</summary>
+  <summary>[이미지] 두 URL의 HTML 구조 비교</summary>
   <div markdown="1">
     <table>
       <tr>
@@ -418,6 +406,19 @@ Puppeteer라는 크롤링 라이브러리를 사용하여 네이버 검색 API�
     </table>
   </div>
 </details>
+
+<br>
+게시물의 크롤링 로직을 다음과 같이 구현하였습니다.
+
+1. 네이버 검색 API를 통해 블로그 게시물의 URL 파악
+2. puppeteer를 통해 해당 게시물 URL로 이동
+3. 해당 게시물 내 iframe의 src 속성의 URL 파악
+4. 파악한 URL로 이동
+5. 해당 페이지에서 게시물의 본문 파악
+
+크롤링을 사용하면서 게시물의 본문뿐만 아니라 댓글 수, 공감 수와 같은 게시물의 부가 정보 또한 가져올 수 있게 되어, 해당 정보를 활용하여 사용자에게 더 나은 인사이트를 제공할 수 있게 되었습니다.
+
+<br>
 
 <br>
 
