@@ -1219,10 +1219,10 @@ const useObserver = ({
 
 ## 5-3. 게시물 목록에서 광고성 글을 바로 확인할 수 있도록, 크롤링 직후에 미리 선별해두자.
 
-- 광고성 문구들을 `array` 타입으로 사전에 정의하고, 게시물 본문 HTML 태그를 분석하여 광고성 글을 분류하였습니다.
-  - 광고성 문구 예시 : "소정의 원고료를 받고 작성한 글입니다"
-- 광고성 문구를 이미지로 첨부한 게시물에 대한 처리를 추가할 예정입니다.
-  - 사전 조사 과정에서 광고성 문구를 텍스트로 표기한 케이스가 약 70%로 확인하여 텍스트 검사 로직을 먼저 구현했습니다.
+- '광고성 글'이란, "소정의 원고료를 받고 작성한 글입니다" 등 대가성 문구를 게시물 내에 표기한 글을 뜻합니다.
+- 대가성 문구들을 `array` 타입으로 사전에 정의하고, 게시물 본문 HTML 태그를 분석하여 광고성 글을 분류하였습니다.
+- 대가성 문구를 이미지로 첨부한 게시물에 대한 처리를 추가할 예정입니다.
+  - 사전 조사 과정에서 대가성 문구를 텍스트로 표기한 케이스가 약 70%로 확인하여 텍스트 검사 로직을 먼저 구현했습니다.
 
 ```jsx
 // 광고성 게시물로 분류할 수 있는 주요 키워드
@@ -1252,7 +1252,7 @@ const isAd = await Promise.resolve(
 
   <br>
 
-- **`array` 타입으로 정의해둔 광고성 문구들 중 1개 이상의 text를 게시글 본문에서 포함한다면, 해당 글을 광고성 글로 분류하였습니다.**
+- **`array` 타입으로 정의해둔 대가성 문구들 중 1개 이상의 text를 게시글 본문에서 포함한다면, 해당 글을 광고성 글로 분류하였습니다.**
 - 프로젝트 초기 PoC 중 발견한 패턴은, 브랜드에 대한 블로그 게시물 중에는 광고성 글이 많다는 것이었습니다.
 - 동시에, 이러한 글의 말미에는 광고 글이라는 사실을 게시물 독자들이 쉽게 인지할 수 있도록 하는 문구를 기재하고 있다는 것입니다.
 
@@ -1266,23 +1266,23 @@ const isAd = await Promise.resolve(
 
 <details>
   <summary>
-    광고성 문구, 형식이 게시물 마다 다른 상황을 어떻게 해결할까?
+    대가성 문구, 형식이 게시물 마다 다른 상황을 어떻게 해결할까?
   </summary>
   <div markdown="1">
 
   <br>
 
 - `"이 글은 소정의 원고료를 받고 작성한 글입니다"`라는 일반적인 문구 외에도 글 마다 문구의 표현과 사용한 단어들이 달랐습니다.
-- **광고성 문구를 `array` 타입으로 관리함으로써 문구가 다양하게 사용되는 상황에 대응하고, 추후 새롭게 발견되는 광고성 문구를 추가했습니다.**
+- **대가성 문구를 `array` 타입으로 관리함으로써 문구가 다양하게 사용되는 상황에 대응하고, 추후 새롭게 발견되는 대가성 문구를 추가했습니다.**
 
   - 초기에는 `string` 타입으로 광고성 키워드를 정의하였으나, `array` 타입으로 변경하여 블로그 게시물 작성자들이 주로 사용하는 여러 문구들을 명시했습니다.
-  - `string` 타입으로 특정 광고성 문구를 하나 만을 기준으로 검사하기에 블로그와 게시물 마다 상황이 다양했기 때문입니다.
-  - (\*참고: 프로젝트를 목적을 학습에도 두고 있어, 광고성 글 분류 로직에 AI 모델을 활용하는 옵션은 고려하지 않았습니다.)
+  - `string` 타입으로 특정 대가성 문구를 하나 만을 기준으로 검사하기에 블로그와 게시물 마다 상황이 다양했기 때문입니다.
+  - (\*참고: 프로젝트를 목적을 학습에도 두고 있어, 광고 글 분류 로직에 AI 모델을 활용하는 옵션은 고려하지 않았습니다.)
 
   <br>
 
 - 추가로 까다로웠던 점은 텍스트로 표기하지 않고, 해당 문구를 포함한 이미지로 대체한 게시물의 케이스 입니다.
-- **결론적으로, 사전 조사 과정에서 광고성 문구를 텍스트로 표기한 케이스가 약 70%로 확인하여 텍스트 검사 로직을 먼저 구현했습니다.**
+- **결론적으로, 사전 조사 과정에서 대가성 문구를 텍스트로 표기한 케이스가 약 70%로 확인하여 텍스트 검사 로직을 먼저 구현했습니다.**
 
   - 이미지 검사 로직 또한, 이미지를 텍스틀로 변환하는 과정이 추가될 뿐 결국 변환된 텍스트를 검사하는 로직을 활용하기 때문이기도 합니다.
   - OCR API를 활용하여 이미지로 포함한 글에 대해 대응 예정입니다. 먼저 아래 사항을 검토한 후 의사결정 했습니다.
@@ -1305,23 +1305,49 @@ const isAd = await Promise.resolve(
 
 <br>
 
-클라이언트 게시물 요청 (변경 전, 후)
+**클라이언트 게시물 요청 (변경 전후 비교)**
 
 ```js
 // as-is 조건 없이 최근 게시물순 요청
 GET /posts/{keywordId}?limit=5&cursorId=""
 
 // to-be 정렬/필터 조건에 따라 게시물 요청
-GET /posts/{keywordId}?order=newest&includedKeyword=삼성점,강남점&excludedKeyword=왕십리점&isAd=false&limit=5&cursorId=""
+GET /posts/{keywordId}?order=newest
+  &includedKeyword=삼성점,강남점&excludedKeyword=왕십리점
+  &isAd=false&limit=5&cursorId=""
 ```
 
-서버 게시물 목록 연산 (변경 후)
+<br>
+
+**서버 게시물 목록 연산 (변경 전후 비교)**
+
+<table width="100%">
+  <tr>
+    <th>공통</th>
+    <th>변경 전</th>
+    <th>변경 후</th>
+  </tr>
+  <tr>
+    <td>포함/제외 키워드 조건 쿼리</td>
+    <td>추가 쿼리 없음</td>
+    <td>
+      - 정렬 조건, 광고 필터 조건 포함하여 최대 3개 조건 적용 <br/>
+      - 모든 조건 적용 후 cursorId로 최종 집계
+    </td>
+  </tr>
+</table>
 
 ```js
-// to-be 정렬/필터 조건에 따라 응답으로 전달할 게시물 연산
-const { _id: cursorObjectId } = await postModel.findById({ _id: cursorId }).exec();
-const orderQuery = await getOrderQuery(order, cursorObjectId);
+// as-is 조건 없이 최근 게시물순 응답으로 전달
+postListResult = await postModel.aggregate([
+  {
+    $match: { keywordId, content: contentFilter }, // 포함, 제외 키워드 필터만 적용
+  },
+  { $limit: limit },
+]);
 
+// to-be 정렬/필터 조건에 따라 응답으로 전달할 게시물 연산
+const orderQuery = await getOrderQuery(order, cursorObjectId);
 postListResult = await postModel.aggregate([
   {
     $match: {
@@ -1330,7 +1356,7 @@ postListResult = await postModel.aggregate([
       ...getAdFilter(isAd), // 광고 포함 여부 필터 적용
     },
   },
-  { $sort: getSortQuery(order) }, // 정렬 조건 적용
+  { $sort: getSortQuery(order) }, // 정렬 조건 적용 (하단 2번째 토글 참고)
   {
     $match: order === "NEWEST" ? { _id: { $lt: cursorObjectId } } : orderQuery, // cursorId 적용
   },
@@ -1357,6 +1383,46 @@ postListResult = await postModel.aggregate([
     <br>
 
     </div>
+  </details>
+
+<details>
+  <summary>
+    필터 조건 계산 로직을 함수로 추상화하여 코드 관리가 용이하도록 구현 (*정렬 조건 계산 예시 첨부)
+  </summary>
+  <div markdown="1">
+
+  <br>
+
+- 정렬 조건 계산 예시 첨부
+
+```js
+const getOrderQuery = async (param, cursorId) => {
+  switch (param) {
+    case "LIKE":
+      const { likeCount: likeCountOfCursor } = await postModel.findById({ _id: cursorId }).exec();
+      return {
+        $or: [
+          { likeCount: { $lt: likeCountOfCursor } },
+          { likeCount: { $eq: likeCountOfCursor }, _id: { $lt: cursorId } },
+        ],
+      };
+    case "COMMENT":
+      const { commentCount: commentCountOfCursor } = await postModel
+        .findById({ _id: cursorId })
+        .exec();
+      return {
+        $or: [
+          { commentCount: { $lt: commentCountOfCursor } },
+          { commentCount: { $eq: commentCountOfCursor }, _id: { $lt: cursorId } },
+        ],
+      };
+  }
+};
+```
+
+  <br>
+
+  </div>
   </details>
 
 <br>
