@@ -32,7 +32,7 @@
 - [4. 개발 과정](#4-%EA%B0%9C%EB%B0%9C-%EA%B3%BC%EC%A0%95)
   - [4-1. 크롤링을 사용하여 네이버 블로그 게시물을 가져오는 이유](#4-1-%ED%81%AC%EB%A1%A4%EB%A7%81%EC%9D%84-%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC-%EB%84%A4%EC%9D%B4%EB%B2%84-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EC%9D%84-%EA%B0%80%EC%A0%B8%EC%98%A4%EB%8A%94-%EC%9D%B4%EC%9C%A0)
     - [크롤링을 도입하게 된 계기](#%ED%81%AC%EB%A1%A4%EB%A7%81%EC%9D%84-%EB%8F%84%EC%9E%85%ED%95%98%EA%B2%8C-%EB%90%9C-%EA%B3%84%EA%B8%B0)
-    - [특이한 구조로 이루어진 네이버 블로그](#%ED%8A%B9%EC%9D%B4%ED%95%9C-%EA%B5%AC%EC%A1%B0%EB%A1%9C-%EC%9D%B4%EB%A3%A8%EC%96%B4%EC%A7%84-%EB%84%A4%EC%9D%B4%EB%B2%84-%EB%B8%94%EB%A1%9C%EA%B7%B8)
+    - [iframe에 숨겨진 네이버 블로그 게시물을 크롤링하는 방법](#iframe%EC%97%90-%EC%88%A8%EA%B2%A8%EC%A7%84-%EB%84%A4%EC%9D%B4%EB%B2%84-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EC%9D%84-%ED%81%AC%EB%A1%A4%EB%A7%81%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95)
   - [4-2. 네이버 API 응답 내부의 `&amp;` 은 무엇이며 어떻게 필터링할까?](#4-2-%EB%84%A4%EC%9D%B4%EB%B2%84-api-%EC%9D%91%EB%8B%B5-%EB%82%B4%EB%B6%80%EC%9D%98-amp-%EC%9D%80-%EB%AC%B4%EC%97%87%EC%9D%B4%EB%A9%B0-%EC%96%B4%EB%96%BB%EA%B2%8C-%ED%95%84%ED%84%B0%EB%A7%81%ED%95%A0%EA%B9%8C)
   - [4-3. 서버 상태는 어떻게 관리할 수 있을까? 우리는 왜 React Query를 도입했는가?](#4-3-%EC%84%9C%EB%B2%84-%EC%83%81%ED%83%9C%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EA%B4%80%EB%A6%AC%ED%95%A0-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C-%EC%9A%B0%EB%A6%AC%EB%8A%94-%EC%99%9C-react-query%EB%A5%BC-%EB%8F%84%EC%9E%85%ED%96%88%EB%8A%94%EA%B0%80)
   - [4-4. 모달을 root DOM node에서 분리하여 렌더링 시킬 수 있는 방법은 없을까?](#4-4-%EB%AA%A8%EB%8B%AC%EC%9D%84-root-dom-node%EC%97%90%EC%84%9C-%EB%B6%84%EB%A6%AC%ED%95%98%EC%97%AC-%EB%A0%8C%EB%8D%94%EB%A7%81-%EC%8B%9C%ED%82%AC-%EC%88%98-%EC%9E%88%EB%8A%94-%EB%B0%A9%EB%B2%95%EC%9D%80-%EC%97%86%EC%9D%84%EA%B9%8C)
@@ -46,6 +46,9 @@
   - [5-2. 구독을 시작했을 때 언제 등록된 게시물부터 보여주는 것이 좋을까?](#5-2-%EA%B5%AC%EB%8F%85%EC%9D%84-%EC%8B%9C%EC%9E%91%ED%96%88%EC%9D%84-%EB%95%8C-%EC%96%B8%EC%A0%9C-%EB%93%B1%EB%A1%9D%EB%90%9C-%EA%B2%8C%EC%8B%9C%EB%AC%BC%EB%B6%80%ED%84%B0-%EB%B3%B4%EC%97%AC%EC%A3%BC%EB%8A%94-%EA%B2%83%EC%9D%B4-%EC%A2%8B%EC%9D%84%EA%B9%8C)
   - [5-3. 게시물 목록에서 광고성 글을 바로 확인할 수 있도록, 크롤링 직후에 미리 선별해두자.](#5-3-%EA%B2%8C%EC%8B%9C%EB%AC%BC-%EB%AA%A9%EB%A1%9D%EC%97%90%EC%84%9C-%EA%B4%91%EA%B3%A0%EC%84%B1-%EA%B8%80%EC%9D%84-%EB%B0%94%EB%A1%9C-%ED%99%95%EC%9D%B8%ED%95%A0-%EC%88%98-%EC%9E%88%EB%8F%84%EB%A1%9D-%ED%81%AC%EB%A1%A4%EB%A7%81-%EC%A7%81%ED%9B%84%EC%97%90-%EB%AF%B8%EB%A6%AC-%EC%84%A0%EB%B3%84%ED%95%B4%EB%91%90%EC%9E%90)
   - [5-4. 기존 게시물 페이지네이션 구조에서 정렬, 필터링 기능을 어떻게 더할 수 있을까?](#5-4-%EA%B8%B0%EC%A1%B4-%EA%B2%8C%EC%8B%9C%EB%AC%BC-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-%EA%B5%AC%EC%A1%B0%EC%97%90%EC%84%9C-%EC%A0%95%EB%A0%AC-%ED%95%84%ED%84%B0%EB%A7%81-%EA%B8%B0%EB%8A%A5%EC%9D%84-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%8D%94%ED%95%A0-%EC%88%98-%EC%9E%88%EC%9D%84%EA%B9%8C)
+  - [5-5. 그룹명 변경 시 지연 없이 화면에 반영되는 UI (Optimistic Update)](#5-5-%EA%B7%B8%EB%A3%B9%EB%AA%85-%EB%B3%80%EA%B2%BD-%EC%8B%9C-%EC%A7%80%EC%97%B0-%EC%97%86%EC%9D%B4-%ED%99%94%EB%A9%B4%EC%97%90-%EB%B0%98%EC%98%81%EB%90%98%EB%8A%94-ui-optimistic-update)
+    - [[원인 분석] `invalidateQueries` 호출은 쿼리를 무효화하지만, 기존 데이터 자체는 삭제되지 않는 구조](#%EC%9B%90%EC%9D%B8-%EB%B6%84%EC%84%9D-invalidatequeries-%ED%98%B8%EC%B6%9C%EC%9D%80-%EC%BF%BC%EB%A6%AC%EB%A5%BC-%EB%AC%B4%ED%9A%A8%ED%99%94%ED%95%98%EC%A7%80%EB%A7%8C-%EA%B8%B0%EC%A1%B4-%EB%8D%B0%EC%9D%B4%ED%84%B0-%EC%9E%90%EC%B2%B4%EB%8A%94-%EC%82%AD%EC%A0%9C%EB%90%98%EC%A7%80-%EC%95%8A%EB%8A%94-%EA%B5%AC%EC%A1%B0)
+    - [[해결 방향] Trade-off를 고려한 Optimistic Update 도입을 결정](#%ED%95%B4%EA%B2%B0-%EB%B0%A9%ED%96%A5-trade-off%EB%A5%BC-%EA%B3%A0%EB%A0%A4%ED%95%9C-optimistic-update-%EB%8F%84%EC%9E%85%EC%9D%84-%EA%B2%B0%EC%A0%95)
 - [6. 회고](#6-%ED%9A%8C%EA%B3%A0)
 
 <!-- tocstop -->
@@ -1428,6 +1431,87 @@ const getOrderQuery = async (param, cursorId) => {
 
 <br>
 
+## 5-5. 그룹명 변경 시 지연 없이 화면에 반영되는 UI (Optimistic Update)
+
+- 그룹명 변경 중 부자연스러운 화면 깜빡임 문제를 해결하기 위해 다양한 해결책을 검토하고, TanStack Query의 Optimistic Update 도입을 결정했습니다.
+  - 별도의 클라이언트 상태 관리 방식을 검토했지만 서버 상태와의 일시적 불일치 발생 가능성이 있고, 로딩 컴포넌트 렌더링는 서비스가 느리다는 인상을 줄 수 있다고 판단했습니다.
+- TanStack Query를 통한 상태 관리를 일원화하고 롤백 처리가 용이하도록 구현하고, 서버 응답 중 발생하는 이전 값 노출과 UI 깜빡임 문제를 해결했습니다.
+
+<br>
+
+**문제 현상**
+
+- 이전 그룹 이름 노출, 서버 상태 반영시 부자연스러운 전환이 발생했습니다. 특히 서버 응답이 지연될 경우 이러한 깜빡임이 더욱 두드러지기 때문에 해결하고자 했습니다.
+<div align="center">
+  <img width="100%" src="./public/assets/docs-group-before-optimistic-update.gif" alt="docs-group-before-optimistic-update"/>
+</div>
+
+<br>
+
+### [원인 분석] `invalidateQueries` 호출은 쿼리를 무효화하지만, 기존 데이터 자체는 삭제되지 않는 구조
+
+- 원인을 탐색하던 중 [GitHub Issue](https://github.com/TanStack/query/discussions/3169#discussioncomment-1939136)를 통해 maintainer의 관련 코멘트를 확인한 결과, `invalidateQueries`로 쿼리를 무효화 하지만, 기존 데이터 자체가 삭제되지 않는 구조임을 확인했습니다.
+  > invalidation never removes something from the cache, it just refetches.
+  > <img width="100%" src="./public/assets/docs-invalidateQueries.png" alt="docs-invalidateQueries"/>
+- (참고) 동작 플로우
+  1. 사용자가 새 그룹명 입력 → 서버 업데이트 요청(PUT)
+  2. invalidateQueries로 쿼리 무효화하지만, 이전 상태가 즉시 삭제되지는 않음.
+  3. 입력창이 사라지고 이전 그룹명이 UI에 노출
+  4. 서버 응답 후 새 그룹명으로 UI 리렌더링 -> 부자연스러운 깜빡임 발생함
+
+<br>
+
+**해결 방향 검토**
+
+<table>
+  <thead>
+    <tr>
+      <th width="15%">방향</th>
+      <th width="35%">구현 방식</th>
+      <th width="25%">장점</th>
+      <th width="25%">한계점</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>로딩 UI 표시</td>
+      <td><li><code>isPending</code> 상태에서 로딩 컴포넌트 렌더링</li></td>
+      <td><li>비교적 간단한 구현</li></td>
+      <td><li>서비스가 느리다는 인상을 줄 수 있음</li></td>
+    </tr>
+    <tr>
+      <td>클라이언트 상태 활용</td>
+      <td><li><code>useState</code>로 별도 상태(<code>groupNameToChange</code>) 관리</li></td>
+      <td><li>즉각적인 UI 반영</li></td>
+      <td><li>서버 상태와 일시적 불일치 발생 가능</li></td>
+    </tr>
+    <tr>
+      <td>✅ TanStack Query<br/>Optimistic Update</td>
+      <td>
+        <li>서버 응답 전 UI 선제적으로 업데이트함</li>
+        <li>기존 서버 상태 Mutation 로직 활용</li>
+      </td>
+      <td>
+        <li>즉각적 피드백</li>
+        <li>상태 관리 일원화, 데이터 정합성 확보</li>
+        <li>롤백 관리 용이</li>
+      </td>
+      <td>
+        <li>복잡한 데이터일 경우 상태 관리 일관성 유의 필요</li>
+        <li>캐시 활용시 이전 상태 보관으로 메모리 추가 사용</li>
+        <li>네트워크 지연시 뒤늦은 롤백으로 혼란 초래 가능성</li>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### [해결 방향] Trade-off를 고려한 Optimistic Update 도입을 결정
+
+그룹명 변경은 데이터가 단순했고 영향 범위도 적었기 때문에, Optimistic Update를 적용하기에 적절하다고 판단했습니다. 변경 대상이 단순 문자열(`string`)이고 헤더 및 사이드바의 그룹명 표시 UI에서만 사용되어, 낙관적 업데이트 시 상태 불일치가 발생할 위험이 낮았습니다. 여러 컴포넌트에서 참조하는 복잡한 객체 혹은 배열 데이터였다면, 업데이트 후 연관된 모든 UI의 일관성을 보장하기 위해 추가적인 상태 관리 로직이 필요하다는 점도 학습할 수 있었습니다.
+
+이러한 점과 기존 서버 상태 관리와 일원화(Mutation 로직 내 처리), 롤백 처리가 용이한 점을 고려하여 TanStack Qeury Optimistic Update로 구현을 결정했습니다. 이렇게 서버 응답을 기다리지 않고 예상되는 결과를 UI에 먼저 반영하여, 사용자에게 더 자연스럽고 신뢰감 있는 UI를 제공할 수 있도록 했습니다.
+
+<br>
 <br>
 
 # 6. 회고
