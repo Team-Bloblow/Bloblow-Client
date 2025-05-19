@@ -64,11 +64,7 @@ const HomePage = () => {
             <p className="text-20 sm:text-24 lg:text-26 font-bold">
               여러 키워드를 구독하고 비교해보세요
             </p>
-            <a
-              href="https://bloblow.netlify.app/dashboard/sample"
-              target="_blank"
-              className="mb-20"
-            >
+            <a href="/dashboard/sample" target="_blank" className="mb-20">
               <p className="text-20 sm:text-24 lg:text-26 font-bold underline text-emerald-800 hover:text-emerald-600">
                 로그인 없이 둘러보세요 (바로가기)
               </p>
